@@ -33,6 +33,10 @@ module.exports = {
     ],
   },
 
+  resolve: {
+    extensions: ['*', '.js', '.ts', '.tsx', '.json', '.mjs', '.wasm'],
+  },
+
   plugins: [
     new HtmlWebPackPlugin({
       template: 'src/public/index.html',

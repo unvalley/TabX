@@ -4,33 +4,15 @@
   "name": "TabX",
   "description": "TabX",
   "version": "0.0.1",
-  "icons": {
-    "16": "assets/icons/icon_16.png",
-    "48": "assets/icons/icon_48.png",
-    "128": "assets/icons/icon_128.png"
-  },
+  "icons": {},
 
   "browser_action": {
-    "default_icon": {
-      "16": "assets/icons/icon_16.png",
-      "48": "assets/icons/icon_48.png",
-      "128": "assets/icons/icon_128.png"
-    }
+    "default_icon": {}
   },
 
   "background": {
     "scripts": ["background.js"]
   },
-
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["content.js"],
-      "run_at": "document_start",
-      "all_frames": true,
-      "match_about_blank": true
-    }
-  ],
 
   "commands": {
     "store-all-tabs": {
@@ -48,5 +30,6 @@
     "notifications"
   ],
 
+  "content_security_policy": "script-src 'self' 'unsafe-eval' https://www.google-analytics.com https://apis.google.com __DEV_CSP__; object-src 'self'",
   "offline_enabled": true
 }
