@@ -1,0 +1,2 @@
+const main = async () => {}
+main()

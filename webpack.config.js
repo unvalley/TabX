@@ -1,10 +1,12 @@
 const webpack = require('webpack')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
   entry: {
-    app: './src/index.tsx',
+    app: './src/app/index.tsx',
+    background: './src/background.ts',
   },
   output: {
     path: __dirname + '/dist',
@@ -33,13 +35,19 @@ module.exports = {
 
   plugins: [
     new HtmlWebPackPlugin({
-      template: './public/index.html',
-      filename: './index.html',
+      template: 'src/public/index.html',
+      filename: 'index.html',
       chunks: ['app'],
     }),
     new MiniCssExtractPlugin({
       filename: '[name].css',
       chunkFilename: '[id].css',
     }),
+    new CopyWebpackPlugin([
+      {
+        from: 'src/manifest.json',
+        to: 'manifest.json',
+      },
+    ]),
   ],
 }
