@@ -1,2 +1,4 @@
-dist/app.js
+dist
 node_modules
+lib
+.DS_Store
