@@ -2,7 +2,7 @@
 
 TabX manages your tabs.
 
-<img align="right" src=src/assets/tabX.png height="120px">
+<img align="center" src=src/assets/tabX.png height="100px">
 
 ### Features
 
