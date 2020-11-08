@@ -29,24 +29,22 @@ const openTabLists = async () => {
 }
 
 const storeTabs = async (tabs: Tabs.Tab[]) => {
-  //   const lists = await Storage.getLists()
   const appUrl = browser.runtime.getURL('')
   tabs = tabs.filter((tab) => !tab.url?.startsWith(appUrl))
-  // const opts = await Storage.getOptions()
-  // if (opts.ignorePinned) tabs = tabs.filter((i) => !i.pinned)
-  // if (opts.excludeIllegalURL) tabs = tabs.filter((i) => isLegalURL(i.url))
-  // if (tabs.length === 0) return
-  const lists = await Storage.getLists()
-  const newList = createNewTabList({tabs})
 
-  // close the Tab
+  const lists = await Storage.getLists()
+  if (lists.length === 0) {
+    await Storage.setLists(lists)
+  }
+
+  const newList = createNewTabList({tabs})
+  await Storage.addList(newList)
+
   return closeAllTabs(tabs)
 }
 
 export const storeAllTabs = async () => {
   const tabs = await getAllTabsInCurrentWindow()
-  // tabs = [{tab data},{..},...]
-  //   const opts = await Storage.getOptions()
   await openTabLists()
   return storeTabs(tabs)
 }

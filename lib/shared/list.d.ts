@@ -1,20 +1,10 @@
-/// <reference types="react" />
-import { Tabs } from 'webextension-polyfill-ts';
-declare type NewTab = {
-    id?: number;
-    title?: string;
-    description?: string;
-    tabs: Tabs.Tab[];
-    createdAt?: Date;
-    updatedAt?: Date;
-};
-export declare const createNewTabList: ({ id, title, description, tabs, createdAt, updatedAt, }: NewTab) => {
-    id: import("react").Key;
+import { TabListElem } from './typings';
+export declare const createNewTabList: ({ id, title, description, tabs, createdAt, updatedAt, }: TabListElem) => {
+    id: number;
     title: string;
     description: string;
-    tabs: Tabs.Tab[];
-    createdAt: number | Date;
-    updatedAt: number | Date;
+    tabs: import("webextension-polyfill-ts").Tabs.Tab[];
+    createdAt: number;
+    updatedAt: number;
 };
-export {};
 //# sourceMappingURL=list.d.ts.map

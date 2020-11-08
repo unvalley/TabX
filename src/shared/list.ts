@@ -1,14 +1,5 @@
-import {Tabs} from 'webextension-polyfill-ts'
+import {TabListElem} from './typings'
 import {genObjectId} from './utils/util'
-
-type NewTab = {
-  id?: number
-  title?: string
-  description?: string
-  tabs: Tabs.Tab[]
-  createdAt?: Date
-  updatedAt?: Date
-}
 
 export const createNewTabList = ({
   id,
@@ -17,9 +8,9 @@ export const createNewTabList = ({
   tabs,
   createdAt,
   updatedAt,
-}: NewTab) => ({
+}: TabListElem) => ({
   id: id || genObjectId(),
-  title: title || '',
+  title: title || 'untitled',
   description: description || '',
   tabs: Array.isArray(tabs) ? tabs.map((t) => t) : [],
   createdAt: createdAt || Date.now(),
