@@ -42,6 +42,7 @@ module.exports = {
       template: 'src/public/index.html',
       filename: 'index.html',
       chunks: ['app'],
+      favicon: 'src/assets/favicon.ico',
     }),
     new MiniCssExtractPlugin({
       filename: '[name].css',
@@ -51,6 +52,10 @@ module.exports = {
       {
         from: 'src/manifest.json',
         to: 'manifest.json',
+      },
+      {
+        from: 'src/assets/icons',
+        to: 'assets/icons',
       },
     ]),
   ],

@@ -1,4 +1,5 @@
 import {browser, Tabs} from 'webextension-polyfill-ts'
+import {ILLEGAL_URLS} from '../shared/constants/constants'
 import {createNewTabList} from './list'
 import * as Storage from './storage'
 
@@ -28,17 +29,26 @@ const openTabLists = async () => {
   return await browser.tabs.create({url: tabListsUrl})
 }
 
-const storeTabs = async (tabs: Tabs.Tab[]) => {
+const isLegalURL = (url: string) =>
+  ILLEGAL_URLS.every((prefix) => !url.startsWith(prefix))
+
+const isValidTab = (tab: Tabs.Tab) => {
   const appUrl = browser.runtime.getURL('')
-  tabs = tabs.filter((tab) => !tab.url?.startsWith(appUrl))
+  return tab.url && !tab.url.startsWith(appUrl) && isLegalURL(tab.url)
+}
+
+const storeTabs = async (tabs: Tabs.Tab[]) => {
+  tabs = tabs.filter(isValidTab)
+  if (tabs.length === 0) return
 
   const lists = await Storage.getLists()
-  if (lists.length === 0) {
-    await Storage.setLists(lists)
+  if (lists === undefined) {
+    const firstList = createNewTabList({tabs})
+    await Storage.setLists([firstList])
+  } else {
+    const newList = createNewTabList({tabs})
+    await Storage.addList(newList)
   }
-
-  const newList = createNewTabList({tabs})
-  await Storage.addList(newList)
 
   return closeAllTabs(tabs)
 }

@@ -15,8 +15,10 @@ import {
   Text,
 } from '@geist-ui/react'
 import {useConfigs} from '../utils/config-context'
-import {Sun} from '../components/icons/sun'
-import {Moon} from '../components/icons/moon'
+import {Image as ImageIcon} from '@geist-ui/react-icons'
+import {Header} from '../components/Header'
+import {LeftMenu} from '../components/LeftMenu'
+import {FaviconImage} from '../components/FaviconImage'
 
 const listsState = atom({
   key: 'lists',
@@ -48,38 +50,12 @@ export const List: React.FC = () => {
         justify="center"
         style={{width: '800px', margin: '1.5% auto'}}
       >
+        <Header />
         <Row gap={0.8}>
           <Col span={4}>
-            <aside className="">
-              <nav>
-                <a href="#">
-                  <Image
-                    width={45}
-                    height={45}
-                    src={'https://storage.googleapis.com/bckett/tabX.png'}
-                  />
-                </a>
-                <div>
-                  {isDark && <Sun onClick={switchTheme} />}
-                  {!isDark && <Moon onClick={switchTheme} />}
-                </div>
-              </nav>
-            </aside>
+            <LeftMenu isDark={isDark} switchTheme={switchTheme} />
           </Col>
           <Col span={20}>
-            <section
-              className="header"
-              style={{display: 'flex', alignItems: 'center'}}
-            >
-              <section className="search">
-                <Input placeholder="The Evil Rabbit" width="100%" />
-              </section>
-              <span>
-                <a href="#">
-                  <Sun />
-                </a>
-              </span>
-            </section>
             <Grid.Container gap={2} justify="center">
               {tabLists.map((tabList) => (
                 <React.Fragment key={tabList.createdAt}>
@@ -91,14 +67,14 @@ export const List: React.FC = () => {
                       {tabList.tabs.map((tab) => (
                         <Row key={tab.id} gap={1} style={{display: 'flex'}}>
                           <Col span={2}>
-                            <Image
-                              width={24}
-                              height={24}
-                              src={tab.favIconUrl}
-                            />
+                            {typeof tab.favIconUrl !== 'undefined' ? (
+                              <FaviconImage src={tab.favIconUrl} />
+                            ) : (
+                              <ImageIcon />
+                            )}
                           </Col>
                           <Col span={22}>
-                            {/* クリックしたら削除するように実装 */}
+                            {/* TODO: クリックしたら削除するように実装 */}
                             <Link
                               color
                               target="_blank"
@@ -108,8 +84,6 @@ export const List: React.FC = () => {
                               {tab.title}
                             </Link>
                           </Col>
-                          {/* <Col span={10}> */}
-                          {/* </Col> */}
                         </Row>
                       ))}
                     </Card>
