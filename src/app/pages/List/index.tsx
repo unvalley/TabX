@@ -1,10 +1,10 @@
+import {useTheme} from '@geist-ui/react'
 import React from 'react'
-import {atom, useRecoilValue} from 'recoil'
-import {List as Component} from './List'
+import {atom} from 'recoil'
 import {getLists} from '../../../shared/storage'
 import {TabLists} from '../../../shared/typings'
 import {useConfigs} from '../../utils/config-context'
-import {useTheme} from '@geist-ui/react'
+import {List as Component} from './List'
 
 export const List: React.FC = () => {
   const listsState = atom({

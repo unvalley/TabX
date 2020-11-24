@@ -1,19 +1,9 @@
+import {Card, Col, Grid, Row, Tabs, Text} from '@geist-ui/react'
 import React from 'react'
-import {
-  Input,
-  Grid,
-  Card,
-  Pagination,
-  Link,
-  Row,
-  Col,
-  Text,
-} from '@geist-ui/react'
-import {Image as ImageIcon} from '@geist-ui/react-icons'
+import {TabLists} from '../../../shared/typings'
 import {Header} from '../../components/Header'
 import {LeftMenu} from '../../components/LeftMenu'
-import {FaviconImage} from '../../components/FaviconImage'
-import {TabLists} from '../../../shared/typings'
+import {TabGroups} from './internal/TabGroups'
 
 type Props = {
   isDark: boolean
@@ -35,39 +25,7 @@ export const List: React.FC<Props> = ({isDark, switchTheme, tabLists}) => {
           </Col>
           <Col span={20}>
             <Grid.Container gap={2} justify="center">
-              {tabLists.map((tabList) => (
-                <React.Fragment key={tabList.createdAt}>
-                  <Grid xs={24}>
-                    <Card>
-                      <Text h3 size="1.25rem">
-                        {tabList.title}
-                      </Text>
-                      {tabList.tabs.map((tab) => (
-                        <Row key={tab.id} gap={1} style={{display: 'flex'}}>
-                          <Col span={2}>
-                            {typeof tab.favIconUrl !== 'undefined' ? (
-                              <FaviconImage src={tab.favIconUrl} />
-                            ) : (
-                              <ImageIcon />
-                            )}
-                          </Col>
-                          <Col span={22}>
-                            {/* TODO: クリックしたら削除するように実装 */}
-                            <Link
-                              color
-                              target="_blank"
-                              href={tab.url}
-                              style={{wordBreak: 'break-all'}}
-                            >
-                              {tab.title}
-                            </Link>
-                          </Col>
-                        </Row>
-                      ))}
-                    </Card>
-                  </Grid>
-                </React.Fragment>
-              ))}
+              <TabGroups tabLists={tabLists} />
             </Grid.Container>
           </Col>
         </Row>
