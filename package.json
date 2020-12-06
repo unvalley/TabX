@@ -39,6 +39,10 @@
     "webpack-merge": "^5.3.0"
   },
   "dependencies": {
+    "@linaria/babel": "^3.0.0-beta.0",
+    "@linaria/core": "^3.0.0-beta.0",
+    "@linaria/react": "^3.0.0-beta.0",
+    "@linaria/shaker": "^3.0.0-beta.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   }
