@@ -3,78 +3,54 @@ import {Sun} from './icons/sun'
 import {Moon} from './icons/moon'
 import {Github, Settings, AlignJustify, Grid} from '@geist-ui/react-icons'
 import {Spacing} from '../constants/styles'
+import styled from 'styled-components'
 
 type Props = {
   isDark: boolean
   switchTheme: () => void
 }
+const SwitchButton = styled.span`
+  background-color: green;
+  border-radius: 16px;
+  outline: ${Spacing[0.5]} solid transparent;
+  outline-offset: 2px;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 1rem;
+  margin: ${Spacing['0.5']} ${Spacing['0']};
+  display: inline-flex;
+`
+const Aside = styled.aside`
+  padding: ${Spacing['0']} ${Spacing['1']};
+  margin: ${Spacing['2']} ${Spacing['0']};
+`
+const Nav = styled.nav`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+`
 
 export const LeftMenu: React.FC<Props> = ({isDark, switchTheme}) => (
-  <aside className="" style={{padding: `${Spacing['0']} ${Spacing['1']}`}}>
-    <nav style={{display: 'flex', flexDirection: 'column', flexWrap: 'nowrap'}}>
-      <span
-        style={{
-          backgroundColor: 'blue',
-          borderRadius: `${Spacing['3']}`,
-          outline: '2px solid transparent',
-          outlineOffset: '2px',
-          justifyContent: 'center',
-          flexShrink: 0,
-          padding: '1rem',
-          margin: `${Spacing['0.5']} ${Spacing['0']}`,
-          display: 'inline-flex',
-        }}
-      >
-        <Github style={{lineHeight: '1.5rem'}} />
-      </span>
-      <span
-        style={{
-          backgroundColor: 'blue',
-          borderRadius: `${Spacing['3']}`,
-          outline: '2px solid transparent',
-          outlineOffset: '2px',
-          justifyContent: 'center',
-          flexShrink: 0,
-          padding: '1rem',
-          margin: `${Spacing['0.5']} ${Spacing['0']}`,
-          display: 'inline-flex',
-        }}
-      >
-        <AlignJustify style={{lineHeight: '1.5rem'}} />
-      </span>
+  <Aside>
+    <Nav>
+      <SwitchButton>
+        <Github />
+      </SwitchButton>
 
-      <span
-        style={{
-          backgroundColor: 'blue',
-          borderRadius: '16px',
-          outline: '2px solid transparent',
-          outlineOffset: '2px',
-          justifyContent: 'center',
-          flexShrink: 0,
-          padding: '1rem',
-          margin: '4px 0px',
-          display: 'inline-flex',
-        }}
-      >
+      <SwitchButton>
+        <AlignJustify />
+      </SwitchButton>
+
+      <SwitchButton>
         <Grid />
-      </span>
-      <span
-        style={{
-          backgroundColor: 'blue',
-          borderRadius: '16px',
-          outline: '2px solid transparent',
-          outlineOffset: '2px',
-          justifyContent: 'center',
-          flexShrink: 0,
-          padding: '1rem',
-          margin: '4px 0px',
-          display: 'inline-flex',
-        }}
-      >
+      </SwitchButton>
+
+      <SwitchButton>
         <Settings />
-      </span>
+      </SwitchButton>
+
       {isDark && <Sun onClick={switchTheme} />}
       {!isDark && <Moon onClick={switchTheme} />}
-    </nav>
-  </aside>
+    </Nav>
+  </Aside>
 )

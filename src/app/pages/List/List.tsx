@@ -15,7 +15,7 @@ export const List: React.FC<Props> = ({isDark, switchTheme, tabLists}) => {
       <Grid.Container>
         <Row gap={0.4}>
           <LeftMenu isDark={isDark} switchTheme={switchTheme} />
-          <Grid.Container justify="center">
+          <Grid.Container justify="center" style={{margin: '20px 200px'}}>
             <TabGroups tabLists={tabLists} />
           </Grid.Container>
         </Row>

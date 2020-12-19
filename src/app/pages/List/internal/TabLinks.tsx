@@ -1,10 +1,16 @@
 import {Col, Link, Row} from '@geist-ui/react'
-import {Image as ImageIcon} from '@geist-ui/react-icons'
 import React from 'react'
-import {FaviconImage} from '../../../components/FaviconImage'
+import styled from 'styled-components'
 import {Tabs} from 'webextension-polyfill-ts'
+import {FaviconImage} from '../../../components/FaviconImage'
+import {Spacing} from '../../../constants/styles'
 
 type Props = {tabs: Tabs.Tab[]}
+
+const Tab = styled(Row)`
+    display: flex;
+    padding ${Spacing['0.5']} ${Spacing['3']}
+`
 
 export const TabLinks: React.FC<Props> = ({tabs}) => {
   const deleteTab = (id?: number) => {
@@ -13,28 +19,23 @@ export const TabLinks: React.FC<Props> = ({tabs}) => {
   return (
     <>
       {tabs.map((tab) => (
-        <Row key={tab.id} gap={1} style={{display: 'flex'}}>
-          <Col span={2}>
-            {typeof tab.favIconUrl !== 'undefined' ? (
-              <FaviconImage src={tab.favIconUrl} />
-            ) : (
-              <ImageIcon />
-            )}
-          </Col>
-          <Col span={22}>
-            {/* TODO: クリックしたら削除するように実装 */}
-            {/* TODO: allow関数修正 */}
+        <Tab key={tab.id} gap={2}>
+          <FaviconImage src={tab.favIconUrl!} />
+          <Col>
             <Link
               color
               target="_blank"
               href={tab.url}
               onClick={() => deleteTab(tab.id!)}
-              style={{wordBreak: 'break-all'}}
+              style={{
+                wordBreak: 'break-all',
+                fontSize: '14px',
+              }}
             >
               {tab.title}
             </Link>
           </Col>
-        </Row>
+        </Tab>
       ))}
     </>
   )

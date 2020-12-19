@@ -11,6 +11,9 @@ module.exports = {
   output: {
     path: __dirname + '/dist',
   },
+  optimization: {
+    noEmitOnErrors: true,
+  },
   module: {
     rules: [
       {
@@ -29,6 +32,10 @@ module.exports = {
       {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
+      },
+      {
+        test: /\.(jpg|png|gif|woff|woff2|eot|ttf|svg)$/,
+        use: [{loader: 'file-loader'}],
       },
     ],
   },
