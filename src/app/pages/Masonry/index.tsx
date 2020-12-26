@@ -2,9 +2,9 @@ import React from 'react'
 import {useImmer} from 'use-immer'
 import {getAllTabLists} from '../../../shared/storage'
 import {TabLists} from '../../../shared/typings'
-import {List as Component} from './List'
+import {Masonry as Component} from './Masonry'
 
-export const List: React.FC = () => {
+export const Masonry: React.FC = () => {
   const [tabLists, updateTabLists] = useImmer<TabLists>([])
 
   React.useEffect(() => {

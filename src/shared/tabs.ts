@@ -20,13 +20,13 @@ const closeAllTabs = (tabs: Tabs.Tab[]) =>
  */
 const openTabLists = async () => {
   const openTabs = await getAllTabsInCurrentWindow()
-  const tabListsUrl = browser.runtime.getURL('index.html#/app/')
+  const TabListsUrl = browser.runtime.getURL('index.html#/app/')
 
-  const isFoundTab = openTabs.find((tab) => tab.url === tabListsUrl)
+  const isFoundTab = openTabs.find((tab) => tab.url === TabListsUrl)
   if (isFoundTab) {
     return browser.tabs.update(isFoundTab.id, {active: true})
   }
-  return await browser.tabs.create({url: tabListsUrl})
+  return await browser.tabs.create({url: TabListsUrl})
 }
 
 const isLegalURL = (url: string) =>
@@ -34,14 +34,16 @@ const isLegalURL = (url: string) =>
 
 const isValidTab = (tab: Tabs.Tab) => {
   const appUrl = browser.runtime.getURL('')
-  return tab.url && !tab.url.startsWith(appUrl) && isLegalURL(tab.url)
+  return (
+    tab.url && !tab.pinned && !tab.url.startsWith(appUrl) && isLegalURL(tab.url)
+  )
 }
 
 const storeTabs = async (tabs: Tabs.Tab[]) => {
   tabs = tabs.filter(isValidTab)
   if (tabs.length === 0) return
 
-  const lists = await Storage.getLists()
+  const lists = await Storage.getAllTabLists()
   if (lists === undefined) {
     const firstList = createNewTabList({tabs})
     await Storage.setLists([firstList])

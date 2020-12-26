@@ -1,5 +1,8 @@
 import {Tabs} from 'webextension-polyfill-ts'
 
+/**
+ *
+ */
 export type TabListElem = {
   id?: number
   title?: string
@@ -9,4 +12,7 @@ export type TabListElem = {
   updatedAt?: number
 }
 
+/**
+ * 全てのタブグループ
+ */
 export type TabLists = TabListElem[]

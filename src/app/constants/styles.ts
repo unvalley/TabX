@@ -1,5 +1,10 @@
 export const Colors = {
   WHITE: '#fff',
+  BACKGROUND: '#232956',
+  PARAGRAPH: '#b8c1ec',
+  BUTTON_TEXT: '#232946',
+  HEADLINE: '#fffffe',
+  BUTTON: '#eebbc3',
 } as const
 
 export const Spacing = {
