@@ -20,7 +20,7 @@ const TabListElem = styled.section`
  */
 export const TabGroups: React.FC<Props> = (props) => {
   return (
-    <div>
+    <>
       {props.tabLists.map((tabList, idx) => (
         <TabListElem key={idx}>
           <Grid xs={24}>
@@ -32,6 +32,6 @@ export const TabGroups: React.FC<Props> = (props) => {
           </Grid>
         </TabListElem>
       ))}
-    </div>
+    </>
   )
 }

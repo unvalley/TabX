@@ -26,8 +26,6 @@ const TitleLink = styled(Link)`
  * - アイコンやタイトルを表示
  */
 export const TabLinks: React.FC<Props> = (props) => {
-  //   const [tabLists, setTabLists] = useRecoilState<TabLists>(tabListsState)
-
   const onDelete = (tabId: number) => {
     deleteTabLink(props.tabListId, tabId)
   }
@@ -44,13 +42,13 @@ export const TabLinks: React.FC<Props> = (props) => {
               color
               target="_blank"
               href={tab.url}
-              onClick={() => onDelete(tab.id as number)}
+              onClick={() => onDelete(tab.id!)}
             >
               {tab.title}
             </TitleLink>
           </Col>
           <Col span={4}>
-            <span onClick={() => onDelete(tab.id as number)}>x</span>
+            <span onClick={() => onDelete(tab.id!)}>x</span>
           </Col>
         </Tab>
       ))}
