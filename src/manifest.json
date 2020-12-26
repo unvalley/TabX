@@ -4,10 +4,18 @@
   "name": "TabX",
   "description": "TabX",
   "version": "0.0.1",
-  "icons": {},
+  "icons": {
+    "16": "assets/icons/16.png",
+    "48": "assets/icons/48.png",
+    "128": "assets/icons/128.png"
+  },
 
   "browser_action": {
-    "default_icon": {}
+    "default_icon": {
+      "16": "assets/icons/16.png",
+      "48": "assets/icons/48.png",
+      "128": "assets/icons/128.png"
+    }
   },
 
   "background": {

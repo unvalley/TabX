@@ -1,21 +1,19 @@
 import * as React from 'react'
 import {Routes} from './router/Routes'
-import {RecoilRoot} from 'recoil'
 import {GeistProvider, CssBaseline} from '@geist-ui/react'
 import {ThemeConfigProvider} from './utils/theme-config-provider'
+import {RecoilRoot} from 'recoil'
 
 export const App = () => {
-  const [themeType, setThemeType] = React.useState('light')
-  const changeHandle = React.useCallback((isDark) => {
+  const [themeType, setThemeType] = React.useState('dark')
+  const changeHandle = React.useCallback((isDark: any) => {
     const next = isDark ? 'light' : 'dark'
     setThemeType(next)
   }, [])
 
   React.useEffect(() => {
-    if (typeof localStorage !== 'object') return null
     const localType = localStorage.getItem('theme')
-    if (!localType) return null
-    if (!['light', 'dark'].includes(localType)) return null
+    if (localType === null) return
     setThemeType(localType)
   }, [])
 

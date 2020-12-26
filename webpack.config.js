@@ -11,6 +11,9 @@ module.exports = {
   output: {
     path: __dirname + '/dist',
   },
+  optimization: {
+    noEmitOnErrors: true,
+  },
   module: {
     rules: [
       {
@@ -30,6 +33,10 @@ module.exports = {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
+      {
+        test: /\.(jpg|png|gif|woff|woff2|eot|ttf|svg)$/,
+        use: [{loader: 'file-loader'}],
+      },
     ],
   },
 
@@ -42,6 +49,7 @@ module.exports = {
       template: 'src/public/index.html',
       filename: 'index.html',
       chunks: ['app'],
+      favicon: 'src/assets/favicon.ico',
     }),
     new MiniCssExtractPlugin({
       filename: '[name].css',
@@ -51,6 +59,10 @@ module.exports = {
       {
         from: 'src/manifest.json',
         to: 'manifest.json',
+      },
+      {
+        from: 'src/assets/icons',
+        to: 'assets/icons',
       },
     ]),
   ],
