@@ -8,8 +8,8 @@ export const getAllTabLists = async () =>
   get('lists').then(({lists}) => lists as TabLists)
 
 export const setLists = (lists: TabLists) => {
-  const handledLists = lists.filter((list) => list.tabs)
-  return set({lists: handledLists})
+  const filterdLists = lists.filter((list) => list.tabs)
+  return set({lists: filterdLists})
 }
 
 export const addList = async (newList: TabListElem) => {
@@ -19,21 +19,33 @@ export const addList = async (newList: TabListElem) => {
 }
 
 /**
- * タブの削除
+ * タブ要素の削除
  * @param id
  */
 export const deleteTabLink = async (tabsId: number, tabId: number) => {
+  // READ
   const allTabLists = await getAllTabLists()
-  const targetTabList = allTabLists.filter((list) => list.id === tabsId)
-  const tabs = targetTabList[0].tabs
+  const targetTabListElem = allTabLists.filter((list) => list.id === tabsId)[0]
+  const tabs = targetTabListElem.tabs
   const idx = tabs.findIndex(({id}) => id === tabId)
-  tabs.splice(idx, 1)
 
+  // DELETE and hanlde if tabs are empty
+  tabs.splice(idx, 1)
+  !tabs.length && deleteTabListElem(allTabLists, tabsId)
+
+  // UPDATE
   setLists(allTabLists)
 }
 
 /**
- * タブグループの削除
- * @param lists
+ * タブリスト要素の削除
+ * @param allTabLists
+ * @param tabsId
  */
-export const deleteLists = async (lists: TabLists) => {}
+export const deleteTabListElem = async (
+  allTabLists: TabLists,
+  tabsId: number,
+) => {
+  const tabListsIdx = allTabLists.findIndex(({id}) => id === tabsId)
+  allTabLists.splice(tabListsIdx, 1)
+}

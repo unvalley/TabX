@@ -2,6 +2,7 @@ import * as React from 'react'
 import {Routes} from './router/Routes'
 import {GeistProvider, CssBaseline} from '@geist-ui/react'
 import {ThemeConfigProvider} from './utils/theme-config-provider'
+import {RecoilRoot} from 'recoil'
 
 export const App = () => {
   const [themeType, setThemeType] = React.useState('dark')
@@ -21,11 +22,13 @@ export const App = () => {
   }, [themeType])
 
   return (
-    <GeistProvider theme={{type: themeType}}>
-      <CssBaseline />
-      <ThemeConfigProvider onChange={changeHandle}>
-        <Routes />
-      </ThemeConfigProvider>
-    </GeistProvider>
+    <RecoilRoot>
+      <GeistProvider theme={{type: themeType}}>
+        <CssBaseline />
+        <ThemeConfigProvider onChange={changeHandle}>
+          <Routes />
+        </ThemeConfigProvider>
+      </GeistProvider>
+    </RecoilRoot>
   )
 }
