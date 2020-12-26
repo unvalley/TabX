@@ -1,12 +1,16 @@
-// export {tabListsState} from './atom'
-
+import {getAllTabLists} from '@shared/storage'
 import {TabLists} from '@shared/typings'
+import produce from 'immer'
+import {atom} from 'recoil'
 
-export const initialState: TabLists = []
+// export const tabLists: TabLists = []
 
-export function reducer(draft: any, action: any) {
-  switch (action.type) {
-    case 'remove':
-      return initialState
-  }
-}
+// export const loadedTabLists = produce(tabLists, async (draft) => {
+//   const lists = await getAllTabLists()
+//   draft = lists.reverse()
+// })
+
+export const tabListsState = atom<TabLists>({
+  key: 'tabLists',
+  default: [],
+})

@@ -11,6 +11,7 @@ type Props = {tabLists: TabLists}
 const TabListElem = styled.section`
   margin: ${Spacing['2']} 200px;
   width: 100%;
+  min-width: 100%;
 `
 
 /**
@@ -19,18 +20,18 @@ const TabListElem = styled.section`
  */
 export const TabGroups: React.FC<Props> = (props) => {
   return (
-    <>
+    <div>
       {props.tabLists.map((tabList, idx) => (
         <TabListElem key={idx}>
           <Grid xs={24}>
             <Card hoverable>
               {/* TODO: typing */}
               <CardHeader tabListIdx={idx} title={String(tabList.createdAt)} />
-              <TabLinks tabs={tabList.tabs} tabListIdx={idx} />
+              <TabLinks tabs={tabList.tabs} tabListId={tabList.id!} />
             </Card>
           </Grid>
         </TabListElem>
       ))}
-    </>
+    </div>
   )
 }
