@@ -5,7 +5,6 @@ import {Github, Settings, AlignJustify, Grid} from '@geist-ui/react-icons'
 import {Colors, Spacing} from '../constants/styles'
 import styled from 'styled-components'
 import {useHistory} from 'react-router-dom'
-import {Tooltip} from '@geist-ui/react'
 
 type Props = {
   isDark: boolean
@@ -25,10 +24,11 @@ const SwitchButton = styled.span`
   cursor: pointer;
 `
 const Aside = styled.aside`
-  position: fixed;
+  position: sticky;
   padding: ${Spacing['0.5']} ${Spacing['1']};
-  height: 100vh;
   background-color: ${Colors.PARAGRAPH};
+  display: flex;
+  align-items: streach;
 `
 const Nav = styled.nav`
   display: flex;
@@ -48,31 +48,23 @@ export const LeftMenu: React.FC<Props> = ({isDark, switchTheme}) => {
   return (
     <Aside>
       <Nav>
-        <Tooltip placement="right" text={'List Layout'}>
-          <SwitchButton onClick={() => handleClick('/')}>
-            <AlignJustify />
-          </SwitchButton>
-        </Tooltip>
+        <SwitchButton onClick={() => handleClick('/')}>
+          <AlignJustify />
+        </SwitchButton>
 
-        <Tooltip placement="right" text={'Masonry Layout'}>
-          <SwitchButton onClick={() => handleClick('/masonry')}>
-            <Grid />
-          </SwitchButton>
-        </Tooltip>
+        <SwitchButton onClick={() => handleClick('/masonry')}>
+          <Grid />
+        </SwitchButton>
 
-        <Tooltip placement="right" text={'Settings'}>
-          <SwitchButton onClick={() => handleClick('/settings')}>
-            <Settings />
-          </SwitchButton>
-        </Tooltip>
+        <SwitchButton onClick={() => handleClick('/settings')}>
+          <Settings />
+        </SwitchButton>
 
-        <Tooltip placement="right" text={'Change Mode'}>
-          <SwitchButton>
-            {/* TODO 統一する*/}
-            {isDark && <Sun onClick={switchTheme} />}
-            {!isDark && <Moon onClick={switchTheme} />}
-          </SwitchButton>
-        </Tooltip>
+        <SwitchButton>
+          {/* TODO 統一する*/}
+          {isDark && <Sun onClick={switchTheme} />}
+          {!isDark && <Moon onClick={switchTheme} />}
+        </SwitchButton>
       </Nav>
     </Aside>
   )

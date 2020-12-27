@@ -1,5 +1,7 @@
-import {browser} from 'webextension-polyfill-ts'
-import {TabListElem, TabLists} from './typings'
+import {browser, Tabs} from 'webextension-polyfill-ts'
+import {TabListElem, TabLists, TabWithMeta} from './typings'
+import {acquireMetadata} from './utils/api'
+import {zip} from './utils/util'
 
 const get = (key: string) => browser.storage.local.get(key)
 const set = (obj: object) => browser.storage.local.set(obj)
@@ -18,8 +20,10 @@ export const addList = async (newList: TabListElem) => {
   return await setLists(lists)
 }
 
+export const deleteAllTabLists = () => set({lists: null})
+
 /**
- * タブ要素の削除
+ * Delete Single Tab Link in a TabListElem
  * @param id
  */
 export const deleteTabLink = async (tabsId: number, tabId: number) => {
@@ -38,7 +42,7 @@ export const deleteTabLink = async (tabsId: number, tabId: number) => {
 }
 
 /**
- * タブリスト要素の削除
+ * Delete TabListElem
  * @param allTabLists
  * @param tabsId
  */
@@ -48,4 +52,36 @@ export const deleteTabListElem = async (
 ) => {
   const tabListsIdx = allTabLists.findIndex(({id}) => id === tabsId)
   allTabLists.splice(tabListsIdx, 1)
+}
+
+const genParams = (tabs: Tabs.Tab[]) =>
+  tabs.map((tab) => {
+    return {
+      id: tab.id as number,
+      url: tab.url as string,
+    }
+  })
+
+const mergeTabsWithMeta = async (tabs: Tabs.Tab[]) => {
+  const params = genParams(tabs)
+  const metaObjs = await acquireMetadata(params)
+
+  const tabsWithMetas: TabWithMeta[] = []
+  // NOTE: merge tabs and metaObjs
+  for (const [tab, metaObj] of zip(tabs, metaObjs)) {
+    tabsWithMetas.push({...tab, ...metaObj})
+  }
+  return tabsWithMetas
+}
+
+export const updateTabListElemWithMeta = async (tabsId: number) => {
+  // SELECT
+  const allTabLists = await getAllTabLists()
+  const targetTabListElem = allTabLists.filter((list) => list.id === tabsId)[0]
+  // NOTE: prepare data for update
+  const tabsWithMeta = await mergeTabsWithMeta(targetTabListElem.tabs)
+  targetTabListElem.tabs = tabsWithMeta
+
+  // UPDATE
+  setLists(allTabLists)
 }

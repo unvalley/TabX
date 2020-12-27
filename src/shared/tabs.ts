@@ -1,5 +1,5 @@
 import {browser, Tabs} from 'webextension-polyfill-ts'
-import {ILLEGAL_URLS} from '../shared/constants/constants'
+import {ILLEGAL_URLS} from './constants'
 import {createNewTabList} from './list'
 import * as Storage from './storage'
 
@@ -22,9 +22,9 @@ const openTabLists = async () => {
   const openTabs = await getAllTabsInCurrentWindow()
   const TabListsUrl = browser.runtime.getURL('index.html#/app/')
 
-  const isFoundTab = openTabs.find((tab) => tab.url === TabListsUrl)
-  if (isFoundTab) {
-    return browser.tabs.update(isFoundTab.id, {active: true})
+  const hasFoundTab = openTabs.find((tab) => tab.url === TabListsUrl)
+  if (hasFoundTab) {
+    return browser.tabs.update(hasFoundTab.id, {active: true})
   }
   return await browser.tabs.create({url: TabListsUrl})
 }
@@ -33,30 +33,34 @@ const isLegalURL = (url: string) =>
   ILLEGAL_URLS.every((prefix) => !url.startsWith(prefix))
 
 const isValidTab = (tab: Tabs.Tab) => {
+  // TODO: should set appUrl
   const appUrl = browser.runtime.getURL('')
-  return (
-    tab.url && !tab.pinned && !tab.url.startsWith(appUrl) && isLegalURL(tab.url)
-  )
+  if (!tab.url) return false
+  return !tab.pinned && !tab.url.startsWith(appUrl) && isLegalURL(tab.url)
 }
 
 const storeTabs = async (tabs: Tabs.Tab[]) => {
-  tabs = tabs.filter(isValidTab)
-  if (tabs.length === 0) return
+  const newList = createNewTabList({tabs})
 
-  const lists = await Storage.getAllTabLists()
-  if (lists === undefined) {
-    const firstList = createNewTabList({tabs})
-    await Storage.setLists([firstList])
-  } else {
-    const newList = createNewTabList({tabs})
-    await Storage.addList(newList)
+  try {
+    const lists = await Storage.getAllTabLists()
+    lists === undefined
+      ? await Storage.setLists([newList])
+      : await Storage.addList(newList)
+  } catch (err) {
+    console.error(err)
   }
 
-  return closeAllTabs(tabs)
+  await closeAllTabs(tabs)
+  return newList
 }
 
 export const storeAllTabs = async () => {
   const tabs = await getAllTabsInCurrentWindow()
-  await openTabLists()
-  return storeTabs(tabs)
+  if (tabs.length === 0) return
+  const sanitizedTabs = tabs.filter(isValidTab)
+
+  await Promise.all([openTabLists(), storeTabs(sanitizedTabs)]).then((res) =>
+    Storage.updateTabListElemWithMeta(res[1].id),
+  )
 }

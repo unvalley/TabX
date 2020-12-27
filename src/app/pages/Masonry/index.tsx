@@ -6,6 +6,7 @@ import {tabListsState} from '../../store'
 import {Masonry as Component} from './Masonry'
 
 export const Masonry: React.FC = () => {
+  // TODO: stateから取得するように変更
   const [tabLists, setTabLists] = useRecoilState<TabLists>(tabListsState)
 
   React.useEffect(() => {
@@ -16,5 +17,5 @@ export const Masonry: React.FC = () => {
     cleanup()
   }, [tabLists])
 
-  return <Component tabLists={tabLists} />
+  return tabLists ? <Component tabLists={tabLists} /> : null
 }

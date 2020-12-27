@@ -13,6 +13,7 @@ import {useConfigs} from '../utils/config-context'
 const Container = styled(Grid.Container)`
   justify: center;
   margin: ${Spacing['3']} 200px;
+  display: flex;
 `
 export const Routes = () => {
   const theme = useTheme()
@@ -24,15 +25,30 @@ export const Routes = () => {
 
   return (
     <MemoryRouter>
-      <Switch>
-        <Container>
-          <LeftMenu isDark={isDark} switchTheme={switchTheme} />
+      <Container>
+        <LeftMenu isDark={isDark} switchTheme={switchTheme} />
 
-          <Route exact path="/" component={List} />
-          <Route path="/settings" component={Settings} />
-          <Route path="/masonry" component={Masonry} />
-        </Container>
-      </Switch>
+        <main
+          style={{
+            marginRight: 'auto',
+            marginLeft: 'auto',
+            maxWidth: '90%',
+            flex: '1 1 0%',
+            height: '100%',
+            order: 2,
+            position: 'relative',
+            flexDirection: 'column',
+            paddingRight: '1rem',
+            paddingLeft: '1rem',
+          }}
+        >
+          <Switch>
+            <Route exact path="/" component={List} />
+            <Route path="/settings" component={Settings} />
+            <Route path="/masonry" component={Masonry} />
+          </Switch>
+        </main>
+      </Container>
     </MemoryRouter>
   )
 }
