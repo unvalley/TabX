@@ -1,5 +1,5 @@
 import React from 'react'
-import {BrowserRouter, Switch, Route} from 'react-router-dom'
+import {MemoryRouter, Switch, Route} from 'react-router-dom'
 // import {Popup} from '../pages/Popup'
 import {List} from '../pages/List'
 import {Settings} from '../pages/Settings'
@@ -23,16 +23,16 @@ export const Routes = () => {
   }
 
   return (
-    <BrowserRouter>
+    <MemoryRouter>
       <Switch>
         <Container>
           <LeftMenu isDark={isDark} switchTheme={switchTheme} />
 
           <Route exact path="/" component={List} />
-          <Route exact path="/settings" component={Settings} />
-          <Route exact path="/masonry" component={Masonry} />
+          <Route path="/settings" component={Settings} />
+          <Route path="/masonry" component={Masonry} />
         </Container>
       </Switch>
-    </BrowserRouter>
+    </MemoryRouter>
   )
 }

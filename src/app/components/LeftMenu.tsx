@@ -55,7 +55,7 @@ export const LeftMenu: React.FC<Props> = ({isDark, switchTheme}) => {
         </Tooltip>
 
         <Tooltip placement="right" text={'Masonry Layout'}>
-          <SwitchButton onClick={() => handleClick('masonry')}>
+          <SwitchButton onClick={() => handleClick('/masonry')}>
             <Grid />
           </SwitchButton>
         </Tooltip>

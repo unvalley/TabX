@@ -34,7 +34,7 @@ export const TabLinks: React.FC<Props> = (props) => {
     <>
       {props.tabs.map((tab, idx) => (
         <Tab key={idx} gap={2}>
-          <Col>
+          <Col span={2}>
             <FaviconImage src={tab.favIconUrl!} />
           </Col>
           <Col span={18}>
