@@ -23,13 +23,17 @@ export const TabGroups: React.FC<Props> = (props) => {
     <>
       {props.tabLists.map((tabList, idx) => (
         <TabListElem key={idx}>
-          <Grid xs={24}>
+          {/* <Grid xs={24}>
             <Card hoverable>
               {/* TODO: typing */}
-              <CardHeader tabListIdx={idx} title={String(tabList.createdAt)} />
-              <TabLinks tabs={tabList.tabs} tabListId={tabList.id!} />
-            </Card>
-          </Grid>
+          {/* <CardHeader tabListIdx={idx} title={String(tabList.createdAt)} /> */}
+          <TabLinks
+            tabs={tabList.tabs}
+            tabListId={tabList.id!}
+            createdAt={tabList.createdAt!}
+          />
+          {/* </Card> */}
+          {/* </Grid> */}
         </TabListElem>
       ))}
     </>

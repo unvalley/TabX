@@ -10,7 +10,8 @@ export const PICKED_TAB_PROPS = [
 export const SENTRY_DNS = ''
 
 // API
-export const API_BASE_URL = ''
+export const API_BASE_URL =
+  'https://us-central1-tabx-572fb.cloudfunctions.net/api'
 
 // TabListElem title
 export const DEFAULT_TITLE = 'untitled'

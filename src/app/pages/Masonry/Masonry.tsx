@@ -19,7 +19,7 @@ export const Masonry: React.FC<Props> = (props) => {
 
   return (
     <MasonicMasonry
-      columnGutter={8}
+      columnGutter={6}
       columnWidth={200}
       overscanBy={2}
       items={flat}

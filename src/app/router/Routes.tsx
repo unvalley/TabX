@@ -14,6 +14,7 @@ const Container = styled(Grid.Container)`
   justify: center;
   margin: ${Spacing['3']} 200px;
   display: flex;
+  background-color: #f2f5ff;
 `
 export const Routes = () => {
   const theme = useTheme()
@@ -30,9 +31,8 @@ export const Routes = () => {
 
         <main
           style={{
-            marginRight: 'auto',
-            marginLeft: 'auto',
-            maxWidth: '90%',
+            margin: `${Spacing['6']} auto`,
+            maxWidth: '80%',
             flex: '1 1 0%',
             height: '100%',
             order: 2,

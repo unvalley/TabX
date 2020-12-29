@@ -1,20 +1,33 @@
-import {Col, Link, Row} from '@geist-ui/react'
+import {Card, Link} from '@geist-ui/react'
 import React from 'react'
 import styled from 'styled-components'
 import {Tabs} from 'webextension-polyfill-ts'
+import {X} from '@geist-ui/react-icons'
 import {deleteTabLink} from '../../../../shared/storage'
 import {FaviconImage} from '../../../components/atoms/FaviconImage'
 import {Spacing} from '../../../constants/styles'
 
-type Props = {tabs: Tabs.Tab[]; tabListId: number}
+type Props = {tabs: Tabs.Tab[]; tabListId: number; createdAt: number}
 
-const Tab = styled(Row)`
-    display: flex;
-    padding ${Spacing['0.5']} ${Spacing['3']}
+const Tab = styled.a`
+    display: inline-flex;
+    text-decoration: none;
+    line-height: 1.5;
+    poistion: relative;
+    padding ${Spacing['0.5']} ${Spacing['3']};
+    margin ${Spacing['0.5']} ${Spacing['2']};
+    background-color: white;
+    cursor: pointer;
+    justify-content: center;
+    text-align: center;
+    white-space: nowrap;
+    border-radius: 33px;
+    box-shadow: 0px 20px 35px -16px #2d81b121;
+    transition: all 800ms ease;
 `
-const TitleLink = styled(Link)`
-    word-break: break-all
-    font-size: 13px
+const Title = styled.span`
+  word-break: break-all;
+  font-size: 12px;
 `
 
 /**
@@ -29,23 +42,19 @@ export const TabLinks: React.FC<Props> = (props) => {
   return (
     <>
       {props.tabs.map((tab, idx) => (
-        <Tab key={idx} gap={2}>
-          <Col span={2}>
+        <Tab key={idx} href={tab.url} target="_blank">
+          <div>
             <FaviconImage src={tab.favIconUrl!} />
-          </Col>
-          <Col span={18}>
-            <TitleLink
-              color
-              target="_blank"
-              href={tab.url}
-              onClick={() => onDelete(tab.id!)}
-            >
-              {tab.title}
-            </TitleLink>
-          </Col>
-          <Col span={4}>
-            <span onClick={() => onDelete(tab.id!)}>x</span>
-          </Col>
+          </div>
+          <div>
+            <Title onClick={() => onDelete(tab.id!)}>{tab.title}</Title>
+            {/* <span>{props.createdAt}</span> */}
+          </div>
+          <div>
+            <span style={{cursor: 'pointer'}} onClick={() => onDelete(tab.id!)}>
+              <X />
+            </span>
+          </div>
         </Tab>
       ))}
     </>
