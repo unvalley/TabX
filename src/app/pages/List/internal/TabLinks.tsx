@@ -1,14 +1,10 @@
 import {Col, Link, Row} from '@geist-ui/react'
-import produce from 'immer'
 import React from 'react'
-import {useRecoilState} from 'recoil'
 import styled from 'styled-components'
 import {Tabs} from 'webextension-polyfill-ts'
 import {deleteTabLink} from '../../../../shared/storage'
-import {TabLists} from '../../../../shared/typings'
 import {FaviconImage} from '../../../components/atoms/FaviconImage'
 import {Spacing} from '../../../constants/styles'
-import {tabListsState} from '../../../store'
 
 type Props = {tabs: Tabs.Tab[]; tabListId: number}
 
@@ -34,7 +30,7 @@ export const TabLinks: React.FC<Props> = (props) => {
     <>
       {props.tabs.map((tab, idx) => (
         <Tab key={idx} gap={2}>
-          <Col>
+          <Col span={2}>
             <FaviconImage src={tab.favIconUrl!} />
           </Col>
           <Col span={18}>

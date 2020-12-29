@@ -7,5 +7,5 @@ type Props = {
 }
 
 export const List: React.FC<Props> = ({tabLists}) => {
-  return <TabGroups tabLists={tabLists} />
+  return tabLists ? <TabGroups tabLists={tabLists} /> : null
 }

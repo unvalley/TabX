@@ -1,7 +1,16 @@
+import {Button} from '@geist-ui/react'
+import {AlertCircle} from '@geist-ui/react-icons'
 import React from 'react'
+import {deleteAllTabLists} from '../../../shared/storage'
 
-export const Settings: React.FC = () => (
-  <>
-    <p>色の設定</p>
-  </>
-)
+export const Settings: React.FC = () => {
+  const deleteAllTabs = () => deleteAllTabLists()
+
+  return (
+    <>
+      <Button icon={<AlertCircle />} type="error" ghost onClick={deleteAllTabs}>
+        Delete All Tabs
+      </Button>
+    </>
+  )
+}

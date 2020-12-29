@@ -3,20 +3,5 @@ export const genObjectId = (): number => {
   return timestamp + Math.random() * 16
 }
 
-/**
- * TODO: ちゃんと実装する
- * @param url
- */
-export const getOGPImage = (url: string) => {
-  fetch(url)
-    .then((res) => res.text())
-    .then((text) => {
-      const el = new DOMParser().parseFromString(text, 'text/html')
-      const headEls = el.head.children
-      Array.from(headEls).map((v) => {
-        const prop = v.getAttribute('property')
-        if (!prop) return
-        console.log(prop, v.getAttribute('content'))
-      })
-    })
-}
+export const zip = <T, U>(arr1: T[], arr2: U[]) =>
+  arr1.map((_, i) => [arr1[i], arr2[i]] as [T, U])

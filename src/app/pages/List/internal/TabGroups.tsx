@@ -11,7 +11,7 @@ type Props = {tabLists: TabLists}
 const TabListElem = styled.section`
   margin: ${Spacing['2']} 200px;
   width: 100%;
-  min-width: 100%;
+  min-width: 80%;
 `
 
 /**
