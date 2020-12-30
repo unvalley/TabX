@@ -10,13 +10,25 @@ import styled from 'styled-components'
 import {Spacing} from '../constants/styles'
 import {useConfigs} from '../utils/config-context'
 
-const Container = styled(Grid.Container)`
+const Wrapper = styled(Grid.Container)`
   margin: ${Spacing['3']} 100px;
   display: flex;
   min-height: 100vh;
   position: relative;
-  //   background-color: #f2f5ff;
 `
+
+const MainContainer = styled.main`
+  margin: ${Spacing['6']} auto;
+  max-width: 80%;
+  flex: 1 1 0%;
+  height: 100%;
+  order: 2;
+  position: relative;
+  flex-direction: column;
+  padding-right: 1rem;
+  padding-left: 1rem;
+`
+
 export const Routes = () => {
   const theme = useTheme()
   const configs: any = useConfigs()
@@ -27,28 +39,16 @@ export const Routes = () => {
 
   return (
     <MemoryRouter>
-      <Container>
-        <LeftMenu isDark={isDark} switchTheme={switchTheme} />
-        <main
-          style={{
-            margin: `${Spacing['6']} auto`,
-            maxWidth: '80%',
-            flex: '1 1 0%',
-            height: '100%',
-            order: 2,
-            position: 'relative',
-            flexDirection: 'column',
-            paddingRight: '1rem',
-            paddingLeft: '1rem',
-          }}
-        >
+      <Wrapper>
+        <LeftMenu />
+        <MainContainer>
           <Switch>
             <Route exact path="/" component={List} />
             <Route path="/settings" component={Settings} />
             <Route path="/masonry" component={Masonry} />
           </Switch>
-        </main>
-      </Container>
+        </MainContainer>
+      </Wrapper>
     </MemoryRouter>
   )
 }
