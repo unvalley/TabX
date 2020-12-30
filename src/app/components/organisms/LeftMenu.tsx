@@ -67,7 +67,8 @@ export const LeftMenu: React.FC<Props> = ({isDark, switchTheme}) => {
           <Layers />
         </SwitchButton>
 
-        <SwitchButton>
+        {/* TODO: ここじゃなくて，Settings.tsxへ移動 */}
+        <SwitchButton style={{border: '5px solid #1da06b'}}>
           {/* TODO 統一する*/}
           {isDark && <Sun onClick={switchTheme} />}
           {!isDark && <Moon onClick={switchTheme} />}
