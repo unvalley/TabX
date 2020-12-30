@@ -7,7 +7,9 @@ export const Tabs: React.VFC<{deleteAllTabs: () => void}> = (props) => (
     <Card.Content>
       <Text h4>Tabs</Text>
     </Card.Content>
+
     <Divider y={0} />
+
     <Card.Content>
       <Text>ウィンドウが開かれたタイミングでTabXを起動する？</Text>
       <Text>アイコンをクリックしたときの挙動を変更する?</Text>

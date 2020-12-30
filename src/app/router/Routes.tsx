@@ -15,7 +15,7 @@ const Container = styled(Grid.Container)`
   display: flex;
   min-height: 100vh;
   position: relative;
-  background-color: #f2f5ff;
+  //   background-color: #f2f5ff;
 `
 export const Routes = () => {
   const theme = useTheme()
@@ -29,7 +29,6 @@ export const Routes = () => {
     <MemoryRouter>
       <Container>
         <LeftMenu isDark={isDark} switchTheme={switchTheme} />
-
         <main
           style={{
             margin: `${Spacing['6']} auto`,
