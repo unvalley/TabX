@@ -13,7 +13,6 @@ type Props = {
 
 const SwitchButton = styled.span`
   background-color: ${Colors.BUTTON};
-  border-radius: 16px;
   outline: ${Spacing[0.5]} solid transparent;
   outline-offset: 2px;
   justify-content: center;
@@ -22,6 +21,8 @@ const SwitchButton = styled.span`
   margin: ${Spacing['0.5']} ${Spacing['0']};
   display: inline-flex;
   cursor: pointer;
+  border-radius: ${(props: {isActive?: boolean}) =>
+    props.isActive ? '16px' : '33px'};
 `
 const Aside = styled.aside`
   position: sticky;
@@ -48,7 +49,7 @@ export const LeftMenu: React.FC<Props> = ({isDark, switchTheme}) => {
   return (
     <Aside>
       <Nav>
-        <SwitchButton onClick={() => handleClick('/')}>
+        <SwitchButton onClick={() => handleClick('/')} isActive={true}>
           <AlignJustify />
         </SwitchButton>
 
@@ -56,18 +57,14 @@ export const LeftMenu: React.FC<Props> = ({isDark, switchTheme}) => {
           <Grid />
         </SwitchButton>
 
-        <SwitchButton onClick={() => handleClick('/settings')}>
-          <Settings />
-        </SwitchButton>
-
-        <SwitchButton onClick={() => handleClick('/settings')}>
-          <Trash />
-        </SwitchButton>
-
         <SwitchButton>
           {/* TODO 統一する*/}
           {isDark && <Sun onClick={switchTheme} />}
           {!isDark && <Moon onClick={switchTheme} />}
+        </SwitchButton>
+
+        <SwitchButton onClick={() => handleClick('/settings')}>
+          <Settings />
         </SwitchButton>
       </Nav>
     </Aside>

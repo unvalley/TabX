@@ -5,6 +5,7 @@ import {X} from '@geist-ui/react-icons'
 import {deleteTabLink} from '../../../../shared/storage'
 import {FaviconImage} from '../../../components/atoms/FaviconImage'
 import {Spacing} from '../../../constants/styles'
+import {omitText} from '../../../utils'
 
 type Props = {tabs: Tabs.Tab[]; tabListId: number; createdAt: number}
 
@@ -45,9 +46,13 @@ export const TabLinks: React.FC<Props> = (props) => {
     <>
       {props.tabs.map((tab, idx) => (
         <TabLinkButton key={idx} href={tab.url} target="_blank">
-          <FaviconImage src={tab.favIconUrl!} />
+          <span style={{paddingRight: '5px'}}>
+            <FaviconImage src={tab.favIconUrl!} size={20} />
+          </span>
           <div>
-            <Title onClick={() => onDelete(tab.id!)}>{tab.title}</Title>
+            <Title onClick={() => onDelete(tab.id!)}>
+              {omitText(tab.title!)(80)('...')}
+            </Title>
           </div>
           <div>
             <span style={{cursor: 'pointer'}} onClick={() => onDelete(tab.id!)}>

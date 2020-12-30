@@ -3,6 +3,7 @@ import {Card, Image, Text, Link} from '@geist-ui/react'
 import {TabLists, TabWithMeta} from '../../../shared/typings'
 import {Tabs} from 'webextension-polyfill-ts'
 import {Masonry as MasonicMasonry} from 'masonic'
+import {omitText} from '../../utils'
 
 type Props = {
   tabLists: TabLists
@@ -27,9 +28,6 @@ export const Masonry: React.FC<Props> = (props) => {
     />
   )
 }
-
-const omitText = (text: string) => (len: number) => (ellipsis: string) =>
-  text.length >= len ? text.slice(0, len - ellipsis.length) + ellipsis : text
 
 const FakeCard = (props: {index: number; data: any; width: number}) => {
   return (
