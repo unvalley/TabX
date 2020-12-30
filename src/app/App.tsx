@@ -5,23 +5,22 @@ import {ThemeConfigProvider} from './utils/theme-config-provider'
 import {RecoilRoot} from 'recoil'
 import i18n from 'i18next'
 import {initReactI18next} from 'react-i18next'
+import enJson from './locales/en.json'
+import jaJson from './locales/ja.json'
 
 i18n.use(initReactI18next).init({
   resources: {
     en: {
-      translation: {
-        Language: 'Language',
-      },
+      translation: enJson,
     },
     ja: {
-      translation: {
-        Language: '言語',
-      },
+      translation: jaJson,
     },
   },
   lng: 'en',
   fallbackLng: 'en',
   interpolation: {escapeValue: false},
+  returnEmptyString: false,
 })
 
 export const App = () => {

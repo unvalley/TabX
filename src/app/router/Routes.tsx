@@ -1,6 +1,5 @@
 import React from 'react'
 import {MemoryRouter, Switch, Route} from 'react-router-dom'
-// import {Popup} from '../pages/Popup'
 import {List} from '../pages/List'
 import {Settings} from '../pages/Settings'
 import {Masonry} from '../pages/Masonry'

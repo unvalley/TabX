@@ -40,22 +40,38 @@ const Nav = styled.nav`
   flex-wrap: nowrap;
 `
 
-export const LeftMenu: React.FC<Props> = () => {
+export const LeftMenu: React.FC<Props> = ({isDark, switchTheme}) => {
+  const [isActive, setIsActive] = React.useState(false)
+
+  const history = useHistory()
+
+  const handleClick = (path: string) => {
+    history.push(path)
+  }
+
   return (
     <Aside>
       <Nav>
-        {/* RootButton */}
-        <SwitchButton exact to={URL.ROOT}>
+        <SwitchButton onClick={() => handleClick('/')} isActive={true}>
           <AlignJustify />
         </SwitchButton>
 
-        {/* MasonryButton */}
-        <SwitchButton exact to={URL.MASONRY}>
+        <SwitchButton onClick={() => handleClick('/masonry')}>
           <Grid />
         </SwitchButton>
 
-        {/* SettingsButton */}
-        <SwitchButton to={URL.SETTINGS}>
+        <SwitchButton onClick={() => handleClick('/settings')}>
+          <Layers />
+        </SwitchButton>
+
+        {/* TODO: ここじゃなくて，Settings.tsxへ移動 */}
+        <SwitchButton style={{border: '5px solid #1da06b'}}>
+          {/* TODO 統一する*/}
+          {isDark && <Sun onClick={switchTheme} />}
+          {!isDark && <Moon onClick={switchTheme} />}
+        </SwitchButton>
+
+        <SwitchButton onClick={() => handleClick('/settings')}>
           <Settings />
         </SwitchButton>
       </Nav>
