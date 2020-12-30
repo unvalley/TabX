@@ -1,7 +1,13 @@
 import React from 'react'
 import {Sun} from '../icons/sun'
 import {Moon} from '../icons/moon'
-import {Settings, AlignJustify, Grid, Trash} from '@geist-ui/react-icons'
+import {
+  Settings,
+  Layers,
+  AlignJustify,
+  Grid,
+  Trash,
+} from '@geist-ui/react-icons'
 import {Colors, Spacing} from '../../constants/styles'
 import styled from 'styled-components'
 import {useHistory} from 'react-router-dom'
@@ -55,6 +61,10 @@ export const LeftMenu: React.FC<Props> = ({isDark, switchTheme}) => {
 
         <SwitchButton onClick={() => handleClick('/masonry')}>
           <Grid />
+        </SwitchButton>
+
+        <SwitchButton onClick={() => handleClick('/settings')}>
+          <Layers />
         </SwitchButton>
 
         <SwitchButton>
