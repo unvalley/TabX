@@ -5,15 +5,16 @@ import {List} from '../pages/List'
 import {Settings} from '../pages/Settings'
 import {Masonry} from '../pages/Masonry'
 import {Grid, useTheme} from '@geist-ui/react'
-import {LeftMenu} from '../components/LeftMenu'
+import {LeftMenu} from '../components/organisms/LeftMenu'
 import styled from 'styled-components'
 import {Spacing} from '../constants/styles'
 import {useConfigs} from '../utils/config-context'
 
 const Container = styled(Grid.Container)`
-  justify: center;
-  margin: ${Spacing['3']} 200px;
+  margin: ${Spacing['3']} 100px;
   display: flex;
+  min-height: 100vh;
+  position: relative;
   background-color: #f2f5ff;
 `
 export const Routes = () => {

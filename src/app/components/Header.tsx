@@ -1,7 +1,7 @@
 import React from 'react'
 import {Input} from '@geist-ui/react'
 import {Sun} from './icons/sun'
-import {LogoIcon} from './LogoIcon'
+import {LogoIcon} from './atoms/LogoIcon'
 
 export const Header: React.FC = () => {
   const goHome = () => {}

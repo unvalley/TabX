@@ -14,7 +14,7 @@ export const List: React.FC = () => {
       setTabLists(lists)
     }
     cleanup()
-  }, [tabLists])
+  }, [])
 
   return <Component tabLists={tabLists} />
 }

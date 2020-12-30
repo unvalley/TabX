@@ -1,7 +1,7 @@
 import React from 'react'
 import {Image} from '@geist-ui/react'
 
-type Props = {src: string}
-export const FaviconImage: React.FC<Props> = ({src}) => (
-  <Image width={24} height={24} src={src} />
-)
+type Props = {src: string; size?: number}
+export const FaviconImage: React.FC<Props> = ({src, size = 25}) => {
+  return <Image width={size} height={size} src={src} />
+}

@@ -15,7 +15,7 @@ export const Masonry: React.FC = () => {
       setTabLists(lists)
     }
     cleanup()
-  }, [tabLists])
+  }, [])
 
   return tabLists ? <Component tabLists={tabLists} /> : null
 }
