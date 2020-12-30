@@ -1,16 +1,11 @@
 import React from 'react'
-import {Sun} from '../icons/sun'
-import {Moon} from '../icons/moon'
 import {Settings, Layers, AlignJustify, Grid} from '@geist-ui/react-icons'
 import {Colors, Spacing} from '../../constants/styles'
 import {URL} from '../../constants/urls'
 import styled from 'styled-components'
-import {NavLink, useHistory} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 
-type Props = {
-  isDark: boolean
-  switchTheme: () => void
-}
+type Props = {}
 
 const SwitchButton = styled(NavLink).attrs({
   activeStyle: {borderRadius: '16px', backgroundColor: '#fff'},
@@ -45,33 +40,21 @@ const Nav = styled.nav`
   flex-wrap: nowrap;
 `
 
-export const LeftMenu: React.FC<Props> = ({isDark, switchTheme}) => {
-  const [isActive, setIsActive] = React.useState(false)
-
-  const history = useHistory()
-
-  const handleClick = (path: string) => {
-    history.push(path)
-  }
-
+export const LeftMenu: React.FC<Props> = () => {
   return (
     <Aside>
       <Nav>
+        {/* RootButton */}
         <SwitchButton exact to={URL.ROOT}>
           <AlignJustify />
         </SwitchButton>
 
+        {/* MasonryButton */}
         <SwitchButton exact to={URL.MASONRY}>
           <Grid />
         </SwitchButton>
 
-        {/* TODO: ここじゃなくて，Settings.tsxへ移動 */}
-        {/* <SwitchButton style={{border: '5px solid #1da06b'}}> */}
-        {/* TODO 統一する*/}
-        {/* {isDark && <Sun onClick={switchTheme} />}
-        {!isDark && <Moon onClick={switchTheme} />} */}
-        {/* </SwitchButton> */}
-
+        {/* SettingsButton */}
         <SwitchButton to={URL.SETTINGS}>
           <Settings />
         </SwitchButton>
