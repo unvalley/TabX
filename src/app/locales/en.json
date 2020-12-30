@@ -1,3 +1,18 @@
 {
-  "Language": "Language"
+  "----SETTINGS----": "",
+  "LANGUAGE": "Language",
+  "CURRENT_LANGUAGE": "Current Language",
+  "TABS": "Tabs",
+  "DANGER_ZONE": "Danger Zone",
+  "DANGER_ZONE_MESSAGE": "Once you delete all tabs, there is no going back.",
+  "DELETE_ALL_TABS": "Delete All Tabs",
+  "COLOR_THEMES": "Color Themes",
+  "CONTRIBUTION": "Contribution",
+
+  "----MENU----": "",
+  "SHARE_LINKS": "Share Links",
+  "ONLY_PINNED": "Only Pinned",
+  "SORT": "Sort",
+  "TWEET": "Tweet",
+  "DONATE": "Donate"
 }

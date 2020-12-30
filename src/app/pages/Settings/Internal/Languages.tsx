@@ -1,6 +1,5 @@
 import {Card, Divider, Radio, Text} from '@geist-ui/react'
 import React from 'react'
-import i18n from 'i18next'
 import {useTranslation} from 'react-i18next'
 
 export const Languages: React.VFC = (props) => {
@@ -14,9 +13,9 @@ export const Languages: React.VFC = (props) => {
   return (
     <Card style={{margin: '20px 0px'}}>
       <Card.Content>
-        <Text h4>{t('Language')}</Text>
+        <Text h4>{t('LANGUAGE')}</Text>
         <Text>
-          {t('Current Language:')} {lang}
+          {t('CURRENT_LANGUAGE')} {lang}
         </Text>
       </Card.Content>
       <Divider y={0} />

@@ -1,3 +1,18 @@
 {
-  "Language": "日本語"
+  "----SETTINGS----": "",
+  "LANGUAGE": "日本語",
+  "CURRENT_LANGUAGE": "現在の言語",
+  "TABS": "タブ",
+  "DANGER_ZONE": "Danger Zone",
+  "DANGER_ZONE_MESSAGE": "タブを全て消去すると，元に戻すことはできません",
+  "DELETE_ALL_TABS": "全てのタブを消去する",
+  "COLOR_THEMES": "カラーテーマ",
+  "CONTRIBUTION": "貢献する",
+
+  "----MENU----": "",
+  "SHARE_LINKS": "リンクをシェアする",
+  "ONLY_PINNED": "ピン留めのみ表示",
+  "SORT": "ソート",
+  "TWEET": "ツイート",
+  "DONATE": "寄付"
 }

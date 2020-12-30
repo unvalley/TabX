@@ -8,39 +8,44 @@ import {
   ChevronUpDown,
 } from '@geist-ui/react-icons'
 import React from 'react'
-
-const content = () => (
-  <>
-    {/* User Operations */}
-    <Popover.Item>
-      <LinkIcon />
-      <span>Share Links</span>
-    </Popover.Item>
-
-    <Popover.Item>
-      <Pin />
-      <span>Only Pinned</span>
-    </Popover.Item>
-
-    <Popover.Item>
-      <ChevronUpDown />
-      <span>Sort By CreatedAt</span>
-    </Popover.Item>
-
-    {/* Share and Donate */}
-    <Popover.Item line />
-    <Popover.Item>
-      <Twitter />
-      <span>Tweet</span>
-    </Popover.Item>
-    <Popover.Item>
-      <Coffee />
-      <span>Donate</span>
-    </Popover.Item>
-  </>
-)
+import {useTranslation} from 'react-i18next'
 
 type Props = {label?: string}
-export const Menu: React.FC<Props> = ({label = 'Menu'}: Props) => (
-  <Popover content={content}>{label}</Popover>
-)
+export const Menu: React.FC<Props> = ({label = 'Menu'}: Props) => {
+  const [t, i18n] = useTranslation()
+
+  const content = () => {
+    return (
+      <>
+        {/* User Operations */}
+        <Popover.Item>
+          <LinkIcon />
+          <span>{t('SHARE_LINKS')}</span>
+        </Popover.Item>
+
+        <Popover.Item>
+          <Pin />
+          <span>{t('ONLY_PINNED')}</span>
+        </Popover.Item>
+
+        <Popover.Item>
+          <ChevronUpDown />
+          <span>{t('SORT')}</span>
+        </Popover.Item>
+
+        {/* Share and Donate */}
+        <Popover.Item line />
+        <Popover.Item>
+          <Twitter />
+          <span>{t('TWEET')}</span>
+        </Popover.Item>
+        <Popover.Item>
+          <Coffee />
+          <span>{t('DONATE')}</span>
+        </Popover.Item>
+      </>
+    )
+  }
+
+  return <Popover content={content}>{label}</Popover>
+}
