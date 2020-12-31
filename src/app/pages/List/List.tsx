@@ -1,3 +1,4 @@
+import {Spinner} from '@geist-ui/react'
 import React from 'react'
 import {TabLists} from '../../../shared/typings'
 import {TabGroups} from './internal/TabGroups'
@@ -7,5 +8,5 @@ type Props = {
 }
 
 export const List: React.FC<Props> = ({tabLists}) => {
-  return tabLists ? <TabGroups tabLists={tabLists} /> : null
+  return <TabGroups tabLists={tabLists} />
 }

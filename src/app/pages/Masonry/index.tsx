@@ -1,7 +1,9 @@
+import {Spinner} from '@geist-ui/react'
 import React from 'react'
 import {useRecoilState} from 'recoil'
 import {getAllTabLists} from '../../../shared/storage'
 import {TabLists} from '../../../shared/typings'
+import {Spacing} from '../../constants/styles'
 import {tabListsState} from '../../store'
 import {Masonry as Component} from './Masonry'
 
@@ -17,5 +19,9 @@ export const Masonry: React.FC = () => {
     cleanup()
   }, [])
 
-  return tabLists ? <Component tabLists={tabLists} /> : null
+  return tabLists !== [] ? (
+    <Component tabLists={tabLists} />
+  ) : (
+    <Spinner size="large" style={{margin: `${Spacing[5]} auto`}} />
+  )
 }
