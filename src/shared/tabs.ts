@@ -26,7 +26,7 @@ const openTabLists = async () => {
   if (hasFoundTab) {
     return browser.tabs.update(hasFoundTab.id, {active: true})
   }
-  return await browser.tabs.create({url: TabListsUrl})
+  return await browser.tabs.create({url: TabListsUrl, pinned: true})
 }
 
 const isLegalURL = (url: string) =>
