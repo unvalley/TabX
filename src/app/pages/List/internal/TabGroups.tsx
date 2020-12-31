@@ -3,8 +3,8 @@ import React from 'react'
 import styled from 'styled-components'
 import {TabLists} from '../../../../shared/typings'
 import {TabLinks} from './TabLinks'
-import {Link as LinkIcon, Search, Coffee} from '@geist-ui/react-icons'
-import {Menu} from '../../../components/molecules/Menu'
+import {Search} from '@geist-ui/react-icons'
+import {Menu} from '../../../components/organisms/Menu'
 
 type Props = {tabLists: TabLists}
 
@@ -20,7 +20,7 @@ const TabListElem = styled.section`
 export const TabGroups: React.FC<Props> = (props) => {
   return (
     <>
-      <Row gap={0.8} style={{}}>
+      <Row>
         <Col span={16}>
           <Input size="medium" icon={<Search />} placeholder="Search…" />
         </Col>

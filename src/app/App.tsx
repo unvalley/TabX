@@ -9,7 +9,7 @@ import enJson from './locales/en.json'
 import jaJson from './locales/ja.json'
 import {getAllTabLists} from '../shared/storage'
 import {TabLists} from '../shared/typings'
-import {tabListsState} from './store'
+import {sortTabListsState, tabListsState} from './store'
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -60,11 +60,13 @@ export const App = () => {
   }, [themeType])
 
   return (
-    <GeistProvider theme={{...myTheme, type: themeType}}>
-      <CssBaseline />
-      <ThemeConfigProvider onChange={changeHandle}>
-        <Routes />
-      </ThemeConfigProvider>
-    </GeistProvider>
+    <React.Suspense fallback={<div>Loading...</div>}>
+      <GeistProvider theme={{...myTheme, type: themeType}}>
+        <CssBaseline />
+        <ThemeConfigProvider onChange={changeHandle}>
+          <Routes />
+        </ThemeConfigProvider>
+      </GeistProvider>
+    </React.Suspense>
   )
 }
