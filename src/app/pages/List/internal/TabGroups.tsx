@@ -1,10 +1,11 @@
-import {Button, Col, Input, Link, Popover, Row, Text} from '@geist-ui/react'
+import {Col, Input, Row, Spacer, Text} from '@geist-ui/react'
 import React from 'react'
 import styled from 'styled-components'
 import {TabLists} from '../../../../shared/typings'
 import {TabLinks} from './TabLinks'
 import {Search} from '@geist-ui/react-icons'
 import {Menu} from '../../../components/organisms/Menu'
+import {useTranslation} from 'react-i18next'
 
 type Props = {tabLists: TabLists}
 
@@ -18,6 +19,7 @@ const TabListElem = styled.section`
  * @param props
  */
 export const TabGroups: React.FC<Props> = (props) => {
+  const [t, i18n] = useTranslation()
   return (
     <>
       <Row>
@@ -26,7 +28,8 @@ export const TabGroups: React.FC<Props> = (props) => {
         </Col>
         <Col span={8}>
           <Row align="middle" style={{height: '100%', textAlign: 'center'}}>
-            <Text>Total tabs: 200</Text>
+            <Text>{t('TOTAL_TAB')}: 200</Text>
+            <Spacer x={1} />
             <Menu />
           </Row>
         </Col>
