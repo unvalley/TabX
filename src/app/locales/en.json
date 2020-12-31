@@ -14,5 +14,9 @@
   "ONLY_PINNED": "Only Pinned",
   "SORT": "Sort",
   "TWEET": "Tweet",
-  "DONATE": "Donate"
+  "DONATE": "Donate",
+
+  "----Color----": "",
+  "DARK": "Dark",
+  "LIGHT": "Light"
 }

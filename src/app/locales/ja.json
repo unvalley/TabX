@@ -14,5 +14,9 @@
   "ONLY_PINNED": "ピン留めのみ表示",
   "SORT": "ソート",
   "TWEET": "ツイート",
-  "DONATE": "寄付"
+  "DONATE": "寄付",
+
+  "----Color----": "",
+  "DARK": "ダーク",
+  "LIGHT": "ライト"
 }

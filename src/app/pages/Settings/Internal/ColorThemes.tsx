@@ -7,16 +7,9 @@ import React from 'react'
 import {useTranslation} from 'react-i18next'
 import {Colors} from '../../../constants/styles'
 
-type Props = {}
+type Props = {switchTheme: () => void; isDark: boolean}
 export const ColorThemes: React.VFC<Props> = (props) => {
   const [t, i18n] = useTranslation()
-
-  const handleChange = (val: React.ReactText) => {
-    const localType = localStorage.getItem('theme')
-    if (localType === null) return
-    const next = localType === 'dark' ? 'light' : 'dark'
-    localStorage.setItem('theme', next)
-  }
 
   return (
     <Card>
@@ -27,16 +20,16 @@ export const ColorThemes: React.VFC<Props> = (props) => {
       <Divider y={0} />
 
       <Card.Content>
-        <Radio.Group value="1" useRow onChange={(val) => handleChange(val)}>
+        <Radio.Group value="1" useRow onChange={props.switchTheme}>
           <Radio value="1">
             <Sun color={Colors.SUN_LIGHT} />
             <Spacer x={0.5} />
-            Light
+            {t('LIGHT')}
           </Radio>
           <Radio value="2">
             <Moon color={Colors.MOON_DARK} />
             <Spacer x={0.5} />
-            Dark
+            {t('DARK')}
           </Radio>
         </Radio.Group>
       </Card.Content>

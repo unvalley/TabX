@@ -31,11 +31,6 @@ const MainContainer = styled.main`
 
 export const Routes = () => {
   const theme = useTheme()
-  const configs: any = useConfigs()
-  const isDark = React.useMemo(() => theme.type === 'dark', [theme.type])
-  const switchTheme = () => {
-    configs.onChange(theme.type === 'dark')
-  }
   const mainBgColor =
     theme.type === 'dark' ? theme.palette.background : '#f2f4fb'
 

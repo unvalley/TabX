@@ -9,6 +9,8 @@ import {Spacer} from '@geist-ui/react'
 type Props = {
   deleteAllTabs: () => void
   version?: string
+  isDark: boolean
+  switchTheme: () => void
 }
 
 export const Settings: React.FC<Props> = (props) => {
@@ -18,7 +20,7 @@ export const Settings: React.FC<Props> = (props) => {
       <Spacer y={1} />
       <Languages />
       <Spacer y={1} />
-      <ColorThemes />
+      <ColorThemes switchTheme={props.switchTheme} isDark={props.isDark} />
       <Spacer y={1} />
       <Versions version={props.version!} />
       <Spacer y={1} />
