@@ -4,7 +4,7 @@ import {useTheme} from '@geist-ui/react'
 import {Colors, Spacing} from '../../constants/styles'
 import {URL} from '../../constants/urls'
 import styled from 'styled-components'
-import {NavLink} from 'react-router-dom'
+import {NavLink, useHistory} from 'react-router-dom'
 
 type Props = {}
 
@@ -47,6 +47,8 @@ export const LeftMenu: React.FC<Props> = () => {
   const theme = useTheme()
   const asideBgColor = theme.palette.accents_2
   const buttonBgColor = theme.palette.accents_2
+
+  const history = useHistory()
 
   return (
     <Aside bgColor={asideBgColor}>

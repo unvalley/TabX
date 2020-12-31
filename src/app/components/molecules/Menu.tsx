@@ -31,6 +31,11 @@ export const Menu: React.FC<Props> = ({label = 'Menu'}: Props) => {
       window.open(url)
     }
 
+    const handleClickDonate = () => {
+      const url = 'https://www.buymeacoffee.com/kirohi'
+      window.open(url)
+    }
+
     return (
       <>
         {/* User Operations */}
@@ -59,7 +64,7 @@ export const Menu: React.FC<Props> = ({label = 'Menu'}: Props) => {
 
         <Popover.Item>
           <Coffee size={ICON_SIZE} />
-          <Item>{t('DONATE')}</Item>
+          <Item onClick={handleClickDonate}>{t('DONATE')}</Item>
         </Popover.Item>
       </>
     )
