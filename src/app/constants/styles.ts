@@ -22,3 +22,8 @@ export const Spacing = {
 
 export const MENU_ICON_SIZE = 20
 export const TAB_LINKS_ELEM_SIZE = 15
+
+export const Themes = {
+  LIGHT: 'light',
+  DARK: 'dark',
+}

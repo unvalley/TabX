@@ -1,12 +1,10 @@
-import {Card, Code, Divider, Radio, Spacer, Text, Toggle} from '@geist-ui/react'
+import {Card, Divider, Radio, Spacer, Text} from '@geist-ui/react'
 import {Sun} from '@geist-ui/react-icons'
 import {Moon} from '@geist-ui/react-icons'
-
 import React from 'react'
-
 import {useTranslation} from 'react-i18next'
 import {useRecoilState} from 'recoil'
-import {Colors} from '../../../constants/styles'
+import {Colors, Themes} from '../../../constants/styles'
 import {colorThemeState} from '../../../store'
 
 type Props = {}
@@ -33,12 +31,12 @@ export const ColorThemes: React.VFC<Props> = (props) => {
           useRow
           onChange={(val) => handleChange(val)}
         >
-          <Radio value="light">
+          <Radio value={Themes.LIGHT}>
             <Sun color={Colors.SUN_LIGHT} />
             <Spacer x={0.2} />
             Light
           </Radio>
-          <Radio value="dark">
+          <Radio value={Themes.DARK}>
             <Moon color={Colors.MOON_DARK} />
             <Spacer x={0.2} />
             Dark

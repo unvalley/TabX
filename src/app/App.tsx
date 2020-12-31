@@ -8,7 +8,7 @@ import enJson from './locales/en.json'
 import jaJson from './locales/ja.json'
 import {getAllTabLists} from '../shared/storage'
 import {TabLists} from '../shared/typings'
-import {colorThemeState, sortTabListsState} from './store'
+import {colorThemeState, langState, sortTabListsState} from './store'
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -34,8 +34,14 @@ const myTheme = {
 export const App = () => {
   const setTabLists = useSetRecoilState<TabLists>(sortTabListsState)
   const colorTheme = useRecoilValue(colorThemeState)
+  const lang = useRecoilValue(langState)
 
   React.useEffect(() => {
+    i18n.changeLanguage(lang)
+  }, [lang, i18n])
+
+  React.useEffect(() => {
+    console.log('Rendered')
     const cleanup = async () => {
       const lists = await getAllTabLists()
       setTabLists(lists)

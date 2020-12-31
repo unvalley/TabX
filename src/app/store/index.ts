@@ -1,6 +1,8 @@
 import {getAllTabLists} from '../../shared/storage'
 import {TabLists} from '@shared/typings'
 import {atom, selector} from 'recoil'
+import {Themes} from '../constants/styles'
+import {Lang} from '../constants'
 
 export const tabListsState = atom<TabLists>({
   key: 'tabListsState',
@@ -42,9 +44,23 @@ export const colorThemeState = atom({
     get: () => {
       const theme = localStorage.getItem('theme')
       if (theme === null) {
-        return 'light'
+        return Themes.LIGHT
       }
       return theme
+    },
+  }),
+})
+
+export const langState = atom<string>({
+  key: 'langState',
+  default: selector({
+    key: 'langState/default',
+    get: () => {
+      const lang = localStorage.getItem('lang')
+      if (lang === null) {
+        return Lang.ENGLISH
+      }
+      return lang
     },
   }),
 })
