@@ -5,7 +5,7 @@ import {useTheme} from '@geist-ui/react'
 import {Pin, X} from '@geist-ui/react-icons'
 import {deleteTabLink} from '../../../../shared/storage'
 import {FaviconImage} from '../../../components/atoms/FaviconImage'
-import {Spacing} from '../../../constants/styles'
+import {Spacing, TAB_LINKS_ELEM_SIZE} from '../../../constants/styles'
 import {omitText} from '../../../utils'
 
 type Props = {tabs: Tabs.Tab[]; tabListId: number; createdAt: number}
@@ -74,17 +74,18 @@ export const TabLinks: React.FC<Props> = (props) => {
           </div>
           {mouseOver.hover === true && mouseOver.idx === idx ? (
             <div>
+              {/* TODO: make this molecule */}
               <span
                 style={{cursor: 'pointer'}}
                 onClick={() => onDelete(tab.id!)}
               >
-                <X size={10} />
+                <X size={TAB_LINKS_ELEM_SIZE} />
               </span>
               <span
                 style={{cursor: 'pointer'}}
                 onClick={() => onDelete(tab.id!)}
               >
-                <Pin size={10} />
+                <Pin size={TAB_LINKS_ELEM_SIZE} />
               </span>
             </div>
           ) : (
