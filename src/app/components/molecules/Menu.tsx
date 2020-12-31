@@ -1,4 +1,4 @@
-import {Link, Popover} from '@geist-ui/react'
+import {Popover} from '@geist-ui/react'
 import {
   Coffee,
   Link as LinkIcon,
@@ -7,42 +7,51 @@ import {
   ChevronUpDown,
   Menu as MenuIcon,
 } from '@geist-ui/react-icons'
-
 import React from 'react'
 import {useTranslation} from 'react-i18next'
+import styled from 'styled-components'
+import {Spacing} from '../../constants/styles'
+
+const Item = styled.span`
+  margin-left: ${Spacing['2']} !important;
+  cursor: pointer;
+`
 
 type Props = {label?: string}
 export const Menu: React.FC<Props> = ({label = 'Menu'}: Props) => {
   const [t, i18n] = useTranslation()
 
   const content = () => {
+    const ICON_SIZE = 20
     return (
       <>
         {/* User Operations */}
         <Popover.Item>
-          <LinkIcon />
-          <span>{t('SHARE_LINKS')}</span>
+          <LinkIcon size={ICON_SIZE} />
+          <Item>{t('SHARE_LINKS')}</Item>
         </Popover.Item>
 
         <Popover.Item>
-          <Pin />
-          <span>{t('ONLY_PINNED')}</span>
+          <Pin size={ICON_SIZE} />
+          <Item>{t('ONLY_PINNED')}</Item>
         </Popover.Item>
 
         <Popover.Item>
-          <ChevronUpDown />
-          <span>{t('SORT')}</span>
+          <ChevronUpDown size={ICON_SIZE} />
+          <Item>{t('SORT')}</Item>
         </Popover.Item>
+
+        <Popover.Item line />
 
         {/* Share and Donate */}
-        <Popover.Item line />
         <Popover.Item>
-          <Twitter />
-          <span>{t('TWEET')}</span>
+          <Twitter size={ICON_SIZE} />
+          <Item>{t('TWEET')}</Item>
         </Popover.Item>
+
         <Popover.Item>
-          <Coffee />
-          <span>{t('DONATE')}</span>
+          <Coffee size={ICON_SIZE} />
+          <Item>{t('DONATE')}</Item>
         </Popover.Item>
       </>
     )
