@@ -9,7 +9,7 @@ import enJson from './locales/en.json'
 import jaJson from './locales/ja.json'
 import {getAllTabLists} from '../shared/storage'
 import {TabLists} from '../shared/typings'
-import {tabListsState} from './store'
+import {sortTabListsState} from './store'
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -33,7 +33,7 @@ const myTheme = {
 }
 
 export const App = () => {
-  const setTabLists = useSetRecoilState<TabLists>(tabListsState)
+  const setTabLists = useSetRecoilState<TabLists>(sortTabListsState)
   const [themeType, setThemeType] = React.useState('dark')
 
   React.useEffect(() => {

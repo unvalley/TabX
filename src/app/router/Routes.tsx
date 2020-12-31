@@ -44,11 +44,13 @@ export const Routes = () => {
       <Wrapper bgColor={mainBgColor}>
         <LeftMenu />
         <MainContainer>
-          <Switch>
-            <Route exact path="/" component={List} />
-            <Route path="/masonry" component={Masonry} />
-            <Route path="/settings" component={Settings} />
-          </Switch>
+          <React.Suspense fallback={<div>loading..</div>}>
+            <Switch>
+              <Route exact path="/" component={List} />
+              <Route path="/masonry" component={Masonry} />
+              <Route path="/settings" component={Settings} />
+            </Switch>
+          </React.Suspense>
         </MainContainer>
       </Wrapper>
     </MemoryRouter>

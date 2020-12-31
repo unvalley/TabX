@@ -19,3 +19,5 @@ export const Spacing = {
   '5': '32px',
   '6': '48px',
 } as const
+
+export const MENU_ICON_SIZE = 20
