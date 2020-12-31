@@ -6,22 +6,26 @@ import {useTranslation} from 'react-i18next'
 export const Contributions: React.VFC = (props) => {
   const [t, i18n] = useTranslation()
 
+  const REPO_NAME = 'ia17011/TabX'
+  const BUY_ME_A_COFFEE = 'Buy me a Coffee'
+
   return (
-    <Card style={{margin: '20px 0px'}}>
-      <Card.Content style={{}}>
+    <Card>
+      <Card.Content>
         <Text h4>{t('CONTRIBUTION')}</Text>
       </Card.Content>
-      <Card.Content style={{}}>
+      <Card.Content>
         <div style={{display: 'flex'}}>
           <Button icon={<Github />} type="secondary">
-            ia17011/TabX
+            {REPO_NAME}
           </Button>
+
           <Button
             icon={<Github />}
             type="secondary"
             style={{marginLeft: '12px'}}
           >
-            Buy me a Coffee
+            {BUY_ME_A_COFFEE}
           </Button>
         </div>
       </Card.Content>

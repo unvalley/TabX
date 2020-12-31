@@ -9,11 +9,12 @@ import styled from 'styled-components'
 import {Spacing} from '../constants/styles'
 import {useConfigs} from '../utils/config-context'
 
-const Wrapper = styled(Grid.Container)`
+const Wrapper = styled(Grid.Container)<{bgColor: string}>`
   margin: ${Spacing['3']} 100px;
   display: flex;
   min-height: 100vh;
   position: relative;
+  background-color: ${({bgColor}) => bgColor};
 `
 
 const MainContainer = styled.main`
@@ -35,16 +36,18 @@ export const Routes = () => {
   const switchTheme = () => {
     configs.onChange(theme.type === 'dark')
   }
+  const mainBgColor =
+    theme.type === 'dark' ? theme.palette.background : '#f2f4fb'
 
   return (
     <MemoryRouter>
-      <Wrapper>
+      <Wrapper bgColor={mainBgColor}>
         <LeftMenu />
         <MainContainer>
           <Switch>
             <Route exact path="/" component={List} />
-            <Route path="/settings" component={Settings} />
             <Route path="/masonry" component={Masonry} />
+            <Route path="/settings" component={Settings} />
           </Switch>
         </MainContainer>
       </Wrapper>

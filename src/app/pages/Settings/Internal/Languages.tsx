@@ -11,7 +11,7 @@ export const Languages: React.VFC = (props) => {
   }, [lang, i18n])
 
   return (
-    <Card style={{margin: '20px 0px'}}>
+    <Card>
       <Card.Content>
         <Text h4>{t('LANGUAGE')}</Text>
         <Text>

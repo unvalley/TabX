@@ -5,6 +5,8 @@ export const Colors = {
   BUTTON_TEXT: '#232946', // #232946
   HEADLINE: '#fffffe',
   BUTTON: '#eebbc3', // #eebbc3
+  MOON_DARK: '#16c79a',
+  SUN_LIGHT: '#ff85ac',
 } as const
 
 export const Spacing = {
