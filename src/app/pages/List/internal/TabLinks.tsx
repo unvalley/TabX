@@ -2,10 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 import {Tabs} from 'webextension-polyfill-ts'
 import {useTheme} from '@geist-ui/react'
-import {X} from '@geist-ui/react-icons'
+import {Pin, X} from '@geist-ui/react-icons'
 import {deleteTabLink} from '../../../../shared/storage'
 import {FaviconImage} from '../../../components/atoms/FaviconImage'
-import {Spacing} from '../../../constants/styles'
+import {Spacing, TAB_LINKS_ELEM_SIZE} from '../../../constants/styles'
 import {omitText} from '../../../utils'
 
 type Props = {tabs: Tabs.Tab[]; tabListId: number; createdAt: number}
@@ -26,10 +26,10 @@ const TabLinkButton = styled.a<{bgColor: string; hoverShadow: string}>`
   &:hover {
     box-shadow: ${({hoverShadow}) => hoverShadow};
     opacity: 0.9;
-    transform: translateY(-3px);
   }
 `
 
+// transform: translateY(-3px);
 const Title = styled.span`
   word-break: break-all;
   font-size: 12px;
@@ -40,10 +40,17 @@ const Title = styled.span`
  * - アイコンやタイトルを表示
  */
 export const TabLinks: React.FC<Props> = (props) => {
+  const [mouseOver, setMouseOver] = React.useState({hover: false, idx: 0})
+
   const onDelete = (tabId: number) => {
     deleteTabLink(props.tabListId, tabId)
   }
   const theme = useTheme()
+
+  // useMemoかな
+  const handleMouseOver = (idx: number) => {
+    setMouseOver({hover: true, idx})
+  }
 
   return (
     <>
@@ -54,6 +61,8 @@ export const TabLinks: React.FC<Props> = (props) => {
           target="_blank"
           bgColor={theme.palette.accents_1}
           hoverShadow={theme.expressiveness.shadowSmall}
+          onMouseOver={() => handleMouseOver(idx)}
+          onMouseLeave={() => setMouseOver({hover: false, idx: 0})}
         >
           <span style={{paddingRight: '5px'}}>
             <FaviconImage src={tab.favIconUrl!} size={20} />
@@ -63,11 +72,25 @@ export const TabLinks: React.FC<Props> = (props) => {
               {omitText(tab.title!)(80)('...')}
             </Title>
           </div>
-          <div>
-            <span style={{cursor: 'pointer'}} onClick={() => onDelete(tab.id!)}>
-              <X />
-            </span>
-          </div>
+          {mouseOver.hover === true && mouseOver.idx === idx ? (
+            <div>
+              {/* TODO: make this molecule */}
+              <span
+                style={{cursor: 'pointer'}}
+                onClick={() => onDelete(tab.id!)}
+              >
+                <X size={TAB_LINKS_ELEM_SIZE} />
+              </span>
+              <span
+                style={{cursor: 'pointer'}}
+                onClick={() => onDelete(tab.id!)}
+              >
+                <Pin size={TAB_LINKS_ELEM_SIZE} />
+              </span>
+            </div>
+          ) : (
+            <></>
+          )}
         </TabLinkButton>
       ))}
     </>

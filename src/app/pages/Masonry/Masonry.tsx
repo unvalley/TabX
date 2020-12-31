@@ -29,24 +29,26 @@ export const Masonry: React.FC<Props> = (props) => {
   )
 }
 
-const FakeCard = (props: {index: number; data: any; width: number}) => {
-  return (
-    <Card hoverable>
-      <Image src={props.data.ogImageUrl} style={{objectFit: 'cover'}} />
-      <Link
-        href={props.data.url}
-        target="_blank"
-        style={{wordBreak: 'break-all'}}
-      >
-        <Text h5 style={{marginBottom: '0'}}>
-          {props.data.title}
-        </Text>
-      </Link>
-      {props.data.description && (
-        <span style={{margin: '10 0', fontSize: '8px'}}>
-          {omitText(props.data.description)(50)('...')}
-        </span>
-      )}
-    </Card>
-  )
-}
+const FakeCard = React.memo(
+  (props: {index: number; data: any; width: number}) => {
+    return (
+      <Card hoverable>
+        <Image src={props.data.ogImageUrl} style={{objectFit: 'cover'}} />
+        <Link
+          href={props.data.url}
+          target="_blank"
+          style={{wordBreak: 'break-all'}}
+        >
+          <Text h5 style={{marginBottom: '0'}}>
+            {props.data.title}
+          </Text>
+        </Link>
+        {props.data.description && (
+          <span style={{margin: '10 0', fontSize: '8px'}}>
+            {omitText(props.data.description)(50)('...')}
+          </span>
+        )}
+      </Card>
+    )
+  },
+)

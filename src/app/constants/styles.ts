@@ -21,3 +21,4 @@ export const Spacing = {
 } as const
 
 export const MENU_ICON_SIZE = 20
+export const TAB_LINKS_ELEM_SIZE = 15
