@@ -1,12 +1,15 @@
 import * as React from 'react'
 import {Routes} from './router/Routes'
-import {GeistProvider, CssBaseline, GeistUIThemes} from '@geist-ui/react'
+import {GeistProvider, CssBaseline} from '@geist-ui/react'
 import {ThemeConfigProvider} from './utils/theme-config-provider'
-import {RecoilRoot} from 'recoil'
+import {useSetRecoilState} from 'recoil'
 import i18n from 'i18next'
 import {initReactI18next} from 'react-i18next'
 import enJson from './locales/en.json'
 import jaJson from './locales/ja.json'
+import {getAllTabLists} from '../shared/storage'
+import {TabLists} from '../shared/typings'
+import {tabListsState} from './store'
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -30,7 +33,17 @@ const myTheme = {
 }
 
 export const App = () => {
+  const setTabLists = useSetRecoilState<TabLists>(tabListsState)
   const [themeType, setThemeType] = React.useState('dark')
+
+  React.useEffect(() => {
+    const cleanup = async () => {
+      const lists = await getAllTabLists()
+      setTabLists(lists)
+    }
+    cleanup()
+  }, [])
+
   const changeHandle = React.useCallback((last: string) => {
     const next = last === 'dark' ? 'light' : 'dark'
     setThemeType(next)
@@ -47,13 +60,11 @@ export const App = () => {
   }, [themeType])
 
   return (
-    <RecoilRoot>
-      <GeistProvider theme={{...myTheme, type: themeType}}>
-        <CssBaseline />
-        <ThemeConfigProvider onChange={changeHandle}>
-          <Routes />
-        </ThemeConfigProvider>
-      </GeistProvider>
-    </RecoilRoot>
+    <GeistProvider theme={{...myTheme, type: themeType}}>
+      <CssBaseline />
+      <ThemeConfigProvider onChange={changeHandle}>
+        <Routes />
+      </ThemeConfigProvider>
+    </GeistProvider>
   )
 }
