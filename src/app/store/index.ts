@@ -34,3 +34,17 @@ export const sortTabListsState = selector<TabLists>({
   },
   set: async ({get, set}, newValue) => set(tabListsState, newValue),
 })
+
+export const colorThemeState = atom({
+  key: 'colorThemeState',
+  default: selector({
+    key: 'colorThemeState/default',
+    get: () => {
+      const theme = localStorage.getItem('theme')
+      if (theme === null) {
+        return 'light'
+      }
+      return theme
+    },
+  }),
+})

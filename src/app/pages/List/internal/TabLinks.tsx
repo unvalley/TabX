@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import {Tabs} from 'webextension-polyfill-ts'
-import {useTheme} from '@geist-ui/react'
+import {Code, Tooltip, useTheme} from '@geist-ui/react'
 import {Pin, X} from '@geist-ui/react-icons'
 import {deleteTabLink} from '../../../../shared/storage'
 import {FaviconImage} from '../../../components/atoms/FaviconImage'
@@ -72,21 +72,26 @@ export const TabLinks: React.FC<Props> = (props) => {
               {omitText(tab.title!)(80)('...')}
             </Title>
           </div>
+          {/* TODO: make function */}
           {mouseOver.hover === true && mouseOver.idx === idx ? (
             <div>
               {/* TODO: make this molecule */}
-              <span
-                style={{cursor: 'pointer'}}
-                onClick={() => onDelete(tab.id!)}
-              >
-                <X size={TAB_LINKS_ELEM_SIZE} />
-              </span>
-              <span
-                style={{cursor: 'pointer'}}
-                onClick={() => onDelete(tab.id!)}
-              >
-                <Pin size={TAB_LINKS_ELEM_SIZE} />
-              </span>
+              <Tooltip text={<>Pin</>}>
+                <span
+                  style={{cursor: 'pointer'}}
+                  onClick={() => onDelete(tab.id!)}
+                >
+                  <Pin size={TAB_LINKS_ELEM_SIZE} />
+                </span>
+              </Tooltip>
+              <Tooltip text={<>Delete</>}>
+                <span
+                  style={{cursor: 'pointer'}}
+                  onClick={() => onDelete(tab.id!)}
+                >
+                  <X size={TAB_LINKS_ELEM_SIZE} />
+                </span>
+              </Tooltip>
             </div>
           ) : (
             <></>

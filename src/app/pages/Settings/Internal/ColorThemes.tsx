@@ -5,17 +5,18 @@ import {Moon} from '@geist-ui/react-icons'
 import React from 'react'
 
 import {useTranslation} from 'react-i18next'
+import {useRecoilState} from 'recoil'
 import {Colors} from '../../../constants/styles'
+import {colorThemeState} from '../../../store'
 
 type Props = {}
 export const ColorThemes: React.VFC<Props> = (props) => {
   const [t, i18n] = useTranslation()
+  const [colorTheme, setColorTheme] = useRecoilState(colorThemeState)
 
   const handleChange = (val: React.ReactText) => {
-    const localType = localStorage.getItem('theme')
-    if (localType === null) return
-    const next = localType === 'dark' ? 'light' : 'dark'
-    localStorage.setItem('theme', next)
+    setColorTheme(val.toString())
+    localStorage.setItem('theme', val.toString())
   }
 
   return (
@@ -27,15 +28,19 @@ export const ColorThemes: React.VFC<Props> = (props) => {
       <Divider y={0} />
 
       <Card.Content>
-        <Radio.Group value="1" useRow onChange={(val) => handleChange(val)}>
-          <Radio value="1">
+        <Radio.Group
+          value={colorTheme}
+          useRow
+          onChange={(val) => handleChange(val)}
+        >
+          <Radio value="light">
             <Sun color={Colors.SUN_LIGHT} />
-            <Spacer x={0.5} />
+            <Spacer x={0.2} />
             Light
           </Radio>
-          <Radio value="2">
+          <Radio value="dark">
             <Moon color={Colors.MOON_DARK} />
-            <Spacer x={0.5} />
+            <Spacer x={0.2} />
             Dark
           </Radio>
         </Radio.Group>
