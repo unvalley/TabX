@@ -23,6 +23,14 @@ export const Menu: React.FC<Props> = ({label = 'Menu'}: Props) => {
 
   const content = () => {
     const ICON_SIZE = 20
+
+    const handleClickTweet = () => {
+      const text = t('TWEET_MESSAGE')
+      const webstoreUrl = 'https://chrome.google.com/webstore'
+      const url = `https://twitter.com/share?text=${text}&url=${webstoreUrl}`
+      window.open(url)
+    }
+
     return (
       <>
         {/* User Operations */}
@@ -46,7 +54,7 @@ export const Menu: React.FC<Props> = ({label = 'Menu'}: Props) => {
         {/* Share and Donate */}
         <Popover.Item>
           <Twitter size={ICON_SIZE} />
-          <Item>{t('TWEET')}</Item>
+          <Item onClick={handleClickTweet}>{t('TWEET')}</Item>
         </Popover.Item>
 
         <Popover.Item>
