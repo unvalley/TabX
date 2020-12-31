@@ -9,11 +9,9 @@ export const Languages: React.VFC = (props) => {
   const [t, i18n] = useTranslation()
   const [lang, setLang] = useRecoilState(langState)
 
-  const handleChange = async (val: React.ReactText) => {
-    console.log('val', val)
-    await i18n.changeLanguage(val.toString())
+  const handleChange = (val: React.ReactText) => {
+    i18n.changeLanguage(lang)
     setLang(val.toString())
-    console.log('lang', lang)
     localStorage.setItem('lang', val.toString())
   }
 

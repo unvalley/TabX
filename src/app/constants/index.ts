@@ -1,4 +1,4 @@
 export const Lang = {
-  ENGLISH: 'English',
-  JAPANESE: 'Japanese',
+  ENGLISH: 'en',
+  JAPANESE: 'ja',
 } as const
