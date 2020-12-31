@@ -6,7 +6,10 @@ export const tabListsState = atom<TabLists>({
   key: 'tabListsState',
   default: selector({
     key: 'tabListsState/Default',
-    get: async () => await getAllTabLists(),
+    get: async () => {
+      const lists = await getAllTabLists()
+      return lists
+    },
   }),
 })
 
