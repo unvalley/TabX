@@ -34,8 +34,12 @@ const myTheme = {
 export const App = () => {
   const setTabLists = useSetRecoilState<TabLists>(sortTabListsState)
   const colorTheme = useRecoilValue(colorThemeState)
+  //   React.useEffect(() => {
+  //     i18n.changeLanguage(lang)
+  //   }, [lang, i18n])
 
   React.useEffect(() => {
+    console.log('Rendered')
     const cleanup = async () => {
       const lists = await getAllTabLists()
       setTabLists(lists)
