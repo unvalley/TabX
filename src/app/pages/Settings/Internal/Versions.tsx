@@ -3,7 +3,7 @@ import React from 'react'
 
 type Props = {version: string}
 export const Versions: React.VFC<Props> = (props) => (
-  <Card style={{margin: '20px 0px'}}>
+  <Card>
     <Card.Content style={{display: 'flex'}}>
       <Text h4>TabX Version</Text>
       <Tag style={{alignContent: 'flex-end', marginLeft: '400px'}}>

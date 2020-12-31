@@ -1,12 +1,13 @@
 import {Link, Popover} from '@geist-ui/react'
 import {
-  Search,
   Coffee,
   Link as LinkIcon,
   Twitter,
   Pin,
   ChevronUpDown,
+  Menu as MenuIcon,
 } from '@geist-ui/react-icons'
+
 import React from 'react'
 import {useTranslation} from 'react-i18next'
 
@@ -47,5 +48,14 @@ export const Menu: React.FC<Props> = ({label = 'Menu'}: Props) => {
     )
   }
 
-  return <Popover content={content}>{label}</Popover>
+  return (
+    <Popover
+      content={content}
+      style={{
+        cursor: 'pointer',
+      }}
+    >
+      <MenuIcon />
+    </Popover>
+  )
 }

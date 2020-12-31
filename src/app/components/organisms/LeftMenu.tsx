@@ -1,5 +1,6 @@
 import React from 'react'
-import {Settings, Layers, AlignJustify, Grid} from '@geist-ui/react-icons'
+import {Settings, AlignJustify, Grid} from '@geist-ui/react-icons'
+import {useTheme} from '@geist-ui/react'
 import {Colors, Spacing} from '../../constants/styles'
 import {URL} from '../../constants/urls'
 import styled from 'styled-components'
@@ -7,11 +8,12 @@ import {NavLink} from 'react-router-dom'
 
 type Props = {}
 
-const SwitchButton = styled(NavLink).attrs({
+// TODO: fix backgroundColor and attrs props
+const SwitchButton = styled(NavLink).attrs(({activeBgColor}: any) => ({
   activeStyle: {borderRadius: '16px', backgroundColor: '#fff'},
-})`
-  text-decoration: none;
-  background-color: ${Colors.BUTTON};
+}))<{bgColor: string}>`
+  color: ${Colors.MOON_DARK};
+  background-color: ${({bgColor}) => bgColor};
   outline: ${Spacing[0.5]} solid transparent;
   outline-offset: 2px;
   justify-content: center;
@@ -22,14 +24,15 @@ const SwitchButton = styled(NavLink).attrs({
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 0.5);
   transition-duration: 0.1s;
   &:hover {
-    opacity: 0.8;
+    opacity: 0.75;
     transition: all 0.8s ease;
   }
 `
-const Aside = styled.aside`
+
+const Aside = styled.aside<{bgColor: string}>`
+  background-color: ${({bgColor}) => bgColor};
   position: fixed;
   padding: ${Spacing['0.5']} ${Spacing['1']};
-  background-color: ${Colors.PARAGRAPH};
   display: flex;
   min-height: 100vh;
   align-items: streach;
@@ -41,21 +44,25 @@ const Nav = styled.nav`
 `
 
 export const LeftMenu: React.FC<Props> = () => {
+  const theme = useTheme()
+  const asideBgColor = theme.palette.accents_2
+  const buttonBgColor = theme.palette.accents_2
+
   return (
-    <Aside>
+    <Aside bgColor={asideBgColor}>
       <Nav>
         {/* RootButton */}
-        <SwitchButton exact to={URL.ROOT}>
+        <SwitchButton exact to={URL.ROOT} bgColor={buttonBgColor}>
           <AlignJustify />
         </SwitchButton>
 
         {/* MasonryButton */}
-        <SwitchButton exact to={URL.MASONRY}>
+        <SwitchButton exact to={URL.MASONRY} bgColor={buttonBgColor}>
           <Grid />
         </SwitchButton>
 
         {/* SettingsButton */}
-        <SwitchButton to={URL.SETTINGS}>
+        <SwitchButton to={URL.SETTINGS} bgColor={buttonBgColor}>
           <Settings />
         </SwitchButton>
       </Nav>

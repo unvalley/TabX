@@ -1,6 +1,6 @@
 import * as React from 'react'
 import {Routes} from './router/Routes'
-import {GeistProvider, CssBaseline} from '@geist-ui/react'
+import {GeistProvider, CssBaseline, GeistUIThemes} from '@geist-ui/react'
 import {ThemeConfigProvider} from './utils/theme-config-provider'
 import {RecoilRoot} from 'recoil'
 import i18n from 'i18next'
@@ -23,10 +23,16 @@ i18n.use(initReactI18next).init({
   returnEmptyString: false,
 })
 
+const myTheme = {
+  pallete: {
+    background: '#eeb',
+  },
+}
+
 export const App = () => {
   const [themeType, setThemeType] = React.useState('dark')
-  const changeHandle = React.useCallback((isDark: any) => {
-    const next = isDark ? 'light' : 'dark'
+  const changeHandle = React.useCallback((last: string) => {
+    const next = last === 'dark' ? 'light' : 'dark'
     setThemeType(next)
   }, [])
 
@@ -42,7 +48,7 @@ export const App = () => {
 
   return (
     <RecoilRoot>
-      <GeistProvider theme={{type: themeType}}>
+      <GeistProvider theme={{...myTheme, type: themeType}}>
         <CssBaseline />
         <ThemeConfigProvider onChange={changeHandle}>
           <Routes />
