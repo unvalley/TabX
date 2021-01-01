@@ -3,22 +3,6 @@ import {TabLists, TabWithMeta} from '@shared/typings'
 import {atom, selector} from 'recoil'
 import {Themes} from '../constants/styles'
 import {Lang} from '../constants'
-import {Tabs} from 'webextension-polyfill-ts'
-
-export const tabsState = atom<(Tabs.Tab | TabWithMeta)[]>({
-  key: 'tabsState',
-  default: selector({
-    key: 'tabsState/Default',
-    get: async ({get}) => {
-      const lists = await get(tabListsState)
-      const tabs = [] as (Tabs.Tab | TabWithMeta)[]
-      lists.map((l) => {
-        l.tabs.forEach((t) => tabs.push(t))
-      })
-      return tabs
-    },
-  }),
-})
 
 export const tabListsState = atom<TabLists>({
   key: 'tabListsState',
