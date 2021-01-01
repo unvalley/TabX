@@ -1,5 +1,5 @@
-import {Row, Col, Text} from '@geist-ui/react'
-import {XSquare, Share, Heart} from '@geist-ui/react-icons'
+import {Col, Row, Text} from '@geist-ui/react'
+import {Heart, Share, XSquare} from '@geist-ui/react-icons'
 import React from 'react'
 
 type Props = {title: string; tabListIdx: number}
