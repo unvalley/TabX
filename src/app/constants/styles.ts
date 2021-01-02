@@ -7,6 +7,7 @@ export const Colors = {
   BUTTON: '#eebbc3', // #eebbc3
   MOON_DARK: '#16c79a',
   SUN_LIGHT: '#ff85ac',
+  SHADOW: '#2d81b121',
 } as const
 
 export const Spacing = {
@@ -22,6 +23,7 @@ export const Spacing = {
 
 export const MENU_ICON_SIZE = 20
 export const TAB_LINKS_ELEM_SIZE = 15
+export const SHOW_TAB_TITLE_LENGTH = 50
 
 export const Themes = {
   LIGHT: 'light',

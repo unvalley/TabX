@@ -1,5 +1,6 @@
 import {Col, Row, Text} from '@geist-ui/react'
 import * as React from 'react'
+import {useTranslation} from 'react-i18next'
 import {TabLists} from '../../../shared/typings'
 import {SearchBox} from '../../components/molecules/SearchBox'
 import {Menu} from '../../components/organisms/Menu'
@@ -33,10 +34,15 @@ const Header: React.VFC<Omit<Props, 'tabLists'>> = (props) => (
 )
 
 export const List: React.FC<Props> = (props) => {
+  const [t, i18n] = useTranslation()
   return (
     <>
       <Header query={props.query} setQuery={props.setQuery} />
-      <MemoizedTabGroups tabLists={props.tabLists} />
+      {props.tabLists.length > 0 ? (
+        <MemoizedTabGroups tabLists={props.tabLists} />
+      ) : (
+        <h4>{t('TAB_LISTS_EMPTY_MESSAGE')}</h4>
+      )}
     </>
   )
 }

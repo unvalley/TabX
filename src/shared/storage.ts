@@ -13,7 +13,9 @@ export const getAllRandomTabLists = async () => {
 }
 
 export const getAllTabLists = async () =>
-  get('lists').then(({lists}) => lists as TabLists)
+  await get('lists').then(({lists}) =>
+    Array.isArray(lists) ? (lists as TabLists) : [],
+  )
 
 export const setLists = (lists: TabLists) => {
   const filterdLists = lists.filter((list) => list.tabs)

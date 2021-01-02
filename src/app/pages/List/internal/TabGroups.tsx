@@ -1,5 +1,4 @@
 import React from 'react'
-import {useTranslation} from 'react-i18next'
 import styled from 'styled-components'
 import {TabLists} from '../../../../shared/typings'
 import {TabLinks} from './TabLinks'
@@ -16,11 +15,11 @@ const TabListElem = styled.section`
  * @param props
  */
 export const TabGroups: React.FC<Props> = (props) => {
-  const [t, i18n] = useTranslation()
   return (
     <>
       {props.tabLists.map((tabList, idx) => (
-        <TabListElem key={idx}>
+        <TabListElem key={tabList.id!}>
+          <h4>{tabList.title!}</h4>
           <TabLinks
             tabs={tabList.tabs}
             tabListId={tabList.id!}

@@ -1,10 +1,10 @@
-import React from 'react'
-import {Settings, AlignJustify, Grid} from '@geist-ui/react-icons'
 import {useTheme} from '@geist-ui/react'
+import {AlignJustify, Grid, Settings} from '@geist-ui/react-icons'
+import React from 'react'
+import {NavLink, useHistory} from 'react-router-dom'
+import styled from 'styled-components'
 import {Colors, Spacing} from '../../constants/styles'
 import {URL} from '../../constants/urls'
-import styled from 'styled-components'
-import {NavLink, useHistory} from 'react-router-dom'
 
 type Props = {}
 

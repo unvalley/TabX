@@ -4,18 +4,16 @@ import styled from 'styled-components'
 import {Tabs} from 'webextension-polyfill-ts'
 import {deleteTabLink} from '../../../../shared/storage'
 import {FaviconImage} from '../../../components/atoms/FaviconImage'
-import {Spacing} from '../../../constants/styles'
+import {Colors, SHOW_TAB_TITLE_LENGTH, Spacing} from '../../../constants/styles'
 import {omitText} from '../../../utils'
 import {TabLinkOps} from './TabLinkOps'
 
-type Props = {tabs: Tabs.Tab[]; tabListId: number; createdAt: number}
-
-const Block = styled.span<{bgColor: string; hoverShadow: string}>`
+const TabLinkWrapper = styled.span<{bgColor: string; hoverShadow: string}>`
   margin: ${Spacing['0.5']};
   padding: ${Spacing['0.5']} ${Spacing['3']};
   cursor: pointer;
   border-radius: 33px;
-  box-shadow: 0px 20px 35px -16px #2d81b121;
+  box-shadow: 0px 20px 35px -16px ${Colors.SHADOW};
   background-color: ${({bgColor}) => bgColor};
   justify-content: center;
   display: inline-flex;
@@ -42,48 +40,49 @@ const Title = styled.span`
   font-size: 12px;
 `
 
+type Props = {tabs: Tabs.Tab[]; tabListId: number; createdAt: number}
 /**
  * TabGroupsの要素
  * - アイコンやタイトルを表示
  */
 export const TabLinks: React.FC<Props> = (props) => {
   const [mouseOver, setMouseOver] = React.useState({hover: false, idx: 0})
-
-  const handleDelete = (tabId: number) => {
-    alert('aa')
-    deleteTabLink(props.tabListId, tabId)
-  }
   const theme = useTheme()
 
-  // useMemoかな
   const handleMouseOver = (idx: number) => {
     setMouseOver({hover: true, idx})
   }
 
-  const shouldShowOps = (idx: number) =>
+  const handleDelete = async (tabId: number) => {
+    await deleteTabLink(props.tabListId, tabId)
+  }
+
+  const isHoverd = (idx: number) =>
     mouseOver.hover === true && mouseOver.idx === idx
 
   return (
     <>
       {props.tabs.map((tab, idx) => (
-        <Block
+        <TabLinkWrapper
+          key={tab.id!}
           hoverShadow={theme.expressiveness.shadowSmall}
           onMouseOver={() => handleMouseOver(idx)}
           onMouseLeave={() => setMouseOver({hover: false, idx: 0})}
           bgColor={theme.palette.accents_1}
         >
-          <TabLinkButton key={idx} href={tab.url} target="_blank">
+          <TabLinkButton href={tab.url} target="_blank">
             <span style={{paddingRight: '5px'}}>
               <FaviconImage src={tab.favIconUrl!} size={20} />
             </span>
-            <Title onClick={() => console.log('title')}>
-              {omitText(tab.title!)(80)('...')}
-            </Title>
+            <Title>{omitText(tab.title!)(SHOW_TAB_TITLE_LENGTH)('...')}</Title>
           </TabLinkButton>
-          {shouldShowOps(idx) && (
-            <TabLinkOps onDelete={handleDelete} tab={tab} />
-          )}
-        </Block>
+          {/* Ops show when the tab is hoverd */}
+          <TabLinkOps
+            tabId={tab.id!}
+            handleDelete={handleDelete}
+            shouldShow={isHoverd(idx)}
+          />
+        </TabLinkWrapper>
       ))}
     </>
   )

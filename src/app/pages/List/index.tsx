@@ -1,9 +1,8 @@
-import {Spinner} from '@geist-ui/react'
 import Fuse from 'fuse.js'
 import React from 'react'
 import {useRecoilValue} from 'recoil'
 import {TabLists} from '../../../shared/typings'
-import {Spacing} from '../../constants/styles'
+import {Load} from '../../components/atoms/Load'
 import {sortTabListsState} from '../../store'
 import {List as Component} from './List'
 
@@ -29,9 +28,9 @@ export const List: React.FC = () => {
 
   const searchResults = fuzzySearch(query)(tabLists)
 
-  return tabLists !== [] ? (
+  return tabLists ? (
     <Component tabLists={searchResults} query={query} setQuery={setQuery} />
   ) : (
-    <Spinner size="large" style={{margin: `${Spacing[5]} auto`}} />
+    <Load />
   )
 }
