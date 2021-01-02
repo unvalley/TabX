@@ -1,6 +1,5 @@
 import {Card, Divider, Radio, Spacer, Text} from '@geist-ui/react'
-import {Sun} from '@geist-ui/react-icons'
-import {Moon} from '@geist-ui/react-icons'
+import {Moon, Sun} from '@geist-ui/react-icons'
 import React from 'react'
 import {useTranslation} from 'react-i18next'
 import {useRecoilState} from 'recoil'

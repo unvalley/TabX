@@ -6,6 +6,12 @@ import {zip} from './utils/util'
 const get = (key: string) => browser.storage.local.get(key)
 const set = (obj: object) => browser.storage.local.set(obj)
 
+// for Testing
+export const getAllRandomTabLists = async () => {
+  // TODO: create mock data
+  return [] as TabLists
+}
+
 export const getAllTabLists = async () =>
   get('lists').then(({lists}) => lists as TabLists)
 

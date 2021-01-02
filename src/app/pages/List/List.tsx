@@ -19,6 +19,7 @@ const Header: React.VFC<Omit<Props, 'tabLists'>> = (props) => (
   <Row>
     {/* Left */}
     <Col span={16}>
+      {/* TODO: need left space 8px */}
       <SearchBox query={props.query} onChange={props.setQuery} />
     </Col>
     {/* Right */}

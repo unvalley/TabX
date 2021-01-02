@@ -1,0 +1,13 @@
+diff --git a/node_modules/@geist-ui/react/esm/styles/themes/dark.js b/node_modules/@geist-ui/react/esm/styles/themes/dark.js
+index 9ce6920..dcfeabd 100644
+--- a/node_modules/@geist-ui/react/esm/styles/themes/dark.js
++++ b/node_modules/@geist-ui/react/esm/styles/themes/dark.js
+@@ -11,7 +11,7 @@ export var palette = {
+   accents_8: '#fafafa',
+ 
+   /* eslint-enable camelcase */
+-  background: '#000',
++  background: '#171717',
+   foreground: '#fff',
+   selection: '#f81ce5',
+   secondary: '#888',
