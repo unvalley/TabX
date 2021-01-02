@@ -15,11 +15,12 @@ const TabListElem = styled.section`
  * @param props
  */
 export const TabGroups: React.FC<Props> = (props) => {
+  const shouldShowTabCounts = false
   return (
     <>
       {props.tabLists.map((tabList, idx) => (
         <TabListElem key={tabList.id!}>
-          <h4>{tabList.title!}</h4>
+          {shouldShowTabCounts ? <h4>{tabList.tabs.length} Tabs</h4> : <></>}
           <TabLinks
             tabs={tabList.tabs}
             tabListId={tabList.id!}

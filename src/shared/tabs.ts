@@ -40,6 +40,7 @@ const isValidTab = (tab: Tabs.Tab) => {
 }
 
 const storeTabs = async (tabs: Tabs.Tab[]) => {
+  if (tabs.length === 0) return
   const newList = createNewTabList({tabs})
 
   try {
@@ -57,10 +58,12 @@ const storeTabs = async (tabs: Tabs.Tab[]) => {
 
 export const storeAllTabs = async () => {
   const tabs = await getAllTabsInCurrentWindow()
-  if (tabs.length === 0) return
   const sanitizedTabs = tabs.filter(isValidTab)
+  console.log(sanitizedTabs.length)
 
-  await Promise.all([openTabLists(), storeTabs(sanitizedTabs)]).then((res) =>
-    Storage.updateTabListElemWithMeta(res[1].id),
+  await Promise.all([openTabLists(), storeTabs(sanitizedTabs)]).then(
+    (res) =>
+      // NOTE: fetch decription and ogImageUrl from URL
+      res[1] && Storage.updateTabListElemWithMeta(res[1].id),
   )
 }
