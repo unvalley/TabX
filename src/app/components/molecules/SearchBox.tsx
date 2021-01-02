@@ -4,7 +4,7 @@ import React from 'react'
 
 type Props = {
   query: string
-  onChange: (e: any) => void
+  onChange: (e: string) => void
 }
 
 export const SearchBox: React.VFC<Props> = (props) => (

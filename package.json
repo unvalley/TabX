@@ -7,7 +7,7 @@
     "dev": "webpack --config webpack.dev.js --watch",
     "lint": "eslint --fix",
     "lint:css": "stylelint src/**/*.tsx",
-    "i18next-extract": "NODE_ENV=development babel './src/**/*.{js,jsx,ts,tsx}'"
+    "postinstall": "patch-package"
   },
   "author": "Hiroki Ihoriya",
   "license": "MIT",
@@ -47,6 +47,8 @@
     "masonic": "^3.3.10",
     "mini-css-extract-plugin": "^1.2.1",
     "node-sass": "^4.13.1",
+    "patch-package": "^6.2.2",
+    "postinstall-postinstall": "^2.1.0",
     "react-i18next": "^11.8.5",
     "react-router-dom": "^5.2.0",
     "react-use": "^15.3.4",

@@ -1,10 +1,10 @@
-import React from 'react'
-import {Tabs} from './Internal/Tabs'
-import {Languages} from './Internal/Languages'
-import {Contributions} from './Internal/Contributions'
-import {Versions} from './Internal/Versions'
-import {ColorThemes} from './Internal/ColorThemes'
 import {Spacer} from '@geist-ui/react'
+import React from 'react'
+import {ColorThemes} from './Internal/ColorThemes'
+import {Contributions} from './Internal/Contributions'
+import {Languages} from './Internal/Languages'
+import {Tabs} from './Internal/Tabs'
+import {Versions} from './Internal/Versions'
 
 type Props = {
   deleteAllTabs: () => void
