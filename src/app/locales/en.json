@@ -9,6 +9,7 @@
   "DELETE_MESSAGE": "Are you sure you want to delete?",
   "COLOR_THEMES": "Color Themes",
   "CONTRIBUTION": "Contribution",
+  "SETTING_SHOW_TAB_GROUP_COUNT": "Show tab group count",
 
   "TOTAL_TAB": "Total Tabs",
   "TAB_LISTS_EMPTY_MESSAGE": "Congrats! Here is no Tabs 🎉 Click TabX chrome icon, it stores opend tabs",

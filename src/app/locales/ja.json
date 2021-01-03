@@ -1,14 +1,16 @@
 {
   "----SETTINGS----": "",
-  "LANGUAGE": "日本語",
+  "LANGUAGE": "言語",
   "CURRENT_LANGUAGE": "現在の言語",
   "TABS": "タブ",
   "DANGER_ZONE": "Danger Zone",
   "DANGER_ZONE_MESSAGE": "タブを全て消去すると，元に戻すことはできません",
-  "DELETE_ALL_TABS": "全てのタブを消去する",
-  "DELETE_MESSAGE": "本当に消去します！",
+  "DELETE_ALL_TABS": "全て消去する",
+  "DELETE_MESSAGE": "️本当に消去します!",
   "COLOR_THEMES": "カラーテーマ",
   "CONTRIBUTION": "貢献する",
+
+  "SETTING_SHOW_TAB_GROUP_COUNT": "グループ内のタブ数を表示する",
 
   "TOTAL_TAB": "合計タブ数",
   "TAB_LISTS_EMPTY_MESSAGE": "現在タブはありません。Congrats! 🎉",

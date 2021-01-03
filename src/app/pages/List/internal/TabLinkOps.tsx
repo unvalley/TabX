@@ -1,3 +1,4 @@
+import {useTheme} from '@geist-ui/react'
 import {X} from '@geist-ui/react-icons'
 import React from 'react'
 import styled from 'styled-components'
@@ -10,22 +11,29 @@ const OpsWrapper = styled.section<{opacity: number}>`
 
 const OpsElement = styled.span<{bgColor: string}>`
   cursor: pointer;
-  font-size: 10px;
+  font-size: 12px;
   padding: ${Spacing['0.5']};
+  margin-left: 2px;
   border-radius: 33px;
   z-index: 2;
+  &:hover {
+    background-color: ${({bgColor}) => bgColor};
+    box-shadow: 10;
+    opacity: 0.9;
+  }
 `
 
 type Props = {
   tabId: number
   handleDelete: (tabId: number) => Promise<void>
-  shouldShow?: boolean
+  shouldShow: boolean
 }
 export const TabLinkOps: React.FC<Props> = (props) => {
+  const theme = useTheme()
   return (
     <OpsWrapper opacity={props.shouldShow ? 10 : 0}>
       <OpsElement
-        bgColor={'yellow'}
+        bgColor={theme.palette.accents_2}
         onClick={() => props.handleDelete(props.tabId)}
       >
         <X size={TAB_LINKS_ELEM_SIZE} />

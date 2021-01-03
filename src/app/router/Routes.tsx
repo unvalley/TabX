@@ -1,13 +1,12 @@
-import React from 'react'
-import {MemoryRouter, Switch, Route} from 'react-router-dom'
-import {List} from '../pages/List'
-import {Settings} from '../pages/Settings'
-import {Masonry} from '../pages/Masonry'
 import {Grid, useTheme} from '@geist-ui/react'
-import {LeftMenu} from '../components/organisms/LeftMenu'
+import React from 'react'
+import {MemoryRouter, Route, Switch} from 'react-router-dom'
 import styled from 'styled-components'
+import {LeftMenu} from '../components/organisms/LeftMenu'
 import {Spacing} from '../constants/styles'
-import {useConfigs} from '../utils/config-context'
+import {List} from '../pages/List'
+import {Masonry} from '../pages/Masonry'
+import {Settings} from '../pages/Settings'
 
 const Wrapper = styled(Grid.Container)<{bgColor: string}>`
   margin: ${Spacing['3']} 100px;
@@ -18,8 +17,8 @@ const Wrapper = styled(Grid.Container)<{bgColor: string}>`
 `
 
 const MainContainer = styled.main`
-  margin: ${Spacing['6']} auto;
-  max-width: 80%;
+  margin: ${Spacing['5']} auto;
+  max-width: 85%;
   flex: 1 1 0%;
   height: 100%;
   order: 2;
@@ -31,27 +30,26 @@ const MainContainer = styled.main`
 
 export const Routes = () => {
   const theme = useTheme()
-  const configs: any = useConfigs()
-  const isDark = React.useMemo(() => theme.type === 'dark', [theme.type])
-  const switchTheme = () => {
-    configs.onChange(theme.type === 'dark')
-  }
   const mainBgColor =
     theme.type === 'dark' ? theme.palette.background : '#f2f4fb'
 
   return (
     <MemoryRouter>
       <Wrapper bgColor={mainBgColor}>
-        <LeftMenu />
-        <MainContainer>
-          <React.Suspense fallback={<div>loading..</div>}>
-            <Switch>
-              <Route exact path="/" component={List} />
-              <Route path="/masonry" component={Masonry} />
-              <Route path="/settings" component={Settings} />
-            </Switch>
-          </React.Suspense>
-        </MainContainer>
+        <Grid lg={1} md={1} xs={4}>
+          <LeftMenu />
+        </Grid>
+        <Grid lg={23} md={23} xs={20}>
+          <MainContainer>
+            <React.Suspense fallback={<div>loading..</div>}>
+              <Switch>
+                <Route exact path="/" component={List} />
+                <Route path="/masonry" component={Masonry} />
+                <Route path="/settings" component={Settings} />
+              </Switch>
+            </React.Suspense>
+          </MainContainer>
+        </Grid>
       </Wrapper>
     </MemoryRouter>
   )

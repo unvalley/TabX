@@ -19,9 +19,6 @@ export const Languages: React.VFC = (props) => {
     <Card>
       <Card.Content>
         <Text h4>{t('LANGUAGE')}</Text>
-        <Text>
-          {t('CURRENT_LANGUAGE')} {lang}
-        </Text>
       </Card.Content>
       <Divider y={0} />
       <Card.Content>

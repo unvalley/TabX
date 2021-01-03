@@ -4,12 +4,10 @@ import React from 'react'
 import {useRecoilState} from 'recoil'
 import {tabListsSortState} from '../../store'
 import {MenuContent} from '../molecules/MenuContent'
-import {useTranslation} from 'react-i18next'
 
 type Props = {label?: string}
 
 export const Menu: React.VFC<Props> = ({label = 'Menu'}: Props) => {
-  const [t, _] = useTranslation()
   const [sort, setSort] = useRecoilState(tabListsSortState)
   const updateSort = () => {
     setSort(!sort)
@@ -17,7 +15,7 @@ export const Menu: React.VFC<Props> = ({label = 'Menu'}: Props) => {
 
   return (
     <Popover
-      content={<MenuContent t={t} sort={sort} updateSort={updateSort} />}
+      content={<MenuContent sort={sort} updateSort={updateSort} />}
       style={{
         cursor: 'pointer',
       }}
