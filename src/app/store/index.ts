@@ -1,8 +1,25 @@
 import {getAllTabLists} from '../../shared/storage'
 import {TabLists, TabWithMeta} from '@shared/typings'
-import {atom, selector} from 'recoil'
+import {atom, atomFamily, selector} from 'recoil'
 import {Themes} from '../constants/styles'
 import {Lang} from '../constants'
+import * as Storage from '../../shared/storage'
+import tabs from '@geist-ui/react/dist/tabs/tabs'
+
+const browserStorageEffect = () => ({setSelf, trigger}: any) => {
+  // myBrowserStorage.onChange(tabId, tablists => {
+  //     setSelf(tabLists)
+  // })
+  Storage.onChange()
+  console.log('here')
+  if (trigger === 'get') {
+    setSelf(Storage.getAllTabLists())
+  }
+  //   setSelf(newValue)
+  //   return () => {
+  //     myBrowserStorage.onChange(tabId, tabLists)
+  //   }
+}
 
 export const tabListsState = atom<TabLists>({
   key: 'tabListsState',
@@ -16,6 +33,25 @@ export const tabListsState = atom<TabLists>({
       return lists
     },
   }),
+  effects_UNSTABLE: [
+    //   Storage.onChange()
+    browserStorageEffect(),
+  ],
+})
+
+/**
+ * Selector for tabLists stats
+ * Ref: https://recoiljs.org/docs/basic-tutorial/selectors
+ */
+export const tabListsStatsState = selector({
+  key: 'tabListsStatsState',
+  get: async ({get}) => {
+    const tabLists = await get(tabListsState)
+    const totalTabsCount = tabLists
+      .map((te) => te.tabs.length)
+      .reduce((prev, cur) => prev + cur)
+    return totalTabsCount
+  },
 })
 
 // default: newestAt
@@ -40,7 +76,17 @@ export const sortTabListsState = selector<TabLists>({
   set: async ({get, set}, newValue) => set(tabListsState, newValue),
 })
 
-export const colorThemeState = atom({
+//
+export const uniqTabListsState = selector({
+  key: 'uniqTabListsState',
+  get: async ({get}) => {
+    const lists = await get(tabListsState)
+    const uniqFlatTabs = [...new Set(lists.flatMap(({tabs}) => tabs))]
+    return uniqFlatTabs
+  },
+})
+
+export const colorThemeState = atom<string>({
   key: 'colorThemeState',
   default: selector({
     key: 'colorThemeState/default',

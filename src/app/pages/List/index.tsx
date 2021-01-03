@@ -29,7 +29,7 @@ export const List: React.FC = () => {
   const searchResults = fuzzySearch(query)(tabLists)
 
   return tabLists ? (
-    <Component tabLists={searchResults} query={query} setQuery={setQuery} />
+    <Component tabLists={tabLists} query={query} setQuery={setQuery} />
   ) : (
     <Load />
   )

@@ -14,6 +14,5 @@ export const SearchBox: React.VFC<Props> = (props) => (
     placeholder="Search…"
     value={props.query}
     onChange={(e) => props.onChange(e.target.value)}
-    // onChange={props.onChange}
   />
 )

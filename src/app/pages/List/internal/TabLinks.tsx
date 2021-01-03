@@ -70,7 +70,11 @@ export const TabLinks: React.FC<Props> = (props) => {
           onMouseLeave={() => setMouseOver({hover: false, idx: 0})}
           bgColor={theme.palette.accents_1}
         >
-          <TabLinkButton href={tab.url} target="_blank">
+          <TabLinkButton
+            href={tab.url}
+            target="_blank"
+            onClick={() => handleDelete(tab.id!)}
+          >
             <span style={{paddingRight: '5px'}}>
               <FaviconImage src={tab.favIconUrl!} size={20} />
             </span>

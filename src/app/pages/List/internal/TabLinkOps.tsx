@@ -36,7 +36,7 @@ export const TabLinkOps: React.FC<Props> = (props) => {
         bgColor={theme.palette.accents_2}
         onClick={() => props.handleDelete(props.tabId)}
       >
-        <X size={TAB_LINKS_ELEM_SIZE} />
+        <X size={TAB_LINKS_ELEM_SIZE} style={{verticalAlign: 'text-top'}} />
       </OpsElement>
     </OpsWrapper>
   )

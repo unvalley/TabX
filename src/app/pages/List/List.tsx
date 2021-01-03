@@ -1,10 +1,12 @@
 import {Col, Row, Text} from '@geist-ui/react'
 import * as React from 'react'
 import {useTranslation} from 'react-i18next'
+import {useRecoilValue} from 'recoil'
 import {TabLists} from '../../../shared/typings'
 import {SearchBox} from '../../components/molecules/SearchBox'
 import {Menu} from '../../components/organisms/Menu'
 import {useLocalStorage} from '../../hooks/useLocalStorage'
+import {tabListsStatsState} from '../../store'
 import {TabGroups} from './internal/TabGroups'
 
 type Props = {
@@ -23,7 +25,9 @@ const MemoizedTabGroups = React.memo<{
   />
 ))
 
-const Header: React.VFC<Omit<Props, 'tabLists'>> = (props) => (
+const Header: React.VFC<Omit<Props, 'tabLists'> & {totalTabsCount: number}> = (
+  props,
+) => (
   <Row>
     {/* Left */}
     <Col span={16}>
@@ -33,7 +37,7 @@ const Header: React.VFC<Omit<Props, 'tabLists'>> = (props) => (
     {/* Right */}
     <Col span={8}>
       <Row align="middle" style={{height: '100%', textAlign: 'center'}}>
-        <Text>Total tabs: 200</Text>
+        <Text>Total tabs: {props.totalTabsCount}</Text>
         <Menu />
       </Row>
     </Col>
@@ -46,10 +50,15 @@ export const List: React.FC<Props> = (props) => {
     shouldShowTabGroupCounts,
     setShouldShowTabGroupCount,
   ] = useLocalStorage<boolean>('shouldShowTabGroupCounts')
+  const totalTabsCount = useRecoilValue<number>(tabListsStatsState)
 
   return (
     <>
-      <Header query={props.query} setQuery={props.setQuery} />
+      <Header
+        query={props.query}
+        setQuery={props.setQuery}
+        totalTabsCount={totalTabsCount}
+      />
       {props.tabLists.length > 0 ? (
         <MemoizedTabGroups
           tabLists={props.tabLists}
