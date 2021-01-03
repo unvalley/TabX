@@ -15,6 +15,7 @@ const TabListElem = styled.section`
  * @param props
  */
 export const TabGroups: React.FC<Props> = (props) => {
+  // TODO: 設定で変更可能にする
   const shouldShowTabCounts = false
   return (
     <>
