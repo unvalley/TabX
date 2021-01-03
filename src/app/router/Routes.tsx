@@ -20,7 +20,6 @@ const MainContainer = styled.main`
   margin: ${Spacing['5']} auto;
   max-width: 85%;
   flex: 1 1 0%;
-  height: 100%;
   order: 2;
   position: relative;
   flex-direction: column;
