@@ -1,10 +1,15 @@
-import {Card, Col, Divider, Row, Text} from '@geist-ui/react'
+import {Card, Col, Divider, Row, Text, Toggle} from '@geist-ui/react'
 import React from 'react'
-import {DeleteButton} from '../../../components/molecules/DeleteButton'
 import {useTranslation} from 'react-i18next'
+import {DeleteButton} from '../../../components/molecules/DeleteButton'
+import {useLocalStorage} from '../../../hooks/useLocalStorage'
 
 export const Tabs: React.VFC<{deleteAllTabs: () => void}> = (props) => {
   const [t, i18n] = useTranslation()
+  const [val, setVal] = useLocalStorage('shouldShowTabGroupCounts', true)
+  const handler = (event: any) => {
+    setVal(event.target.checked)
+  }
 
   return (
     <Card>
@@ -16,7 +21,9 @@ export const Tabs: React.VFC<{deleteAllTabs: () => void}> = (props) => {
 
       <Card.Content>
         <Text>ウィンドウが開かれたタイミングでTabXを起動する？</Text>
-        <Text>アイコンをクリックしたときの挙動を変更する?</Text>
+        <Text>グループ内のタブ数を表示する</Text>
+        <Toggle size="medium" checked={val} onChange={handler} />
+
         <Divider y={2} />
 
         <Text b>{t('DANGER_ZONE')}</Text>

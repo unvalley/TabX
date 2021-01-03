@@ -4,6 +4,7 @@ import {useTranslation} from 'react-i18next'
 import {TabLists} from '../../../shared/typings'
 import {SearchBox} from '../../components/molecules/SearchBox'
 import {Menu} from '../../components/organisms/Menu'
+import {useLocalStorage} from '../../hooks/useLocalStorage'
 import {TabGroups} from './internal/TabGroups'
 
 type Props = {
@@ -12,8 +13,14 @@ type Props = {
   setQuery: React.Dispatch<React.SetStateAction<string>>
 }
 
-const MemoizedTabGroups = React.memo<{tabLists: TabLists}>((props) => (
-  <TabGroups tabLists={props.tabLists} />
+const MemoizedTabGroups = React.memo<{
+  tabLists: TabLists
+  shouldShowTabGroupCounts: boolean
+}>((props) => (
+  <TabGroups
+    tabLists={props.tabLists}
+    shouldShowTabGroupCounts={props.shouldShowTabGroupCounts}
+  />
 ))
 
 const Header: React.VFC<Omit<Props, 'tabLists'>> = (props) => (
@@ -35,11 +42,19 @@ const Header: React.VFC<Omit<Props, 'tabLists'>> = (props) => (
 
 export const List: React.FC<Props> = (props) => {
   const [t, i18n] = useTranslation()
+  const [
+    shouldShowTabGroupCounts,
+    setShouldShowTabGroupCount,
+  ] = useLocalStorage<boolean>('shouldShowTabGroupCounts')
+
   return (
     <>
       <Header query={props.query} setQuery={props.setQuery} />
       {props.tabLists.length > 0 ? (
-        <MemoizedTabGroups tabLists={props.tabLists} />
+        <MemoizedTabGroups
+          tabLists={props.tabLists}
+          shouldShowTabGroupCounts={shouldShowTabGroupCounts}
+        />
       ) : (
         <h4>{t('TAB_LISTS_EMPTY_MESSAGE')}</h4>
       )}

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {TabLists} from '../../../../shared/typings'
 import {TabLinks} from './TabLinks'
 
-type Props = {tabLists: TabLists}
+type Props = {tabLists: TabLists; shouldShowTabGroupCounts: boolean}
 
 const TabListElem = styled.section`
   width: 100%;
@@ -15,13 +15,15 @@ const TabListElem = styled.section`
  * @param props
  */
 export const TabGroups: React.FC<Props> = (props) => {
-  // TODO: 設定で変更可能にする
-  const shouldShowTabCounts = false
   return (
     <>
       {props.tabLists.map((tabList, idx) => (
         <TabListElem key={tabList.id!}>
-          {shouldShowTabCounts ? <h4>{tabList.tabs.length} Tabs</h4> : <></>}
+          {props.shouldShowTabGroupCounts ? (
+            <h4>{tabList.tabs.length} Tabs</h4>
+          ) : (
+            <></>
+          )}
           <TabLinks
             tabs={tabList.tabs}
             tabListId={tabList.id!}
