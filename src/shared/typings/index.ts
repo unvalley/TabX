@@ -4,12 +4,12 @@ import {Tabs} from 'webextension-polyfill-ts'
  * Each Tab Group
  */
 export type TabListElem = {
-  id?: number
-  title?: string
-  description?: string
+  id: number
+  title: string
+  description: string
   tabs: Tabs.Tab[] | TabWithMeta[]
-  createdAt?: number
-  updatedAt?: number
+  createdAt: number
+  updatedAt: number
 }
 
 /**
@@ -22,5 +22,9 @@ export type TabLists = TabListElem[]
  */
 export type TargetMeta = {ogImageUrl: string; description: string}
 
-export type TabWithMeta = Tabs.Tab & TargetMeta
+/**
+ * for API Request
+ */
 export type TargetMetaWithId = TargetMeta & {id: number}
+
+export type TabWithMeta = Tabs.Tab & TargetMeta

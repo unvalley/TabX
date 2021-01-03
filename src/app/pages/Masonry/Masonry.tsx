@@ -1,8 +1,7 @@
-import React from 'react'
-import {Card, Image, Text, Link} from '@geist-ui/react'
-import {TabLists, TabWithMeta} from '../../../shared/typings'
-import {Tabs} from 'webextension-polyfill-ts'
+import {Card, Image, Link, Text} from '@geist-ui/react'
 import {Masonry as MasonicMasonry} from 'masonic'
+import React from 'react'
+import {TabLists, TabWithMeta} from '../../../shared/typings'
 import {omitText} from '../../utils'
 
 type Props = {
@@ -10,11 +9,13 @@ type Props = {
 }
 
 export const Masonry: React.FC<Props> = (props) => {
-  const [flat, setFlat] = React.useState<(Tabs.Tab | TabWithMeta)[]>([])
+  const [flat, setFlat] = React.useState<TabWithMeta[]>([])
 
   React.useEffect(() => {
-    const allTabs = props.tabLists.map((tab) => tab.tabs)
-    const tmp = [] as (Tabs.Tab | TabWithMeta)[]
+    const allTabs = props.tabLists.map(
+      (tabListElem) => tabListElem.tabs,
+    ) as TabWithMeta[][]
+    const tmp = [] as TabWithMeta[]
     setFlat(tmp.concat(...allTabs))
   }, [])
 
@@ -24,13 +25,13 @@ export const Masonry: React.FC<Props> = (props) => {
       columnWidth={200}
       overscanBy={2}
       items={flat}
-      render={FakeCard}
+      render={TabCard}
     />
   )
 }
 
-const FakeCard = React.memo(
-  (props: {index: number; data: any; width: number}) => {
+const TabCard = React.memo(
+  (props: {index: number; data: TabWithMeta; width: number}) => {
     return (
       <Card hoverable>
         <Image src={props.data.ogImageUrl} style={{objectFit: 'cover'}} />

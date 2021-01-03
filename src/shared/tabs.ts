@@ -20,27 +20,27 @@ const closeAllTabs = (tabs: Tabs.Tab[]) =>
  */
 const openTabLists = async () => {
   const openTabs = await getAllTabsInCurrentWindow()
-  const TabListsUrl = browser.runtime.getURL('index.html#/app/')
+  const appUrl = browser.runtime.getURL('index.html#/app/')
 
-  const hasFoundTab = openTabs.find((tab) => tab.url === TabListsUrl)
-  if (hasFoundTab) {
-    return browser.tabs.update(hasFoundTab.id, {active: true})
+  const hasFoundAppTab = openTabs.find((tab) => tab.url === appUrl)
+  if (hasFoundAppTab) {
+    return browser.tabs.update(hasFoundAppTab.id, {active: true})
   }
-  return await browser.tabs.create({url: TabListsUrl, pinned: true})
+  return await browser.tabs.create({url: appUrl, pinned: true})
 }
 
 const isLegalURL = (url: string) =>
   ILLEGAL_URLS.every((prefix) => !url.startsWith(prefix))
 
 const isValidTab = (tab: Tabs.Tab) => {
-  // TODO: should set appUrl
-  const appUrl = browser.runtime.getURL('')
+  const appUrl = browser.runtime.getURL('index.html#app/')
   if (!tab.url) return false
   return !tab.pinned && !tab.url.startsWith(appUrl) && isLegalURL(tab.url)
 }
 
 const storeTabs = async (tabs: Tabs.Tab[]) => {
-  const newList = createNewTabList({tabs})
+  if (tabs.length === 0) return
+  const newList = createNewTabList(tabs)
 
   try {
     const lists = await Storage.getAllTabLists()
@@ -57,10 +57,12 @@ const storeTabs = async (tabs: Tabs.Tab[]) => {
 
 export const storeAllTabs = async () => {
   const tabs = await getAllTabsInCurrentWindow()
-  if (tabs.length === 0) return
   const sanitizedTabs = tabs.filter(isValidTab)
 
-  await Promise.all([openTabLists(), storeTabs(sanitizedTabs)]).then((res) =>
-    Storage.updateTabListElemWithMeta(res[1].id),
+  await Promise.all([openTabLists(), storeTabs(sanitizedTabs)]).then(
+    (res) =>
+      // res[1] = storing TabListElem
+      // NOTE: fetch decription and ogImageUrl from URL
+      res[1] && Storage.updateTabListElemWithMeta(res[1].id),
   )
 }

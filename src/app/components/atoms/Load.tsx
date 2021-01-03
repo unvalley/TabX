@@ -1,8 +1,9 @@
+import {Loading, Row} from '@geist-ui/react'
 import React from 'react'
-import {Row, Loading} from '@geist-ui/react'
+import {Spacing} from '../../constants/styles'
 
 export const Load: React.FC = () => (
-  <Row style={{padding: '10px 0', width: '50px'}}>
-    <Loading size="large" />
+  <Row style={{width: '50px', margin: `${Spacing[5]} auto`}}>
+    <Loading size="large" type="secondary" />
   </Row>
 )

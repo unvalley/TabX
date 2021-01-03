@@ -1,40 +1,35 @@
-import {Tooltip} from '@geist-ui/react'
-import {Pin, X} from '@geist-ui/react-icons'
-import {Tabs} from 'webextension-polyfill-ts'
+import {X} from '@geist-ui/react-icons'
 import React from 'react'
+import styled from 'styled-components'
 import {Spacing, TAB_LINKS_ELEM_SIZE} from '../../../constants/styles'
 
-type Props = {onDelete: any; tab: Tabs.Tab}
-export const TabLinkOps: React.FC<Props> = (props) => (
-  <>
-    <Tooltip text={<>Pin</>}>
-      <span
-        style={{
-          cursor: 'pointer',
-          backgroundColor: 'red',
-          padding: Spacing['0.5'],
-          borderRadius: '33px',
-          zIndex: 2,
-        }}
-        onClick={() => props.onDelete(props.tab.id!)}
-      >
-        <Pin size={TAB_LINKS_ELEM_SIZE} />
-      </span>
-    </Tooltip>
+const OpsWrapper = styled.section<{opacity: number}>`
+  opacity: ${({opacity}) => opacity};
+  transition: all 0.3s ease;
+`
 
-    <Tooltip text={<>Delete</>}>
-      <span
-        style={{
-          cursor: 'pointer',
-          backgroundColor: 'blue',
-          padding: Spacing['0.5'],
-          borderRadius: '33px',
-          zIndex: 100,
-        }}
-        onClick={() => props.onDelete(props.tab.id!)}
+const OpsElement = styled.span<{bgColor: string}>`
+  cursor: pointer;
+  font-size: 10px;
+  padding: ${Spacing['0.5']};
+  border-radius: 33px;
+  z-index: 2;
+`
+
+type Props = {
+  tabId: number
+  handleDelete: (tabId: number) => Promise<void>
+  shouldShow?: boolean
+}
+export const TabLinkOps: React.FC<Props> = (props) => {
+  return (
+    <OpsWrapper opacity={props.shouldShow ? 10 : 0}>
+      <OpsElement
+        bgColor={'yellow'}
+        onClick={() => props.handleDelete(props.tabId)}
       >
         <X size={TAB_LINKS_ELEM_SIZE} />
-      </span>
-    </Tooltip>
-  </>
-)
+      </OpsElement>
+    </OpsWrapper>
+  )
+}

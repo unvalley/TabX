@@ -6,10 +6,13 @@ import {Lang} from '../constants'
 
 export const tabListsState = atom<TabLists>({
   key: 'tabListsState',
-  default: selector({
+  default: selector<TabLists>({
     key: 'tabListsState/Default',
     get: async () => {
       const lists = await getAllTabLists()
+      if (lists === undefined) {
+        return [{}, {}] as TabLists
+      }
       return lists
     },
   }),
