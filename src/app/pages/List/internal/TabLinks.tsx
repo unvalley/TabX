@@ -10,7 +10,7 @@ import {TabLinkOps} from './TabLinkOps'
 
 const TabLinkWrapper = styled.span<{bgColor: string; hoverShadow: string}>`
   margin: ${Spacing['0.5']};
-  padding: ${Spacing['0.5']} ${Spacing['3']};
+  padding: ${Spacing['0.5']} 6px ${Spacing['0.5']} ${Spacing['3']};
   cursor: pointer;
   border-radius: 33px;
   box-shadow: 0px 20px 35px -16px ${Colors.SHADOW};

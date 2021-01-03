@@ -1,14 +1,36 @@
 import {Card, Col, Divider, Row, Text, Toggle} from '@geist-ui/react'
+import {ToggleEvent} from '@geist-ui/react/dist/toggle/toggle'
 import React from 'react'
 import {useTranslation} from 'react-i18next'
+import styled from 'styled-components'
 import {DeleteButton} from '../../../components/molecules/DeleteButton'
+import {Spacing} from '../../../constants/styles'
 import {useLocalStorage} from '../../../hooks/useLocalStorage'
 
-export const Tabs: React.VFC<{deleteAllTabs: () => void}> = (props) => {
+const ToggleWrapper = styled.div`
+  display: inline-flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+`
+
+const StyledToggle = styled(Toggle).attrs({
+  size: 'large',
+})`
+  margin: ${Spacing['2']};
+`
+
+type Props = {deleteAllTabs: () => void}
+
+export const Tabs: React.VFC<Props> = (props) => {
   const [t, i18n] = useTranslation()
-  const [val, setVal] = useLocalStorage('shouldShowTabGroupCounts', true)
-  const handler = (event: any) => {
-    setVal(event.target.checked)
+  const [
+    shouldShowTabGroupCounts,
+    setShouldShowTabGroupCount,
+  ] = useLocalStorage('shouldShowTabGroupCounts', true)
+
+  const handleChange = (event: ToggleEvent) => {
+    setShouldShowTabGroupCount(event.target.checked)
   }
 
   return (
@@ -19,10 +41,16 @@ export const Tabs: React.VFC<{deleteAllTabs: () => void}> = (props) => {
 
       <Divider y={0} />
 
-      <Card.Content>
-        <Text>ウィンドウが開かれたタイミングでTabXを起動する？</Text>
-        <Text>グループ内のタブ数を表示する</Text>
-        <Toggle size="medium" checked={val} onChange={handler} />
+      <Card.Content style={{display: 'flex', flexDirection: 'column'}}>
+        <span>
+          <ToggleWrapper>
+            <StyledToggle
+              checked={shouldShowTabGroupCounts}
+              onChange={handleChange}
+            />
+            <Text>{t('SETTING_SHOW_TAB_GROUP_COUNT')}</Text>
+          </ToggleWrapper>
+        </span>
 
         <Divider y={2} />
 

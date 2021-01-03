@@ -1,38 +1,38 @@
 import {Popover} from '@geist-ui/react'
 import {
-  Pin,
-  Twitter,
+  ChevronUpDown,
   Coffee,
   Link as LinkIcon,
-  ChevronUpDown,
+  Twitter,
 } from '@geist-ui/react-icons'
 import React from 'react'
+import {useTranslation} from 'react-i18next'
 import {MENU_ICON_SIZE} from '../../constants/styles'
-import {MenuItem} from './MenuItem'
 import {openDonation, shareTwitter} from '../../utils/index'
-import {TFunction} from 'i18next'
+import {MenuItem} from './MenuItem'
 
-type Props = {t: TFunction; sort: boolean; updateSort: () => void}
+type Props = {sort: boolean; updateSort: () => void}
 
 export const MenuContent: React.VFC<Props> = (props) => {
+  const [t, _] = useTranslation()
   return (
     <>
       {/* User Operations */}
       <MenuItem
         handleClick={() => console.log('')}
-        label={props.t('SHARE_LINKS')}
+        label={t('SHARE_LINKS')}
         icon={<LinkIcon size={MENU_ICON_SIZE} />}
       />
 
-      <MenuItem
+      {/* <MenuItem
         handleClick={() => console.log('')}
         label={props.t('ONLY_PINNED')}
         icon={<Pin size={MENU_ICON_SIZE} />}
-      />
+      /> */}
 
       <MenuItem
         handleClick={props.updateSort}
-        label={props.t('SORT')}
+        label={t('SORT')}
         icon={<ChevronUpDown size={MENU_ICON_SIZE} />}
       />
 
@@ -41,12 +41,12 @@ export const MenuContent: React.VFC<Props> = (props) => {
       {/* Share and Donate */}
       <MenuItem
         handleClick={shareTwitter}
-        label={props.t('TWEET')}
+        label={t('TWEET')}
         icon={<Twitter size={MENU_ICON_SIZE} />}
       />
       <MenuItem
         handleClick={openDonation}
-        label={props.t('DONATE')}
+        label={t('DONATE')}
         icon={<Coffee size={MENU_ICON_SIZE} />}
       />
     </>
