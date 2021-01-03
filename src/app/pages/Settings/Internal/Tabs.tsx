@@ -1,4 +1,4 @@
-import {Card, Col, Divider, Row, Text, Toggle} from '@geist-ui/react'
+import {Card, Col, Divider, Grid, Row, Text, Toggle} from '@geist-ui/react'
 import {ToggleEvent} from '@geist-ui/react/dist/toggle/toggle'
 import React from 'react'
 import {useTranslation} from 'react-i18next'
@@ -34,43 +34,45 @@ export const Tabs: React.VFC<Props> = (props) => {
   }
 
   return (
-    <Card>
-      <Card.Content>
-        <Text h4>{t('TABS')}</Text>
-      </Card.Content>
+    <Grid.Container>
+      <Card>
+        <Card.Content>
+          <Text h4>{t('TABS')}</Text>
+        </Card.Content>
 
-      <Divider y={0} />
+        <Divider y={0} />
 
-      <Card.Content style={{display: 'flex', flexDirection: 'column'}}>
-        <span>
-          <ToggleWrapper>
-            <StyledToggle
-              checked={shouldShowTabGroupCounts}
-              onChange={handleChange}
-            />
-            <Text>{t('SETTING_SHOW_TAB_GROUP_COUNT')}</Text>
-          </ToggleWrapper>
-        </span>
+        <Card.Content style={{display: 'flex', flexDirection: 'column'}}>
+          <span>
+            <ToggleWrapper>
+              <StyledToggle
+                checked={shouldShowTabGroupCounts}
+                onChange={handleChange}
+              />
+              <Text>{t('SETTING_SHOW_TAB_GROUP_COUNT')}</Text>
+            </ToggleWrapper>
+          </span>
 
-        <Divider y={2} />
+          <Divider y={2} />
 
-        <Text b>{t('DANGER_ZONE')}</Text>
-        <Row gap={0.8} style={{}}>
-          <Col span={16}>
-            <Text>{t('DANGER_ZONE_MESSAGE')}</Text>
-          </Col>
-          <Col span={8}>
-            <Row align="middle" style={{height: '100%', textAlign: 'center'}}>
-              <Col>
-                <DeleteButton
-                  onClick={props.deleteAllTabs}
-                  label={t('DELETE_ALL_TABS')}
-                />
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-      </Card.Content>
-    </Card>
+          <Text b>{t('DANGER_ZONE')}</Text>
+          <Row gap={0.8}>
+            <Col>
+              <Text>{t('DANGER_ZONE_MESSAGE')}</Text>
+            </Col>
+            <Col>
+              <Row align="middle" style={{height: '100%', textAlign: 'right'}}>
+                <Col>
+                  <DeleteButton
+                    onClick={props.deleteAllTabs}
+                    label={t('DELETE_ALL_TABS')}
+                  />
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Card.Content>
+      </Card>
+    </Grid.Container>
   )
 }
