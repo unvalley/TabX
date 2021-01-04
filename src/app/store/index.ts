@@ -12,6 +12,7 @@ const browserStorageEffect = () => ({setSelf, trigger}: any) => {
   // })
   Storage.onChange()
   console.log('here')
+  console.log('trigger', trigger)
   if (trigger === 'get') {
     setSelf(Storage.getAllTabLists())
   }
@@ -74,16 +75,6 @@ export const sortTabListsState = selector<TabLists>({
     }
   },
   set: async ({get, set}, newValue) => set(tabListsState, newValue),
-})
-
-//
-export const uniqTabListsState = selector({
-  key: 'uniqTabListsState',
-  get: async ({get}) => {
-    const lists = await get(tabListsState)
-    const uniqFlatTabs = [...new Set(lists.flatMap(({tabs}) => tabs))]
-    return uniqFlatTabs
-  },
 })
 
 export const colorThemeState = atom<string>({

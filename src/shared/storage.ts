@@ -6,20 +6,10 @@ import {zip} from './utils/util'
 const get = (key: string) => browser.storage.local.get(key)
 const set = (obj: object) => browser.storage.local.set(obj)
 
-// for (var key in changes) {
-//   var storageChange = changes[key]
-//   console.log(
-//     'Storage key "%s" in namespace "%s" changed. ' +
-//       'Old value was "%s", new value is "%s".',
-//     key,
-//     namespace,
-//     storageChange.oldValue,
-//     storageChange.newValue,
-//   )
-// }
 export const onChange = () =>
-  browser.storage.onChanged.addListener((changes, namespace) => {
-    const storageListsChange = changes['lists']
+  browser.storage.onChanged.addListener((changes) => {
+    console.log(changes)
+    const storageListsChange = changes.lists
     return storageListsChange.newValue
   })
 
