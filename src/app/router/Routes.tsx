@@ -2,6 +2,7 @@ import {Grid, useTheme} from '@geist-ui/react'
 import React from 'react'
 import {MemoryRouter, Route, Switch} from 'react-router-dom'
 import styled from 'styled-components'
+import {Load} from '../components/atoms/Load'
 import {LeftMenu} from '../components/organisms/LeftMenu'
 import {Spacing} from '../constants/styles'
 import {List} from '../pages/List'
@@ -18,7 +19,7 @@ const Wrapper = styled(Grid.Container)<{bgColor: string}>`
 
 const MainContainer = styled.main`
   margin: ${Spacing['5']} auto;
-  max-width: 85%;
+  max-width: 65%;
   flex: 1 1 0%;
   order: 2;
   position: relative;
@@ -40,7 +41,7 @@ export const Routes = () => {
         </Grid>
         <Grid lg={23} md={23} xs={20}>
           <MainContainer>
-            <React.Suspense fallback={<div>loading..</div>}>
+            <React.Suspense fallback={<Load />}>
               <Switch>
                 <Route exact path="/" component={List} />
                 <Route path="/masonry" component={Masonry} />

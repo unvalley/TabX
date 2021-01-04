@@ -1,44 +1,12 @@
 import {useTheme} from '@geist-ui/react'
 import React from 'react'
-import styled from 'styled-components'
 import {Tabs} from 'webextension-polyfill-ts'
 import {deleteTabLink} from '../../../../shared/storage'
-import {FaviconImage} from '../../../components/atoms/FaviconImage'
-import {Colors, SHOW_TAB_TITLE_LENGTH, Spacing} from '../../../constants/styles'
+import {SHOW_TAB_TITLE_LENGTH} from '../../../constants/styles'
 import {omitText} from '../../../utils'
-import {TabLinkOps} from './TabLinkOps'
-
-const TabLinkWrapper = styled.span<{bgColor: string; hoverShadow: string}>`
-  margin: ${Spacing['0.5']};
-  padding: ${Spacing['0.5']} 6px ${Spacing['0.5']} ${Spacing['3']};
-  cursor: pointer;
-  border-radius: 33px;
-  box-shadow: 0px 20px 35px -16px ${Colors.SHADOW};
-  background-color: ${({bgColor}) => bgColor};
-  justify-content: center;
-  display: inline-flex;
-  text-align: center;
-  transition: all 0.4s ease;
-  &:hover {
-    box-shadow: ${({hoverShadow}) => hoverShadow};
-    opacity: 0.9;
-  }
-`
-
-const TabLinkButton = styled.a`
-  justify-content: center;
-  text-align: center;
-  text-decoration: none;
-  line-height: 1.5;
-  display: inline-flex;
-  z-index: 1;
-`
-
-// transform: translateY(-3px);
-const Title = styled.span`
-  word-break: break-all;
-  font-size: 12px;
-`
+import {FaviconImage} from '../../atoms/FaviconImage'
+import {TabLinkOps} from '../TabLinkOps'
+import {TabLinkButton, TabLinkWrapper, Title} from './style'
 
 type Props = {tabs: Tabs.Tab[]; tabListId: number; createdAt: number}
 /**

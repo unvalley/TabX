@@ -24,6 +24,8 @@ const fuzzySearch = (query: string) => (tabLists: TabLists) => {
 
 export const List: React.FC = () => {
   const tabLists = useRecoilValue<TabLists>(sortTabListsState)
+  //   const tabLists = useRecoilValue(tabListsQuery)
+
   const [query, setQuery] = React.useState('')
 
   const searchResults = fuzzySearch(query)(tabLists)

@@ -1,9 +1,9 @@
-import {TabWithMeta} from './typings'
 import {Tabs} from 'webextension-polyfill-ts'
-import {genObjectId} from './utils/util'
 import {DEFAULT_TITLE} from './constants'
+import {TabWithMeta} from './typings'
+import {genObjectId} from './utils/util'
 
-export const createNewTabList = (tabs: Tabs.Tab[]) => ({
+export const createNewTabListElem = (tabs: Tabs.Tab[]) => ({
   id: genObjectId(),
   title: DEFAULT_TITLE,
   description: '',
@@ -11,6 +11,8 @@ export const createNewTabList = (tabs: Tabs.Tab[]) => ({
   tabs: Array.isArray(tabs)
     ? (tabs as Array<Tabs.Tab | TabWithMeta>).map((t) => t)
     : [],
+  // has pinned on this extension? - default false
+  hasPinned: false,
   createdAt: Date.now(),
   updatedAt: Date.now(),
 })

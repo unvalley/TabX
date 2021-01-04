@@ -35,7 +35,7 @@ export const deleteAllTabLists = () => set({lists: null})
  * @param id
  */
 export const deleteTabLink = async (tabsId: number, tabId: number) => {
-  // READ
+  // SELECT
   const allTabLists = await getAllTabLists()
   const targetTabListElem = allTabLists.filter((list) => list.id === tabsId)[0]
   const tabs = targetTabListElem.tabs
@@ -60,6 +60,16 @@ export const deleteTabListElem = async (
 ) => {
   const tabListsIdx = allTabLists.findIndex(({id}) => id === tabsId)
   allTabLists.splice(tabListsIdx, 1)
+}
+
+export const pinnTabListElem = async (tabsId: number) => {
+  // SELECT
+  const allTabLists = await getAllTabLists()
+  const targetTabListElem = allTabLists.filter((list) => list.id === tabsId)[0]
+
+  // UPDATE
+  targetTabListElem.hasPinned = true
+  setLists(allTabLists)
 }
 
 const genParams = (tabs: Tabs.Tab[]) =>

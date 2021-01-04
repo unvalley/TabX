@@ -1,4 +1,4 @@
-import {Tabs} from 'webextension-polyfill-ts'
+import { Tabs } from 'webextension-polyfill-ts'
 
 /**
  * Each Tab Group
@@ -8,6 +8,7 @@ export type TabListElem = {
   title: string
   description: string
   tabs: Tabs.Tab[] | TabWithMeta[]
+  hasPinned: boolean
   createdAt: number
   updatedAt: number
 }

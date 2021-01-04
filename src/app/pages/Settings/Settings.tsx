@@ -1,10 +1,12 @@
 import {Spacer} from '@geist-ui/react'
 import React from 'react'
-import {ColorThemes} from './Internal/ColorThemes'
-import {Contributions} from './Internal/Contributions'
-import {Languages} from './Internal/Languages'
-import {Tabs} from './Internal/Tabs'
-import {Versions} from './Internal/Versions'
+import {
+  ColorThemes,
+  Contributions,
+  Languages,
+  Tabs,
+  Versions,
+} from '../../components/organisms/SettingsSection'
 
 type Props = {
   deleteAllTabs: () => void
