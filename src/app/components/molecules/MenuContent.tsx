@@ -24,12 +24,6 @@ export const MenuContent: React.VFC<Props> = (props) => {
         icon={<LinkIcon size={MENU_ICON_SIZE} />}
       />
 
-      {/* <MenuItem
-        handleClick={() => console.log('')}
-        label={props.t('ONLY_PINNED')}
-        icon={<Pin size={MENU_ICON_SIZE} />}
-      /> */}
-
       <MenuItem
         handleClick={props.updateSort}
         label={t('SORT')}

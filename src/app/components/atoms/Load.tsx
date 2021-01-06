@@ -4,6 +4,6 @@ import {Spacing} from '../../constants/styles'
 
 export const Load: React.FC = () => (
   <Row style={{width: '50px', margin: `${Spacing[5]} auto`}}>
-    <Loading size="large" type="secondary" />
+    <Loading size="large" type="success" />
   </Row>
 )

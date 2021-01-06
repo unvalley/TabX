@@ -3,6 +3,7 @@ import {AlertCircle} from '@geist-ui/react-icons'
 import React from 'react'
 
 type Props = {onClick: () => void; label?: string}
+
 export const DeleteButton: React.VFC<Props> = ({
   onClick,
   label = 'Delete All Tabs',

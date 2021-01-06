@@ -1,5 +1,5 @@
 import {getAllTabLists} from '../../shared/storage'
-import {TabLists, TabWithMeta} from '@shared/typings'
+import {TabLists} from '@shared/typings'
 import {atom, selector} from 'recoil'
 import {Themes} from '../constants/styles'
 import {Lang} from '../constants'
@@ -8,7 +8,7 @@ export const tabListsState = atom<TabLists>({
   key: 'tabListsState',
   default: selector<TabLists>({
     key: 'tabListsState/Default',
-    get: async () => {
+    get: async ({get}) => {
       const lists = await getAllTabLists()
       if (lists === undefined) {
         return [{}, {}] as TabLists

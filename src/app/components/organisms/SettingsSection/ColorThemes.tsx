@@ -1,4 +1,4 @@
-import {Card, Divider, Radio, Spacer, Text} from '@geist-ui/react'
+import {Card, Radio, Spacer, Text} from '@geist-ui/react'
 import {Moon, Sun} from '@geist-ui/react-icons'
 import React from 'react'
 import {useTranslation} from 'react-i18next'
@@ -21,8 +21,6 @@ export const ColorThemes: React.VFC<Props> = (props) => {
       <Card.Content>
         <Text h4>{t('COLOR_THEMES')}</Text>
       </Card.Content>
-
-      <Divider y={0} />
 
       <Card.Content>
         <Radio.Group

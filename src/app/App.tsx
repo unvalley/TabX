@@ -1,14 +1,12 @@
-import * as React from 'react'
-import {Routes} from './router/Routes'
-import {GeistProvider, CssBaseline} from '@geist-ui/react'
-import {useRecoilValue, useSetRecoilState} from 'recoil'
+import {CssBaseline, GeistProvider} from '@geist-ui/react'
 import i18n from 'i18next'
+import * as React from 'react'
 import {initReactI18next} from 'react-i18next'
+import {useRecoilValue} from 'recoil'
 import enJson from './locales/en.json'
 import jaJson from './locales/ja.json'
-import {getAllTabLists} from '../shared/storage'
-import {TabLists} from '../shared/typings'
-import {colorThemeState, langState, sortTabListsState} from './store'
+import {Routes} from './router/Routes'
+import {colorThemeState, langState} from './store'
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -32,22 +30,12 @@ const myTheme = {
 }
 
 export const App = () => {
-  const setTabLists = useSetRecoilState<TabLists>(sortTabListsState)
   const colorTheme = useRecoilValue(colorThemeState)
   const lang = useRecoilValue(langState)
 
   React.useEffect(() => {
     i18n.changeLanguage(lang)
   }, [lang, i18n])
-
-  React.useEffect(() => {
-    console.log('Rendered')
-    const cleanup = async () => {
-      const lists = await getAllTabLists()
-      setTabLists(lists)
-    }
-    cleanup()
-  }, [])
 
   return (
     <GeistProvider theme={{...myTheme, type: colorTheme}}>

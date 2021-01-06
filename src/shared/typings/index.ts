@@ -8,6 +8,7 @@ export type TabListElem = {
   title: string
   description: string
   tabs: Tabs.Tab[] | TabWithMeta[]
+  hasPinned: boolean
   createdAt: number
   updatedAt: number
 }

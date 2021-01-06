@@ -1,6 +1,6 @@
 import {browser, Tabs} from 'webextension-polyfill-ts'
 import {ILLEGAL_URLS} from './constants'
-import {createNewTabList} from './list'
+import {createNewTabListElem} from './list'
 import * as Storage from './storage'
 
 const getAllInWindow = (windowId?: number) => browser.tabs.query({windowId})
@@ -40,7 +40,7 @@ const isValidTab = (tab: Tabs.Tab) => {
 
 const storeTabs = async (tabs: Tabs.Tab[]) => {
   if (tabs.length === 0) return
-  const newList = createNewTabList(tabs)
+  const newList = createNewTabListElem(tabs)
 
   try {
     const lists = await Storage.getAllTabLists()

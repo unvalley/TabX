@@ -4,8 +4,8 @@ import {useTranslation} from 'react-i18next'
 import {TabLists} from '../../../shared/typings'
 import {SearchBox} from '../../components/molecules/SearchBox'
 import {Menu} from '../../components/organisms/Menu'
+import {TabGroups} from '../../components/organisms/TabGroups'
 import {useLocalStorage} from '../../hooks/useLocalStorage'
-import {TabGroups} from './internal/TabGroups'
 
 type Props = {
   tabLists: TabLists
@@ -42,10 +42,9 @@ const Header: React.VFC<Omit<Props, 'tabLists'>> = (props) => (
 
 export const List: React.FC<Props> = (props) => {
   const [t, i18n] = useTranslation()
-  const [
-    shouldShowTabGroupCounts,
-    setShouldShowTabGroupCount,
-  ] = useLocalStorage<boolean>('shouldShowTabGroupCounts')
+  const [shouldShowTabGroupCounts, _] = useLocalStorage<boolean>(
+    'shouldShowTabGroupCounts',
+  )
 
   return (
     <>
