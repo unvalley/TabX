@@ -1,7 +1,7 @@
 import {fireEvent, render} from '@testing-library/react'
 import React from 'react'
 import {RecoilRoot} from 'recoil'
-import {Settings} from '../pages/Settings'
+import {Settings} from '.'
 
 test('change colorTheme to Dark', () => {
   const {getByLabelText, getByText} = render(

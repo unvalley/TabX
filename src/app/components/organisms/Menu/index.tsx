@@ -1,21 +1,14 @@
 import {Popover} from '@geist-ui/react'
 import {MoreVertical} from '@geist-ui/react-icons'
 import React from 'react'
-import {useRecoilState} from 'recoil'
-import {tabListsSortState} from '../../../store'
 import {MenuContent} from '../../molecules/MenuContent'
 
-type Props = {label?: string}
+type Props = {}
 
-export const Menu: React.VFC<Props> = ({label = 'Menu'}: Props) => {
-  const [sort, setSort] = useRecoilState(tabListsSortState)
-  const updateSort = () => {
-    setSort(!sort)
-  }
-
+export const Menu: React.VFC<Props> = () => {
   return (
     <Popover
-      content={<MenuContent sort={sort} updateSort={updateSort} />}
+      content={<MenuContent />}
       style={{
         cursor: 'pointer',
       }}

@@ -1,4 +1,4 @@
-import {getAllRandomTabLists} from '../../shared/storage'
+import {getAllRandomTabLists} from '../../../shared/storage'
 
 export async function loadAllTabLists() {
   return await getAllRandomTabLists()

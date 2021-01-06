@@ -7,14 +7,21 @@ import {
 } from '@geist-ui/react-icons'
 import React from 'react'
 import {useTranslation} from 'react-i18next'
+import {useRecoilState} from 'recoil'
 import {MENU_ICON_SIZE} from '../../constants/styles'
+import {tabListsSortState} from '../../store'
 import {openDonation, shareTwitter} from '../../utils/index'
 import {MenuItem} from './MenuItem'
 
-type Props = {sort: boolean; updateSort: () => void}
+type Props = {}
 
-export const MenuContent: React.VFC<Props> = (props) => {
+export const MenuContent: React.VFC<Props> = () => {
   const [t, _] = useTranslation()
+  const [sort, setSort] = useRecoilState(tabListsSortState)
+  const updateSort = () => {
+    setSort(!sort)
+  }
+
   return (
     <>
       {/* User Operations */}
@@ -25,7 +32,7 @@ export const MenuContent: React.VFC<Props> = (props) => {
       />
 
       <MenuItem
-        handleClick={props.updateSort}
+        handleClick={updateSort}
         label={t('SORT')}
         icon={<ChevronUpDown size={MENU_ICON_SIZE} />}
       />

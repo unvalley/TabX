@@ -13,8 +13,6 @@ export const LeftMenu: React.FC<Props> = () => {
   const buttonBgColor = theme.palette.accents_2
   const hoverBgColor = theme.palette.accents_2
 
-  const history = useHistory()
-
   return (
     <Aside bgColor={asideBgColor}>
       <Nav>
