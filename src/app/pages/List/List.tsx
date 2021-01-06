@@ -42,10 +42,9 @@ const Header: React.VFC<Omit<Props, 'tabLists'>> = (props) => (
 
 export const List: React.FC<Props> = (props) => {
   const [t, i18n] = useTranslation()
-  const [
-    shouldShowTabGroupCounts,
-    setShouldShowTabGroupCount,
-  ] = useLocalStorage<boolean>('shouldShowTabGroupCounts')
+  const [shouldShowTabGroupCounts, _] = useLocalStorage<boolean>(
+    'shouldShowTabGroupCounts',
+  )
 
   return (
     <>
