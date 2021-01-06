@@ -15,8 +15,17 @@ export const Tabs: React.VFC<Props> = (props) => {
     setShouldShowTabGroupCount,
   ] = useLocalStorage('shouldShowTabGroupCounts', true)
 
+  const [
+    shouldDeleteTabWhenClicked,
+    setShouldDeleteTabWhenClicked,
+  ] = useLocalStorage('shouldDeleteTabWhenClicked', true)
+
   const handleChange = (event: ToggleEvent) => {
     setShouldShowTabGroupCount(event.target.checked)
+  }
+
+  const handleDeleteTab = (event: ToggleEvent) => {
+    setShouldDeleteTabWhenClicked(event.target.checked)
   }
 
   return (
@@ -36,6 +45,16 @@ export const Tabs: React.VFC<Props> = (props) => {
                 onChange={handleChange}
               />
               <Text>{t('SETTING_SHOW_TAB_GROUP_COUNT')}</Text>
+            </ToggleWrapper>
+          </span>
+
+          <span>
+            <ToggleWrapper>
+              <StyledToggle
+                checked={shouldDeleteTabWhenClicked}
+                onChange={handleDeleteTab}
+              />
+              <Text>{t('SETTING_DELETE_TAB_WHEN_CLICKED')}</Text>
             </ToggleWrapper>
           </span>
 

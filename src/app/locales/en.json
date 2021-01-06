@@ -10,6 +10,7 @@
   "COLOR_THEMES": "Color Themes",
   "CONTRIBUTION": "Contribution",
   "SETTING_SHOW_TAB_GROUP_COUNT": "Show tab group count",
+  "SETTING_DELETE_TAB_WHEN_CLICKED": "Delete tab when clicked",
 
   "TOTAL_TAB": "Total Tabs",
   "TAB_LISTS_EMPTY_MESSAGE": "Congrats! Here is no Tabs 🎉 Click TabX chrome icon, it stores opend tabs",

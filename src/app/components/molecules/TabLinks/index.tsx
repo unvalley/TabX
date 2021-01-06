@@ -3,6 +3,7 @@ import React from 'react'
 import {Tabs} from 'webextension-polyfill-ts'
 import {deleteTabLink} from '../../../../shared/storage'
 import {SHOW_TAB_TITLE_LENGTH} from '../../../constants/styles'
+import {useLocalStorage} from '../../../hooks/useLocalStorage'
 import {omitText} from '../../../utils'
 import {FaviconImage} from '../../atoms/FaviconImage'
 import {TabLinkOps} from '../TabLinkOps'
@@ -15,6 +16,10 @@ type Props = {tabs: Tabs.Tab[]; tabListId: number; createdAt: number}
  */
 export const TabLinks: React.FC<Props> = (props) => {
   const [mouseOver, setMouseOver] = React.useState({hover: false, idx: 0})
+  const [shouldDeleteTabWhenClicked, _] = useLocalStorage<boolean>(
+    'shouldDeleteTabWhenClicked',
+  )
+
   const theme = useTheme()
 
   const handleMouseOver = (idx: number) => {
@@ -38,7 +43,15 @@ export const TabLinks: React.FC<Props> = (props) => {
           onMouseLeave={() => setMouseOver({hover: false, idx: 0})}
           bgColor={theme.palette.accents_1}
         >
-          <TabLinkButton href={tab.url} target="_blank">
+          <TabLinkButton
+            href={tab.url}
+            target="_blank"
+            onClick={
+              shouldDeleteTabWhenClicked
+                ? () => handleDelete(tab.id!)
+                : undefined
+            }
+          >
             <span style={{paddingRight: '5px'}}>
               <FaviconImage src={tab.favIconUrl!} size={20} />
             </span>
