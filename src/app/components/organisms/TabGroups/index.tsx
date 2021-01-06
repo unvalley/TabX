@@ -18,15 +18,12 @@ export const TabGroups: React.FC<Props> = (props) => {
   )
   const [tabListElems, setTabListElems] = React.useState<TabLists>([])
 
+  // TODO: refactor
   React.useEffect(() => {
     const onlyPinnedTabListElems = props.tabLists.filter((e) => e.hasPinned)
     setPinnedTabListElems(onlyPinnedTabListElems)
 
-    setTabListElems(
-      props.tabLists.filter(
-        (e) => e.hasPinned === false || e.hasPinned === undefined,
-      ),
-    )
+    setTabListElems(props.tabLists.filter((e) => e.hasPinned === false))
   }, [])
 
   return (
