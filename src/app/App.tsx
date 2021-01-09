@@ -23,12 +23,6 @@ i18n.use(initReactI18next).init({
   returnEmptyString: false,
 })
 
-const myTheme = {
-  pallete: {
-    background: '#eeb',
-  },
-}
-
 export const App = () => {
   const colorTheme = useRecoilValue(colorThemeState)
   const lang = useRecoilValue(langState)
@@ -38,7 +32,7 @@ export const App = () => {
   }, [lang, i18n])
 
   return (
-    <GeistProvider theme={{...myTheme, type: colorTheme}}>
+    <GeistProvider theme={{type: colorTheme}}>
       <CssBaseline />
       <Routes />
     </GeistProvider>

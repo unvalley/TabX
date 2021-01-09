@@ -2,11 +2,25 @@ import {NavLink} from 'react-router-dom'
 import styled from 'styled-components'
 import {Colors, Spacing} from '../../../constants/styles'
 
+type SwitchButtonProps = {
+  bgColor: string
+  hoverBgColor: string
+  activeBgColor: string
+  iconColor: string
+  hoverIconColor: string
+}
+
 // TODO: fix backgroundColor and attrs props
-export const SwitchButton = styled(NavLink).attrs(({activeBgColor}: any) => ({
-  activeStyle: {borderRadius: '16px', backgroundColor: '#fff', opacity: '1'},
-}))<{bgColor: string; hoverBgColor: string}>`
-  color: ${Colors.MOON_DARK};
+export const SwitchButton = styled(NavLink).attrs<SwitchButtonProps>(
+  ({activeBgColor, hoverIconColor}) => ({
+    activeStyle: {
+      borderRadius: '16px',
+      backgroundColor: activeBgColor,
+      color: hoverIconColor,
+    },
+  }),
+)<SwitchButtonProps>`
+  color: ${({iconColor}) => iconColor};
   background-color: ${({bgColor}) => bgColor};
   outline: ${Spacing[0.5]} solid transparent;
   outline-offset: 2px;

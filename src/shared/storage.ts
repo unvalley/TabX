@@ -16,7 +16,7 @@ export const getAllRandomTabLists = async () => {
 }
 
 export const getAllTabLists = async () => {
-  if (cache.lists) {
+  if (cache.lists.length > 0) {
     return cache.lists
   }
   const allTabLists = await get('lists').then(({lists}) =>
