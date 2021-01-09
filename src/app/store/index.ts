@@ -1,8 +1,8 @@
-import {getAllTabLists} from '../../shared/storage'
 import {TabLists} from '@shared/typings'
 import {atom, selector} from 'recoil'
+import {getAllTabLists} from '../../shared/storage'
+import {Lang} from '../constants/index'
 import {Themes} from '../constants/styles'
-import {Lang} from '../constants'
 
 export const tabListsState = atom<TabLists>({
   key: 'tabListsState',
@@ -40,7 +40,22 @@ export const sortTabListsState = selector<TabLists>({
   set: async ({get, set}, newValue) => set(tabListsState, newValue),
 })
 
-export const colorThemeState = atom({
+/**
+ * Selector for tabLists stats
+ * Ref: https://recoiljs.org/docs/basic-tutorial/selectors
+ */
+export const tabListsStatsState = selector({
+  key: 'tabListsStatsState',
+  get: async ({get}) => {
+    const tabLists = await get(tabListsState)
+    const totalTabsCount = tabLists
+      .map((te) => te.tabs.length)
+      .reduce((prev, cur) => prev + cur)
+    return totalTabsCount
+  },
+})
+
+export const colorThemeState = atom<string>({
   key: 'colorThemeState',
   default: selector({
     key: 'colorThemeState/default',
