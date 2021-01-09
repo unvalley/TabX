@@ -1,11 +1,13 @@
 import {Col, Row, Text} from '@geist-ui/react'
 import * as React from 'react'
 import {useTranslation} from 'react-i18next'
+import {useRecoilValue} from 'recoil'
 import {TabLists} from '../../../shared/typings'
 import {SearchBox} from '../../components/molecules/SearchBox'
 import {Menu} from '../../components/organisms/Menu'
 import {TabGroups} from '../../components/organisms/TabGroups'
 import {useLocalStorage} from '../../hooks/useLocalStorage'
+import {tabListsStatsState} from '../../store'
 
 type Props = {
   tabLists: TabLists
@@ -23,22 +25,26 @@ const MemoizedTabGroups = React.memo<{
   />
 ))
 
-const Header: React.VFC<Omit<Props, 'tabLists'>> = (props) => (
-  <Row>
-    {/* Left */}
-    <Col span={16}>
-      {/* TODO: need left space 8px */}
-      <SearchBox query={props.query} onChange={props.setQuery} />
-    </Col>
-    {/* Right */}
-    <Col span={8}>
-      <Row align="middle" style={{height: '100%', textAlign: 'center'}}>
-        <Text>Total tabs: 200</Text>
-        <Menu />
-      </Row>
-    </Col>
-  </Row>
-)
+const Header: React.VFC<Omit<Props, 'tabLists'>> = (props) => {
+  const totalNum = useRecoilValue(tabListsStatsState)
+
+  return (
+    <Row>
+      {/* Left */}
+      <Col span={16}>
+        {/* TODO: need left space 8px */}
+        <SearchBox query={props.query} onChange={props.setQuery} />
+      </Col>
+      {/* Right */}
+      <Col span={8}>
+        <Row align="middle" style={{height: '100%', textAlign: 'center'}}>
+          <Text>Total tabs: {totalNum}</Text>
+          <Menu />
+        </Row>
+      </Col>
+    </Row>
+  )
+}
 
 export const List: React.FC<Props> = (props) => {
   const [t, i18n] = useTranslation()
