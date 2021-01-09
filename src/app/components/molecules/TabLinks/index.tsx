@@ -40,7 +40,7 @@ export const TabLinks: React.FC<Props> = (props) => {
           key={tab.id!}
           hoverShadow={theme.expressiveness.shadowSmall}
           onMouseOver={() => handleMouseOver(idx)}
-          onMouseLeave={() => setMouseOver({hover: false, idx: 0})}
+          onMouseLeave={() => setMouseOver({hover: false, idx: -1})}
           bgColor={theme.palette.accents_1}
         >
           <TabLinkButton

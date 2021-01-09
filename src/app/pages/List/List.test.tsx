@@ -1,23 +1,17 @@
+import {render} from '@testing-library/react'
+import React from 'react'
 import {getAllRandomTabLists} from '../../../shared/storage'
+import {List} from './index'
 
 export async function loadAllTabLists() {
   return await getAllRandomTabLists()
 }
 
-/**
- * writing test below
- */
-// test('loads and displays tabLists', async () => {
-//   render(<List />)
-// })
+test('loads and displays tabLists', async () => {
+  const {getByText, getByLabelText, getAllByText} = render(<List />)
 
-// test('can search tab at List', () => {
-//   const testData: TabLists = []
-// })
-
-// test('can reversed sort', async () => {
-//   const testData = await loadAllTabLists()
-//   const {findByText} = render(<Menu />)
-
-//   fireEvent.click(await findByText(/sort/i))
-// })
+  // https://blog.engineer.adways.net/entry/2020/07/10/150000
+  const tabGroup = getByLabelText(/tabGroup/i)
+  const tabLink = getByLabelText(/tabLink/i)
+  console.log(tabGroup, tabLink)
+})

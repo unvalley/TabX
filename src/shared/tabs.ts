@@ -66,3 +66,5 @@ export const storeAllTabs = async () => {
       res[1] && Storage.updateTabListElemWithMeta(res[1].id),
   )
 }
+
+export const restoreTabListElem = (id: number) => {}

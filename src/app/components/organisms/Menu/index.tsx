@@ -1,7 +1,7 @@
 import {Popover} from '@geist-ui/react'
 import {MoreVertical} from '@geist-ui/react-icons'
 import React from 'react'
-import {MenuContent} from '../../molecules/MenuContent'
+import {MenuContent} from '../../molecules/HeaderMenuContent'
 
 type Props = {}
 

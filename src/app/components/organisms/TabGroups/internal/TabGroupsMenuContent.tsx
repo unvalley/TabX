@@ -17,6 +17,8 @@ export const TabGroupsMenuContent: React.VFC<{tabsId: number}> = (props) => {
     await deleteTabListElem(id)
   }
 
+  const handleOpen = async (id: number) => {}
+
   return (
     <>
       <MenuItem

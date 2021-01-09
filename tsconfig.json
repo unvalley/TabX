@@ -73,7 +73,8 @@
   "include": [
     "src/**/*.ts",
     "src/app/__tests__/**/*.tsx",
-    "src/app/pages/List/List.test.tsx"
+    "src/app/pages/List/List.test.tsx",
+    "src/app/pages/Settings/Settings.test.tsx"
   ],
   "exclude": ["node_modules", ".vscode"]
 }

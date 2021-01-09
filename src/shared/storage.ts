@@ -5,6 +5,7 @@ import {zip} from './utils/util'
 import {Mutex} from 'async-mutex'
 
 const mutex = new Mutex()
+const cache = {lists: [] as TabLists}
 const get = (key: string) => browser.storage.local.get(key)
 const set = (obj: object) => browser.storage.local.set(obj)
 
@@ -14,13 +15,20 @@ export const getAllRandomTabLists = async () => {
   return [] as TabLists
 }
 
-export const getAllTabLists = async () =>
-  await get('lists').then(({lists}) =>
+export const getAllTabLists = async () => {
+  if (cache.lists) {
+    return cache.lists
+  }
+  const allTabLists = await get('lists').then(({lists}) =>
     Array.isArray(lists) ? (lists as TabLists) : [],
   )
+  cache.lists = allTabLists
+  return cache.lists
+}
 
 export const setLists = (lists: TabLists) => {
   const filterdLists = lists.filter((list) => list.tabs)
+  cache.lists = []
   return set({lists: filterdLists})
 }
 
