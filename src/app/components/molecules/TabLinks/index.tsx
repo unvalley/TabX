@@ -51,6 +51,7 @@ export const TabLinks: React.FC<Props> = (props) => {
                 ? () => handleDelete(tab.id!)
                 : undefined
             }
+            color={theme.palette.foreground}
           >
             <span style={{paddingRight: '5px'}}>
               <FaviconImage src={tab.favIconUrl!} size={20} />
