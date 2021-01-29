@@ -2,7 +2,7 @@ import {Rule} from '@app/utils/rule'
 import {Popover} from '@geist-ui/react'
 import {Menu, Pin} from '@geist-ui/react-icons'
 import React from 'react'
-import {omitText, omitText} from '../../../../../shared/utils/util'
+import {omitText} from '../../../../../shared/utils/util'
 import {HoveredMenu, StyledRow} from '../style'
 import {TabGroupsMenuContent} from './TabGroupsMenuContent'
 
