@@ -1,7 +1,8 @@
 import {browser, Tabs} from 'webextension-polyfill-ts'
 import {ILLEGAL_URLS} from './constants'
-import {createNewTabListElem} from './list'
+import {createNewTabList} from './list'
 import * as Storage from './storage'
+import {ListElemTabs} from './typings'
 
 const getAllInWindow = (windowId?: number) => browser.tabs.query({windowId})
 
@@ -40,7 +41,7 @@ const isValidTab = (tab: Tabs.Tab) => {
 
 const storeTabs = async (tabs: Tabs.Tab[]) => {
   if (tabs.length === 0) return
-  const newList = createNewTabListElem(tabs)
+  const newList = createNewTabList(tabs)
 
   try {
     const lists = await Storage.getAllTabLists()
@@ -61,10 +62,18 @@ export const storeAllTabs = async () => {
 
   await Promise.all([openTabLists(), storeTabs(sanitizedTabs)]).then(
     (res) =>
-      // res[1] = storing TabListElem
+      // `res[1]` is storing TabListElem
       // NOTE: fetch decription and ogImageUrl from URL
       res[1] && Storage.updateTabListElemWithMeta(res[1].id),
   )
 }
 
-export const restoreTabListElem = (id: number) => {}
+export const restoreTabs = async (tabs: ListElemTabs) => {
+  tabs.forEach(async (tab) => {
+    const createdTab = await browser.tabs.create({
+      url: tab.url,
+      pinned: tab.pinned,
+    })
+    if (tab.mutedInfo?.muted) browser.tabs.update(createdTab.id, {muted: true})
+  })
+}

@@ -1,5 +1,6 @@
 import {Tabs} from 'webextension-polyfill-ts'
 
+export type ListElemTabs = Tabs.Tab[] | TabWithMeta[]
 /**
  * Each Tab Group
  */
@@ -7,7 +8,7 @@ export type TabListElem = {
   id: number
   title: string
   description: string
-  tabs: Tabs.Tab[] | TabWithMeta[]
+  tabs: ListElemTabs
   hasPinned: boolean
   createdAt: number
   updatedAt: number
