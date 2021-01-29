@@ -48,6 +48,11 @@ export const tabListsStatsState = selector({
   key: 'tabListsStatsState',
   get: async ({get}) => {
     const tabLists = await get(tabListsState)
+    console.log(tabLists)
+    if (!tabLists.length) {
+      return 0
+    }
+
     const totalTabsCount = tabLists
       .map((te) => te.tabs.length)
       .reduce((prev, cur) => prev + cur)

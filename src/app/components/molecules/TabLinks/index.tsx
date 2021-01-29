@@ -2,9 +2,9 @@ import {useTheme} from '@geist-ui/react'
 import React from 'react'
 import {Tabs} from 'webextension-polyfill-ts'
 import {deleteTabLink} from '../../../../shared/storage'
+import {omitText} from '../../../../shared/utils/util'
 import {SHOW_TAB_TITLE_LENGTH} from '../../../constants/styles'
 import {useLocalStorage} from '../../../hooks/useLocalStorage'
-import {omitText} from '../../../utils'
 import {FaviconImage} from '../../atoms/FaviconImage'
 import {TabLinkOps} from '../TabLinkOps'
 import {TabLinkButton, TabLinkWrapper, Title} from './style'
@@ -27,6 +27,7 @@ export const TabLinks: React.FC<Props> = (props) => {
   }
 
   const handleDelete = async (tabId: number) => {
+    console.log(props.tabListId, tabId)
     await deleteTabLink(props.tabListId, tabId)
   }
 
