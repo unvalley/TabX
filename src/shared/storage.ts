@@ -2,8 +2,9 @@ import {Mutex} from 'async-mutex'
 import {browser, Tabs} from 'webextension-polyfill-ts'
 import {TabListElem, TabLists, TabWithMeta} from './typings'
 import {acquireMetadata} from './utils/api'
-import {zip} from './utils/util'
+import {genParamsToFetchMetadata, zip} from './utils/util'
 import produce from 'immer'
+import {restoreTabs} from './tabs'
 
 const mutex = new Mutex()
 const cache = {lists: [] as TabLists}
@@ -34,9 +35,11 @@ export const setLists = (lists: TabLists) => {
 }
 
 export const addList = async (newList: TabListElem) => {
-  const lists = await getAllTabLists()
-  lists.push(newList)
-  return await setLists(lists)
+  const allTabLists = await getAllTabLists()
+  const updatedAllTabLists = produce(allTabLists, (draft) => {
+    draft.push(newList)
+  })
+  return setLists(updatedAllTabLists)
 }
 
 export const deleteAllTabLists = () => set({lists: null})
@@ -50,7 +53,6 @@ export const deleteTabLink = async (tabsId: number, tabId: number) => {
   try {
     // SELECT
     const allTabLists = await getAllTabLists()
-
     const updatedAllTabLists = produce(allTabLists, (draft) => {
       const targetTabListElem = draft.filter((list) => list.id === tabsId)[0]
       const idx = targetTabListElem.tabs.findIndex(({id}) => id === tabId)
@@ -58,7 +60,7 @@ export const deleteTabLink = async (tabsId: number, tabId: number) => {
         (_, i) => i !== idx,
       )
       // DELETE and hanlde if tabs are empty
-      !targetTabListElem.tabs.length && deleteTabListElem(tabsId)
+      !targetTabListElem.tabs.length && deleteTabList(tabsId)
     })
     // UPDATE
     setLists(updatedAllTabLists)
@@ -73,19 +75,21 @@ export const deleteTabLink = async (tabsId: number, tabId: number) => {
  * Delete TabListElem
  * @param tabsId
  */
-export const deleteTabListElem = async (tabsId: number) => {
+export const deleteTabList = async (tabsId: number) => {
   const release = await mutex.acquire()
   try {
     const allTabLists = await getAllTabLists()
-    const tabListsIdx = allTabLists.findIndex(({id}) => id === tabsId)
-    allTabLists.splice(tabListsIdx, 1)
-    setLists(allTabLists)
+    const updatedAllTabLists = produce(allTabLists, (draft) => {
+      const listIdx = draft.findIndex(({id}) => id === tabsId)
+      draft.splice(listIdx, 1)
+    })
+    setLists(updatedAllTabLists)
   } finally {
     release()
   }
 }
 
-export const pinnTabListElem = async (tabsId: number) => {
+export const pinnTabList = async (tabsId: number) => {
   // SELECT
   const allTabLists = await getAllTabLists()
   const targetTabListElem = allTabLists.filter((list) => list.id === tabsId)[0]
@@ -95,16 +99,18 @@ export const pinnTabListElem = async (tabsId: number) => {
   setLists(allTabLists)
 }
 
-const genParams = (tabs: Tabs.Tab[]) =>
-  tabs.map((tab) => {
-    return {
-      id: tab.id as number,
-      url: tab.url as string,
-    }
-  })
+export const restoreTabList = async (tabsId: number) => {
+  // SELECT
+  const allTabLists = await getAllTabLists()
+  const targetTabListElem = allTabLists.filter((list) => list.id === tabsId)[0]
+  // OPEN
+  await restoreTabs(targetTabListElem.tabs)
+  // DELETE
+  await deleteTabList(tabsId)
+}
 
 const mergeTabsWithMeta = async (tabs: Tabs.Tab[]) => {
-  const params = genParams(tabs)
+  const params = genParamsToFetchMetadata(tabs)
   const metaObjs = await acquireMetadata(params)
 
   const tabsWithMetas: TabWithMeta[] = []

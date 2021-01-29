@@ -2,7 +2,7 @@ import {Tabs} from 'webextension-polyfill-ts'
 import {TabWithMeta} from './typings'
 import {genObjectId} from './utils/util'
 
-export const createNewTabListElem = (tabs: Tabs.Tab[]) => ({
+export const createNewTabList = (tabs: Tabs.Tab[]) => ({
   id: genObjectId(),
   title: tabs[0].title!,
   description: '',
