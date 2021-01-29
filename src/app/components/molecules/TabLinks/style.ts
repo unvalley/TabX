@@ -21,7 +21,8 @@ export const TabLinkWrapper = styled.span<{
   }
 `
 
-export const TabLinkButton = styled.a`
+export const TabLinkButton = styled.a<{color: string}>`
+  color: ${({color}) => color};
   justify-content: center;
   text-align: center;
   text-decoration: none;

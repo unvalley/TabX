@@ -1,6 +1,7 @@
 import {Popover} from '@geist-ui/react'
 import {Menu, Pin} from '@geist-ui/react-icons'
 import React from 'react'
+import {omitText} from '../../../../../shared/utils/util'
 import {HoveredMenu, StyledRow} from '../style'
 import {TabGroupsMenuContent} from './TabGroupsMenuContent'
 
@@ -52,10 +53,14 @@ export const TabGroupHeader: React.VFC<Props> = (props) => {
           {props.hasPinned ? (
             <>
               <Pin />
-              <span style={{fontSize: '18px'}}>{props.totalTabs} Tabs</span>
+              <span style={{fontSize: '18px'}}>
+                「{omitText(props.title)(50)('…')}」と{props.totalTabs - 1}件
+              </span>
             </>
           ) : (
-            <h4 style={{marginBottom: '0px'}}>{props.totalTabs} Tabs</h4>
+            <h4 style={{marginBottom: '0px'}}>
+              「{omitText(props.title)(50)('…')}」と{props.totalTabs - 1}件
+            </h4>
           )}
         </div>
       </StyledRow>

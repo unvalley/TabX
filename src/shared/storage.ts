@@ -1,8 +1,9 @@
+import {Mutex} from 'async-mutex'
 import {browser, Tabs} from 'webextension-polyfill-ts'
 import {TabListElem, TabLists, TabWithMeta} from './typings'
 import {acquireMetadata} from './utils/api'
 import {zip} from './utils/util'
-import {Mutex} from 'async-mutex'
+import produce from 'immer'
 
 const mutex = new Mutex()
 const cache = {lists: [] as TabLists}
@@ -49,17 +50,18 @@ export const deleteTabLink = async (tabsId: number, tabId: number) => {
   try {
     // SELECT
     const allTabLists = await getAllTabLists()
-    const targetTabListElem = allTabLists.filter(
-      (list) => list.id === tabsId,
-    )[0]
-    const tabs = targetTabListElem.tabs
-    const idx = tabs.findIndex(({id}) => id === tabId)
-    // DELETE and hanlde if tabs are empty
-    // NOTE: if performance is poor, deleteTabListElem can be changed to give allTabLists
-    tabs.splice(idx, 1)
-    !tabs.length && deleteTabListElem(tabsId)
+
+    const updatedAllTabLists = produce(allTabLists, (draft) => {
+      const targetTabListElem = draft.filter((list) => list.id === tabsId)[0]
+      const idx = targetTabListElem.tabs.findIndex(({id}) => id === tabId)
+      targetTabListElem.tabs = targetTabListElem.tabs.filter(
+        (_, i) => i !== idx,
+      )
+      // DELETE and hanlde if tabs are empty
+      !targetTabListElem.tabs.length && deleteTabListElem(tabsId)
+    })
     // UPDATE
-    setLists(allTabLists)
+    setLists(updatedAllTabLists)
   } catch (err) {
     console.error(err)
   } finally {

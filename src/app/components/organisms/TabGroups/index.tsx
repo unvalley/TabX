@@ -21,7 +21,7 @@ export const TabGroups: React.FC<Props> = (props) => {
           {props.shouldShowTabGroupCounts && (
             <TabGroupHeader
               tabsId={tabList.id!}
-              title={''}
+              title={tabList.title}
               isLG={isLG}
               totalTabs={tabList.tabs.length}
               hasPinned={tabList.hasPinned}

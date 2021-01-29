@@ -1,6 +1,3 @@
-export const omitText = (text: string) => (len: number) => (ellipsis: string) =>
-  text.length >= len ? text.slice(0, len - ellipsis.length) + ellipsis : text
-
 export const openDonation = () => {
   const url = 'https://www.buymeacoffee.com/kirohi'
   window.open(url)

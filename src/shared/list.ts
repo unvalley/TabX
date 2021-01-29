@@ -1,11 +1,10 @@
 import {Tabs} from 'webextension-polyfill-ts'
-import {DEFAULT_TITLE} from './constants'
 import {TabWithMeta} from './typings'
 import {genObjectId} from './utils/util'
 
 export const createNewTabListElem = (tabs: Tabs.Tab[]) => ({
   id: genObjectId(),
-  title: DEFAULT_TITLE,
+  title: tabs[0].title!,
   description: '',
   // Ref: https://stackoverflow.com/questions/49510832/typescript-how-to-map-over-union-array-type
   tabs: Array.isArray(tabs)
