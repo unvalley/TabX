@@ -2,6 +2,7 @@ const webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const path = require('path')
 
 module.exports = {
   entry: {
@@ -42,6 +43,9 @@ module.exports = {
 
   resolve: {
     extensions: ['*', '.js', '.ts', '.tsx', '.json', '.mjs', '.wasm'],
+    alias: {
+      '~': path.resolve(__dirname, 'src'),
+    },
   },
 
   plugins: [

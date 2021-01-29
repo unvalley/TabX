@@ -1,8 +1,19 @@
-import {TabLists} from '@shared/typings'
+import {TabLists} from '../../shared/typings'
 import {atom, selector} from 'recoil'
 import {getAllTabLists} from '../../shared/storage'
 import {Lang} from '../constants/index'
 import {Themes} from '../constants/styles'
+
+// const syncStorageEffect = () => ({setSelf, trigger}) => {
+//   if (trigger === 'get') {
+//     setSelf('aa')
+//   }
+
+//   setSelf(tabLists)
+//   return () => {
+//     storage.onChange()
+//   }
+// }
 
 export const tabListsState = atom<TabLists>({
   key: 'tabListsState',
@@ -10,7 +21,7 @@ export const tabListsState = atom<TabLists>({
     key: 'tabListsState/Default',
     get: async ({get}) => {
       const lists = await getAllTabLists()
-      if (lists === undefined) {
+      if (typeof lists === 'undefined') {
         return [{}, {}] as TabLists
       }
       return lists

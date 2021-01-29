@@ -1,4 +1,4 @@
-import {Rule} from '@app/utils/rule'
+import {Rule} from '../../../../utils/rule'
 import {Popover} from '@geist-ui/react'
 import Menu from '@geist-ui/react-icons/Menu'
 import Pin from '@geist-ui/react-icons/Pin'
