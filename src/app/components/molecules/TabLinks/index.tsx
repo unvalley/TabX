@@ -30,6 +30,7 @@ export const TabLinks: React.FC<Props> = (props) => {
   }
 
   const handleDelete = async (tabId: number) => {
+    // TODO: TabListの中で最後だった場合，タイトルが残ってしまうので処理が必要．
     await deleteTabLink(tabListId, tabId).then(() => {
       const newAllTabLists = removeTabLink(tabLists, tabListId, tabId)
       setTabLists(newAllTabLists)
