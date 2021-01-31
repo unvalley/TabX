@@ -2,8 +2,8 @@ import {Card, Col, Divider, Grid, Row, Text} from '@geist-ui/react'
 import {ToggleEvent} from '@geist-ui/react/dist/toggle/toggle'
 import React from 'react'
 import {useTranslation} from 'react-i18next'
-import {DeleteButton} from '../../../components/molecules/DeleteButton'
-import {useLocalStorage} from '../../../hooks/useLocalStorage'
+import {DeleteButton} from '~/app/components/molecules/DeleteButton'
+import {useLocalStorage} from '~/app/hooks/useLocalStorage'
 import {StyledToggle, ToggleWrapper} from './style'
 
 type Props = {deleteAllTabs: () => void}

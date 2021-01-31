@@ -1,5 +1,7 @@
+import {Rule} from '../../../../utils/rule'
 import {Popover} from '@geist-ui/react'
-import {Menu, Pin} from '@geist-ui/react-icons'
+import Menu from '@geist-ui/react-icons/Menu'
+import Pin from '@geist-ui/react-icons/Pin'
 import React from 'react'
 import {omitText} from '../../../../../shared/utils/util'
 import {HoveredMenu, StyledRow} from '../style'
@@ -14,6 +16,7 @@ type Props = {
 }
 
 export const TabGroupHeader: React.VFC<Props> = (props) => {
+  const {totalTabs, title, tabsId, hasPinned, isLG} = props
   const [mouseOver, setMouseOver] = React.useState({hover: false, idx: 0})
 
   const handleMouseOver = (idx: number) => {
@@ -22,22 +25,28 @@ export const TabGroupHeader: React.VFC<Props> = (props) => {
   const isHoverd = (idx: number) =>
     mouseOver.hover === true && mouseOver.idx === idx
 
+  const firstTabLinkTitle = omitText(title)(Rule.TITLE_MAX_LENGTH)('…')
+  const displayTitle =
+    totalTabs > 1
+      ? `「${firstTabLinkTitle}」と${totalTabs - 1}件`
+      : firstTabLinkTitle
+
   return (
     <>
       <StyledRow
-        onMouseOver={() => handleMouseOver(props.tabsId)}
+        onMouseOver={() => handleMouseOver(tabsId)}
         onMouseLeave={() => setMouseOver({hover: false, idx: 0})}
       >
         <HoveredMenu>
           <Popover
-            placement={props.isLG ? 'leftStart' : 'bottomEnd'}
+            placement={isLG ? 'leftStart' : 'bottomEnd'}
             leaveDelay={2}
             offset={12}
-            content={<TabGroupsMenuContent tabsId={props.tabsId} />}
+            content={<TabGroupsMenuContent tabsId={tabsId} />}
             style={{
               cursor: 'pointer',
               marginRight: '20px',
-              display: isHoverd(props.tabsId) ? 'inline-block' : 'none',
+              display: isHoverd(tabsId) ? 'inline-block' : 'none',
             }}
           >
             <Menu
@@ -50,17 +59,13 @@ export const TabGroupHeader: React.VFC<Props> = (props) => {
           </Popover>
         </HoveredMenu>
         <div>
-          {props.hasPinned ? (
+          {hasPinned ? (
             <>
               <Pin />
-              <span style={{fontSize: '18px'}}>
-                「{omitText(props.title)(50)('…')}」と{props.totalTabs - 1}件
-              </span>
+              <span style={{fontSize: '18px'}}>{displayTitle}</span>
             </>
           ) : (
-            <h4 style={{marginBottom: '0px'}}>
-              「{omitText(props.title)(50)('…')}」と{props.totalTabs - 1}件
-            </h4>
+            <h4 style={{marginBottom: '0px'}}>{displayTitle}</h4>
           )}
         </div>
       </StyledRow>

@@ -64,6 +64,7 @@ export const deleteTabLink = async (tabsId: number, tabId: number) => {
     })
     // UPDATE
     setLists(updatedAllTabLists)
+    return updatedAllTabLists
   } catch (err) {
     console.error(err)
   } finally {
