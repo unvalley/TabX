@@ -1,10 +1,11 @@
 import {useMediaQuery} from '@geist-ui/react'
 import React from 'react'
-import {TabLists} from '../../../../shared/typings'
-import {TabLinks} from '../../molecules/TabLinks'
+import {TabLists} from '~/shared/typings'
+import {TabLinks} from '~/app/components/molecules/TabLinks'
 import {TabGroupHeader} from './internal/TabGroupHeader'
 import {TabListElem} from './style'
 
+// rename shouldShowTabGroupCounts
 type Props = {tabLists: TabLists; shouldShowTabGroupCounts: boolean}
 
 /**
@@ -13,12 +14,14 @@ type Props = {tabLists: TabLists; shouldShowTabGroupCounts: boolean}
 export const TabGroups: React.FC<Props> = (props) => {
   // NOTE: dont include in a loop
   const isLG = useMediaQuery('lg')
+  const {tabLists, shouldShowTabGroupCounts} = props
 
   return (
     <>
-      {props.tabLists.map((tabList, idx) => (
+      {console.log('これが描画されている')}
+      {tabLists.map((tabList, idx) => (
         <TabListElem key={tabList.id!}>
-          {props.shouldShowTabGroupCounts && (
+          {shouldShowTabGroupCounts && (
             <TabGroupHeader
               tabsId={tabList.id!}
               title={tabList.title}

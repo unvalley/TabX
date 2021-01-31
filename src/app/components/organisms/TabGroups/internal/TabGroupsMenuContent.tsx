@@ -1,12 +1,8 @@
 import React from 'react'
 import {useTranslation} from 'react-i18next'
-import {
-  pinnTabList,
-  deleteTabList,
-  restoreTabList,
-} from '../../../../../shared/storage'
-import {MENU_ICON_SIZE} from '../../../../constants/styles'
-import {MenuItem} from '../../../molecules/MenuItem'
+import {pinnTabList, deleteTabList, restoreTabList} from '~/shared/storage'
+import {MENU_ICON_SIZE} from '~/app/constants/styles'
+import {MenuItem} from '~/app/components/molecules/MenuItem'
 import Menu from '@geist-ui/react-icons/Menu'
 import Pin from '@geist-ui/react-icons/Pin'
 import Trash from '@geist-ui/react-icons/Trash'

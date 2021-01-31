@@ -26,6 +26,7 @@ const MemoizedTabGroups = React.memo<{
 ))
 
 const Header: React.VFC<Omit<Props, 'tabLists'>> = (props) => {
+  const {query, setQuery} = props
   const totalNum = useRecoilValue(tabListsStatsState)
 
   return (
@@ -33,7 +34,7 @@ const Header: React.VFC<Omit<Props, 'tabLists'>> = (props) => {
       {/* Left */}
       <Col span={16}>
         {/* TODO: need left space 8px */}
-        <SearchBox query={props.query} onChange={props.setQuery} />
+        <SearchBox query={query} onChange={setQuery} />
       </Col>
       {/* Right */}
       <Col span={8}>
@@ -47,6 +48,7 @@ const Header: React.VFC<Omit<Props, 'tabLists'>> = (props) => {
 }
 
 export const List: React.FC<Props> = (props) => {
+  const {query, setQuery, tabLists} = props
   const [t, i18n] = useTranslation()
   const [shouldShowTabGroupCounts, _] = useLocalStorage<boolean>(
     'shouldShowTabGroupCounts',
@@ -54,10 +56,10 @@ export const List: React.FC<Props> = (props) => {
 
   return (
     <>
-      <Header query={props.query} setQuery={props.setQuery} />
-      {props.tabLists.length > 0 ? (
+      <Header query={query} setQuery={setQuery} />
+      {tabLists.length > 0 ? (
         <MemoizedTabGroups
-          tabLists={props.tabLists}
+          tabLists={tabLists}
           shouldShowTabGroupCounts={shouldShowTabGroupCounts}
         />
       ) : (

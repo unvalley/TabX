@@ -1,19 +1,9 @@
-import {TabLists} from '../../shared/typings'
-import {atom, selector} from 'recoil'
-import {getAllTabLists} from '../../shared/storage'
-import {Lang} from '../constants/index'
-import {Themes} from '../constants/styles'
-
-// const syncStorageEffect = () => ({setSelf, trigger}) => {
-//   if (trigger === 'get') {
-//     setSelf('aa')
-//   }
-
-//   setSelf(tabLists)
-//   return () => {
-//     storage.onChange()
-//   }
-// }
+import {atom, atomFamily, selector} from 'recoil'
+import {TabLists} from '~/shared/typings'
+import {getAllTabLists} from '~/shared/storage'
+import {Lang} from '~/app/constants/index'
+import {Themes} from '~/app/constants/styles'
+import produce, {Draft} from 'immer'
 
 export const tabListsState = atom<TabLists>({
   key: 'tabListsState',
@@ -28,6 +18,11 @@ export const tabListsState = atom<TabLists>({
     },
   }),
 })
+
+// const tabListState = atomFamily({
+//   key: 'tabListState',
+//   default: null,
+// })
 
 // default: newestAt
 export const tabListsSortState = atom({
@@ -59,13 +54,12 @@ export const tabListsStatsState = selector({
   key: 'tabListsStatsState',
   get: async ({get}) => {
     const tabLists = await get(tabListsState)
-    console.log(tabLists)
     if (!tabLists.length) {
       return 0
     }
 
     const totalTabsCount = tabLists
-      .map((te) => te.tabs.length)
+      .map((tabList) => tabList.tabs.length)
       .reduce((prev, cur) => prev + cur)
     return totalTabsCount
   },
@@ -98,3 +92,14 @@ export const langState = atom<string>({
     },
   }),
 })
+
+export const removeTabLink = (
+  tabLists: TabLists,
+  tabListId: number,
+  tabId: number,
+) =>
+  produce(tabLists, (draft: Draft<TabLists>) => {
+    const targetTabList = draft.filter((list) => list.id === tabListId)[0]
+    const idx = targetTabList.tabs.findIndex(({id}) => id === tabId)
+    targetTabList.tabs = targetTabList.tabs.filter((_, i) => i !== idx)
+  })

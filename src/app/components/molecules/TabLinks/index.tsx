@@ -8,6 +8,8 @@ import {FaviconImage} from '~/app/components/atoms/FaviconImage'
 import {TabLinkOps} from '../TabLinkOps'
 import {TabLinkButton, TabLinkWrapper, Title} from './style'
 import {Rule} from '~/app/utils/rule'
+import {removeTabLink, tabListsState} from '~/app/store'
+import {useRecoilState} from 'recoil'
 
 type Props = {tabs: Tabs.Tab[]; tabListId: number; createdAt: number}
 /**
@@ -16,18 +18,22 @@ type Props = {tabs: Tabs.Tab[]; tabListId: number; createdAt: number}
  */
 export const TabLinks: React.FC<Props> = (props) => {
   const {tabListId, tabs} = props
+  const [tabLists, setTabLists] = useRecoilState(tabListsState)
   const [mouseOver, setMouseOver] = React.useState({hover: false, idx: 0})
   const [shouldDeleteTabWhenClicked, _] = useLocalStorage<boolean>(
     'shouldDeleteTabWhenClicked',
   )
   const theme = useTheme()
+
   const handleMouseOver = (idx: number) => {
     setMouseOver({hover: true, idx})
   }
 
   const handleDelete = async (tabId: number) => {
-    console.log(tabListId, tabId)
-    await deleteTabLink(tabListId, tabId).then(() => alert('成功した'))
+    await deleteTabLink(tabListId, tabId).then(() => {
+      const newAllTabLists = removeTabLink(tabLists, tabListId, tabId)
+      setTabLists(newAllTabLists)
+    })
   }
 
   const isHoverd = (idx: number) =>
@@ -37,6 +43,7 @@ export const TabLinks: React.FC<Props> = (props) => {
     <>
       {tabs.map((tab, idx) => (
         <TabLinkWrapper
+          id={String(tab.id)}
           key={tab.id!}
           hoverShadow={theme.expressiveness.shadowSmall}
           onMouseOver={() => handleMouseOver(idx)}

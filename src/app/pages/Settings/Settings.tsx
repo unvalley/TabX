@@ -2,11 +2,11 @@ import {Spacer} from '@geist-ui/react'
 import React from 'react'
 import {
   ColorThemes,
-  Contributions,
+  //   Contributions,
   Languages,
   Tabs,
   Versions,
-} from '../../components/organisms/SettingsSection'
+} from '~/app/components/organisms/SettingsSection'
 
 type Props = {
   deleteAllTabs: () => void
@@ -24,7 +24,7 @@ export const Settings: React.FC<Props> = (props) => {
       <Spacer y={1} />
       <Versions version={props.version!} />
       <Spacer y={1} />
-      <Contributions />
+      {/* <Contributions /> */}
     </>
   )
 }
