@@ -1,4 +1,4 @@
-import {atom, atomFamily, selector} from 'recoil'
+import {atom, selector} from 'recoil'
 import {TabLists} from '~/shared/typings'
 import {getAllTabLists} from '~/shared/storage'
 import {Lang} from '~/app/constants/index'

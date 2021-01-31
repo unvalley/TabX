@@ -1,0 +1,19 @@
+# アクション名
+name: CI
+
+# タイミングを指定
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+  lint:
+    name: Lint check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: yarn install
+      - run: yarn lint
