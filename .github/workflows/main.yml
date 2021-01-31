@@ -15,5 +15,9 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-      - run: yarn install
-      - run: yarn lint
+      - name: yarn install
+        run: yarn install
+      - name: run eslint
+        run: yarn lint
+      - name: run jest
+        run: yarn jest
