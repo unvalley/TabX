@@ -1,9 +1,12 @@
 import {useTheme} from '@geist-ui/react'
-import {AlignJustify, Grid, Settings} from '@geist-ui/react-icons'
 import React from 'react'
+import {Aside, Nav, SwitchButton} from './style'
+import Layers from '@geist-ui/react-icons/layers'
+import AlignJustify from '@geist-ui/react-icons/alignJustify'
+import Settings from '@geist-ui/react-icons/settings'
+import Grid from '@geist-ui/react-icons/grid'
 import {Colors} from '../../../constants/styles'
 import {URL} from '../../../constants/urls'
-import {Aside, Nav, SwitchButton} from './style'
 
 type Props = {}
 
@@ -44,6 +47,18 @@ export const LeftMenu: React.FC<Props> = () => {
           hoverIconColor={hoverIconColor}
         >
           <Grid />
+        </SwitchButton>
+
+        <SwitchButton
+          exact
+          to={URL.DOMAIN}
+          bgColor={buttonBgColor}
+          hoverBgColor={hoverBgColor}
+          activeBgColor={activeBgColor}
+          iconColor={iconColor}
+          hoverIconColor={hoverIconColor}
+        >
+          <Layers />
         </SwitchButton>
 
         {/* SettingsButton */}

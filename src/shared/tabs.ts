@@ -45,7 +45,7 @@ const storeTabs = async (tabs: Tabs.Tab[]) => {
 
   try {
     const lists = await Storage.getAllTabLists()
-    lists === undefined || lists === null
+    typeof lists === 'undefined' || lists === null
       ? await Storage.setLists([newList])
       : await Storage.addList(newList)
   } catch (err) {

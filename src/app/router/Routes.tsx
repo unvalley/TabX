@@ -8,6 +8,7 @@ import {Spacing} from '../constants/styles'
 import {List} from '../pages/List'
 import {Masonry} from '../pages/Masonry'
 import {Settings} from '../pages/Settings'
+import {Domain} from '../pages/Domain'
 
 const Wrapper = styled(Grid.Container)<{bgColor: string}>`
   margin: ${Spacing['3']} 100px;
@@ -46,6 +47,7 @@ export const Routes = () => {
                 <Route exact path="/" component={List} />
                 <Route path="/masonry" component={Masonry} />
                 <Route path="/settings" component={Settings} />
+                <Route path="/domain" component={Domain} />
               </Switch>
             </React.Suspense>
           </MainContainer>

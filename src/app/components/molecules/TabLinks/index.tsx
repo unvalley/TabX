@@ -7,7 +7,7 @@ import {useLocalStorage} from '~/app/hooks/useLocalStorage'
 import {FaviconImage} from '~/app/components/atoms/FaviconImage'
 import {TabLinkOps} from '../TabLinkOps'
 import {TabLinkButton, TabLinkWrapper, Title} from './style'
-import {Rule} from '~/app/utils/rule'
+import {Rule} from '~/app/constants/rule'
 import {removeTabLink, tabListsState} from '~/app/store'
 import {useRecoilState} from 'recoil'
 
