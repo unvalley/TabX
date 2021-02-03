@@ -72,8 +72,8 @@
   "include": [
     "src/**/*.ts",
     "src/app/__tests__/**/*.tsx",
-    "src/app/pages/List/List.test.tsx",
-    "src/app/pages/Settings/Settings.test.tsx"
+    "src/test/e2e/integration/List.test.tsx",
+    "src/test/e2e/integration/Settings.test.tsx"
   ],
   "exclude": ["node_modules", ".vscode", "dist", "patches", "lib"]
 }

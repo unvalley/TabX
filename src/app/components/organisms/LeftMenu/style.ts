@@ -1,6 +1,6 @@
 import {NavLink} from 'react-router-dom'
 import styled from 'styled-components'
-import {Colors, Spacing} from '../../../constants/styles'
+import {Spacing} from '~/app/constants/styles'
 
 type SwitchButtonProps = {
   bgColor: string

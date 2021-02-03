@@ -12,7 +12,7 @@ export const tabListsState = atom<TabLists>({
     get: async ({get}) => {
       const lists = await getAllTabLists()
       if (typeof lists === 'undefined') {
-        return [{}, {}] as TabLists
+        return [] as TabLists
       }
       return lists
     },
@@ -92,6 +92,10 @@ export const langState = atom<string>({
     },
   }),
 })
+
+///////////////////////////
+// producer
+///////////////////////////
 
 export const removeTabLink = (
   tabLists: TabLists,

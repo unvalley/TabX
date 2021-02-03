@@ -6,8 +6,17 @@ import {genParamsToFetchMetadata, zip} from './utils/util'
 import produce from 'immer'
 import {restoreTabs} from './tabs'
 
+const LISTS = 'lists'
+const DOMAINS = 'domains'
+
 const mutex = new Mutex()
-const cache = {lists: [] as TabLists}
+type Domains = {
+  name: string
+  domain: string
+  fullPath: string
+}[]
+
+const cache = {lists: [] as TabLists, domains: [] as Domains}
 const get = (key: string) => browser.storage.local.get(key)
 const set = (obj: object) => browser.storage.local.set(obj)
 
@@ -21,11 +30,22 @@ export const getAllTabLists = async () => {
   if (cache.lists.length > 0) {
     return cache.lists
   }
-  const allTabLists = await get('lists').then(({lists}) =>
+  const allTabLists = await get(LISTS).then(({lists}) =>
     Array.isArray(lists) ? (lists as TabLists) : [],
   )
   cache.lists = allTabLists
   return cache.lists
+}
+
+export const getAllDomains = async () => {
+  if (cache.domains.length > 0) {
+    return cache.domains
+  }
+  const allDomains = await get(DOMAINS).then(({domains}) =>
+    Array.isArray(domains) ? (domains as Domains) : [],
+  )
+  cache.domains = allDomains
+  return cache.domains
 }
 
 export const setLists = (lists: TabLists) => {
@@ -43,6 +63,7 @@ export const addList = async (newList: TabListElem) => {
 }
 
 export const deleteAllTabLists = () => set({lists: null})
+export const deleteAllDomains = () => set({domains: null})
 
 /**
  * Delete Single Tab Link in a TabListElem
