@@ -14,7 +14,12 @@ export const TabGroupsMenuContent: React.VFC<{tabsId: number}> = (props) => {
     await pinnTabList(id)
   }
   const handleDelete = async (id: number) => {
-    await deleteTabList(id)
+    // TODO: TabListの中で最後だった場合，タイトルが残ってしまうので処理が必要．
+    await deleteTabList(id).then(() => {
+      console.log('DONE')
+      //   const newAllTabLists = removeTabLink(tabLists, tabListId, tabId)
+      //   setTabLists(newAllTabLists)
+    })
   }
 
   const handleOpen = async (id: number) => {
