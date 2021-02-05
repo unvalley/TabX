@@ -6,6 +6,7 @@ import {MenuItem} from '~/app/components/molecules/MenuItem'
 import Menu from '@geist-ui/react-icons/Menu'
 import Pin from '@geist-ui/react-icons/Pin'
 import Trash from '@geist-ui/react-icons/Trash'
+import ExternalLink from '@geist-ui/react-icons/externalLink'
 
 export const TabGroupsMenuContent: React.VFC<{tabsId: number}> = (props) => {
   const [t, _] = useTranslation()
@@ -36,7 +37,7 @@ export const TabGroupsMenuContent: React.VFC<{tabsId: number}> = (props) => {
       <MenuItem
         handleClick={() => handleOpen(props.tabsId)}
         label={t('OPEN_TABS')}
-        icon={<Menu size={MENU_ICON_SIZE} />}
+        icon={<ExternalLink size={MENU_ICON_SIZE} />}
       />
       <MenuItem
         handleClick={() => console.log('')}
