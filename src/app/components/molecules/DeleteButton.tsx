@@ -8,7 +8,13 @@ export const DeleteButton: React.VFC<Props> = ({
   onClick,
   label = 'Delete All Tabs',
 }: Props) => (
-  <Button auto icon={<AlertCircle />} type="error" ghost onClick={onClick}>
+  <Button
+    size="medium"
+    icon={<AlertCircle />}
+    type="error"
+    ghost
+    onClick={onClick}
+  >
     {label}
   </Button>
 )

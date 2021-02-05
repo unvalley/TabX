@@ -5,13 +5,16 @@
   "TABS": "タブ",
   "DANGER_ZONE": "Danger Zone",
   "DANGER_ZONE_MESSAGE": "タブを全て消去すると，元に戻すことはできません",
-  "DELETE_ALL_TABS": "全て消去する",
+  "DELETE_ALL_TABS_BUTTON": "全て消去する",
   "DELETE_MESSAGE": "️本当に消去します!",
   "COLOR_THEMES": "カラーテーマ",
   "CONTRIBUTION": "貢献する",
 
   "SETTING_SHOW_TAB_GROUP_COUNT": "グループ内のタブ数を表示する",
   "SETTING_DELETE_TAB_WHEN_CLICKED": "タブをクリックした際に削除する",
+  "SETTING_EXPORT_TEXT": "タブをExportする(OneTab互換)",
+  "EXPORT_BUTTON": "Export",
+  "HIDE_EXPORT_BUTTON": "隠す",
 
   "TOTAL_TAB": "合計タブ数",
   "TAB_LISTS_EMPTY_MESSAGE": "現在タブはありません。Congrats! 🎉",
