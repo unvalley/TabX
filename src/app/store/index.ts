@@ -107,3 +107,8 @@ export const removeTabLink = (
     const idx = targetTabList.tabs.findIndex(({id}) => id === tabId)
     targetTabList.tabs = targetTabList.tabs.filter((_, i) => i !== idx)
   })
+
+export const removeTabList = (tabLists: TabLists, tabListId: number) =>
+  produce(tabLists, (draft: Draft<TabLists>) => {
+    draft.filter((list) => list.id !== tabListId)
+  })
