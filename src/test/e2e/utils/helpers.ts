@@ -1,5 +1,5 @@
 import path from 'path'
-import {PuppeteerNode} from 'puppeteer'
+import {PuppeteerNode} from 'puppeteer/lib/cjs/puppeteer/node/Puppeteer'
 
 const extensionPath = path.join(__dirname, '../dist')
 

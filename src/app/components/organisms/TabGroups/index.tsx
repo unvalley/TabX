@@ -1,7 +1,7 @@
 import {useMediaQuery} from '@geist-ui/react'
 import React from 'react'
-import {TabLists} from '~/shared/typings'
 import {TabLinks} from '~/app/components/molecules/TabLinks'
+import {TabLists} from '~/shared/typings'
 import {TabGroupHeader} from './internal/TabGroupHeader'
 import {TabListElem} from './style'
 
@@ -18,13 +18,12 @@ export const TabGroups: React.FC<Props> = (props) => {
 
   return (
     <>
-      {console.log('これが描画されている')}
       {tabLists.map((tabList, idx) => (
         <TabListElem key={tabList.id!}>
           {shouldShowTabGroupCounts && (
             <TabGroupHeader
               tabsId={tabList.id!}
-              title={tabList.title}
+              title={tabList.tabs[0].title!}
               isLG={isLG}
               totalTabs={tabList.tabs.length}
               hasPinned={tabList.hasPinned}

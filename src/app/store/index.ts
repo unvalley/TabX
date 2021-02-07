@@ -1,9 +1,9 @@
+import produce, {Draft} from 'immer'
 import {atom, selector} from 'recoil'
-import {TabLists} from '~/shared/typings'
-import {getAllTabLists} from '~/shared/storage'
 import {Lang} from '~/app/constants/index'
 import {Themes} from '~/app/constants/styles'
-import produce, {Draft} from 'immer'
+import {getAllTabLists} from '~/shared/storage'
+import {TabLists} from '~/shared/typings'
 
 export const tabListsState = atom<TabLists>({
   key: 'tabListsState',
