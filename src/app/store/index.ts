@@ -1,9 +1,9 @@
 import produce, {Draft} from 'immer'
-import {atom, selector} from 'recoil'
+import {atom, atomFamily, selector, selectorFamily} from 'recoil'
 import {Lang} from '~/app/constants/index'
 import {Themes} from '~/app/constants/styles'
 import {getAllTabLists} from '~/shared/storage'
-import {TabLists} from '~/shared/typings'
+import {TabListElem, TabLists} from '~/shared/typings'
 
 export const tabListsState = atom<TabLists>({
   key: 'tabListsState',
@@ -19,10 +19,20 @@ export const tabListsState = atom<TabLists>({
   }),
 })
 
-// const tabListState = atomFamily({
-//   key: 'tabListState',
-//   default: null,
-// })
+export const tabListState = atomFamily<TabListElem, number>({
+  key: 'tabListState',
+  default: selectorFamily<TabListElem, number>({
+    key: 'tabListState/Default',
+    get: (idx: number) => async ({get}) => {
+      const lists = await get(tabListsState)
+      if (typeof lists === 'undefined') {
+        return {} as TabListElem
+      }
+      console.log(idx)
+      return lists[idx] as TabListElem
+    },
+  }),
+})
 
 // default: newestAt
 export const tabListsSortState = atom({
