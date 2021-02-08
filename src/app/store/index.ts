@@ -24,12 +24,8 @@ export const tabListState = atomFamily<TabListElem, number>({
   default: selectorFamily<TabListElem, number>({
     key: 'tabListState/Default',
     get: (idx: number) => async ({get}) => {
-      const lists = await get(tabListsState)
-      if (typeof lists === 'undefined') {
-        return {} as TabListElem
-      }
-      console.log(idx)
-      return lists[idx] as TabListElem
+      const lists = await get(sortTabListsState)
+      return lists[idx]
     },
   }),
 })
@@ -118,7 +114,8 @@ export const removeTabLink = (
     targetTabList.tabs = targetTabList.tabs.filter((_, i) => i !== idx)
   })
 
-export const removeTabList = (tabLists: TabLists, tabListId: number) =>
-  produce(tabLists, (draft: Draft<TabLists>) => {
-    draft.filter((list) => list.id !== tabListId)
+export const removeTab = (tabList: TabListElem, tabId: number) =>
+  produce(tabList, (draft: Draft<TabListElem>) => {
+    const newTabs = draft.tabs.filter((tab) => tab.id !== tabId)
+    draft.tabs = newTabs
   })

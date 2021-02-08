@@ -2,43 +2,38 @@ import {Popover} from '@geist-ui/react'
 import Menu from '@geist-ui/react-icons/Menu'
 import Pin from '@geist-ui/react-icons/Pin'
 import React from 'react'
+import {useMouseOver} from '~/app/hooks/useMouseOver'
+import {useTitle} from '~/app/hooks/useTitle'
+import {TabListElem} from '~/shared/typings'
 import {HoveredMenu, StyledRow} from '../style'
 import {TabListMenuContent} from './TabListMenuContent'
 
 type Props = {
   idx: number
-  totalTabs: number
-  title: string
-  tabListId: number
-  hasPinned: boolean
+  tabList: TabListElem
   isLG?: boolean
 }
 
 export const TabListHeader: React.VFC<Props> = (props) => {
-  const {idx, tabListId, title, hasPinned, isLG} = props
-  const [mouseOver, setMouseOver] = React.useState({hover: false, idx: 0})
-
-  const handleMouseOver = (idx: number) => {
-    setMouseOver({hover: true, idx})
-  }
-  const isHoverd = (idx: number) =>
-    mouseOver.hover === true && mouseOver.idx === idx
+  const {idx, tabList, isLG} = props
+  const {handleMouseOver, handleMouseOut, isMouseOvered} = useMouseOver()
+  const displayTitle = useTitle(tabList)
 
   return (
     <StyledRow
       onMouseOver={() => handleMouseOver(idx)}
-      onMouseLeave={() => setMouseOver({hover: false, idx: 0})}
+      onMouseLeave={() => handleMouseOut()}
     >
       <HoveredMenu>
         <Popover
           placement={isLG ? 'leftStart' : 'bottomEnd'}
           leaveDelay={2}
           offset={12}
-          content={<TabListMenuContent tabsId={tabListId} />}
+          content={<TabListMenuContent tabList={tabList} />}
           style={{
             cursor: 'pointer',
             marginRight: '20px',
-            display: isHoverd(idx) ? 'inline-block' : 'none',
+            display: isMouseOvered(idx) ? 'inline-block' : 'none',
           }}
         >
           <Menu
@@ -51,13 +46,13 @@ export const TabListHeader: React.VFC<Props> = (props) => {
         </Popover>
       </HoveredMenu>
       <div>
-        {hasPinned ? (
+        {tabList.hasPinned ? (
           <>
             <Pin />
-            <span style={{fontSize: '18px'}}>{title}</span>
+            <span style={{fontSize: '18px'}}>{displayTitle}</span>
           </>
         ) : (
-          <h4 style={{marginBottom: '0px'}}>{title}</h4>
+          <h4 style={{marginBottom: '0px'}}>{displayTitle}</h4>
         )}
       </div>
     </StyledRow>
