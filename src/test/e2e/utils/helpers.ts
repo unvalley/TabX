@@ -1,11 +1,8 @@
 import path from 'path'
-import {PuppeteerNode} from 'puppeteer/lib/cjs/puppeteer/node/Puppeteer'
 
 const extensionPath = path.join(__dirname, '../dist')
 
-export const launchPuppeteerWithExtension = function (
-  puppeteer: PuppeteerNode,
-) {
+export const launchPuppeteerWithExtension = function (puppeteer: any) {
   const options = {
     headless: true,
     ignoreHTTPSErrors: true,

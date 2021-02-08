@@ -1,8 +1,8 @@
 import {Row} from '@geist-ui/react'
 import styled from 'styled-components'
-import {Spacing} from '../../../constants/styles'
+import {Spacing} from '~/app/constants/styles'
 
-export const TabListElem = styled.section`
+export const TabListSection = styled.section`
   width: 100%;
   min-width: 80%;
   margin: ${Spacing['2']} ${Spacing['0']};

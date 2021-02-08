@@ -13,7 +13,7 @@ import {deleteTabList, pinnTabList, restoreTabList} from '~/shared/storage'
 import {TabLists} from '../../../../../shared/typings'
 import {removeTabList, tabListsState} from '../../../../store'
 
-export const TabGroupsMenuContent: React.VFC<{tabsId: number}> = (props) => {
+export const TabListMenuContent: React.VFC<{tabsId: number}> = (props) => {
   const [t, _] = useTranslation()
   const [tabLists, setTabLists] = useRecoilState<TabLists>(tabListsState)
   const [, setToast] = useToasts()

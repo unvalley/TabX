@@ -2,7 +2,7 @@ import * as React from 'react'
 import {useTranslation} from 'react-i18next'
 import {TabLists} from '../../../shared/typings'
 import {Header} from '../../components/organisms/Header'
-import {TabGroups} from '../../components/organisms/TabGroups'
+import {TabList} from '../../components/organisms/TabList'
 import {useLocalStorage} from '../../hooks/useLocalStorage'
 
 type Props = {
@@ -11,19 +11,24 @@ type Props = {
 
 const MemoizedTabGroups = React.memo<{
   tabLists: TabLists
-  shouldShowTabGroupCounts: boolean
+  shouldShowTabListHeader: boolean
 }>((props) => (
-  <TabGroups
-    tabLists={props.tabLists}
-    shouldShowTabGroupCounts={props.shouldShowTabGroupCounts}
-  />
+  <>
+    {props.tabLists.map((tabList, idx) => (
+      <TabList
+        key={tabList.id}
+        idx={idx}
+        shouldShowTabListHeader={props.shouldShowTabListHeader}
+      />
+    ))}
+  </>
 ))
 
 export const List: React.FC<Props> = (props) => {
   const {tabLists} = props
   const [t, i18n] = useTranslation()
-  const [shouldShowTabGroupCounts, _] = useLocalStorage<boolean>(
-    'shouldShowTabGroupCounts',
+  const [shouldShowTabListHeader, _] = useLocalStorage<boolean>(
+    'shouldShowTabListHeader',
   )
 
   return (
@@ -32,7 +37,7 @@ export const List: React.FC<Props> = (props) => {
       {tabLists.length > 0 ? (
         <MemoizedTabGroups
           tabLists={tabLists}
-          shouldShowTabGroupCounts={shouldShowTabGroupCounts}
+          shouldShowTabListHeader={shouldShowTabListHeader}
         />
       ) : (
         <h4>{t('TAB_LISTS_EMPTY_MESSAGE')}</h4>
