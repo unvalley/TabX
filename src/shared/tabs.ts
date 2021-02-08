@@ -25,7 +25,10 @@ const openTabLists = async () => {
 
   const hasFoundAppTab = openTabs.find((tab) => tab.url === appUrl)
   if (hasFoundAppTab) {
-    return browser.tabs.update(hasFoundAppTab.id, {active: true})
+    // NOTE: change tab to app and reload
+    return await browser.tabs
+      .update(hasFoundAppTab.id, {active: true})
+      .then(() => browser.tabs.reload(hasFoundAppTab.id))
   }
   return await browser.tabs.create({url: appUrl, pinned: true})
 }
