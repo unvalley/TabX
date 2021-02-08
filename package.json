@@ -55,6 +55,7 @@
     "puppeteer": "^7.0.1",
     "react-i18next": "^11.8.5",
     "react-router-dom": "^5.2.0",
+    "react-use-scroll-position": "^2.0.0",
     "recoil": "^0.1.2",
     "sass-loader": "^6.0.7",
     "sinon-chrome": "^3.0.1",

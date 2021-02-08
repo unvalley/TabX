@@ -1,15 +1,16 @@
-import {useTheme} from '@geist-ui/react'
+import {useTheme, useToasts} from '@geist-ui/react'
 import React from 'react'
+import {useRecoilState} from 'recoil'
 import {Tabs} from 'webextension-polyfill-ts'
+import {FaviconImage} from '~/app/components/atoms/FaviconImage'
+import {Rule} from '~/app/constants/rule'
+import {useLocalStorage} from '~/app/hooks/useLocalStorage'
+import {tabListsState} from '~/app/store'
 import {deleteTabLink} from '~/shared/storage'
 import {omitText} from '~/shared/utils/util'
-import {useLocalStorage} from '~/app/hooks/useLocalStorage'
-import {FaviconImage} from '~/app/components/atoms/FaviconImage'
+import {removeTabLink} from '../../../store'
 import {TabLinkOps} from '../TabLinkOps'
 import {TabLinkButton, TabLinkWrapper, Title} from './style'
-import {Rule} from '~/app/constants/rule'
-import {removeTabLink, tabListsState} from '~/app/store'
-import {useRecoilState} from 'recoil'
 
 type Props = {tabs: Tabs.Tab[]; tabListId: number; createdAt: number}
 /**
@@ -23,6 +24,8 @@ export const TabLinks: React.FC<Props> = (props) => {
   const [shouldDeleteTabWhenClicked, _] = useLocalStorage<boolean>(
     'shouldDeleteTabWhenClicked',
   )
+
+  const [, setToast] = useToasts()
   const theme = useTheme()
 
   const handleMouseOver = (idx: number) => {
@@ -32,8 +35,14 @@ export const TabLinks: React.FC<Props> = (props) => {
   const handleDelete = async (tabId: number) => {
     // TODO: TabListの中で最後だった場合，タイトルが残ってしまうので処理が必要．
     await deleteTabLink(tabListId, tabId).then(() => {
+      // TODO: should prevent re-render
+      // - split atom
       const newAllTabLists = removeTabLink(tabLists, tabListId, tabId)
       setTabLists(newAllTabLists)
+    })
+    // show Toast
+    setToast({
+      text: 'Selected tab deleted',
     })
   }
 
@@ -56,7 +65,9 @@ export const TabLinks: React.FC<Props> = (props) => {
             target="_blank"
             onClick={
               shouldDeleteTabWhenClicked
-                ? () => handleDelete(tab.id!)
+                ? () => {
+                    handleDelete(tab.id!)
+                  }
                 : undefined
             }
             color={theme.palette.foreground}

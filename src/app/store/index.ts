@@ -1,9 +1,9 @@
+import produce, {Draft} from 'immer'
 import {atom, selector} from 'recoil'
-import {TabLists} from '~/shared/typings'
-import {getAllTabLists} from '~/shared/storage'
 import {Lang} from '~/app/constants/index'
 import {Themes} from '~/app/constants/styles'
-import produce, {Draft} from 'immer'
+import {getAllTabLists} from '~/shared/storage'
+import {TabLists} from '~/shared/typings'
 
 export const tabListsState = atom<TabLists>({
   key: 'tabListsState',
@@ -106,4 +106,9 @@ export const removeTabLink = (
     const targetTabList = draft.filter((list) => list.id === tabListId)[0]
     const idx = targetTabList.tabs.findIndex(({id}) => id === tabId)
     targetTabList.tabs = targetTabList.tabs.filter((_, i) => i !== idx)
+  })
+
+export const removeTabList = (tabLists: TabLists, tabListId: number) =>
+  produce(tabLists, (draft: Draft<TabLists>) => {
+    draft.filter((list) => list.id !== tabListId)
   })
