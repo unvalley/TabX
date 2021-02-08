@@ -1,6 +1,7 @@
 import {useToasts} from '@geist-ui/react'
-import {ExternalLink, Trash} from '@geist-ui/react-icons'
 import Clipboard from '@geist-ui/react-icons/Clipboard'
+import Delete from '@geist-ui/react-icons/delete'
+import ExternalLink from '@geist-ui/react-icons/ExternalLink'
 import Menu from '@geist-ui/react-icons/Menu'
 import Pin from '@geist-ui/react-icons/Pin'
 import React from 'react'
@@ -27,7 +28,7 @@ export const TabListMenuContent: React.VFC<Props> = (props) => {
     await deleteTabList(tabListId).then(() => {})
     // show Toast
     setToast({
-      text: 'Selected tab list deleted',
+      text: t('DELETED_SELECTED_TABS'),
     })
   }
 
@@ -35,6 +36,10 @@ export const TabListMenuContent: React.VFC<Props> = (props) => {
     const tabsText = (tabList.tabs as Array<Tabs.Tab | TabWithMeta>).map(
       (tab) => `[${tab.title}](${tab.url})`,
     )
+    setToast({
+      text: t('COPY_MD_LINKS'),
+      type: 'success',
+    })
     return navigator.clipboard.writeText(tabsText.join('\n'))
   }
 
@@ -67,7 +72,7 @@ export const TabListMenuContent: React.VFC<Props> = (props) => {
       <MenuItem
         handleClick={() => handleDelete(tabList.id)}
         label={t('DELETE_TABS')}
-        icon={<Trash size={MENU_ICON_SIZE} />}
+        icon={<Delete size={MENU_ICON_SIZE} />}
       />
     </>
   )
