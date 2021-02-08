@@ -25,6 +25,8 @@
   "DELETE_TABS": "タブを削除する",
   "GEN_MARKDONW_LINKS": "MD用リンクを取得",
   "ONLY_PINNED": "ピン留めのみ表示",
+  "COPY_MD_LINKS": "マークダウン用リンクをコピーしました",
+  "DELETED_SELECTED_TABS": "選択されたタブグループを削除しました",
   "SORT": "ソート",
   "TWEET": "ツイート",
   "TWEET_MESSAGE": "TabXで快適なタブ生活を。",

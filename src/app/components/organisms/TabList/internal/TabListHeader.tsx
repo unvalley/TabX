@@ -40,7 +40,6 @@ export const TabListHeader: React.VFC<Props> = (props) => {
             style={{
               opacity: '0.7',
               verticalAlign: 'middle',
-              padding: '0 5px',
             }}
           />
         </Popover>

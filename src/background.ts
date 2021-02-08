@@ -3,9 +3,9 @@ import {storeAllTabs} from './shared/tabs'
 
 export const init = async () => {
   await Promise.all([
-    browser.browserAction.onClicked.addListener(() => {
+    browser.browserAction.onClicked.addListener(async () => {
       console.log('Store all tabs')
-      storeAllTabs()
+      await storeAllTabs()
     }),
     // browser.runtime.onMessageExternal.addListener(commandHandler),
   ])

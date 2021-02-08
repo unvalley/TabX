@@ -24,6 +24,8 @@
   "DELETE_TABS": "Delete Tabs",
   "GEN_MARKDONW_LINKS": "Get Markdown Links",
   "ONLY_PINNED": "Only Pinned",
+  "COPY_MD_LINKS": "Copied markdown link to clipboard",
+  "DELETED_SELECTED_TABS": "Selected tab group deleted",
   "SORT": "Sort",
   "TWEET": "Tweet",
   "TWEET_MESSAGE": "TabX saves yoru tab Life - And make you more productive",
