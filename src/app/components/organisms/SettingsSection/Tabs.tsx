@@ -23,10 +23,10 @@ export const Tabs: React.VFC<Props> = (props) => {
   const [showExportText, setShowExportText] = React.useState(false)
 
   const [t, i18n] = useTranslation()
-  const [
-    shouldShowTabGroupCounts,
-    setShouldShowTabGroupCount,
-  ] = useLocalStorage('shouldShowTabGroupCounts', true)
+  const [shouldShowTabListHeader, setShouldShowTabGroupCount] = useLocalStorage(
+    'shouldShowTabListHeader',
+    true,
+  )
 
   const [
     shouldDeleteTabWhenClicked,
@@ -60,7 +60,7 @@ export const Tabs: React.VFC<Props> = (props) => {
           <span>
             <ToggleWrapper>
               <StyledToggle
-                checked={shouldShowTabGroupCounts}
+                checked={shouldShowTabListHeader}
                 onChange={handleChange}
               />
               <Text>{t('SETTING_SHOW_TAB_GROUP_COUNT')}</Text>

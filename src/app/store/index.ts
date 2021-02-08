@@ -1,9 +1,9 @@
 import produce, {Draft} from 'immer'
-import {atom, selector} from 'recoil'
+import {atom, atomFamily, selector, selectorFamily} from 'recoil'
 import {Lang} from '~/app/constants/index'
 import {Themes} from '~/app/constants/styles'
 import {getAllTabLists} from '~/shared/storage'
-import {TabLists} from '~/shared/typings'
+import {TabListElem, TabLists} from '~/shared/typings'
 
 export const tabListsState = atom<TabLists>({
   key: 'tabListsState',
@@ -19,10 +19,16 @@ export const tabListsState = atom<TabLists>({
   }),
 })
 
-// const tabListState = atomFamily({
-//   key: 'tabListState',
-//   default: null,
-// })
+export const tabListState = atomFamily<TabListElem, number>({
+  key: 'tabListState',
+  default: selectorFamily<TabListElem, number>({
+    key: 'tabListState/Default',
+    get: (idx: number) => async ({get}) => {
+      const lists = await get(sortTabListsState)
+      return lists[idx]
+    },
+  }),
+})
 
 // default: newestAt
 export const tabListsSortState = atom({
@@ -108,7 +114,8 @@ export const removeTabLink = (
     targetTabList.tabs = targetTabList.tabs.filter((_, i) => i !== idx)
   })
 
-export const removeTabList = (tabLists: TabLists, tabListId: number) =>
-  produce(tabLists, (draft: Draft<TabLists>) => {
-    draft.filter((list) => list.id !== tabListId)
+export const removeTab = (tabList: TabListElem, tabId: number) =>
+  produce(tabList, (draft: Draft<TabListElem>) => {
+    const newTabs = draft.tabs.filter((tab) => tab.id !== tabId)
+    draft.tabs = newTabs
   })
