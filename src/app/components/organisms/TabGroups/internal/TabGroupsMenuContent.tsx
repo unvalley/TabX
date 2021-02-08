@@ -66,7 +66,7 @@ export const TabGroupsMenuContent: React.VFC<{tabsId: number}> = (props) => {
       />
       <MenuItem
         handleClick={() => genMarkdownLink(props.tabsId)}
-        label={t('GET_MARKDONW_LINKS')}
+        label={t('GEN_MARKDONW_LINKS')}
         icon={<Clipboard size={MENU_ICON_SIZE} />}
       />
       <MenuItem
