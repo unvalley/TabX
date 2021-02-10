@@ -1,11 +1,9 @@
-import {Popover} from '@geist-ui/react'
-import {MoreVertical} from '@geist-ui/react-icons'
+import { Popover } from '@geist-ui/react'
+import { MoreVertical } from '@geist-ui/react-icons'
 import React from 'react'
-import {MenuContent} from '../../molecules/HeaderMenuContent'
+import { MenuContent } from '../../molecules/HeaderMenuContent'
 
-type Props = {}
-
-export const Menu: React.VFC<Props> = () => {
+export const Menu: React.VFC = () => {
   return (
     <Popover
       content={<MenuContent />}

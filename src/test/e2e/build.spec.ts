@@ -1,5 +1,5 @@
 import puppeteer from 'puppeteer'
-import {launchPuppeteerWithExtension} from './utils/helpers'
+import { launchPuppeteerWithExtension } from './utils/helpers'
 
 describe('install', () => {
   test('it installs the extension', async () => {

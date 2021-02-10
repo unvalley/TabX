@@ -1,20 +1,20 @@
-const browser = require('sinon-chrome/extensions')
+// const browser = require('sinon-chrome/extensions')
 
-describe('test storage', () => {
-  beforeAll(() => {
-    // @ts-ignore
-    global.browser = browser
-  })
+// describe('test storage', () => {
+//   beforeAll(() => {
+//     // @ts-ignore
+//     global.browser = browser
+//   })
 
-  beforeEach(() => {
-    browser.flush()
-  })
+//   beforeEach(() => {
+//     browser.flush()
+//   })
 
-  it('', () => {})
+//   it('', () => {})
 
-  afterAll(() => {
-    browser.flush()
-    // @ts-ignore
-    delete global.browser
-  })
-})
+//   afterAll(() => {
+//     browser.flush()
+//     // @ts-ignore
+//     delete global.browser
+//   })
+// })

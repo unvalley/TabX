@@ -1,12 +1,12 @@
-import {CssBaseline, GeistProvider} from '@geist-ui/react'
+import { CssBaseline, GeistProvider } from '@geist-ui/react'
 import i18n from 'i18next'
 import * as React from 'react'
-import {initReactI18next} from 'react-i18next'
-import {useRecoilValue} from 'recoil'
+import { initReactI18next } from 'react-i18next'
+import { useRecoilValue } from 'recoil'
 import enJson from './locales/en.json'
 import jaJson from './locales/ja.json'
-import {Routes} from './router/Routes'
-import {colorThemeState, langState} from './store'
+import { Routes } from './router/Routes'
+import { colorThemeState, langState } from './store'
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -19,7 +19,7 @@ i18n.use(initReactI18next).init({
   },
   lng: 'en',
   fallbackLng: 'en',
-  interpolation: {escapeValue: false},
+  interpolation: { escapeValue: false },
   returnEmptyString: false,
 })
 
@@ -32,7 +32,7 @@ export const App = () => {
   }, [lang, i18n])
 
   return (
-    <GeistProvider theme={{type: colorTheme}}>
+    <GeistProvider theme={{ type: colorTheme }}>
       <CssBaseline />
       <Routes />
     </GeistProvider>

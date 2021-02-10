@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 
 const isString = (val: any) => typeof val === 'string'
 
@@ -9,11 +9,7 @@ const isString = (val: any) => typeof val === 'string'
  * @param initialValue
  * @param raw JSONシリアライズせずに，生で取得したい場合にtrueを渡す
  */
-export const useLocalStorage = <T>(
-  key: string,
-  initialValue?: T,
-  raw?: boolean,
-): [T, (value: T) => void] => {
+export const useLocalStorage = <T>(key: string, initialValue?: T, raw?: boolean): [T, (value: T) => void] => {
   const [state, setState] = useState<T>(() => {
     try {
       const localStorageValue = localStorage.getItem(key)
@@ -21,9 +17,7 @@ export const useLocalStorage = <T>(
       if (isString(localStorageValue)) {
         return raw ? localStorageValue : JSON.parse(localStorageValue || 'null')
       } else {
-        const val = isString(initialValue)
-          ? JSON.stringify(initialValue)
-          : String(initialValue)
+        const val = isString(initialValue) ? JSON.stringify(initialValue) : String(initialValue)
 
         localStorage.setItem(key, val)
         return initialValue

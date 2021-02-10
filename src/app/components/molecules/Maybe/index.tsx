@@ -4,6 +4,4 @@ type Props = {
   test: boolean
 }
 
-export const Maybe: React.FC<Props> = ({test, children}) => (
-  <>{test && children}</>
-)
+export const Maybe: React.FC<Props> = ({ test, children }) => <>{test && children}</>

@@ -1,21 +1,21 @@
-import {Grid, useTheme} from '@geist-ui/react'
+import { Grid, useTheme } from '@geist-ui/react'
 import React from 'react'
-import {MemoryRouter, Route, Switch} from 'react-router-dom'
+import { MemoryRouter, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components'
-import {Load} from '../components/atoms/Load'
-import {LeftMenu} from '../components/organisms/LeftMenu'
-import {Spacing} from '../constants/styles'
-import {List} from '../pages/List'
-import {Masonry} from '../pages/Masonry'
-import {Settings} from '../pages/Settings'
-import {Domain} from '../pages/Domain'
+import { Load } from '../components/atoms/Load'
+import { LeftMenu } from '../components/organisms/LeftMenu'
+import { Spacing } from '../constants/styles'
+import { List } from '../pages/List'
+import { Masonry } from '../pages/Masonry'
+import { Settings } from '../pages/Settings'
+import { Domain } from '../pages/Domain'
 
-const Wrapper = styled(Grid.Container)<{bgColor: string}>`
+const Wrapper = styled(Grid.Container)<{ bgColor: string }>`
   margin: ${Spacing['3']} 100px;
   display: flex;
   min-height: 100vh;
   position: relative;
-  background-color: ${({bgColor}) => bgColor};
+  background-color: ${({ bgColor }) => bgColor};
 `
 
 const MainContainer = styled.main`
@@ -31,8 +31,7 @@ const MainContainer = styled.main`
 
 export const Routes = () => {
   const theme = useTheme()
-  const mainBgColor =
-    theme.type === 'dark' ? theme.palette.background : '#f2f4fb'
+  const mainBgColor = theme.type === 'dark' ? theme.palette.background : '#f2f4fb'
 
   return (
     <MemoryRouter>

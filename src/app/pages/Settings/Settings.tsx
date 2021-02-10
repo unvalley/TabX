@@ -1,4 +1,4 @@
-import {Spacer} from '@geist-ui/react'
+import { Spacer } from '@geist-ui/react'
 import React from 'react'
 import {
   ColorThemes,
@@ -13,7 +13,7 @@ type Props = {
   version?: string
 }
 
-export const Settings: React.FC<Props> = (props) => {
+export const Settings: React.FC<Props> = props => {
   return (
     <>
       <Tabs deleteAllTabs={props.deleteAllTabs} />

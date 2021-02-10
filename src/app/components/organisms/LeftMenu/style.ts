@@ -1,6 +1,6 @@
-import {NavLink} from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
-import {Spacing} from '~/app/constants/styles'
+import { Spacing } from '~/app/constants/styles'
 
 type SwitchButtonProps = {
   bgColor: string
@@ -11,17 +11,15 @@ type SwitchButtonProps = {
 }
 
 // TODO: fix backgroundColor and attrs props
-export const SwitchButton = styled(NavLink).attrs<SwitchButtonProps>(
-  ({activeBgColor, hoverIconColor}) => ({
-    activeStyle: {
-      borderRadius: '16px',
-      backgroundColor: activeBgColor,
-      color: hoverIconColor,
-    },
-  }),
-)<SwitchButtonProps>`
-  color: ${({iconColor}) => iconColor};
-  background-color: ${({bgColor}) => bgColor};
+export const SwitchButton = styled(NavLink).attrs<SwitchButtonProps>(({ activeBgColor, hoverIconColor }) => ({
+  activeStyle: {
+    borderRadius: '16px',
+    backgroundColor: activeBgColor,
+    color: hoverIconColor,
+  },
+}))<SwitchButtonProps>`
+  color: ${({ iconColor }) => iconColor};
+  background-color: ${({ bgColor }) => bgColor};
   outline: ${Spacing[0.5]} solid transparent;
   outline-offset: 2px;
   justify-content: center;
@@ -33,14 +31,14 @@ export const SwitchButton = styled(NavLink).attrs<SwitchButtonProps>(
   transition-duration: 0.1s;
   opacity: 0.8;
   &:hover {
-    background-color: ${({hoverBgColor}) => hoverBgColor};
+    background-color: ${({ hoverBgColor }) => hoverBgColor};
     opacity: 0.6;
     transition: all 0.8s ease;
   }
 `
 
-export const Aside = styled.aside<{bgColor: string}>`
-  background-color: ${({bgColor}) => bgColor};
+export const Aside = styled.aside<{ bgColor: string }>`
+  background-color: ${({ bgColor }) => bgColor};
   position: fixed;
   padding: ${Spacing['0.5']} ${Spacing['1']};
   display: flex;
