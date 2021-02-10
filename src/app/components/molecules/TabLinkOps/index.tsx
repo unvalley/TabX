@@ -6,18 +6,18 @@ import {OpsElement, OpsWrapper} from './style'
 
 type Props = {
   tabId: number
-  handleDelete: (tabId: number) => Promise<void>
+  handleClick: (tabId: number) => Promise<void>
   shouldShow: boolean
 }
 export const TabLinkOps: React.FC<Props> = (props) => {
-  const {tabId, shouldShow, handleDelete} = props
+  const {tabId, shouldShow, handleClick} = props
   const theme = useTheme()
 
   return (
     <OpsWrapper opacity={shouldShow ? 10 : 0}>
       <OpsElement
         bgColor={theme.palette.accents_2}
-        onClick={() => handleDelete(tabId)}
+        onClick={() => handleClick(tabId)}
       >
         <X size={TAB_LINKS_ELEM_SIZE} />
       </OpsElement>

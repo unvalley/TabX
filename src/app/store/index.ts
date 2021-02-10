@@ -63,11 +63,14 @@ export const tabListsStatsState = selector({
     if (!tabLists.length) {
       return 0
     }
+    return 100
+    // // TODO: promises?
+    // const tabListElems = tabLists.map((tabList, idx) => get(tabListState(idx)))
+    // const totalCount = tabListElems
+    //   .map((tabList) => tabList.tabs.length)
+    //   .reduce((prev, cur) => prev + cur)
 
-    const totalTabsCount = tabLists
-      .map((tabList) => tabList.tabs.length)
-      .reduce((prev, cur) => prev + cur)
-    return totalTabsCount
+    // return totalCount
   },
 })
 

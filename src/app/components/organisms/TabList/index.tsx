@@ -29,11 +29,13 @@ export const TabList: React.FC<Props> = (props) => {
   const theme = useTheme()
   const {handleMouseOver, handleMouseOut, isMouseOvered} = useMouseOver()
 
-  const handleDelete = async (tabId: number) => {
+  const handleTabDelete = async (tabId: number) => {
     // TODO: TabListの中で最後だった場合，タイトルが残ってしまうので処理が必要．
     await deleteTabLink(tabList.id, tabId).then(() => {
-      const newTabs = removeTab(tabList, tabId)
-      setTabList(newTabs as any)
+      const newTabs = removeTab(tabList, tabId) as TabListElem
+      newTabs.tabs.length >= 1
+        ? setTabList(newTabs)
+        : console.log('ここでTabListAtomを削除')
     })
   }
 
@@ -56,7 +58,7 @@ export const TabList: React.FC<Props> = (props) => {
           <TabLinkButton
             href={tab.url}
             target="_blank"
-            onClick={() => handleDelete(tab.id!)}
+            onClick={() => handleTabDelete(tab.id!)}
             color={theme.palette.foreground}
           >
             <span style={{paddingRight: Spacing['0.5']}}>
@@ -67,7 +69,7 @@ export const TabList: React.FC<Props> = (props) => {
           {/* Ops show when the tab is hoverd */}
           <TabLinkOps
             tabId={tab.id!}
-            handleDelete={handleDelete}
+            handleClick={handleTabDelete}
             shouldShow={isMouseOvered(idx)}
           />
         </TabLinkWrapper>
