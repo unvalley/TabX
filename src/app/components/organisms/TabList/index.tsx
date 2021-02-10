@@ -30,13 +30,18 @@ export const TabList: React.FC<Props> = (props) => {
   const {handleMouseOver, handleMouseOut, isMouseOvered} = useMouseOver()
 
   const handleTabDelete = async (tabId: number) => {
-    // TODO: TabListの中で最後だった場合，タイトルが残ってしまうので処理が必要．
     await deleteTabLink(tabList.id, tabId).then(() => {
       const newTabs = removeTab(tabList, tabId) as TabListElem
+      // NOTE: handling for last tab deletion
       newTabs.tabs.length >= 1
         ? setTabList(newTabs)
-        : console.log('ここでTabListAtomを削除')
+        : setTabList({} as TabListElem)
     })
+  }
+
+  // NOTE: handling for deleting a tabList from each menu
+  if (!tabList.tabs) {
+    return <></>
   }
 
   return (

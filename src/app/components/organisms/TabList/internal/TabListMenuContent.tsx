@@ -13,10 +13,10 @@ import {MENU_ICON_SIZE} from '~/app/constants/styles'
 import {deleteTabList, pinnTabList, restoreTabList} from '~/shared/storage'
 import {TabListElem, TabWithMeta} from '~/shared/typings'
 
-type Props = {tabList: TabListElem; resetTabList: Resetter}
+type Props = {tabList: TabListElem; resetTabList: Resetter; setTabList: any}
 
 export const TabListMenuContent: React.VFC<Props> = (props) => {
-  const {tabList, resetTabList} = props
+  const {tabList, resetTabList, setTabList} = props
   const [t, _] = useTranslation()
   const [, setToast] = useToasts()
 
@@ -26,7 +26,7 @@ export const TabListMenuContent: React.VFC<Props> = (props) => {
 
   const handleDelete = async (tabListId: number) => {
     // TODO: TabListの中で最後だった場合，タイトルが残ってしまうので処理が必要．
-    await deleteTabList(tabListId).then(() => resetTabList)
+    await deleteTabList(tabListId).then(() => setTabList({}))
     // show Toast
     setToast({
       text: t('DELETED_SELECTED_TABS'),
