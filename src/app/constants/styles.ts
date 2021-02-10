@@ -1,13 +1,13 @@
 export const Colors = {
-  WHITE: '#fff',
-  BACKGROUND: '#232956', // #232956
-  PARAGRAPH: '#222', // #b8c1ec
-  BUTTON_TEXT: '#232946', // #232946
+  BACKGROUND: '#232956',
+  BUTTON: '#eebbc3',
+  BUTTON_TEXT: '#232946',
   HEADLINE: '#fffffe',
-  BUTTON: '#eebbc3', // #eebbc3
   MOON_DARK: '#16c79a',
-  SUN_LIGHT: '#ff85ac',
+  PARAGRAPH: '#222',
   SHADOW: '#2d81b121',
+  SUN_LIGHT: '#ff85ac',
+  WHITE: '#fff',
 } as const
 
 export const Spacing = {
@@ -21,11 +21,14 @@ export const Spacing = {
   '6': '48px',
 } as const
 
-export const MENU_ICON_SIZE = 20
-export const TAB_LINKS_ELEM_SIZE = 15
-export const SHOW_TAB_TITLE_LENGTH = 50
+export const Rule = {
+  MENU_ICON_SIZE: 20,
+  SHOW_TAB_TITLE_LENGTH: 50,
+  TAB_LINKS_ELEM_SIZE: 15,
+  TITLE_MAX_LENGTH: 50,
+} as const
 
 export const Themes = {
-  LIGHT: 'light',
   DARK: 'dark',
+  LIGHT: 'light',
 }

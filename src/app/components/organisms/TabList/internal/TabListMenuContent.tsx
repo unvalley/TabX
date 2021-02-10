@@ -1,23 +1,23 @@
-import {useToasts} from '@geist-ui/react'
+import { useToasts } from '@geist-ui/react'
 import Clipboard from '@geist-ui/react-icons/Clipboard'
 import Delete from '@geist-ui/react-icons/delete'
 import ExternalLink from '@geist-ui/react-icons/ExternalLink'
 import Menu from '@geist-ui/react-icons/Menu'
 import Pin from '@geist-ui/react-icons/Pin'
 import React from 'react'
-import {useTranslation} from 'react-i18next'
-import {Resetter} from 'recoil'
-import {Tabs} from 'webextension-polyfill-ts'
-import {MenuItem} from '~/app/components/molecules/MenuItem'
-import {MENU_ICON_SIZE} from '~/app/constants/styles'
-import {deleteTabList, pinnTabList, restoreTabList} from '~/shared/storage'
-import {TabListElem, TabWithMeta} from '~/shared/typings'
+import { useTranslation } from 'react-i18next'
+import { SetterOrUpdater } from 'recoil'
+import { Tabs } from 'webextension-polyfill-ts'
+import { MenuItem } from '~/app/components/molecules/MenuItem'
+import { Rule } from '~/app/constants/styles'
+import { deleteTabList, pinnTabList, restoreTabList } from '~/shared/storage'
+import { TabList, TabWithMeta } from '~/shared/typings'
 
-type Props = {tabList: TabListElem; resetTabList: Resetter; setTabList: any}
+type Props = { tabList: TabList; setTabList: SetterOrUpdater<TabList> }
 
-export const TabListMenuContent: React.VFC<Props> = (props) => {
-  const {tabList, resetTabList, setTabList} = props
-  const [t, _] = useTranslation()
+export const TabListMenuContent: React.VFC<Props> = props => {
+  const { tabList, setTabList } = props
+  const { t } = useTranslation()
   const [, setToast] = useToasts()
 
   const handlePin = async (tabListId: number) => {
@@ -25,7 +25,6 @@ export const TabListMenuContent: React.VFC<Props> = (props) => {
   }
 
   const handleDelete = async (tabListId: number) => {
-    // TODO: TabListの中で最後だった場合，タイトルが残ってしまうので処理が必要．
     await deleteTabList(tabListId).then(() => setTabList({}))
     // show Toast
     setToast({
@@ -34,9 +33,7 @@ export const TabListMenuContent: React.VFC<Props> = (props) => {
   }
 
   const genMarkdownLink = async () => {
-    const tabsText = (tabList.tabs as Array<Tabs.Tab | TabWithMeta>).map(
-      (tab) => `[${tab.title}](${tab.url})`,
-    )
+    const tabsText = (tabList.tabs as Array<Tabs.Tab | TabWithMeta>).map(tab => `[${tab.title}](${tab.url})`)
     setToast({
       text: t('COPY_MD_LINKS'),
       type: 'success',
@@ -53,27 +50,27 @@ export const TabListMenuContent: React.VFC<Props> = (props) => {
       <MenuItem
         handleClick={() => handlePin(tabList.id)}
         label={t('PIN_TABS')}
-        icon={<Pin size={MENU_ICON_SIZE} />}
+        icon={<Pin size={Rule.MENU_ICON_SIZE} />}
       />
       <MenuItem
         handleClick={() => handleOpen(tabList.id)}
         label={t('OPEN_TABS')}
-        icon={<ExternalLink size={MENU_ICON_SIZE} />}
+        icon={<ExternalLink size={Rule.MENU_ICON_SIZE} />}
       />
       <MenuItem
         handleClick={() => console.log('')}
         label={t('SHARE_LINKS')}
-        icon={<Menu size={MENU_ICON_SIZE} />}
+        icon={<Menu size={Rule.MENU_ICON_SIZE} />}
       />
       <MenuItem
         handleClick={genMarkdownLink}
         label={t('GEN_MARKDONW_LINKS')}
-        icon={<Clipboard size={MENU_ICON_SIZE} />}
+        icon={<Clipboard size={Rule.MENU_ICON_SIZE} />}
       />
       <MenuItem
         handleClick={() => handleDelete(tabList.id)}
         label={t('DELETE_TABS')}
-        icon={<Delete size={MENU_ICON_SIZE} />}
+        icon={<Delete size={Rule.MENU_ICON_SIZE} />}
       />
     </>
   )

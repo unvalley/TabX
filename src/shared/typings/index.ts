@@ -1,10 +1,10 @@
-import {Tabs} from 'webextension-polyfill-ts'
+import { Tabs } from 'webextension-polyfill-ts'
 
 export type ListElemTabs = Tabs.Tab[] | TabWithMeta[]
 /**
  * Each Tab Group
  */
-export type TabListElem = {
+export type TabList = {
   id: number
   title: string
   description: string
@@ -15,18 +15,22 @@ export type TabListElem = {
 }
 
 /**
- * All Tab Groups
- */
-export type TabLists = TabListElem[]
-
-/**
  * Target Metadata fetches from URL
  */
-export type TargetMeta = {ogImageUrl: string; description: string}
+export type TargetMeta = { ogImageUrl: string; description: string }
 
 /**
  * for API Request
  */
-export type TargetMetaWithId = TargetMeta & {id: number}
+export type TargetMetaWithId = TargetMeta & { id: number }
 
 export type TabWithMeta = Tabs.Tab & TargetMeta
+
+/**
+ * Domain Type
+ */
+export type Domain = {
+  name: string
+  domain: string
+  fullPath: string
+}

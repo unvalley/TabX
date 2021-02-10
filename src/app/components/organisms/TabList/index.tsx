@@ -1,41 +1,34 @@
-import {useTheme} from '@geist-ui/react'
+import { useTheme } from '@geist-ui/react'
 import React from 'react'
-import {useRecoilState} from 'recoil'
-import {Tabs} from 'webextension-polyfill-ts'
-import {FaviconImage} from '~/app/components/atoms/FaviconImage'
-import {Rule} from '~/app/constants/rule'
-import {Spacing} from '~/app/constants/styles'
-import {useMouseOver} from '~/app/hooks/useMouseOver'
-import {deleteTabLink} from '~/shared/storage'
-import {TabListElem, TabWithMeta} from '~/shared/typings'
-import {omitText} from '~/shared/utils/util'
-import {removeTab, tabListState} from '../../../store'
-import {TabLinkOps} from '../../molecules/TabLinkOps'
-import {
-  TabLinkButton,
-  TabLinkWrapper,
-  Title,
-} from '../../molecules/TabLinks/style'
-import {TabListHeader} from './internal/TabListHeader'
-import {TabListSection} from './style'
+import { useRecoilState } from 'recoil'
+import { Tabs } from 'webextension-polyfill-ts'
+import { FaviconImage } from '~/app/components/atoms/FaviconImage'
+import { Rule, Spacing } from '~/app/constants/styles'
+import { useMouseOver } from '~/app/hooks/useMouseOver'
+import { deleteTabLink } from '~/shared/storage'
+import { TabList, TabWithMeta } from '~/shared/typings'
+import { omitText } from '~/shared/utils/util'
+import { removeTab, tabListState } from '../../../store'
+import { TabLinkOps } from '../../molecules/TabLinkOps'
+import { TabLinkButton, TabLinkWrapper, Title } from '../../molecules/TabLinks/style'
+import { TabListHeader } from './internal/TabListHeader'
+import { TabListSection } from './style'
 
-type Props = {shouldShowTabListHeader: boolean; idx: number}
+type Props = { idx: number; shouldShowTabListHeader: boolean }
 
 // container
-export const TabList: React.FC<Props> = (props) => {
-  const {shouldShowTabListHeader, idx} = props
-  const [tabList, setTabList] = useRecoilState<TabListElem>(tabListState(idx))
+export const TabListContainer: React.FC<Props> = props => {
+  const { idx, shouldShowTabListHeader } = props
+  const [tabList, setTabList] = useRecoilState<TabList>(tabListState(idx))
 
   const theme = useTheme()
-  const {handleMouseOver, handleMouseOut, isMouseOvered} = useMouseOver()
+  const { handleMouseOut, handleMouseOver, isMouseOvered } = useMouseOver()
 
   const handleTabDelete = async (tabId: number) => {
     await deleteTabLink(tabList.id, tabId).then(() => {
-      const newTabs = removeTab(tabList, tabId) as TabListElem
+      const newTabs = removeTab(tabList, tabId) as TabList
       // NOTE: handling for last tab deletion
-      newTabs.tabs.length >= 1
-        ? setTabList(newTabs)
-        : setTabList({} as TabListElem)
+      newTabs.tabs.length >= 1 ? setTabList(newTabs) : setTabList({} as TabList)
     })
   }
 
@@ -47,9 +40,7 @@ export const TabList: React.FC<Props> = (props) => {
   return (
     <TabListSection>
       {/* header */}
-      {shouldShowTabListHeader && (
-        <TabListHeader idx={idx} tabList={tabList} isLG={true} />
-      )}
+      {shouldShowTabListHeader && <TabListHeader idx={idx} tabList={tabList} isLG={true} />}
       {/* tabs */}
       {(tabList.tabs as Array<Tabs.Tab | TabWithMeta>).map((tab, idx) => (
         <TabLinkWrapper
@@ -66,17 +57,13 @@ export const TabList: React.FC<Props> = (props) => {
             onClick={() => handleTabDelete(tab.id!)}
             color={theme.palette.foreground}
           >
-            <span style={{paddingRight: Spacing['0.5']}}>
+            <span style={{ paddingRight: Spacing['0.5'] }}>
               <FaviconImage src={tab.favIconUrl!} size={20} />
             </span>
             <Title>{omitText(tab.title!)(Rule.TITLE_MAX_LENGTH)('…')}</Title>
           </TabLinkButton>
           {/* Ops show when the tab is hoverd */}
-          <TabLinkOps
-            tabId={tab.id!}
-            handleClick={handleTabDelete}
-            shouldShow={isMouseOvered(idx)}
-          />
+          <TabLinkOps tabId={tab.id!} handleClick={handleTabDelete} shouldShow={isMouseOvered(idx)} />
         </TabLinkWrapper>
       ))}
     </TabListSection>

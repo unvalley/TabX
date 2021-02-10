@@ -1,37 +1,25 @@
-import {
-  Button,
-  Card,
-  Col,
-  Divider,
-  Grid,
-  Row,
-  Text,
-  Textarea,
-} from '@geist-ui/react'
-import {ToggleEvent} from '@geist-ui/react/dist/toggle/toggle'
+import { Button, Card, Col, Divider, Grid, Row, Text, Textarea } from '@geist-ui/react'
+import { ToggleEvent } from '@geist-ui/react/dist/toggle/toggle'
 import React from 'react'
-import {useTranslation} from 'react-i18next'
-import {DeleteButton} from '~/app/components/molecules/DeleteButton'
-import {useLocalStorage} from '~/app/hooks/useLocalStorage'
-import {exportToText} from '~/shared/importExport'
-import {StyledToggle, ToggleWrapper} from './style'
+import { useTranslation } from 'react-i18next'
+import { DeleteButton } from '~/app/components/molecules/DeleteButton'
+import { useLocalStorage } from '~/app/hooks/useLocalStorage'
+import { exportToText } from '~/shared/importExport'
+import { StyledToggle, ToggleWrapper } from './style'
 
-type Props = {deleteAllTabs: () => void}
+type Props = { deleteAllTabs: () => void }
 
-export const Tabs: React.VFC<Props> = (props) => {
+export const Tabs: React.VFC<Props> = props => {
   const [exportText, setExportText] = React.useState('')
   const [showExportText, setShowExportText] = React.useState(false)
 
-  const [t, i18n] = useTranslation()
-  const [shouldShowTabListHeader, setShouldShowTabGroupCount] = useLocalStorage(
-    'shouldShowTabListHeader',
+  const { t } = useTranslation()
+  const [shouldShowTabListHeader, setShouldShowTabGroupCount] = useLocalStorage('shouldShowTabListHeader', true)
+
+  const [shouldDeleteTabWhenClicked, setShouldDeleteTabWhenClicked] = useLocalStorage(
+    'shouldDeleteTabWhenClicked',
     true,
   )
-
-  const [
-    shouldDeleteTabWhenClicked,
-    setShouldDeleteTabWhenClicked,
-  ] = useLocalStorage('shouldDeleteTabWhenClicked', true)
 
   const handleChange = (event: ToggleEvent) => {
     setShouldShowTabGroupCount(event.target.checked)
@@ -56,23 +44,17 @@ export const Tabs: React.VFC<Props> = (props) => {
 
         <Divider y={0} />
 
-        <Card.Content style={{display: 'flex', flexDirection: 'column'}}>
+        <Card.Content style={{ display: 'flex', flexDirection: 'column' }}>
           <span>
             <ToggleWrapper>
-              <StyledToggle
-                checked={shouldShowTabListHeader}
-                onChange={handleChange}
-              />
+              <StyledToggle checked={shouldShowTabListHeader} onChange={handleChange} />
               <Text>{t('SETTING_SHOW_TAB_GROUP_COUNT')}</Text>
             </ToggleWrapper>
           </span>
 
           <span>
             <ToggleWrapper>
-              <StyledToggle
-                checked={shouldDeleteTabWhenClicked}
-                onChange={handleDeleteTab}
-              />
+              <StyledToggle checked={shouldDeleteTabWhenClicked} onChange={handleDeleteTab} />
               <Text>{t('SETTING_DELETE_TAB_WHEN_CLICKED')}</Text>
             </ToggleWrapper>
           </span>
@@ -83,27 +65,16 @@ export const Tabs: React.VFC<Props> = (props) => {
                 <Text>{t('SETTING_EXPORT_TEXT')}</Text>
               </Col>
               <Col>
-                <Row
-                  align="middle"
-                  style={{height: '100%', textAlign: 'right'}}
-                >
+                <Row align="middle" style={{ height: '100%', textAlign: 'right' }}>
                   <Col>
                     <Button size="medium" onClick={handleClickExportButton}>
-                      {showExportText
-                        ? t('HIDE_EXPORT_BUTTON')
-                        : t('EXPORT_BUTTON')}
+                      {showExportText ? t('HIDE_EXPORT_BUTTON') : t('EXPORT_BUTTON')}
                     </Button>
                   </Col>
                 </Row>
               </Col>
             </Row>
-            {showExportText && (
-              <Textarea
-                width="100%"
-                initialValue={exportText}
-                style={{height: '300px'}}
-              />
-            )}
+            {showExportText && <Textarea width="100%" initialValue={exportText} style={{ height: '300px' }} />}
           </span>
 
           <Divider y={2} />
@@ -114,12 +85,9 @@ export const Tabs: React.VFC<Props> = (props) => {
               <Text>{t('DANGER_ZONE_MESSAGE')}</Text>
             </Col>
             <Col>
-              <Row align="middle" style={{height: '100%', textAlign: 'right'}}>
+              <Row align="middle" style={{ height: '100%', textAlign: 'right' }}>
                 <Col>
-                  <DeleteButton
-                    onClick={props.deleteAllTabs}
-                    label={t('DELETE_ALL_TABS_BUTTON')}
-                  />
+                  <DeleteButton onClick={props.deleteAllTabs} label={t('DELETE_ALL_TABS_BUTTON')} />
                 </Col>
               </Row>
             </Col>
