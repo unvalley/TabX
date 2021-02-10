@@ -13,7 +13,7 @@ export const Tabs: React.VFC<Props> = props => {
   const [exportText, setExportText] = React.useState('')
   const [showExportText, setShowExportText] = React.useState(false)
 
-  const [t, i18n] = useTranslation()
+  const { t } = useTranslation()
   const [shouldShowTabListHeader, setShouldShowTabGroupCount] = useLocalStorage('shouldShowTabListHeader', true)
 
   const [shouldDeleteTabWhenClicked, setShouldDeleteTabWhenClicked] = useLocalStorage(

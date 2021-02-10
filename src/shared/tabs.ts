@@ -40,6 +40,11 @@ const isValidTab = (tab: Tabs.Tab) => {
   return !tab.pinned && !tab.url.startsWith(appUrl) && isLegalURL(tab.url)
 }
 
+type StrictTab = Required<Tabs.Tab>
+export const checkTabType = (tab: Tabs.Tab): tab is StrictTab => {
+  return tab.id !== undefined
+}
+
 const storeTabs = async (tabs: Tabs.Tab[]) => {
   if (tabs.length === 0) return
   const newList = createNewTabList(tabs)
@@ -61,7 +66,7 @@ export const storeAllTabs = async () => {
 
   await Promise.all([openTabLists(), storeTabs(sanitizedTabs)]).then(
     res =>
-      // `res[1]` is storing TabListElem
+      // `res[1]` is storing TabList
       // NOTE: fetch decription and ogImageUrl from URL
       res[1] && Storage.updateTabListElemWithMeta(res[1].id),
   )

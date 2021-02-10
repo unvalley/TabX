@@ -1,27 +1,27 @@
 import produce, { Draft } from 'immer'
 import { atom, atomFamily, selector, selectorFamily } from 'recoil'
-import { Lang } from '~/app/constants/index'
+import { Lang } from '~/app/constants'
 import { Themes } from '~/app/constants/styles'
 import { getAllTabLists } from '~/shared/storage'
-import { TabListElem, TabLists } from '~/shared/typings'
+import { TabList } from '~/shared/typings'
 
-export const tabListsState = atom<TabLists>({
+export const tabListsState = atom<TabList[]>({
   key: 'tabListsState',
-  default: selector<TabLists>({
+  default: selector<TabList[]>({
     key: 'tabListsState/Default',
-    get: async ({ get }) => {
+    get: async () => {
       const lists = await getAllTabLists()
       if (typeof lists === 'undefined') {
-        return [] as TabLists
+        return [] as TabList[]
       }
       return lists
     },
   }),
 })
 
-export const tabListState = atomFamily<TabListElem, number>({
+export const tabListState = atomFamily<TabList, number>({
   key: 'tabListState',
-  default: selectorFamily<TabListElem, number>({
+  default: selectorFamily<TabList, number>({
     key: 'tabListState/Default',
     get: (idx: number) => async ({ get }) => {
       const lists = await get(sortTabListsState)
@@ -36,7 +36,7 @@ export const tabListsSortState = atom({
   default: true,
 })
 
-export const sortTabListsState = selector<TabLists>({
+export const sortTabListsState = selector<TabList[]>({
   key: 'sortTabListsState',
   get: async ({ get }) => {
     const sort = get(tabListsSortState)
@@ -106,15 +106,15 @@ export const langState = atom<string>({
 // producer
 ///////////////////////////
 
-export const removeTabLink = (tabLists: TabLists, tabListId: number, tabId: number) =>
-  produce(tabLists, (draft: Draft<TabLists>) => {
+export const removeTabLink = (tabLists: TabList[], tabListId: number, tabId: number) =>
+  produce(tabLists, (draft: Draft<TabList[]>) => {
     const targetTabList = draft.filter(list => list.id === tabListId)[0]
     const idx = targetTabList.tabs.findIndex(({ id }) => id === tabId)
     targetTabList.tabs = targetTabList.tabs.filter((_, i) => i !== idx)
   })
 
-export const removeTab = (tabList: TabListElem, tabId: number) =>
-  produce(tabList, (draft: Draft<TabListElem>) => {
+export const removeTab = (tabList: TabList, tabId: number) =>
+  produce(tabList, (draft: Draft<TabList>) => {
     const newTabs = draft.tabs.filter(tab => tab.id !== tabId)
     draft.tabs = newTabs
   })

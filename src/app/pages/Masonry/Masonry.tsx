@@ -1,11 +1,11 @@
 import { Card, Image, Link, Text } from '@geist-ui/react'
 import { Masonry as MasonicMasonry } from 'masonic'
 import React from 'react'
-import { TabLists, TabWithMeta } from '../../../shared/typings'
+import { TabList, TabWithMeta } from '../../../shared/typings'
 import { omitText } from '../../../shared/utils/util'
 
 type Props = {
-  tabLists: TabLists
+  tabLists: TabList[]
 }
 
 export const Masonry: React.FC<Props> = props => {

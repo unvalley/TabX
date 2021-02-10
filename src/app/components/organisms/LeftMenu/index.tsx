@@ -1,12 +1,12 @@
 import { useTheme } from '@geist-ui/react'
-import React from 'react'
-import { Aside, Nav, SwitchButton } from './style'
-import Layers from '@geist-ui/react-icons/layers'
 import AlignJustify from '@geist-ui/react-icons/alignJustify'
-import Settings from '@geist-ui/react-icons/settings'
 import Grid from '@geist-ui/react-icons/grid'
-import { Colors } from '../../../constants/styles'
-import { URL } from '../../../constants/urls'
+import Layers from '@geist-ui/react-icons/layers'
+import Settings from '@geist-ui/react-icons/settings'
+import React from 'react'
+import { URL } from '~/app/constants'
+import { Colors } from '~/app/constants/styles'
+import { Aside, Nav, SwitchButton } from './style'
 
 export const LeftMenu: React.FC = () => {
   const theme = useTheme()

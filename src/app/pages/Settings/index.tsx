@@ -1,10 +1,10 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { deleteAllTabLists } from '../../../shared/storage'
 import { Settings as Component } from './Settings'
-import { useTranslation } from 'react-i18next'
 
 export const Settings: React.FC = () => {
-  const [t, _] = useTranslation()
+  const { t } = useTranslation()
   const deleteAllTabs = () => {
     if (confirm(t('DELETE_MESSAGE'))) {
       deleteAllTabLists()

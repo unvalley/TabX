@@ -26,7 +26,7 @@ module.exports = {
         use: [
           {
             loader: 'html-loader',
-            options: {minimize: true},
+            options: { minimize: true },
           },
         ],
       },
@@ -36,7 +36,7 @@ module.exports = {
       },
       {
         test: /\.(jpg|png|gif|woff|woff2|eot|ttf|svg)$/,
-        use: [{loader: 'file-loader'}],
+        use: [{ loader: 'file-loader' }],
       },
     ],
   },
@@ -44,7 +44,7 @@ module.exports = {
   resolve: {
     extensions: ['*', '.js', '.ts', '.tsx', '.json', '.mjs', '.wasm'],
     alias: {
-      '~': path.resolve(__dirname, 'src'),
+      '~': 'src',
     },
   },
 

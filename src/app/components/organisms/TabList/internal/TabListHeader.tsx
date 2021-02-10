@@ -2,23 +2,23 @@ import { Popover } from '@geist-ui/react'
 import Menu from '@geist-ui/react-icons/Menu'
 import Pin from '@geist-ui/react-icons/Pin'
 import React from 'react'
-import { useResetRecoilState, useRecoilState } from 'recoil'
+import { useSetRecoilState } from 'recoil'
 import { useMouseOver } from '~/app/hooks/useMouseOver'
 import { useTitle } from '~/app/hooks/useTitle'
-import { TabListElem } from '~/shared/typings'
+import { TabList } from '~/shared/typings'
 import { tabListState } from '../../../../store'
 import { HoveredMenu, StyledRow } from '../style'
 import { TabListMenuContent } from './TabListMenuContent'
 
 type Props = {
   idx: number
-  tabList: TabListElem
+  tabList: TabList
   isLG?: boolean
 }
 
 export const TabListHeader: React.VFC<Props> = props => {
   const { idx, tabList, isLG } = props
-  const [t, setTabList] = useRecoilState(tabListState(idx))
+  const setTabList = useSetRecoilState(tabListState(idx))
   const { handleMouseOver, handleMouseOut, isMouseOvered } = useMouseOver()
   const displayTitle = useTitle(tabList)
 

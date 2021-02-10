@@ -9,7 +9,7 @@ import { openDonation, shareTwitter } from '../../utils/index'
 import { MenuItem } from './MenuItem'
 
 export const MenuContent: React.VFC = () => {
-  const [t, _] = useTranslation()
+  const { t } = useTranslation()
   const [sort, setSort] = useRecoilState(tabListsSortState)
   const updateSort = () => {
     setSort(!sort)

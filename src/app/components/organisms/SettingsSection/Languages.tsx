@@ -2,10 +2,10 @@ import { Card, Divider, Radio, Text } from '@geist-ui/react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useRecoilState } from 'recoil'
-import { Lang } from '../../../constants/index'
+import { Lang } from '~/app/constants'
 import { langState } from '../../../store'
 
-export const Languages: React.VFC = props => {
+export const Languages: React.VFC = () => {
   const [t, i18n] = useTranslation()
   const [lang, setLang] = useRecoilState(langState)
 

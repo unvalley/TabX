@@ -3,11 +3,10 @@ import React from 'react'
 import { useRecoilState } from 'recoil'
 import { Tabs } from 'webextension-polyfill-ts'
 import { FaviconImage } from '~/app/components/atoms/FaviconImage'
-import { Rule } from '~/app/constants'
-import { Spacing } from '~/app/constants/styles'
+import { Rule, Spacing } from '~/app/constants/styles'
 import { useMouseOver } from '~/app/hooks/useMouseOver'
 import { deleteTabLink } from '~/shared/storage'
-import { TabListElem, TabWithMeta } from '~/shared/typings'
+import { TabList, TabWithMeta } from '~/shared/typings'
 import { omitText } from '~/shared/utils/util'
 import { removeTab, tabListState } from '../../../store'
 import { TabLinkOps } from '../../molecules/TabLinkOps'
@@ -18,18 +17,18 @@ import { TabListSection } from './style'
 type Props = { idx: number; shouldShowTabListHeader: boolean }
 
 // container
-export const TabList: React.FC<Props> = props => {
+export const TabListContainer: React.FC<Props> = props => {
   const { idx, shouldShowTabListHeader } = props
-  const [tabList, setTabList] = useRecoilState<TabListElem>(tabListState(idx))
+  const [tabList, setTabList] = useRecoilState<TabList>(tabListState(idx))
 
   const theme = useTheme()
   const { handleMouseOut, handleMouseOver, isMouseOvered } = useMouseOver()
 
   const handleTabDelete = async (tabId: number) => {
     await deleteTabLink(tabList.id, tabId).then(() => {
-      const newTabs = removeTab(tabList, tabId) as TabListElem
+      const newTabs = removeTab(tabList, tabId) as TabList
       // NOTE: handling for last tab deletion
-      newTabs.tabs.length >= 1 ? setTabList(newTabs) : setTabList({} as TabListElem)
+      newTabs.tabs.length >= 1 ? setTabList(newTabs) : setTabList({} as TabList)
     })
   }
 

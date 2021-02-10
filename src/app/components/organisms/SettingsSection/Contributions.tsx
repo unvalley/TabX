@@ -4,8 +4,8 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { BUY_ME_A_COFFEE, REPO_NAME } from '../../../constants/index'
 
-export const Contributions: React.VFC = props => {
-  const [t, i18n] = useTranslation()
+export const Contributions: React.VFC = () => {
+  const { t } = useTranslation()
 
   return (
     <Card>

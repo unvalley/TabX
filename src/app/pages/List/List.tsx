@@ -1,21 +1,21 @@
 import * as React from 'react'
 import { useTranslation } from 'react-i18next'
-import { TabLists } from '../../../shared/typings'
-import { Header } from '../../components/organisms/Header'
-import { TabList } from '../../components/organisms/TabList'
+import { Header } from '~/app/components/organisms/Header'
+import { TabListContainer } from '~/app/components/organisms/TabList'
+import { TabList } from '~/shared/typings'
 import { useLocalStorage } from '../../hooks/useLocalStorage'
 
 type Props = {
-  tabLists: TabLists
+  tabLists: TabList[]
 }
 
 const MemoizedTabGroups = React.memo<{
-  tabLists: TabLists
+  tabLists: TabList[]
   shouldShowTabListHeader: boolean
 }>(props => (
   <>
     {props.tabLists.map((tabList, idx) => (
-      <TabList key={tabList.id} idx={idx} shouldShowTabListHeader={props.shouldShowTabListHeader} />
+      <TabListContainer key={tabList.id} idx={idx} shouldShowTabListHeader={props.shouldShowTabListHeader} />
     ))}
   </>
 ))
@@ -24,8 +24,8 @@ MemoizedTabGroups.displayName = 'MemoizedTabGroups'
 
 export const List: React.FC<Props> = props => {
   const { tabLists } = props
-  const [t, i18n] = useTranslation()
-  const [shouldShowTabListHeader, _] = useLocalStorage<boolean>('shouldShowTabListHeader')
+  const { t } = useTranslation()
+  const [shouldShowTabListHeader] = useLocalStorage<boolean>('shouldShowTabListHeader')
 
   return (
     <>

@@ -7,7 +7,7 @@ import { Colors, Themes } from '../../../constants/styles'
 import { colorThemeState } from '../../../store'
 
 export const ColorThemes: React.VFC = () => {
-  const [t, i18n] = useTranslation()
+  const { t } = useTranslation()
   const [colorTheme, setColorTheme] = useRecoilState(colorThemeState)
 
   const handleChange = (val: React.ReactText) => {

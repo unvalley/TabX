@@ -1,8 +1,8 @@
-import { TabListElem } from '~/shared/typings'
+import { TabList } from '~/shared/typings'
 import { omitText } from '~/shared/utils/util'
 import { Rule } from '~/app/constants/styles'
 
-export const useTitle = (tabList: TabListElem) => {
+export const useTitle = (tabList: TabList) => {
   //   const [t, _] = useTranslation()
 
   const firstTabLinkTitle = omitText(tabList.tabs[0].title!)(Rule.TITLE_MAX_LENGTH)('…')
