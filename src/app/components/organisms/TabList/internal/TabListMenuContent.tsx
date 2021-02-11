@@ -25,7 +25,13 @@ export const TabListMenuContent: React.VFC<Props> = props => {
   }
 
   const handleDelete = async (tabListId: number) => {
-    await deleteTabList(tabListId).then(() => setTabList({}))
+    // confirmation
+    // Are you sure you want to delete?
+    if (!window.confirm(t('DELETE_MESSAGE'))) {
+      return
+    }
+
+    await deleteTabList(tabListId).then(() => setTabList({} as TabList))
     // show Toast
     setToast({
       text: t('DELETED_SELECTED_TABS'),
