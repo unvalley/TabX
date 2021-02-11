@@ -7,11 +7,10 @@ import Pin from '@geist-ui/react-icons/Pin'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { SetterOrUpdater } from 'recoil'
-import { Tabs } from 'webextension-polyfill-ts'
 import { MenuItem } from '~/app/components/molecules/MenuItem'
 import { Rule } from '~/app/constants/styles'
 import { deleteTabList, pinnTabList, restoreTabList } from '~/shared/storage'
-import { TabList, TabWithMeta } from '~/shared/typings'
+import { TabList } from '~/shared/typings'
 
 type Props = { tabList: TabList; setTabList: SetterOrUpdater<TabList> }
 
@@ -39,7 +38,7 @@ export const TabListMenuContent: React.VFC<Props> = props => {
   }
 
   const genMarkdownLink = async () => {
-    const tabsText = (tabList.tabs as Array<Tabs.Tab | TabWithMeta>).map(tab => `[${tab.title}](${tab.url})`)
+    const tabsText = tabList.tabs.map(tab => `[${tab.title}](${tab.url})`)
     setToast({
       text: t('COPY_MD_LINKS'),
       type: 'success',

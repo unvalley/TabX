@@ -1,8 +1,8 @@
 import { Mutex } from 'async-mutex'
 import produce from 'immer'
-import { browser, Tabs } from 'webextension-polyfill-ts'
+import { browser } from 'webextension-polyfill-ts'
 import { restoreTabs } from './tabs'
-import { Domain, TabList, TabWithMeta } from './typings'
+import { Domain, TabList, TabSimple } from './typings'
 import { acquireMetadata } from './utils/api'
 import { genParamsToFetchMetadata, zip } from './utils/util'
 
@@ -119,11 +119,11 @@ export const restoreTabList = async (tabListId: number) => {
   await deleteTabList(tabListId)
 }
 
-const mergeTabsWithMeta = async (tabs: Tabs.Tab[]) => {
+const mergeTabsWithMeta = async (tabs: TabSimple[]) => {
   const params = genParamsToFetchMetadata(tabs)
   const metaObjs = await acquireMetadata(params)
 
-  const tabsWithMetas: TabWithMeta[] = []
+  const tabsWithMetas = []
   // NOTE: merge tabs and metaObjs
   for (const [tab, metaObj] of zip(tabs, metaObjs)) {
     tabsWithMetas.push({ ...tab, ...metaObj })

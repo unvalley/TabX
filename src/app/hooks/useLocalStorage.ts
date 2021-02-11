@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
-
-const isString = (val: any) => typeof val === 'string'
+import { isString } from '~/shared/utils/util'
 
 /**
  * localStorageを扱うHook

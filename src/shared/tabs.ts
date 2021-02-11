@@ -2,7 +2,7 @@ import { browser, Tabs } from 'webextension-polyfill-ts'
 import { ILLEGAL_URLS } from './constants'
 import { createNewTabList } from './list'
 import * as Storage from './storage'
-import { ListElemTabs } from './typings'
+import { TabSimple } from './typings'
 
 const getAllInWindow = (windowId?: number) => browser.tabs.query({ windowId })
 
@@ -40,12 +40,6 @@ const isValidTab = (tab: Tabs.Tab) => {
   return !tab.pinned && !tab.url.startsWith(appUrl) && isLegalURL(tab.url)
 }
 
-type StrictTab = Required<Tabs.Tab>
-// TODO: Type
-export const checkTabType = (tab: Tabs.Tab): tab is StrictTab => {
-  return tab.id !== undefined
-}
-
 const storeTabs = async (tabs: Tabs.Tab[]) => {
   if (tabs.length === 0) return
   const newList = createNewTabList(tabs)
@@ -73,7 +67,7 @@ export const storeAllTabs = async () => {
   )
 }
 
-export const restoreTabs = async (tabs: ListElemTabs) => {
+export const restoreTabs = async (tabs: TabSimple[]) => {
   tabs.forEach(async tab => {
     await browser.tabs.create({
       url: tab.url,
