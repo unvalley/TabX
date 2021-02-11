@@ -5,7 +5,7 @@ import React from 'react'
 type Props = { onClick: () => void; label?: string }
 
 export const DeleteButton: React.VFC<Props> = ({ onClick, label = 'Delete All Tabs' }: Props) => (
-  <Button size="medium" icon={<AlertCircle />} type="error" ghost onClick={onClick}>
+  <Button size="medium" icon={<AlertCircle />} type="error" onClick={onClick}>
     {label}
   </Button>
 )

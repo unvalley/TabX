@@ -41,6 +41,7 @@ const isValidTab = (tab: Tabs.Tab) => {
 }
 
 type StrictTab = Required<Tabs.Tab>
+// TODO: Type
 export const checkTabType = (tab: Tabs.Tab): tab is StrictTab => {
   return tab.id !== undefined
 }
@@ -74,10 +75,13 @@ export const storeAllTabs = async () => {
 
 export const restoreTabs = async (tabs: ListElemTabs) => {
   tabs.forEach(async tab => {
-    const createdTab = await browser.tabs.create({
+    await browser.tabs.create({
       url: tab.url,
       pinned: tab.pinned,
     })
-    if (tab.mutedInfo?.muted) browser.tabs.update(createdTab.id, { muted: true })
+    // TODO: muted handling
+    // if (tab.mutedInfo?.muted) {
+    //   await browser.tabs.update(createdTab.id!, { muted: true })
+    // }
   })
 }
