@@ -13,6 +13,7 @@
   "SETTING_SHOW_TAB_GROUP_COUNT": "グループ内のタブ数を表示する",
   "SETTING_DELETE_TAB_WHEN_CLICKED": "タブをクリックした際に削除する",
   "SETTING_EXPORT_TEXT": "タブをExportする(OneTab互換)",
+  "SETTING_EXPORT_JSON": "タブをExportする(JSON形式)",
   "EXPORT_BUTTON": "Export",
   "HIDE_EXPORT_BUTTON": "隠す",
 

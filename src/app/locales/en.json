@@ -12,6 +12,7 @@
   "SETTING_SHOW_TAB_GROUP_COUNT": "Show tab group count",
   "SETTING_DELETE_TAB_WHEN_CLICKED": "Delete tab when clicked",
   "SETTING_EXPORT_TEXT": "Export Tabs (compatible with OneTab)",
+  "SETTING_EXPORT_JSON": "Export Tabs (JSON format)",
   "EXPORT_BUTTON": "Export",
   "HIDE_EXPORT_BUTTON": "hide",
 
