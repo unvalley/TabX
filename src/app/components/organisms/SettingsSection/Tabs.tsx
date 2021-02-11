@@ -4,10 +4,12 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { DeleteButton } from '~/app/components/molecules/DeleteButton'
 import { useLocalStorage } from '~/app/hooks/useLocalStorage'
+import { exportedJSONFileName } from '~/app/utils'
 import { exportToText } from '~/shared/importExport'
+import { TabList } from '~/shared/typings'
 import { StyledToggle, ToggleWrapper } from './style'
 
-type Props = { deleteAllTabs: () => void }
+type Props = { deleteAllTabs: () => void; tabLists: TabList[] }
 
 export const Tabs: React.VFC<Props> = props => {
   const [exportText, setExportText] = React.useState('')
@@ -35,6 +37,10 @@ export const Tabs: React.VFC<Props> = props => {
     setShowExportText(!showExportText)
   }
 
+  const hrefForJSONExport = `data:text/json;charset=utf-8,${encodeURIComponent(
+    JSON.stringify({ data: props.tabLists }),
+  )}`
+
   return (
     <Grid.Container>
       <Card>
@@ -59,6 +65,8 @@ export const Tabs: React.VFC<Props> = props => {
             </ToggleWrapper>
           </span>
 
+          <Divider y={1} />
+
           <span>
             <Row gap={0.8}>
               <Col>
@@ -77,7 +85,24 @@ export const Tabs: React.VFC<Props> = props => {
             {showExportText && <Textarea width="100%" initialValue={exportText} style={{ height: '300px' }} />}
           </span>
 
-          <Divider y={2} />
+          <span>
+            <Row gap={0.8}>
+              <Col>
+                <Text>{t('SETTING_EXPORT_JSON')}</Text>
+              </Col>
+              <Col>
+                <Row align="middle" style={{ height: '100%', textAlign: 'right' }}>
+                  <Col>
+                    <a href={hrefForJSONExport} download={exportedJSONFileName}>
+                      <Button size="medium">Export</Button>
+                    </a>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          </span>
+
+          <Divider y={1} />
 
           <Text b>{t('DANGER_ZONE')}</Text>
           <Row gap={0.8}>

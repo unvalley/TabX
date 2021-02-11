@@ -1,5 +1,6 @@
 import { Spacer } from '@geist-ui/react'
 import React from 'react'
+import { useRecoilValue } from 'recoil'
 import {
   ColorThemes,
   //   Contributions,
@@ -7,6 +8,7 @@ import {
   Tabs,
   Versions,
 } from '~/app/components/organisms/SettingsSection'
+import { tabListsState } from '~/app/store'
 
 type Props = {
   deleteAllTabs: () => void
@@ -14,15 +16,17 @@ type Props = {
 }
 
 export const Settings: React.FC<Props> = props => {
+  const { deleteAllTabs, version } = props
+  const tabLists = useRecoilValue(tabListsState)
   return (
     <>
-      <Tabs deleteAllTabs={props.deleteAllTabs} />
+      <Tabs deleteAllTabs={deleteAllTabs} tabLists={tabLists} />
       <Spacer y={1} />
       <Languages />
       <Spacer y={1} />
       <ColorThemes />
       <Spacer y={1} />
-      <Versions version={props.version!} />
+      <Versions version={version!} />
       <Spacer y={1} />
       {/* <Contributions /> */}
     </>
