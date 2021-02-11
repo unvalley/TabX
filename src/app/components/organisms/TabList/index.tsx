@@ -1,16 +1,15 @@
 import { useTheme } from '@geist-ui/react'
 import React from 'react'
 import { useRecoilState } from 'recoil'
-import { Tabs } from 'webextension-polyfill-ts'
 import { FaviconImage } from '~/app/components/atoms/FaviconImage'
+import { TabLinkOps } from '~/app/components/molecules/TabLinkOps'
+import { TabLinkButton, TabLinkWrapper, Title } from '~/app/components/molecules/TabLinks/style'
 import { Rule, Spacing } from '~/app/constants/styles'
 import { useMouseOver } from '~/app/hooks/useMouseOver'
 import { deleteTabLink } from '~/shared/storage'
-import { TabList, TabWithMeta } from '~/shared/typings'
+import { TabList } from '~/shared/typings'
 import { omitText } from '~/shared/utils/util'
 import { removeTab, tabListState } from '../../../store'
-import { TabLinkOps } from '../../molecules/TabLinkOps'
-import { TabLinkButton, TabLinkWrapper, Title } from '../../molecules/TabLinks/style'
 import { TabListHeader } from './internal/TabListHeader'
 import { TabListSection } from './style'
 
@@ -26,7 +25,7 @@ export const TabListContainer: React.FC<Props> = props => {
 
   const handleTabDelete = async (tabId: number) => {
     await deleteTabLink(tabList.id, tabId).then(() => {
-      const newTabs = removeTab(tabList, tabId) as TabList
+      const newTabs = removeTab(tabList, tabId)
       // NOTE: handling for last tab deletion
       newTabs.tabs.length >= 1 ? setTabList(newTabs) : setTabList({} as TabList)
     })
@@ -42,10 +41,10 @@ export const TabListContainer: React.FC<Props> = props => {
       {/* header */}
       {shouldShowTabListHeader && <TabListHeader idx={idx} tabList={tabList} isLG={true} />}
       {/* tabs */}
-      {(tabList.tabs as Array<Tabs.Tab | TabWithMeta>).map((tab, idx) => (
+      {tabList.tabs.map((tab, idx) => (
         <TabLinkWrapper
           id={String(tab.id)}
-          key={tab.id!}
+          key={tab.id}
           hoverShadow={theme.expressiveness.shadowSmall}
           onMouseOver={() => handleMouseOver(idx)}
           onMouseLeave={() => handleMouseOut()}
@@ -54,16 +53,16 @@ export const TabListContainer: React.FC<Props> = props => {
           <TabLinkButton
             href={tab.url}
             target="_blank"
-            onClick={() => handleTabDelete(tab.id!)}
+            onClick={() => handleTabDelete(tab.id)}
             color={theme.palette.foreground}
           >
             <span style={{ paddingRight: Spacing['0.5'] }}>
-              <FaviconImage src={tab.favIconUrl!} size={20} />
+              <FaviconImage src={tab.favIconUrl} size={20} />
             </span>
-            <Title>{omitText(tab.title!)(Rule.TITLE_MAX_LENGTH)('…')}</Title>
+            <Title>{omitText(tab.title)(Rule.TITLE_MAX_LENGTH)('…')}</Title>
           </TabLinkButton>
           {/* Ops show when the tab is hoverd */}
-          <TabLinkOps tabId={tab.id!} handleClick={handleTabDelete} shouldShow={isMouseOvered(idx)} />
+          <TabLinkOps tabId={tab.id} handleClick={handleTabDelete} shouldShow={isMouseOvered(idx)} />
         </TabLinkWrapper>
       ))}
     </TabListSection>

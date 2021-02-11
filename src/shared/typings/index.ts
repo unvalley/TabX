@@ -1,6 +1,23 @@
-import { Tabs } from 'webextension-polyfill-ts'
+/**
+ * Basic Tab Type
+ */
+export type TabSimple = {
+  id: number
+  title: string
+  pinned: boolean
+  lastAccessed: number
+  url: string
+  favIconUrl: string
+  /**
+   * page ogp url
+   */
+  ogImageUrl: string
+  /**
+   * page description
+   */
+  description: string
+}
 
-export type ListElemTabs = Tabs.Tab[] | TabWithMeta[]
 /**
  * Each Tab Group
  */
@@ -8,7 +25,7 @@ export type TabList = {
   id: number
   title: string
   description: string
-  tabs: ListElemTabs
+  tabs: TabSimple[]
   hasPinned: boolean
   createdAt: number
   updatedAt: number
@@ -17,14 +34,14 @@ export type TabList = {
 /**
  * Target Metadata fetches from URL
  */
-export type TargetMeta = { ogImageUrl: string; description: string }
+export type TargetMeta = {}
 
 /**
  * for API Request
  */
 export type TargetMetaWithId = TargetMeta & { id: number }
 
-export type TabWithMeta = Tabs.Tab & TargetMeta
+export type TabWithMeta = TabSimple & TargetMeta
 
 /**
  * Domain Type
