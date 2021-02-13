@@ -3,6 +3,7 @@ import produce from 'immer'
 import { browser } from 'webextension-polyfill-ts'
 import { loadCache, saveCache } from './cache'
 import { DOMAIN_TAB_LISTS, TAB_LISTS } from './constants'
+import { createNewDomainTabList } from './list'
 import { restoreTabs } from './tabAction'
 import { DomainTabList, ListName, ListType, TabList, TabSimple } from './typings'
 import { acquireMetadata } from './utils/api'
@@ -44,8 +45,10 @@ export const addList = async (storageKey: ListName, newList: TabList | DomainTab
 
 export const deleteAllLists = (key: string) => set({ [key]: null })
 
-export const addDomainTabs = async (groupedNewList: [string, TabSimple[]][]) => {
+type Domain = string
+export const addDomainTabs = async (groupedNewList: [Domain, TabSimple[]][]) => {
   const allDomainTabLists = await getAllLists(DOMAIN_TAB_LISTS)
+  const domains = allDomainTabLists.map(list => list.domain)
   const updatedAllTabLists = produce(allDomainTabLists, draft => {
     draft.forEach(list => {
       groupedNewList.forEach(async newList => {
@@ -53,6 +56,8 @@ export const addDomainTabs = async (groupedNewList: [string, TabSimple[]][]) => 
         const domainTabList = newList[1]
         if (list.domain === domain) {
           list.tabs.push(...domainTabList)
+        } else if (!(domain in domains)) {
+          await addList(DOMAIN_TAB_LISTS, createNewDomainTabList(domain, domainTabList))
         }
       })
     })

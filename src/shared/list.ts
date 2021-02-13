@@ -30,7 +30,7 @@ export const createNewTabList = (tabs: Tabs.Tab[]): TabList => ({
   updatedAt: Date.now(),
 })
 
-export const createNewDomainTabList = (domain: string, tabs: any[]): DomainTabList => ({
+export const createNewDomainTabList = (domain: string, tabs: TabSimple[]): DomainTabList => ({
   id: Date.now(),
   title: 'untitled',
   description: '',
