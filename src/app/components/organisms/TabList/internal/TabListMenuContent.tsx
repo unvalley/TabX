@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next'
 import { SetterOrUpdater } from 'recoil'
 import { MenuItem } from '~/app/components/molecules/MenuItem'
 import { Rule } from '~/app/constants/styles'
+import { TAB_LISTS } from '~/shared/constants'
 import { deleteTabList, pinnTabList, restoreTabList } from '~/shared/storage'
 import { TabList } from '~/shared/typings'
 
@@ -20,7 +21,7 @@ export const TabListMenuContent: React.VFC<Props> = props => {
   const [, setToast] = useToasts()
 
   const handlePin = async (tabListId: number) => {
-    await pinnTabList(tabListId)
+    await pinnTabList(TAB_LISTS, tabListId)
   }
 
   const handleDelete = async (tabListId: number) => {
@@ -30,7 +31,7 @@ export const TabListMenuContent: React.VFC<Props> = props => {
       return
     }
 
-    await deleteTabList(tabListId).then(() => setTabList({} as TabList))
+    await deleteTabList(TAB_LISTS, tabListId).then(() => setTabList({} as TabList))
 
     // show Toast
     setToast({

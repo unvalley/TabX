@@ -1,6 +1,5 @@
 import produce, { Draft } from 'immer'
 import { atom, atomFamily, selector, selectorFamily } from 'recoil'
-import { Lang } from '~/app/constants'
 import { Themes } from '~/app/constants/styles'
 import { TAB_LISTS } from '~/shared/constants'
 import { getAllLists } from '~/shared/storage'
@@ -13,7 +12,7 @@ export const tabListsState = atom<TabList[]>({
     get: async () => {
       const lists = await getAllLists(TAB_LISTS)
       if (typeof lists === 'undefined') {
-        return [] as TabList[]
+        return []
       }
       return lists
     },
@@ -85,20 +84,6 @@ export const colorThemeState = atom<string>({
         return Themes.LIGHT
       }
       return theme
-    },
-  }),
-})
-
-export const langState = atom<string>({
-  key: 'langState',
-  default: selector({
-    key: 'langState/default',
-    get: () => {
-      const lang = localStorage.getItem('lang')
-      if (lang === null) {
-        return Lang.ENGLISH
-      }
-      return lang
     },
   }),
 })

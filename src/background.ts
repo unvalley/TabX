@@ -1,5 +1,5 @@
 import { browser } from 'webextension-polyfill-ts'
-import { storeAllTabs } from './shared/tabs'
+import { storeAllTabs } from './shared/tabAction'
 
 export const init = async () => {
   await Promise.all([

@@ -56,3 +56,6 @@ export type Domain = {
   domain: string
   fullPath: string
 }
+
+export type ListType<T> = T extends 'domainTabLists' ? DomainTabList : T extends 'tabLists' ? TabList : never
+export type ListName = 'tabLists' | 'domainTabLists'

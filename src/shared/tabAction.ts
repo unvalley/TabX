@@ -1,5 +1,5 @@
 import { browser, Tabs } from 'webextension-polyfill-ts'
-import { ILLEGAL_URLS, TAB_LISTS } from './constants'
+import { DOMAIN_TAB_LISTS, ILLEGAL_URLS, TAB_LISTS } from './constants'
 import { createNewTabList, normalizeDomainTab } from './list'
 import * as Storage from './storage'
 import { TabSimple } from './typings'
@@ -44,6 +44,7 @@ const isValidTab = (tab: Tabs.Tab) => {
 const storeTabs = async (tabs: Tabs.Tab[]) => {
   if (tabs.length === 0) return
   const newList = createNewTabList(tabs)
+  console.log('newList', newList)
 
   try {
     const lists = await Storage.getAllLists(TAB_LISTS)
@@ -70,18 +71,20 @@ const storeDomainTabs = async (tabs: Tabs.Tab[]) => {
   if (tabs.length === 0) return
   const filterd = tabs.map(normalizeDomainTab).filter(nonNullable)
   const groupedNewList = Object.entries(groupBy(filterd, 'domain'))
-  await Storage.addDomainTabs(groupedNewList)
-  //   try {
-  //     const lists = await Storage.getAllLists()
-  //     typeof lists === 'undefined' || lists === null ? await Storage.setLists([newList]) : await Storage.addList(newList)
-  //   } catch (err) {
-  //     console.error(err)
-  //   }
+  try {
+    const lists = await Storage.getAllLists(DOMAIN_TAB_LISTS)
+    lists.length === 0 ? await Storage.setLists(DOMAIN_TAB_LISTS, []) : await Storage.addDomainTabs(groupedNewList)
+  } catch (err) {
+    console.error(err)
+  }
 }
 
 export const storeAllTabs = async () => {
   const tabs = await getAllTabsInCurrentWindow()
   const sanitizedTabs = tabs.filter(isValidTab)
+
+  // TODO: tabs.length === 0 handling is wasteful
+  // TODO: openTabLists should be different await?
 
   // `res[1]` is storing TabList
   // NOTE: fetch decription and ogImageUrl from URL
