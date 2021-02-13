@@ -3,7 +3,7 @@ import { atom, atomFamily, selector, selectorFamily } from 'recoil'
 import { Lang } from '~/app/constants'
 import { Themes } from '~/app/constants/styles'
 import { TAB_LISTS } from '~/shared/constants'
-import { getAllTabLists } from '~/shared/storage'
+import { getAllLists } from '~/shared/storage'
 import { TabList } from '~/shared/typings'
 
 export const tabListsState = atom<TabList[]>({
@@ -11,7 +11,7 @@ export const tabListsState = atom<TabList[]>({
   default: selector<TabList[]>({
     key: 'tabListsState/Default',
     get: async () => {
-      const lists = await getAllTabLists(TAB_LISTS)
+      const lists = await getAllLists(TAB_LISTS)
       if (typeof lists === 'undefined') {
         return [] as TabList[]
       }

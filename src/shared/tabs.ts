@@ -46,7 +46,7 @@ const storeTabs = async (tabs: Tabs.Tab[]) => {
   const newList = createNewTabList(tabs)
 
   try {
-    const lists = await Storage.getAllTabLists(TAB_LISTS)
+    const lists = await Storage.getAllLists(TAB_LISTS)
     typeof lists === 'undefined' || lists === null
       ? await Storage.setLists(TAB_LISTS, [newList])
       : await Storage.addList(TAB_LISTS, newList)
@@ -72,7 +72,7 @@ const storeDomainTabs = async (tabs: Tabs.Tab[]) => {
   const groupedNewList = Object.entries(groupBy(filterd, 'domain'))
   await Storage.addDomainTabs(groupedNewList)
   //   try {
-  //     const lists = await Storage.getAllTabLists()
+  //     const lists = await Storage.getAllLists()
   //     typeof lists === 'undefined' || lists === null ? await Storage.setLists([newList]) : await Storage.addList(newList)
   //   } catch (err) {
   //     console.error(err)
