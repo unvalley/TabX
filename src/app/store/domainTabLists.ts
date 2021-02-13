@@ -6,7 +6,7 @@ import { DomainTabList } from '~/shared/typings'
 export const domainTabListsState = atom<DomainTabList[]>({
   key: 'domainTabListsState',
   default: selector<DomainTabList[]>({
-    key: 'tabListsState/Default',
+    key: 'domainTabListsState/Default',
     get: async () => {
       const lists = await getAllLists(DOMAIN_TAB_LISTS)
       if (typeof lists === 'undefined') {

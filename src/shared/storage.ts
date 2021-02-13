@@ -30,9 +30,8 @@ export const getAllLists = async <T extends ListName>(storageKey: T): Promise<Li
 }
 
 export const setLists = (storageKey: ListName, lists: TabList[] | DomainTabList[]) => {
-  const filterdLists = lists.filter(list => list.tabs)
   saveCache(storageKey, [])
-  return set({ [storageKey]: filterdLists })
+  return set({ [storageKey]: lists })
 }
 
 export const addList = async (storageKey: ListName, newList: TabList | DomainTabList) => {
@@ -45,13 +44,16 @@ export const addList = async (storageKey: ListName, newList: TabList | DomainTab
 
 export const deleteAllLists = (key: string) => set({ [key]: null })
 
-export const addDomainTabs = async (groupedNewList: any[]) => {
+export const addDomainTabs = async (groupedNewList: [string, TabSimple[]][]) => {
   const allDomainTabLists = await getAllLists(DOMAIN_TAB_LISTS)
   const updatedAllTabLists = produce(allDomainTabLists, draft => {
     draft.forEach(list => {
       groupedNewList.forEach(async newList => {
         const domain = newList[0]
-        list.domain === domain && list.tabs.push(newList[1])
+        const domainTabList = newList[1]
+        if (list.domain === domain) {
+          list.tabs.push(...domainTabList)
+        }
       })
     })
   })

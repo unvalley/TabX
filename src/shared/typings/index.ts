@@ -16,6 +16,7 @@ export type TabSimple = {
    * page ogp url
    */
   ogImageUrl: string
+  domain?: string
 }
 
 /**
@@ -59,3 +60,5 @@ export type Domain = {
 
 export type ListType<T> = T extends 'domainTabLists' ? DomainTabList : T extends 'tabLists' ? TabList : never
 export type ListName = 'tabLists' | 'domainTabLists'
+
+export type UnionList = TabList | DomainTabList

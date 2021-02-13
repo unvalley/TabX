@@ -3,7 +3,7 @@ import { atom, atomFamily, selector, selectorFamily } from 'recoil'
 import { Themes } from '~/app/constants/styles'
 import { TAB_LISTS } from '~/shared/constants'
 import { getAllLists } from '~/shared/storage'
-import { TabList } from '~/shared/typings'
+import { DomainTabList, TabList } from '~/shared/typings'
 
 export const tabListsState = atom<TabList[]>({
   key: 'tabListsState',
@@ -92,15 +92,15 @@ export const colorThemeState = atom<string>({
 // producer
 ///////////////////////////
 
-export const removeTabLink = (tabLists: TabList[], tabListId: number, tabId: number) =>
-  produce(tabLists, (draft: Draft<TabList[]>) => {
+export const removeTabLink = (tabLists: (TabList | DomainTabList)[], tabListId: number, tabId: number) =>
+  produce(tabLists, (draft: Draft<(TabList | DomainTabList)[]>) => {
     const targetTabList = draft.filter(list => list.id === tabListId)[0]
     const idx = targetTabList.tabs.findIndex(({ id }) => id === tabId)
     targetTabList.tabs = targetTabList.tabs.filter((_, i) => i !== idx)
   })
 
-export const removeTab = (tabList: TabList, tabId: number) =>
-  produce(tabList, (draft: Draft<TabList>) => {
+export const removeTab = (tabList: TabList | DomainTabList, tabId: number) =>
+  produce(tabList, (draft: Draft<TabList | DomainTabList>) => {
     const newTabs = draft.tabs.filter(tab => tab.id !== tabId)
     draft.tabs = newTabs
   })

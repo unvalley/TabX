@@ -1,6 +1,6 @@
 import { browser, Tabs } from 'webextension-polyfill-ts'
 import { DOMAIN_TAB_LISTS, ILLEGAL_URLS, TAB_LISTS } from './constants'
-import { createNewTabList, normalizeDomainTab } from './list'
+import { createNewDomainTabList, createNewTabList, normalizeTab } from './list'
 import * as Storage from './storage'
 import { TabSimple } from './typings'
 import { groupBy, nonNullable } from './utils/util'
@@ -44,7 +44,6 @@ const isValidTab = (tab: Tabs.Tab) => {
 const storeTabs = async (tabs: Tabs.Tab[]) => {
   if (tabs.length === 0) return
   const newList = createNewTabList(tabs)
-  console.log('newList', newList)
 
   try {
     const lists = await Storage.getAllLists(TAB_LISTS)
@@ -59,21 +58,22 @@ const storeTabs = async (tabs: Tabs.Tab[]) => {
   return newList
 }
 
-/**
- * 1. Storage.getAllDomainTabListsをSELECTする
- * 2. store中のタブを，ドメインを取得しながら domainTabListsと照合させる
- * 3. domainTabListsのdomainとタブのドメインが一致した場合
- *    - そのタブをdomainTabLists.tabsへ格納する
- * 4. 一致しなかった場合
- *    - createNewDomainTabListで新たなdomainのタブリストを作る
- */
 const storeDomainTabs = async (tabs: Tabs.Tab[]) => {
   if (tabs.length === 0) return
-  const filterd = tabs.map(normalizeDomainTab).filter(nonNullable)
+  const filterd = tabs.map(normalizeTab).filter(nonNullable)
+  //   const newList = createNewDomainTabList('domainExample', filterd)
   const groupedNewList = Object.entries(groupBy(filterd, 'domain'))
+  const newList = groupedNewList.map(data => {
+    const domainName = data[0]
+    const domainLinkedTabList = data[1]
+    return createNewDomainTabList(domainName, domainLinkedTabList)
+  })
+
   try {
     const lists = await Storage.getAllLists(DOMAIN_TAB_LISTS)
-    lists.length === 0 ? await Storage.setLists(DOMAIN_TAB_LISTS, []) : await Storage.addDomainTabs(groupedNewList)
+    typeof lists === 'undefined' || lists.length === 0
+      ? await Storage.setLists(DOMAIN_TAB_LISTS, newList)
+      : await Storage.addDomainTabs(groupedNewList)
   } catch (err) {
     console.error(err)
   }

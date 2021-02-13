@@ -7,6 +7,7 @@
   "DANGER_ZONE_MESSAGE": "Once you delete all tabs, there is no going back.",
   "DELETE_ALL_TABS_BUTTON": "Delete All Tabs",
   "DELETE_MESSAGE": "Are you sure you want to delete?",
+  "DELETED_ALL_TABS": "Deleted All Tabs",
   "COLOR_THEMES": "Color Themes",
   "CONTRIBUTION": "Contribution",
   "SETTING_SHOW_TAB_GROUP_COUNT": "Show tab group count",

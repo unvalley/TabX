@@ -26,7 +26,8 @@ export const TabListContainer: React.FC<Props> = props => {
 
   const handleTabDelete = async (tabId: number) => {
     await deleteTabLink(TAB_LISTS, tabList.id, tabId).then(() => {
-      const newTabs = removeTab(tabList, tabId)
+      // TODO: fix
+      const newTabs = removeTab(tabList, tabId) as TabList
       // NOTE: handling for last tab deletion
       newTabs.tabs.length >= 1 ? setTabList(newTabs) : setTabList({} as TabList)
     })

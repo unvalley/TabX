@@ -1,21 +1,21 @@
 import * as React from 'react'
 import { useTranslation } from 'react-i18next'
+import { DomainTabListContainer } from '~/app/components/organisms/DomainTabList'
 import { Header } from '~/app/components/organisms/Header'
-import { TabListContainer } from '~/app/components/organisms/TabList'
 import { useLocalStorage } from '~/app/hooks/useLocalStorage'
-import { TabList } from '~/shared/typings'
+import { DomainTabList } from '~/shared/typings'
 
 type Props = {
-  tabLists: TabList[]
+  tabLists: DomainTabList[]
 }
 
 const MemoizedTabGroups = React.memo<{
-  tabLists: TabList[]
+  tabLists: DomainTabList[]
   shouldShowTabListHeader: boolean
 }>(props => (
   <>
-    {props.tabLists.map((tabList, idx) => (
-      <TabListContainer key={tabList.id} idx={idx} shouldShowTabListHeader={props.shouldShowTabListHeader} />
+    {props.tabLists.map((_tabList, idx) => (
+      <DomainTabListContainer key={idx} idx={idx} shouldShowTabListHeader={props.shouldShowTabListHeader} />
     ))}
   </>
 ))
