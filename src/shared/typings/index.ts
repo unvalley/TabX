@@ -4,6 +4,10 @@
 export type TabSimple = {
   id: number
   title: string
+  /**
+   * page description
+   */
+  description: string
   pinned: boolean
   lastAccessed: number
   url: string
@@ -12,10 +16,6 @@ export type TabSimple = {
    * page ogp url
    */
   ogImageUrl: string
-  /**
-   * page description
-   */
-  description: string
 }
 
 /**
@@ -29,6 +29,11 @@ export type TabList = {
   hasPinned: boolean
   createdAt: number
   updatedAt: number
+}
+
+export type DomainTabList = TabList & {
+  domainName: string
+  domain: string
 }
 
 /**

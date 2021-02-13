@@ -1,60 +1,61 @@
 import { Mutex } from 'async-mutex'
 import produce from 'immer'
 import { browser } from 'webextension-polyfill-ts'
+import { cache, loadCache, saveCache } from './cache'
+import { DOMAIN_TAB_LISTS, TAB_LISTS } from './constants'
 import { restoreTabs } from './tabs'
-import { Domain, TabList, TabSimple } from './typings'
+import { DomainTabList, TabList, TabSimple } from './typings'
 import { acquireMetadata } from './utils/api'
 import { genParamsToFetchMetadata, zip } from './utils/util'
 
-const LISTS = 'lists'
-const DOMAINS = 'domains'
-
 const mutex = new Mutex()
 
-const cache = { lists: [] as TabList[], domains: [] as Domain[] }
-const get = (key: string) => browser.storage.local.get(key)
+const get = (storageKey: string) => browser.storage.local.get(storageKey)
 const set = (obj: Record<string, unknown>) => browser.storage.local.set(obj)
 
-// for Testing
-export const getAllRandomTabLists = async () => {
-  // TODO: create mock data
-  return [] as TabList[]
-}
-
-export const getAllTabLists = async () => {
-  if (cache.lists.length > 0) {
-    return cache.lists
+export const getAllTabLists = async (storageKey: string) => {
+  const cachedData = loadCache(storageKey)
+  if (cachedData.length > 0) {
+    return cachedData
   }
-  const allTabLists = await get(LISTS).then(({ lists }) => (Array.isArray(lists) ? (lists as TabList[]) : []))
-  cache.lists = allTabLists
-  return cache.lists
+  const allLists = await get(storageKey).then(({ val }) => (val as TabList[] | DomainTabList[]) || [])
+  saveCache(storageKey, allLists)
+
+  return allLists
 }
 
-export const getAllDomains = async () => {
-  if (cache.domains.length > 0) {
-    return cache.domains
-  }
-  const allDomains = await get(DOMAINS).then(({ domains }) => (Array.isArray(domains) ? (domains as Domain[]) : []))
-  cache.domains = allDomains
-  return cache.domains
-}
-
-export const setLists = (lists: TabList[]) => {
+export const setLists = (storageKey: string, lists: TabList[] | DomainTabList[]) => {
   const filterdLists = lists.filter(list => list.tabs)
-  cache.lists = []
-  return set({ lists: filterdLists })
+  cache.tabLists = []
+  return set({ [storageKey]: filterdLists })
 }
 
-export const addList = async (newList: TabList) => {
-  const allTabLists = await getAllTabLists()
+export const addList = async (storageKey: string, newList: TabList) => {
+  const allTabLists = await getAllTabLists(storageKey)
   const updatedAllTabLists = produce(allTabLists, draft => {
     draft.push(newList)
   })
-  return setLists(updatedAllTabLists)
+  return setLists(storageKey, updatedAllTabLists)
 }
 
-export const deleteAllTabLists = () => set({ lists: null })
-export const deleteAllDomains = () => set({ domains: null })
+export const addDomainTabs = async (groupedNewList: any[]) => {
+  const allDomainTabLists = await getAllTabLists(DOMAIN_TAB_LISTS)
+  const updatedAllTabLists = produce(allDomainTabLists, draft => {
+    draft.forEach(list => {
+      groupedNewList.forEach(async newList => {
+        const domain = newList[0]
+        if (list.domain === domain) {
+          //   console.log(list.id, list.tabs, newList[1])
+          list.tabs.push(newList[1])
+        }
+      })
+    })
+  })
+  console.log(updatedAllTabLists)
+  setLists(DOMAIN_TAB_LISTS, updatedAllTabLists)
+}
+
+export const deleteAllLists = (key: string) => set({ [key]: null })
 
 /**
  * Delete Single Tab Link in a TabList
@@ -64,7 +65,7 @@ export const deleteTabLink = async (tabListId: number, tabId: number) => {
   const release = await mutex.acquire()
   try {
     // SELECT
-    const allTabLists = await getAllTabLists()
+    const allTabLists = await getAllTabLists(TAB_LISTS)
     const updatedAllTabLists = produce(allTabLists, draft => {
       const targetTabListElem = draft.filter(list => list.id === tabListId)[0]
       const idx = targetTabListElem.tabs.findIndex(({ id }) => id === tabId)
@@ -73,7 +74,7 @@ export const deleteTabLink = async (tabListId: number, tabId: number) => {
       !targetTabListElem.tabs.length && deleteTabList(tabListId)
     })
     // UPDATE
-    setLists(updatedAllTabLists)
+    setLists(TAB_LISTS, updatedAllTabLists)
   } catch (err) {
     console.error(err)
   } finally {
@@ -88,12 +89,12 @@ export const deleteTabLink = async (tabListId: number, tabId: number) => {
 export const deleteTabList = async (tabListId: number) => {
   const release = await mutex.acquire()
   try {
-    const allTabLists = await getAllTabLists()
+    const allTabLists = await getAllTabLists(TAB_LISTS)
     const updatedAllTabLists = produce(allTabLists, draft => {
       const listIdx = draft.findIndex(({ id }) => id === tabListId)
       draft.splice(listIdx, 1)
     })
-    setLists(updatedAllTabLists)
+    setLists(TAB_LISTS, updatedAllTabLists)
   } finally {
     release()
   }
@@ -101,17 +102,17 @@ export const deleteTabList = async (tabListId: number) => {
 
 export const pinnTabList = async (tabListId: number) => {
   // SELECT
-  const allTabLists = await getAllTabLists()
+  const allTabLists = await getAllTabLists(TAB_LISTS)
   const targetTabListElem = allTabLists.filter(list => list.id === tabListId)[0]
 
   // UPDATE
   targetTabListElem.hasPinned = true
-  setLists(allTabLists)
+  setLists(TAB_LISTS, allTabLists)
 }
 
 export const restoreTabList = async (tabListId: number) => {
   // SELECT
-  const allTabLists = await getAllTabLists()
+  const allTabLists = await getAllTabLists(TAB_LISTS)
   const targetTabListElem = allTabLists.filter(list => list.id === tabListId)[0]
   // OPEN
   await restoreTabs(targetTabListElem.tabs)
@@ -133,12 +134,12 @@ const mergeTabsWithMeta = async (tabs: TabSimple[]) => {
 
 export const updateTabListElemWithMeta = async (tabListId: number) => {
   // SELECT
-  const allTabLists = await getAllTabLists()
+  const allTabLists = await getAllTabLists(TAB_LISTS)
   const targetTabListElem = allTabLists.filter(list => list.id === tabListId)[0]
   // NOTE: prepare data for update
   const tabsWithMeta = await mergeTabsWithMeta(targetTabListElem.tabs)
   targetTabListElem.tabs = tabsWithMeta
 
   // UPDATE
-  setLists(allTabLists)
+  setLists(TAB_LISTS, allTabLists)
 }

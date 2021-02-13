@@ -1,8 +1,8 @@
 import React from 'react'
 import { useRecoilValue } from 'recoil'
-import { TabList } from '../../../shared/typings'
-import { Load } from '../../components/atoms/Load'
-import { tabListsState } from '../../store'
+import { Load } from '~/app/components/atoms/Load'
+import { tabListsState } from '~/app/store'
+import { TabList } from '~/shared/typings'
 import { Masonry as Component } from './Masonry'
 
 export const Masonry: React.FC = () => {

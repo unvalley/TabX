@@ -1,8 +1,9 @@
 import { browser, Tabs } from 'webextension-polyfill-ts'
-import { ILLEGAL_URLS } from './constants'
-import { createNewTabList } from './list'
+import { ILLEGAL_URLS, TAB_LISTS } from './constants'
+import { createNewTabList, normalizeDomainTab } from './list'
 import * as Storage from './storage'
 import { TabSimple } from './typings'
+import { groupBy, nonNullable } from './utils/util'
 
 const getAllInWindow = (windowId?: number) => browser.tabs.query({ windowId })
 
@@ -45,25 +46,47 @@ const storeTabs = async (tabs: Tabs.Tab[]) => {
   const newList = createNewTabList(tabs)
 
   try {
-    const lists = await Storage.getAllTabLists()
-    typeof lists === 'undefined' || lists === null ? await Storage.setLists([newList]) : await Storage.addList(newList)
+    const lists = await Storage.getAllTabLists(TAB_LISTS)
+    typeof lists === 'undefined' || lists === null
+      ? await Storage.setLists(TAB_LISTS, [newList])
+      : await Storage.addList(TAB_LISTS, newList)
   } catch (err) {
     console.error(err)
   }
 
-  await closeAllTabs(tabs)
+  await closeAllTabs(tabs).catch(err => console.error(err))
   return newList
+}
+
+/**
+ * 1. Storage.getAllDomainTabListsをSELECTする
+ * 2. store中のタブを，ドメインを取得しながら domainTabListsと照合させる
+ * 3. domainTabListsのdomainとタブのドメインが一致した場合
+ *    - そのタブをdomainTabLists.tabsへ格納する
+ * 4. 一致しなかった場合
+ *    - createNewDomainTabListで新たなdomainのタブリストを作る
+ */
+const storeDomainTabs = async (tabs: Tabs.Tab[]) => {
+  if (tabs.length === 0) return
+  const filterd = tabs.map(normalizeDomainTab).filter(nonNullable)
+  const groupedNewList = Object.entries(groupBy(filterd, 'domain'))
+  await Storage.addDomainTabs(groupedNewList)
+  //   try {
+  //     const lists = await Storage.getAllTabLists()
+  //     typeof lists === 'undefined' || lists === null ? await Storage.setLists([newList]) : await Storage.addList(newList)
+  //   } catch (err) {
+  //     console.error(err)
+  //   }
 }
 
 export const storeAllTabs = async () => {
   const tabs = await getAllTabsInCurrentWindow()
   const sanitizedTabs = tabs.filter(isValidTab)
 
-  await Promise.all([openTabLists(), storeTabs(sanitizedTabs)]).then(
-    res =>
-      // `res[1]` is storing TabList
-      // NOTE: fetch decription and ogImageUrl from URL
-      res[1] && Storage.updateTabListElemWithMeta(res[1].id),
+  // `res[1]` is storing TabList
+  // NOTE: fetch decription and ogImageUrl from URL
+  await Promise.all([openTabLists(), storeTabs(sanitizedTabs), storeDomainTabs(sanitizedTabs)]).then(
+    res => res[1] && Storage.updateTabListElemWithMeta(res[1].id),
   )
 }
 

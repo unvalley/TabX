@@ -1,13 +1,9 @@
-import { Tabs } from 'webextension-polyfill-ts'
+import { TAB_LISTS } from './constants'
 import * as Storage from './storage'
-import { TabList, TabWithMeta } from './typings'
+import { TabList } from './typings'
 
 export const exportToText = async () => {
-  const lists = await Storage.getAllTabLists()
+  const lists = await Storage.getAllTabLists(TAB_LISTS)
 
-  return lists
-    .map((list: TabList) =>
-      (list.tabs as Array<Tabs.Tab | TabWithMeta>).map(tab => tab.url + ' | ' + tab.title).join('\n'),
-    )
-    .join('\n\n')
+  return lists.map((list: TabList) => list.tabs.map(tab => tab.url + ' | ' + tab.title).join('\n')).join('\n\n')
 }

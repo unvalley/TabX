@@ -9,3 +9,6 @@ export const API_BASE_URL = 'https://us-central1-tabx-572fb.cloudfunctions.net/a
 
 // TabList title
 export const DEFAULT_TITLE = 'untitled'
+
+export const TAB_LISTS = 'tabLists'
+export const DOMAIN_TAB_LISTS = 'domainTabLists'

@@ -2,6 +2,7 @@ import produce, { Draft } from 'immer'
 import { atom, atomFamily, selector, selectorFamily } from 'recoil'
 import { Lang } from '~/app/constants'
 import { Themes } from '~/app/constants/styles'
+import { TAB_LISTS } from '~/shared/constants'
 import { getAllTabLists } from '~/shared/storage'
 import { TabList } from '~/shared/typings'
 
@@ -10,7 +11,7 @@ export const tabListsState = atom<TabList[]>({
   default: selector<TabList[]>({
     key: 'tabListsState/Default',
     get: async () => {
-      const lists = await getAllTabLists()
+      const lists = await getAllTabLists(TAB_LISTS)
       if (typeof lists === 'undefined') {
         return [] as TabList[]
       }
