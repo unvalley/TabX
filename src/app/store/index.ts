@@ -1,18 +1,18 @@
 import produce, { Draft } from 'immer'
 import { atom, atomFamily, selector, selectorFamily } from 'recoil'
-import { Lang } from '~/app/constants'
 import { Themes } from '~/app/constants/styles'
-import { getAllTabLists } from '~/shared/storage'
-import { TabList } from '~/shared/typings'
+import { TAB_LISTS } from '~/shared/constants'
+import { getAllLists } from '~/shared/storage'
+import { DomainTabList, TabList } from '~/shared/typings'
 
 export const tabListsState = atom<TabList[]>({
   key: 'tabListsState',
   default: selector<TabList[]>({
     key: 'tabListsState/Default',
     get: async () => {
-      const lists = await getAllTabLists()
+      const lists = await getAllLists(TAB_LISTS)
       if (typeof lists === 'undefined') {
-        return [] as TabList[]
+        return []
       }
       return lists
     },
@@ -88,33 +88,19 @@ export const colorThemeState = atom<string>({
   }),
 })
 
-export const langState = atom<string>({
-  key: 'langState',
-  default: selector({
-    key: 'langState/default',
-    get: () => {
-      const lang = localStorage.getItem('lang')
-      if (lang === null) {
-        return Lang.ENGLISH
-      }
-      return lang
-    },
-  }),
-})
-
 ///////////////////////////
 // producer
 ///////////////////////////
 
-export const removeTabLink = (tabLists: TabList[], tabListId: number, tabId: number) =>
-  produce(tabLists, (draft: Draft<TabList[]>) => {
+export const removeTabLink = (tabLists: (TabList | DomainTabList)[], tabListId: number, tabId: number) =>
+  produce(tabLists, (draft: Draft<(TabList | DomainTabList)[]>) => {
     const targetTabList = draft.filter(list => list.id === tabListId)[0]
     const idx = targetTabList.tabs.findIndex(({ id }) => id === tabId)
     targetTabList.tabs = targetTabList.tabs.filter((_, i) => i !== idx)
   })
 
-export const removeTab = (tabList: TabList, tabId: number) =>
-  produce(tabList, (draft: Draft<TabList>) => {
+export const removeTab = (tabList: TabList | DomainTabList, tabId: number) =>
+  produce(tabList, (draft: Draft<TabList | DomainTabList>) => {
     const newTabs = draft.tabs.filter(tab => tab.id !== tabId)
     draft.tabs = newTabs
   })

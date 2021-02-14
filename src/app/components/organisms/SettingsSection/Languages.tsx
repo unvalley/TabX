@@ -3,7 +3,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useRecoilState } from 'recoil'
 import { Lang } from '~/app/constants'
-import { langState } from '../../../store'
+import { langState } from '~/app/store/lang'
 
 export const Languages: React.VFC = () => {
   const [t, i18n] = useTranslation()

@@ -11,9 +11,9 @@ import { MenuItem } from '~/app/components/molecules/MenuItem'
 import { Rule } from '~/app/constants/styles'
 import { TAB_LISTS } from '~/shared/constants'
 import { deleteTabList, pinnTabList, restoreTabList } from '~/shared/storage'
-import { TabList } from '~/shared/typings'
+import { DomainTabList } from '~/shared/typings'
 
-type Props = { tabList: TabList; setTabList: SetterOrUpdater<TabList> }
+type Props = { tabList: DomainTabList; setTabList: SetterOrUpdater<DomainTabList> }
 
 export const TabListMenuContent: React.VFC<Props> = props => {
   const { tabList, setTabList } = props
@@ -31,7 +31,7 @@ export const TabListMenuContent: React.VFC<Props> = props => {
       return
     }
 
-    await deleteTabList(TAB_LISTS, tabListId).then(() => setTabList({} as TabList))
+    await deleteTabList(TAB_LISTS, tabListId).then(() => setTabList({} as DomainTabList))
 
     // show Toast
     setToast({
@@ -49,7 +49,7 @@ export const TabListMenuContent: React.VFC<Props> = props => {
   }
 
   const handleOpen = async (tabListId: number) => {
-    await restoreTabList(TAB_LISTS, tabListId).then(() => setTabList({} as TabList))
+    await restoreTabList(TAB_LISTS, tabListId).then(() => setTabList({} as DomainTabList))
   }
 
   return (

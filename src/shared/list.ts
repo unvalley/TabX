@@ -1,8 +1,10 @@
 import { Tabs } from 'webextension-polyfill-ts'
-import { TabSimple } from './typings'
-import { genObjectId } from './utils/util'
+import { DomainTabList, TabList, TabSimple } from './typings'
+import { nonNullable } from './utils/util'
 
-const normalizeTab = (tab: Tabs.Tab) => {
+export const normalizeTab = (tab: Tabs.Tab) => {
+  if (!tab.url) return undefined
+  const res = tab.url.match(/^https?:\/{2,}(.*?)(?:\/|\?|#|$)/)
   const normalizedTab: TabSimple = {
     id: tab.id || Date.now(),
     title: tab.title || '',
@@ -12,18 +14,31 @@ const normalizeTab = (tab: Tabs.Tab) => {
     favIconUrl: tab.favIconUrl || '',
     ogImageUrl: '',
     description: '',
+    domain: (res && res[1]) || '',
   }
   return normalizedTab
 }
 
-export const createNewTabList = (tabs: Tabs.Tab[]) => ({
-  id: genObjectId(),
-  // TODO: change
-  title: tabs[0].title || '',
+export const createNewTabList = (tabs: Tabs.Tab[]): TabList => ({
+  id: Date.now(),
+  title: 'untitled',
   description: '',
-  tabs: Array.isArray(tabs) ? tabs.map(normalizeTab) : [],
+  tabs: tabs.map(normalizeTab).filter(nonNullable) || [],
   // has pinned on this extension? - default false
   hasPinned: false,
   createdAt: Date.now(),
   updatedAt: Date.now(),
+})
+
+export const createNewDomainTabList = (domain: string, tabs: TabSimple[]): DomainTabList => ({
+  id: Date.now(),
+  title: 'untitled',
+  description: '',
+  tabs: tabs || [],
+  // has pinned on this extension? - default false
+  hasPinned: false,
+  createdAt: Date.now(),
+  updatedAt: Date.now(),
+  domainName: '',
+  domain: domain,
 })

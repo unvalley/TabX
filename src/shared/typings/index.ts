@@ -4,6 +4,10 @@
 export type TabSimple = {
   id: number
   title: string
+  /**
+   * page description
+   */
+  description: string
   pinned: boolean
   lastAccessed: number
   url: string
@@ -12,10 +16,7 @@ export type TabSimple = {
    * page ogp url
    */
   ogImageUrl: string
-  /**
-   * page description
-   */
-  description: string
+  domain?: string
 }
 
 /**
@@ -31,10 +32,15 @@ export type TabList = {
   updatedAt: number
 }
 
+export type DomainTabList = TabList & {
+  domainName: string
+  domain: string
+}
+
 /**
  * Target Metadata fetches from URL
  */
-export type TargetMeta = {}
+export type TargetMeta = Record<string, string>
 
 /**
  * for API Request
@@ -51,3 +57,8 @@ export type Domain = {
   domain: string
   fullPath: string
 }
+
+export type ListType<T> = T extends 'domainTabLists' ? DomainTabList : T extends 'tabLists' ? TabList : never
+export type ListName = 'tabLists' | 'domainTabLists'
+
+export type UnionList = TabList | DomainTabList

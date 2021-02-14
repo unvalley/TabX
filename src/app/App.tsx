@@ -3,10 +3,11 @@ import i18n from 'i18next'
 import * as React from 'react'
 import { initReactI18next } from 'react-i18next'
 import { useRecoilValue } from 'recoil'
+import { langState } from '~/app/store/lang'
 import enJson from './locales/en.json'
 import jaJson from './locales/ja.json'
 import { Routes } from './router/Routes'
-import { colorThemeState, langState } from './store'
+import { colorThemeState } from './store'
 
 i18n.use(initReactI18next).init({
   resources: {

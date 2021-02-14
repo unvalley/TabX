@@ -1,8 +1,9 @@
 import { browser, Tabs } from 'webextension-polyfill-ts'
-import { ILLEGAL_URLS } from './constants'
-import { createNewTabList } from './list'
+import { DOMAIN_TAB_LISTS, ILLEGAL_URLS, TAB_LISTS } from './constants'
+import { createNewDomainTabList, createNewTabList, normalizeTab } from './list'
 import * as Storage from './storage'
 import { TabSimple } from './typings'
+import { groupBy, nonNullable } from './utils/util'
 
 const getAllInWindow = (windowId?: number) => browser.tabs.query({ windowId })
 
@@ -45,25 +46,50 @@ const storeTabs = async (tabs: Tabs.Tab[]) => {
   const newList = createNewTabList(tabs)
 
   try {
-    const lists = await Storage.getAllTabLists()
-    typeof lists === 'undefined' || lists === null ? await Storage.setLists([newList]) : await Storage.addList(newList)
+    const lists = await Storage.getAllLists(TAB_LISTS)
+    typeof lists === 'undefined' || lists === null
+      ? await Storage.setLists(TAB_LISTS, [newList])
+      : await Storage.addList(TAB_LISTS, newList)
   } catch (err) {
     console.error(err)
   }
 
-  await closeAllTabs(tabs)
+  await closeAllTabs(tabs).catch(err => console.error(err))
   return newList
+}
+
+const storeDomainTabs = async (tabs: Tabs.Tab[]) => {
+  if (tabs.length === 0) return
+  const filterd = tabs.map(normalizeTab).filter(nonNullable)
+  //   const newList = createNewDomainTabList('domainExample', filterd)
+  const groupedNewList = Object.entries(groupBy(filterd, 'domain'))
+  const newList = groupedNewList.map(data => {
+    const domainName = data[0]
+    const domainLinkedTabList = data[1]
+    return createNewDomainTabList(domainName, domainLinkedTabList)
+  })
+
+  try {
+    const lists = await Storage.getAllLists(DOMAIN_TAB_LISTS)
+    typeof lists === 'undefined' || lists.length === 0
+      ? await Storage.setLists(DOMAIN_TAB_LISTS, newList)
+      : await Storage.addDomainTabs(groupedNewList)
+  } catch (err) {
+    console.error(err)
+  }
 }
 
 export const storeAllTabs = async () => {
   const tabs = await getAllTabsInCurrentWindow()
   const sanitizedTabs = tabs.filter(isValidTab)
 
-  await Promise.all([openTabLists(), storeTabs(sanitizedTabs)]).then(
-    res =>
-      // `res[1]` is storing TabList
-      // NOTE: fetch decription and ogImageUrl from URL
-      res[1] && Storage.updateTabListElemWithMeta(res[1].id),
+  // TODO: tabs.length === 0 handling is wasteful
+  // TODO: openTabLists should be different await?
+
+  // `res[1]` is storing TabList
+  // NOTE: fetch decription and ogImageUrl from URL
+  await Promise.all([openTabLists(), storeTabs(sanitizedTabs), storeDomainTabs(sanitizedTabs)]).then(
+    res => res[1] && Storage.updateTabListElemWithMeta(res[1].id),
   )
 }
 

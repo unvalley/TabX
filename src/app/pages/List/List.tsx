@@ -2,8 +2,8 @@ import * as React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Header } from '~/app/components/organisms/Header'
 import { TabListContainer } from '~/app/components/organisms/TabList'
+import { useLocalStorage } from '~/app/hooks/useLocalStorage'
 import { TabList } from '~/shared/typings'
-import { useLocalStorage } from '../../hooks/useLocalStorage'
 
 type Props = {
   tabLists: TabList[]

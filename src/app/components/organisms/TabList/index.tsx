@@ -6,10 +6,11 @@ import { TabLinkOps } from '~/app/components/molecules/TabLinkOps'
 import { TabLinkButton, TabLinkWrapper, Title } from '~/app/components/molecules/TabLinks/style'
 import { Rule, Spacing } from '~/app/constants/styles'
 import { useMouseOver } from '~/app/hooks/useMouseOver'
+import { removeTab, tabListState } from '~/app/store'
+import { TAB_LISTS } from '~/shared/constants'
 import { deleteTabLink } from '~/shared/storage'
 import { TabList } from '~/shared/typings'
 import { omitText } from '~/shared/utils/util'
-import { removeTab, tabListState } from '../../../store'
 import { TabListHeader } from './internal/TabListHeader'
 import { TabListSection } from './style'
 
@@ -24,8 +25,9 @@ export const TabListContainer: React.FC<Props> = props => {
   const { handleMouseOut, handleMouseOver, isMouseOvered } = useMouseOver()
 
   const handleTabDelete = async (tabId: number) => {
-    await deleteTabLink(tabList.id, tabId).then(() => {
-      const newTabs = removeTab(tabList, tabId)
+    await deleteTabLink(TAB_LISTS, tabList.id, tabId).then(() => {
+      // TODO: fix
+      const newTabs = removeTab(tabList, tabId) as TabList
       // NOTE: handling for last tab deletion
       newTabs.tabs.length >= 1 ? setTabList(newTabs) : setTabList({} as TabList)
     })
