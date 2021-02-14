@@ -5,6 +5,7 @@ import { FaviconImage } from '~/app/components/atoms/FaviconImage'
 import { TabLinkOps } from '~/app/components/molecules/TabLinkOps'
 import { TabLinkButton, TabLinkWrapper, Title } from '~/app/components/molecules/TabLinks/style'
 import { Rule, Spacing } from '~/app/constants/styles'
+import { useLocalStorage } from '~/app/hooks/useLocalStorage'
 import { useMouseOver } from '~/app/hooks/useMouseOver'
 import { removeTab, tabListState } from '~/app/store'
 import { TAB_LISTS } from '~/shared/constants'
@@ -20,6 +21,7 @@ type Props = { idx: number; shouldShowTabListHeader: boolean }
 export const TabListContainer: React.FC<Props> = props => {
   const { idx, shouldShowTabListHeader } = props
   const [tabList, setTabList] = useRecoilState<TabList>(tabListState(idx))
+  const [shouldDeleteTabWhenClicked] = useLocalStorage('shouldDeleteTabWhenClicked', true)
 
   const theme = useTheme()
   const { handleMouseOut, handleMouseOver, isMouseOvered } = useMouseOver()
@@ -55,7 +57,7 @@ export const TabListContainer: React.FC<Props> = props => {
           <TabLinkButton
             href={tab.url}
             target="_blank"
-            onClick={() => handleTabDelete(tab.id)}
+            onClick={() => shouldDeleteTabWhenClicked && handleTabDelete(tab.id)}
             color={theme.palette.foreground}
           >
             <span style={{ paddingRight: Spacing['0.5'] }}>
