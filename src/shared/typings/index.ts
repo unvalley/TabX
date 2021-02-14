@@ -40,7 +40,7 @@ export type DomainTabList = TabList & {
 /**
  * Target Metadata fetches from URL
  */
-export type TargetMeta = {}
+export type TargetMeta = Record<string, string>
 
 /**
  * for API Request
