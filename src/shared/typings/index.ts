@@ -9,6 +9,7 @@ export type TabSimple = {
    */
   description: string
   pinned: boolean
+  favorite: boolean
   lastAccessed: number
   url: string
   favIconUrl: string

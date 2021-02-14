@@ -79,6 +79,7 @@ export const addDomainTabs = async (groupedNewList: [Domain, TabSimple[]][]) => 
  */
 export const deleteTabLink = async (storageKey: ListName, tabListId: number, tabId: number) => {
   const release = await mutex.acquire()
+  console.log('deleteTabLink', storageKey, tabListId, tabId)
   try {
     // SELECT
     const allTabLists = await getAllLists(storageKey)
@@ -90,6 +91,7 @@ export const deleteTabLink = async (storageKey: ListName, tabListId: number, tab
       !targetTabListElem.tabs.length && deleteTabList(storageKey, tabListId)
     })
     // UPDATE
+    console.log('updateALlTabLists', updatedAllTabLists)
     setLists(storageKey, updatedAllTabLists)
   } catch (err) {
     console.error(err)

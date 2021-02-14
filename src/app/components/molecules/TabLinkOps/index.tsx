@@ -1,5 +1,5 @@
 import { useTheme } from '@geist-ui/react'
-import { X } from '@geist-ui/react-icons'
+import X from '@geist-ui/react-icons/x'
 import React from 'react'
 import { Rule } from '~/app/constants/styles'
 import { OpsElement, OpsWrapper } from './style'
