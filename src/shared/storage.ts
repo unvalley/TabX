@@ -49,14 +49,22 @@ type Domain = string
 export const addDomainTabs = async (groupedNewList: [Domain, TabSimple[]][]) => {
   const allDomainTabLists = await getAllLists(DOMAIN_TAB_LISTS)
   const domains = allDomainTabLists.map(list => list.domain)
+  console.log('domains:', domains)
   const updatedAllTabLists = produce(allDomainTabLists, draft => {
     draft.forEach(list => {
       groupedNewList.forEach(async newList => {
         const domain = newList[0]
         const domainTabList = newList[1]
         if (list.domain === domain) {
+          // exisiting domain
           list.tabs.push(...domainTabList)
-        } else if (!(domain in domains)) {
+        }
+      })
+      groupedNewList.forEach(async newList => {
+        const domain = newList[0]
+        const domainTabList = newList[1]
+        if (!domains.includes(domain)) {
+          // new domain
           await addList(DOMAIN_TAB_LISTS, createNewDomainTabList(domain, domainTabList))
         }
       })

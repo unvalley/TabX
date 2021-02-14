@@ -7,7 +7,7 @@ import { Spacing } from '~/app/constants/styles'
 import { useMouseOver } from '~/app/hooks/useMouseOver'
 import { removeTab } from '~/app/store'
 import { domainTabListState } from '~/app/store/domainTabLists'
-import { TAB_LISTS } from '~/shared/constants'
+import { DOMAIN_TAB_LISTS } from '~/shared/constants'
 import { deleteTabLink } from '~/shared/storage'
 import { DomainTabList } from '~/shared/typings'
 import { TabLinkOps } from '../../molecules/TabLinkOps'
@@ -25,7 +25,7 @@ export const DomainTabListContainer: React.FC<Props> = props => {
   const { handleMouseOut, handleMouseOver, isMouseOvered } = useMouseOver()
 
   const handleTabDelete = async (tabId: number) => {
-    await deleteTabLink(TAB_LISTS, domainTabList.id, tabId).then(() => {
+    await deleteTabLink(DOMAIN_TAB_LISTS, domainTabList.id, tabId).then(() => {
       // TODO: fix
       const newTabs = removeTab(domainTabList, tabId) as DomainTabList
       // NOTE: handling for last tab deletion
