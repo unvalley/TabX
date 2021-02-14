@@ -17,16 +17,18 @@ export const Settings: React.FC = () => {
 
   const deleteAllTabs = async () => {
     if (confirm(t('DELETE_MESSAGE'))) {
-      await deleteAllLists(TAB_LISTS)
-        .then(() => setTabLists([{}] as TabList[]))
-        .catch(err => console.error(err))
-      await deleteAllLists(DOMAIN_TAB_LISTS)
-        .then(() => setDomainTabLists([{}] as DomainTabList[]))
+      await Promise.all([deleteAllLists(TAB_LISTS), deleteAllLists(DOMAIN_TAB_LISTS)])
+        .then(() => {
+          console.log('success')
+          setTabLists([{}] as TabList[])
+          setDomainTabLists([{}] as DomainTabList[])
+
+          setToast({
+            text: t('DELETED_ALL_TABS'),
+          })
+        })
         .catch(err => console.error(err))
     }
-    setToast({
-      text: t('DELETED_ALL_TABS'),
-    })
   }
 
   return <Component deleteAllTabs={deleteAllTabs} />

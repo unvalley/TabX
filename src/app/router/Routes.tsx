@@ -7,7 +7,6 @@ import { LeftMenu } from '~/app/components/organisms/LeftMenu'
 import { Spacing } from '~/app/constants/styles'
 import { Domain } from '../pages/Domain'
 import { List } from '../pages/List'
-import { Masonry } from '../pages/Masonry'
 import { Settings } from '../pages/Settings'
 
 const Wrapper = styled(Grid.Container)<{ bgColor: string }>`
@@ -45,7 +44,7 @@ export const Routes = () => {
             <React.Suspense fallback={<Load />}>
               <Switch>
                 <Route exact path="/" component={List} />
-                <Route path="/masonry" component={Masonry} />
+                {/* <Route path="/masonry" component={Masonry} /> */}
                 <Route path="/settings" component={Settings} />
                 <Route path="/domain" component={Domain} />
               </Switch>
