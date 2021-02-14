@@ -1,6 +1,5 @@
 import { useTheme } from '@geist-ui/react'
 import AlignJustify from '@geist-ui/react-icons/alignJustify'
-import Heart from '@geist-ui/react-icons/heart'
 import Layers from '@geist-ui/react-icons/layers'
 import Settings from '@geist-ui/react-icons/settings'
 import React from 'react'
@@ -45,10 +44,9 @@ export const LeftMenu: React.FC = () => {
           <Layers />
         </SwitchButton>
 
-        {/* MasonryButton */}
-        <SwitchButton
+        {/* <SwitchButton
           exact
-          to={URL.DOMAIN}
+          to={URL.FAVORITE}
           bgColor={buttonBgColor}
           hoverBgColor={hoverBgColor}
           activeBgColor={activeBgColor}
@@ -56,7 +54,7 @@ export const LeftMenu: React.FC = () => {
           hoverIconColor={hoverIconColor}
         >
           <Heart />
-        </SwitchButton>
+        </SwitchButton> */}
 
         {/* SettingsButton */}
         <SwitchButton

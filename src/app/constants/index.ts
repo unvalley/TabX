@@ -11,4 +11,5 @@ export const URL = {
   MASONRY: '/masonry',
   ROOT: '/',
   SETTINGS: '/settings',
+  FAVORITE: '/favorite',
 } as const

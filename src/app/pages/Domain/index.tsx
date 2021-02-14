@@ -7,7 +7,6 @@ import { Domain as Component } from './Domain'
 
 export const Domain: React.FC = () => {
   const tabLists = useRecoilValue<DomainTabList[]>(domainTabListsState)
-  console.log('domainTabLists', tabLists)
 
   return tabLists ? <Component tabLists={tabLists} /> : <Load />
 }

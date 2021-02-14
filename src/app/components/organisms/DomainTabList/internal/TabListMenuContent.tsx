@@ -31,12 +31,13 @@ export const TabListMenuContent: React.VFC<Props> = props => {
       return
     }
 
-    await deleteTabList(TAB_LISTS, tabListId).then(() => setTabList({} as DomainTabList))
-
-    // show Toast
-    setToast({
-      text: t('DELETED_SELECTED_TABS'),
-    })
+    await deleteTabList(TAB_LISTS, tabListId)
+      .then(() => setTabList({} as DomainTabList))
+      .then(() =>
+        setToast({
+          text: t('DELETED_SELECTED_TABS'),
+        }),
+      )
   }
 
   const genMarkdownLink = async () => {

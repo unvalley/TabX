@@ -45,6 +45,7 @@ export const Routes = () => {
               <Switch>
                 <Route exact path="/" component={List} />
                 {/* <Route path="/masonry" component={Masonry} /> */}
+                {/* <Route path="/favorite" component={Favorite} /> */}
                 <Route path="/settings" component={Settings} />
                 <Route path="/domain" component={Domain} />
               </Switch>
