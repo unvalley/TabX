@@ -1,27 +1,45 @@
-import { Button, Card, Col, Divider, Grid, Row, Text, Textarea } from '@geist-ui/react'
+import {
+  Button,
+  ButtonDropdown,
+  Card,
+  Col,
+  Divider,
+  Grid,
+  Row,
+  Spacer,
+  Text,
+  Textarea,
+  useToasts,
+} from '@geist-ui/react'
 import { ToggleEvent } from '@geist-ui/react/dist/toggle/toggle'
-import React from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { DeleteButton } from '~/app/components/molecules/DeleteButton'
+import { Spacing } from '~/app/constants/styles'
 import { useLocalStorage } from '~/app/hooks/useLocalStorage'
 import { exportedJSONFileName } from '~/app/utils'
-import { exportToText } from '~/shared/importExport'
+import { exportToText, importFromText } from '~/shared/importExport'
 import { TabList } from '~/shared/typings'
 import { StyledToggle, ToggleWrapper } from './style'
 
 type Props = { deleteAllTabs: () => void; tabLists: TabList[] }
 
 export const Tabs: React.VFC<Props> = props => {
-  const [exportText, setExportText] = React.useState('')
-  const [showExportText, setShowExportText] = React.useState(false)
+  // import/export
+  const [exportText, setExportText] = useState('')
+  const [showExportText, setShowExportText] = useState(false)
+  const [importText, setImportText] = useState('')
+  const [showImportText, setShowImportText] = useState(false)
 
-  const { t } = useTranslation()
+  // localStorage
   const [shouldShowTabListHeader, setShouldShowTabGroupCount] = useLocalStorage('shouldShowTabListHeader', true)
-
   const [shouldDeleteTabWhenClicked, setShouldDeleteTabWhenClicked] = useLocalStorage(
     'shouldDeleteTabWhenClicked',
     true,
   )
+
+  const { t } = useTranslation()
+  const [, setToast] = useToasts()
 
   const handleChange = (event: ToggleEvent) => {
     setShouldShowTabGroupCount(event.target.checked)
@@ -35,6 +53,10 @@ export const Tabs: React.VFC<Props> = props => {
     const text = await exportToText()
     setExportText(text)
     setShowExportText(!showExportText)
+  }
+
+  const handleTextImport = async () => {
+    await importFromText(importText).then(() => setToast({ type: 'success' }))
   }
 
   const hrefForJSONExport = `data:text/json;charset=utf-8,${encodeURIComponent(
@@ -65,19 +87,25 @@ export const Tabs: React.VFC<Props> = props => {
             </ToggleWrapper>
           </span>
 
-          <Divider y={1} />
+          <Divider y={2} />
 
           <span>
             <Row gap={0.8}>
               <Col>
-                <Text>{t('SETTING_EXPORT_TEXT')}</Text>
+                <Text>{t('SETTING_EXPORT')}</Text>
               </Col>
               <Col>
                 <Row align="middle" style={{ height: '100%', textAlign: 'right' }}>
                   <Col>
-                    <Button size="medium" onClick={handleClickExportButton}>
-                      {showExportText ? t('HIDE_EXPORT_BUTTON') : t('EXPORT_BUTTON')}
-                    </Button>
+                    <ButtonDropdown size="medium">
+                      <ButtonDropdown.Item main>Choose Method</ButtonDropdown.Item>
+                      <ButtonDropdown.Item onClick={handleClickExportButton}>OneTab</ButtonDropdown.Item>
+                      <ButtonDropdown.Item>
+                        <a href={hrefForJSONExport} download={exportedJSONFileName}>
+                          JSON
+                        </a>
+                      </ButtonDropdown.Item>
+                    </ButtonDropdown>
                   </Col>
                 </Row>
               </Col>
@@ -85,24 +113,50 @@ export const Tabs: React.VFC<Props> = props => {
             {showExportText && <Textarea width="100%" initialValue={exportText} style={{ height: '300px' }} />}
           </span>
 
+          <Spacer y={2} />
+
           <span>
             <Row gap={0.8}>
               <Col>
-                <Text>{t('SETTING_EXPORT_JSON')}</Text>
+                <Text>{t('SETTING_IMPORT')}</Text>
               </Col>
               <Col>
                 <Row align="middle" style={{ height: '100%', textAlign: 'right' }}>
                   <Col>
-                    <a href={hrefForJSONExport} download={exportedJSONFileName}>
-                      <Button size="medium">Export</Button>
-                    </a>
+                    <ButtonDropdown size="medium">
+                      <ButtonDropdown.Item main>Choose Method</ButtonDropdown.Item>
+                      <ButtonDropdown.Item onClick={() => setShowImportText(!showImportText)}>
+                        OneTab
+                      </ButtonDropdown.Item>
+                      <ButtonDropdown.Item>
+                        <label className="upload-label">
+                          JSONファイルを選択
+                          <input type="file" style={{ display: 'none' }} />
+                        </label>
+                      </ButtonDropdown.Item>
+                    </ButtonDropdown>
                   </Col>
                 </Row>
               </Col>
             </Row>
+            {showImportText && (
+              <div>
+                <Textarea
+                  width="100%"
+                  initialValue={importText}
+                  style={{ height: '300px' }}
+                  onChange={e => setImportText(e.target.value)}
+                />
+                <div style={{ textAlign: 'right', paddingTop: Spacing['1'] }}>
+                  <Button size="medium" type="success" ghost onClick={handleTextImport}>
+                    Import
+                  </Button>
+                </div>
+              </div>
+            )}
           </span>
 
-          <Divider y={1} />
+          <Divider y={3} />
 
           <Text b>{t('DANGER_ZONE')}</Text>
           <Row gap={0.8}>

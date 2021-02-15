@@ -12,8 +12,8 @@
   "CONTRIBUTION": "Contribution",
   "SETTING_SHOW_TAB_GROUP_COUNT": "Show tab group count",
   "SETTING_DELETE_TAB_WHEN_CLICKED": "Delete tab when clicked",
-  "SETTING_EXPORT_TEXT": "Export Tabs (compatible with OneTab)",
-  "SETTING_EXPORT_JSON": "Export Tabs (JSON format)",
+  "SETTING_EXPORT": "Export Tabs",
+  "SETTING_IMPORT": "Import Tabs",
   "EXPORT_BUTTON": "Export",
   "HIDE_EXPORT_BUTTON": "hide",
 
