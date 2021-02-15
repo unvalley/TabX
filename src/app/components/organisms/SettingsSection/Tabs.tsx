@@ -98,8 +98,9 @@ export const Tabs: React.VFC<Props> = props => {
                 <Row align="middle" style={{ height: '100%', textAlign: 'right' }}>
                   <Col>
                     <ButtonDropdown size="medium">
-                      <ButtonDropdown.Item main>Choose Method</ButtonDropdown.Item>
-                      <ButtonDropdown.Item onClick={handleClickExportButton}>OneTab</ButtonDropdown.Item>
+                      <ButtonDropdown.Item main onClick={handleClickExportButton}>
+                        OneTab Type
+                      </ButtonDropdown.Item>
                       <ButtonDropdown.Item>
                         <a href={hrefForJSONExport} download={exportedJSONFileName}>
                           JSON
@@ -124,16 +125,16 @@ export const Tabs: React.VFC<Props> = props => {
                 <Row align="middle" style={{ height: '100%', textAlign: 'right' }}>
                   <Col>
                     <ButtonDropdown size="medium">
-                      <ButtonDropdown.Item main>Choose Method</ButtonDropdown.Item>
-                      <ButtonDropdown.Item onClick={() => setShowImportText(!showImportText)}>
-                        OneTab
+                      <ButtonDropdown.Item main onClick={() => setShowImportText(!showImportText)}>
+                        OneTab Type
                       </ButtonDropdown.Item>
-                      <ButtonDropdown.Item>
+                      {/* TODO */}
+                      {/* <ButtonDropdown.Item>
                         <label className="upload-label">
                           JSONファイルを選択
                           <input type="file" style={{ display: 'none' }} />
                         </label>
-                      </ButtonDropdown.Item>
+                      </ButtonDropdown.Item> */}
                     </ButtonDropdown>
                   </Col>
                 </Row>

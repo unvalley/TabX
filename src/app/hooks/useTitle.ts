@@ -9,7 +9,7 @@ export const useTitle = (tabList: TabList) => {
 
   // TODO: adapt title to multiple languages
   const displayTitle =
-    tabList.tabs.length > 1 ? `「${firstTabLinkTitle}」と${tabList.tabs.length - 1}件` : firstTabLinkTitle
+    tabList.tabs.length > 1 ? `${firstTabLinkTitle}と${tabList.tabs.length - 1}件` : `${firstTabLinkTitle}`
 
   return displayTitle
 }
