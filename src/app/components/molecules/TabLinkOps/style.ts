@@ -6,7 +6,7 @@ export const OpsWrapper = styled.section<{ opacity: number }>`
   transition: all 0.3s ease;
 `
 
-export const OpsElement = styled.span<{ bgColor: string }>`
+export const OpsElement = styled.span<{ bg: string }>`
   cursor: pointer;
   font-size: 12px;
   padding: ${Spacing['0.5']};
@@ -14,7 +14,7 @@ export const OpsElement = styled.span<{ bgColor: string }>`
   border-radius: 33px;
   z-index: 2;
   &:hover {
-    background-color: ${({ bgColor }) => bgColor};
+    background-color: ${({ bg }) => bg};
     box-shadow: 10;
     opacity: 0.9;
   }

@@ -9,12 +9,12 @@ import { Domain } from '../pages/Domain'
 import { List } from '../pages/List'
 import { Settings } from '../pages/Settings'
 
-const Wrapper = styled(Grid.Container)<{ bgColor: string }>`
+const Wrapper = styled(Grid.Container)<{ bg: string }>`
   margin: ${Spacing['3']} 100px;
   display: flex;
   min-height: 100vh;
   position: relative;
-  background-color: ${({ bgColor }) => bgColor};
+  background-color: ${({ bg }) => bg};
 `
 
 const MainContainer = styled.main`
@@ -35,7 +35,7 @@ export const Routes = () => {
 
   return (
     <MemoryRouter>
-      <Wrapper bgColor={mainBgColor}>
+      <Wrapper bg={mainBgColor}>
         <Grid lg={1} md={1} xs={4}>
           <LeftMenu />
         </Grid>

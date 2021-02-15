@@ -19,10 +19,10 @@ export const Settings: React.FC = () => {
     if (confirm(t('DELETE_MESSAGE'))) {
       await Promise.all([deleteAllLists(TAB_LISTS), deleteAllLists(DOMAIN_TAB_LISTS)])
         .then(() => {
-          console.log('success')
           setTabLists([{}] as TabList[])
           setDomainTabLists([{}] as DomainTabList[])
-
+        })
+        .then(() => {
           setToast({
             text: t('DELETED_ALL_TABS'),
           })

@@ -50,13 +50,19 @@ export const Tabs: React.VFC<Props> = props => {
   }
 
   const handleClickExportButton = async () => {
-    const text = await exportToText()
-    setExportText(text)
-    setShowExportText(!showExportText)
+    await exportToText()
+      .then(text => setExportText(text))
+      .then(() => {
+        setShowExportText(!showExportText)
+      })
+      .catch(err => console.error(err))
   }
 
+  // heavy processing
   const handleTextImport = async () => {
-    await importFromText(importText).then(() => setToast({ type: 'success' }))
+    await importFromText(importText)
+      .then(() => setToast({ type: 'success', text: 'Successfully imported' }))
+      .catch(() => setToast({ type: 'error', text: 'Error' }))
   }
 
   const hrefForJSONExport = `data:text/json;charset=utf-8,${encodeURIComponent(

@@ -3,23 +3,23 @@ import styled from 'styled-components'
 import { Spacing } from '~/app/constants/styles'
 
 type SwitchButtonProps = {
-  bgColor: string
-  hoverBgColor: string
-  activeBgColor: string
-  iconColor: string
-  hoverIconColor: string
+  bg: string
+  hoverbg: string
+  activebg: string
+  iconcolor: string
+  hovericoncolor: string
 }
 
 // TODO: fix backgroundColor and attrs props
-export const SwitchButton = styled(NavLink).attrs<SwitchButtonProps>(({ activeBgColor, hoverIconColor }) => ({
+export const SwitchButton = styled(NavLink).attrs<SwitchButtonProps>(({ activebg, hovericoncolor }) => ({
   activeStyle: {
     borderRadius: '16px',
-    backgroundColor: activeBgColor,
-    color: hoverIconColor,
+    backgroundColor: activebg,
+    color: hovericoncolor,
   },
 }))<SwitchButtonProps>`
-  color: ${({ iconColor }) => iconColor};
-  background-color: ${({ bgColor }) => bgColor};
+  color: ${({ iconcolor }) => iconcolor};
+  background-color: ${({ bg }) => bg};
   outline: ${Spacing[0.5]} solid transparent;
   outline-offset: 2px;
   justify-content: center;
@@ -31,14 +31,14 @@ export const SwitchButton = styled(NavLink).attrs<SwitchButtonProps>(({ activeBg
   transition-duration: 0.1s;
   opacity: 0.8;
   &:hover {
-    background-color: ${({ hoverBgColor }) => hoverBgColor};
+    background-color: ${({ hoverbg }) => hoverbg};
     opacity: 0.6;
     transition: all 0.8s ease;
   }
 `
 
-export const Aside = styled.aside<{ bgColor: string }>`
-  background-color: ${({ bgColor }) => bgColor};
+export const Aside = styled.aside<{ bg: string }>`
+  background-color: ${({ bg }) => bg};
   position: fixed;
   padding: ${Spacing['0.5']} ${Spacing['1']};
   display: flex;
