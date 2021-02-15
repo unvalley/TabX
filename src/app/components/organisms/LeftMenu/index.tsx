@@ -11,23 +11,23 @@ export const LeftMenu: React.FC = () => {
   const theme = useTheme()
   const asideBgColor = theme.palette.accents_2
   const buttonBgColor = theme.palette.accents_1
-  const hoverBgColor = theme.palette.accents_1
-  const activeBgColor = theme.type === 'dark' ? Colors.MOON_DARK : Colors.SUN_LIGHT
-  const iconColor = theme.palette.foreground
-  const hoverIconColor = theme.palette.background
+  const hoverbg = theme.palette.accents_1
+  const activebg = theme.type === 'dark' ? Colors.MOON_DARK : Colors.SUN_LIGHT
+  const iconcolor = theme.palette.foreground
+  const hovericoncolor = theme.palette.background
 
   return (
-    <Aside bgColor={asideBgColor}>
+    <Aside bg={asideBgColor}>
       <Nav>
         {/* RootButton */}
         <SwitchButton
           exact
           to={URL.ROOT}
-          bgColor={buttonBgColor}
-          hoverBgColor={hoverBgColor}
-          activeBgColor={activeBgColor}
-          iconColor={iconColor}
-          hoverIconColor={hoverIconColor}
+          bg={buttonBgColor}
+          hoverbg={hoverbg}
+          activebg={activebg}
+          iconcolor={iconcolor}
+          hovericoncolor={hovericoncolor}
         >
           <AlignJustify />
         </SwitchButton>
@@ -35,11 +35,11 @@ export const LeftMenu: React.FC = () => {
         <SwitchButton
           exact
           to={URL.DOMAIN}
-          bgColor={buttonBgColor}
-          hoverBgColor={hoverBgColor}
-          activeBgColor={activeBgColor}
-          iconColor={iconColor}
-          hoverIconColor={hoverIconColor}
+          bg={buttonBgColor}
+          hoverbg={hoverbg}
+          activebg={activebg}
+          iconcolor={iconcolor}
+          hovericoncolor={hovericoncolor}
         >
           <Layers />
         </SwitchButton>
@@ -47,11 +47,11 @@ export const LeftMenu: React.FC = () => {
         {/* <SwitchButton
           exact
           to={URL.FAVORITE}
-          bgColor={buttonBgColor}
-          hoverBgColor={hoverBgColor}
-          activeBgColor={activeBgColor}
-          iconColor={iconColor}
-          hoverIconColor={hoverIconColor}
+          bg={buttonBgColor}
+          hoverbg={hoverbg}
+          activebg={activebg}
+          iconcolor={iconcolor}
+          hovericoncolor={hovericoncolor}
         >
           <Heart />
         </SwitchButton> */}
@@ -59,11 +59,11 @@ export const LeftMenu: React.FC = () => {
         {/* SettingsButton */}
         <SwitchButton
           to={URL.SETTINGS}
-          bgColor={buttonBgColor}
-          hoverBgColor={hoverBgColor}
-          activeBgColor={activeBgColor}
-          iconColor={iconColor}
-          hoverIconColor={hoverIconColor}
+          bg={buttonBgColor}
+          hoverbg={hoverbg}
+          activebg={activebg}
+          iconcolor={iconcolor}
+          hovericoncolor={hovericoncolor}
         >
           <Settings />
         </SwitchButton>

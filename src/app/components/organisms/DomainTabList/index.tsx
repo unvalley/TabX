@@ -52,7 +52,7 @@ export const DomainTabListContainer: React.FC<Props> = props => {
           hoverShadow={theme.expressiveness.shadowSmall}
           onMouseOver={() => handleMouseOver(idx)}
           onMouseLeave={() => handleMouseOut()}
-          bgColor={theme.palette.accents_1}
+          bg={theme.palette.accents_1}
         >
           <TabLinkButton
             href={tab.url}

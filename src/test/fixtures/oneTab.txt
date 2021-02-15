@@ -1,0 +1,15 @@
+https://github.com/ia17011/TabX | ia17011/TabX: TabX manages your all tabs.
+https://github.com/GoogleChrome/workbox | GoogleChrome/workbox: 📦 Workbox: JavaScript libraries for Progressive Web Apps
+https://github.com/aws/aws-sdk-go | aws/aws-sdk-go: AWS SDK for the Go programming language.
+
+https://qiita.com | Qiita
+https://dev.to/ | DEV Community
+https://zenn.dev | Zenn｜エンジニアのための情報共有コミュニティ
+https://eh-career.com/engineerhub/ | エンジニアHub｜若手Webエンジニアのキャリアを考える！
+
+https://doc.rust-jp.rs/rust-by-example-ja/ | Introduction - Rust By Example 日本語版
+https://www.rust-lang.org/ | Rust Programming Language
+https://crates.io/ | crates.io: The Rust community’s crate registry
+
+https://www.typescriptlang.org/ | TypeScript: Typed JavaScript at Any Scale.
+https://basarat.gitbook.io/typescript/ | Introduction - TypeScript Deep Dive
