@@ -39,6 +39,14 @@ export type DomainTabList = TabList & {
 }
 
 /**
+ * for import (text) feature
+ */
+export type ImportedUrlObj = {
+  url: string
+  title: string
+}
+
+/**
  * Target Metadata fetches from URL
  */
 export type TargetMeta = Record<string, string>
@@ -49,15 +57,6 @@ export type TargetMeta = Record<string, string>
 export type TargetMetaWithId = TargetMeta & { id: number }
 
 export type TabWithMeta = TabSimple & TargetMeta
-
-/**
- * Domain Type
- */
-export type Domain = {
-  name: string
-  domain: string
-  fullPath: string
-}
 
 export type ListType<T> = T extends 'domainTabLists' ? DomainTabList : T extends 'tabLists' ? TabList : never
 export type ListName = 'tabLists' | 'domainTabLists'

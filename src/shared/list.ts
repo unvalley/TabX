@@ -1,12 +1,16 @@
 import { Tabs } from 'webextension-polyfill-ts'
-import { DomainTabList, TabList, TabSimple } from './typings'
-import { nonNullable } from './utils/util'
+import { DomainTabList, ImportedUrlObj, TabList, TabSimple } from './typings'
+import { genObjectId, nonNullable } from './utils/util'
+
+// ========================
+// Tab
+// ========================
 
 export const normalizeTab = (tab: Tabs.Tab) => {
   if (!tab.url) return undefined
   const res = tab.url.match(/^https?:\/{2,}(.*?)(?:\/|\?|#|$)/)
   const normalizedTab: TabSimple = {
-    id: tab.id || Date.now(),
+    id: tab.id || genObjectId(),
     title: tab.title || '',
     pinned: tab.pinned || false,
     favorite: false,
@@ -20,26 +24,68 @@ export const normalizeTab = (tab: Tabs.Tab) => {
   return normalizedTab
 }
 
+export const normalizeUrlText = (urlObj: ImportedUrlObj) => {
+  const res = urlObj.url.match(/^https?:\/{2,}(.*?)(?:\/|\?|#|$)/)
+  const normalized: TabSimple = {
+    id: genObjectId(),
+    title: urlObj.title || '',
+    pinned: false,
+    favorite: false,
+    lastAccessed: Date.now(),
+    url: urlObj.url,
+    favIconUrl: `https://www.google.com/s2/favicons?domain=${urlObj.url}`,
+    ogImageUrl: '',
+    description: '',
+    domain: (res && res[1]) || '',
+  }
+  return normalized
+}
+
+// ========================
+// List
+// ========================
+
+// const listBase = {
+//   id: genObjectId(),
+//   title: '',
+//   description: '',
+//   has pinned on this extension? - default false
+//   hasPinned: false,
+//   createdAt: Date.now(),
+//   updatedAt: Date.now(),
+// }
+
 export const createNewTabList = (tabs: Tabs.Tab[]): TabList => ({
-  id: Date.now(),
+  id: genObjectId(),
   title: '',
   description: '',
-  tabs: tabs.map(normalizeTab).filter(nonNullable) || [],
   // has pinned on this extension? - default false
   hasPinned: false,
   createdAt: Date.now(),
   updatedAt: Date.now(),
+  tabs: tabs.map(normalizeTab).filter(nonNullable) || [],
 })
 
 export const createNewDomainTabList = (domain: string, tabs: TabSimple[]): DomainTabList => ({
-  id: Date.now(),
+  id: genObjectId(),
   title: '',
   description: '',
-  tabs: tabs || [],
   // has pinned on this extension? - default false
   hasPinned: false,
   createdAt: Date.now(),
   updatedAt: Date.now(),
+  tabs: tabs || [],
   domainName: '',
   domain: domain,
+})
+
+export const createNewTabListFromImport = (tabs: TabSimple[]): TabList => ({
+  id: genObjectId(),
+  title: '',
+  description: '',
+  // has pinned on this extension? - default false
+  hasPinned: false,
+  createdAt: Date.now(),
+  updatedAt: Date.now(),
+  tabs: tabs || [],
 })

@@ -43,13 +43,20 @@ export const addList = async (storageKey: ListName, newList: TabList | DomainTab
   return setLists(storageKey, updatedAllTabLists)
 }
 
+export const addLists = async (storageKey: ListName, newLists: TabList[]) => {
+  const allTabLists = await getAllLists(storageKey)
+  const updatedAllTabLists = produce(allTabLists, draft => {
+    return [...draft, ...newLists]
+  })
+  return setLists(storageKey, updatedAllTabLists)
+}
+
 export const deleteAllLists = (key: string) => set({ [key]: null })
 
 type Domain = string
 export const addDomainTabs = async (groupedNewList: [Domain, TabSimple[]][]) => {
   const allDomainTabLists = await getAllLists(DOMAIN_TAB_LISTS)
   const domains = allDomainTabLists.map(list => list.domain)
-  console.log('domains:', domains)
   const updatedAllTabLists = produce(allDomainTabLists, draft => {
     draft.forEach(list => {
       groupedNewList.forEach(async newList => {
