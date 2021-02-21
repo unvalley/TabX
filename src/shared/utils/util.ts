@@ -5,7 +5,12 @@ export const genObjectId = (): number => {
   return timestamp + Math.random() * 16
 }
 
-export const zip = <T, U>(arr1: T[], arr2: U[]) => arr1.map((_, i) => [arr1[i], arr2[i]] as [T, U])
+export const zip = <T, U>(arr1: T[], arr2: U[]) => {
+  if (arr1.length !== arr2.length) {
+    throw new Error('arrays must be same length')
+  }
+  return arr1.map((_, i) => [arr1[i], arr2[i]] as [T, U])
+}
 
 export const omitText = (text: string) => (len: number) => (ellipsis: string) =>
   text.length >= len ? text.slice(0, len - ellipsis.length) + ellipsis : text
