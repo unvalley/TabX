@@ -30,6 +30,7 @@ export const Tabs: React.VFC<Props> = props => {
   const [showExportText, setShowExportText] = useState(false)
   const [importText, setImportText] = useState('')
   const [showImportText, setShowImportText] = useState(false)
+  const [uploadedFileName, setUploadedFileName] = useState('')
 
   // localStorage
   const [shouldShowTabListHeader, setShouldShowTabGroupCount] = useLocalStorage('shouldShowTabListHeader', true)
@@ -38,15 +39,17 @@ export const Tabs: React.VFC<Props> = props => {
     true,
   )
 
+  const handleUploadFile = (e: any) => setUploadedFileName(e.target.files[0].name)
+
   const { t } = useTranslation()
   const [, setToast] = useToasts()
 
-  const handleChange = (event: ToggleEvent) => {
-    setShouldShowTabGroupCount(event.target.checked)
+  const toggleShouldShowTabListHeader = (e: ToggleEvent) => {
+    setShouldShowTabGroupCount(e.target.checked)
   }
 
-  const handleDeleteTab = (event: ToggleEvent) => {
-    setShouldDeleteTabWhenClicked(event.target.checked)
+  const toggleShouldDeleteTabWhenClicked = (e: ToggleEvent) => {
+    setShouldDeleteTabWhenClicked(e.target.checked)
   }
 
   const handleClickExportButton = async () => {
@@ -81,87 +84,90 @@ export const Tabs: React.VFC<Props> = props => {
         <Card.Content style={{ display: 'flex', flexDirection: 'column' }}>
           <span>
             <ToggleWrapper>
-              <StyledToggle checked={shouldShowTabListHeader} onChange={handleChange} />
+              <StyledToggle checked={shouldShowTabListHeader} onChange={toggleShouldShowTabListHeader} />
               <Text>{t('SETTING_SHOW_TAB_GROUP_COUNT')}</Text>
             </ToggleWrapper>
           </span>
 
           <span>
             <ToggleWrapper>
-              <StyledToggle checked={shouldDeleteTabWhenClicked} onChange={handleDeleteTab} />
+              <StyledToggle checked={shouldDeleteTabWhenClicked} onChange={toggleShouldDeleteTabWhenClicked} />
               <Text>{t('SETTING_DELETE_TAB_WHEN_CLICKED')}</Text>
             </ToggleWrapper>
           </span>
 
           <Divider y={2} />
 
-          <span>
-            <Row gap={0.8}>
-              <Col>
-                <Text>{t('SETTING_EXPORT')}</Text>
-              </Col>
-              <Col>
-                <Row align="middle" style={{ height: '100%', textAlign: 'right' }}>
-                  <Col>
-                    <ButtonDropdown size="medium">
-                      <ButtonDropdown.Item main onClick={handleClickExportButton}>
-                        OneTab Type
-                      </ButtonDropdown.Item>
-                      <ButtonDropdown.Item>
-                        <a href={hrefForJSONExport} download={exportedJSONFileName}>
-                          JSON
-                        </a>
-                      </ButtonDropdown.Item>
-                    </ButtonDropdown>
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
-            {showExportText && <Textarea width="100%" initialValue={exportText} style={{ height: '300px' }} />}
-          </span>
+          <Row gap={0.8}>
+            <Col>
+              <Text>{t('SETTING_EXPORT')}</Text>
+            </Col>
+            <Col>
+              <Row align="middle" style={{ height: '100%', textAlign: 'right' }}>
+                <Col>
+                  <ButtonDropdown size="medium">
+                    <ButtonDropdown.Item main onClick={handleClickExportButton}>
+                      OneTab Type
+                    </ButtonDropdown.Item>
+                    <ButtonDropdown.Item>
+                      <a href={hrefForJSONExport} download={exportedJSONFileName}>
+                        JSON
+                      </a>
+                    </ButtonDropdown.Item>
+                  </ButtonDropdown>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+          {showExportText && <Textarea width="100%" initialValue={exportText} style={{ height: '300px' }} />}
 
           <Spacer y={2} />
 
-          <span>
-            <Row gap={0.8}>
-              <Col>
-                <Text>{t('SETTING_IMPORT')}</Text>
-              </Col>
-              <Col>
-                <Row align="middle" style={{ height: '100%', textAlign: 'right' }}>
-                  <Col>
-                    <ButtonDropdown size="medium">
-                      <ButtonDropdown.Item main onClick={() => setShowImportText(!showImportText)}>
-                        OneTab Type
-                      </ButtonDropdown.Item>
-                      {/* TODO */}
-                      {/* <ButtonDropdown.Item>
-                        <label className="upload-label">
-                          JSONファイルを選択
-                          <input type="file" style={{ display: 'none' }} />
-                        </label>
-                      </ButtonDropdown.Item> */}
-                    </ButtonDropdown>
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
-            {showImportText && (
-              <div>
-                <Textarea
-                  width="100%"
-                  initialValue={importText}
-                  style={{ height: '300px' }}
-                  onChange={e => setImportText(e.target.value)}
-                />
-                <div style={{ textAlign: 'right', paddingTop: Spacing['1'] }}>
-                  <Button size="medium" type="success" ghost onClick={handleTextImport}>
-                    Import
-                  </Button>
-                </div>
+          <Row gap={0.8}>
+            <Col>
+              <Text>{t('SETTING_IMPORT')}</Text>
+            </Col>
+            <Col>
+              <Row align="middle" style={{ height: '100%', textAlign: 'right' }}>
+                <Col>
+                  <ButtonDropdown size="medium">
+                    <ButtonDropdown.Item main onClick={() => setShowImportText(!showImportText)}>
+                      OneTab Type
+                    </ButtonDropdown.Item>
+                    {/* TODO */}
+                    <ButtonDropdown.Item>
+                      <label className="upload-file" style={{ cursor: 'pointer' }}>
+                        JSONファイルを選択
+                        <input
+                          onChange={handleUploadFile}
+                          type="file"
+                          id="upload-file"
+                          name="upload-file"
+                          style={{ display: 'none', cursor: 'pointer' }}
+                        />
+                      </label>
+                    </ButtonDropdown.Item>
+                  </ButtonDropdown>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+          {showImportText && (
+            <div>
+              <Textarea
+                width="100%"
+                initialValue={importText}
+                style={{ height: '300px' }}
+                onChange={e => setImportText(e.target.value)}
+              />
+              <div style={{ textAlign: 'right', paddingTop: Spacing['1'] }}>
+                <Button size="medium" type="success" ghost onClick={handleTextImport}>
+                  Import
+                </Button>
               </div>
-            )}
-          </span>
+            </div>
+          )}
+          {uploadedFileName && <p>Importing {uploadedFileName}</p>}
 
           <Divider y={3} />
 
