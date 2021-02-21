@@ -100,7 +100,6 @@ export const deleteTabLink = async (key: ListName, tabListId: number, tabId: num
       !targetTabListElem.tabs.length && deleteTabList(key, tabListId)
     })
     // UPDATE
-    console.log('updateALlTabLists', updatedAllTabLists)
     setLists(key, updatedAllTabLists)
   } catch (err) {
     console.error(err)
@@ -174,20 +173,3 @@ export const updateTabListElemWithMeta = async (tabListId: number) => {
   // UPDATE
   setLists(TAB_LISTS, allTabLists)
 }
-
-// const b = groupedNewList.map(newList => {
-//   const domain = newList[0]
-//   const domainTabList = newList[1]
-//   if (!domains.includes(domain)) {
-//     return addList(DOMAIN_TAB_LISTS, createNewDomainTabList(domain, domainTabList))
-//   }
-// })
-// groupedNewList.forEach(async newList => {
-//   const domain = newList[0]
-//   const domainTabList = newList[1]
-//   if (!domains.includes(domain)) {
-//     // new domain
-//     console.log('domains.not includes', domain)
-//     await addList(DOMAIN_TAB_LISTS, createNewDomainTabList(domain, domainTabList))
-//   }
-// })
