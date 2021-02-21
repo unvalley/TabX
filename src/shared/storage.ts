@@ -55,29 +55,38 @@ export const deleteAllLists = (key: string) => set({ [key]: null })
 
 type Domain = string
 export const addDomainTabs = async (groupedNewList: [Domain, TabSimple[]][]) => {
-  const allDomainTabLists = await getAllLists(DOMAIN_TAB_LISTS)
-  const domains = allDomainTabLists.map(list => list.domain)
-  const updatedAllTabLists = produce(allDomainTabLists, draft => {
-    draft.forEach(list => {
-      groupedNewList.forEach(async newList => {
-        const domain = newList[0]
-        const domainTabList = newList[1]
-        if (list.domain === domain) {
-          // exisiting domain
-          list.tabs.push(...domainTabList)
-        }
-      })
-      groupedNewList.forEach(async newList => {
-        const domain = newList[0]
-        const domainTabList = newList[1]
-        if (!domains.includes(domain)) {
-          // new domain
-          await addList(DOMAIN_TAB_LISTS, createNewDomainTabList(domain, domainTabList))
-        }
+  const release = await mutex.acquire()
+  // SELECT
+  try {
+    const allDomainTabLists = await getAllLists(DOMAIN_TAB_LISTS)
+    const domains = allDomainTabLists.map(list => list.domain)
+
+    console.log('domains', domains)
+    const updatedAllTabLists = await produce(allDomainTabLists, async draft => {
+      draft.forEach(list => {
+        groupedNewList.forEach(async newList => {
+          const domain = newList[0]
+          const domainTabList = newList[1]
+          if (list.domain === domain) {
+            // exisiting domain
+            console.log('domain matches', list.domain, domain)
+            list.tabs.push(...domainTabList)
+          }
+          if (!domains.includes(domain)) {
+            console.log('domain not includes', domain)
+            draft.push(createNewDomainTabList(domain, domainTabList))
+            domains.push(domain)
+          }
+        })
       })
     })
-  })
-  setLists(DOMAIN_TAB_LISTS, updatedAllTabLists)
+    console.log('updateAllTabLists', updatedAllTabLists)
+    setLists(DOMAIN_TAB_LISTS, updatedAllTabLists)
+  } catch (err) {
+    console.error(err)
+  } finally {
+    release()
+  }
 }
 
 /**
@@ -86,7 +95,6 @@ export const addDomainTabs = async (groupedNewList: [Domain, TabSimple[]][]) => 
  */
 export const deleteTabLink = async (storageKey: ListName, tabListId: number, tabId: number) => {
   const release = await mutex.acquire()
-  console.log('deleteTabLink', storageKey, tabListId, tabId)
   try {
     // SELECT
     const allTabLists = await getAllLists(storageKey)
@@ -172,3 +180,20 @@ export const updateTabListElemWithMeta = async (tabListId: number) => {
   // UPDATE
   setLists(TAB_LISTS, allTabLists)
 }
+
+// const b = groupedNewList.map(newList => {
+//   const domain = newList[0]
+//   const domainTabList = newList[1]
+//   if (!domains.includes(domain)) {
+//     return addList(DOMAIN_TAB_LISTS, createNewDomainTabList(domain, domainTabList))
+//   }
+// })
+// groupedNewList.forEach(async newList => {
+//   const domain = newList[0]
+//   const domainTabList = newList[1]
+//   if (!domains.includes(domain)) {
+//     // new domain
+//     console.log('domains.not includes', domain)
+//     await addList(DOMAIN_TAB_LISTS, createNewDomainTabList(domain, domainTabList))
+//   }
+// })
