@@ -60,7 +60,6 @@
     "prettier": "^2.2.1",
     "puppeteer": "^7.0.1",
     "react-i18next": "^11.8.5",
-    "react-paginate": "^7.1.0",
     "react-router-dom": "^5.2.0",
     "recoil": "^0.1.2",
     "sass-loader": "^6.0.7",
