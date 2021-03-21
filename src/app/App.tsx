@@ -7,7 +7,8 @@ import { langState } from '~/app/store/lang'
 import enJson from './locales/en.json'
 import jaJson from './locales/ja.json'
 import { Routes } from './router/Routes'
-import { colorThemeState } from './store'
+// import { colorThemeState } from './store'
+// import { colorThemeState } from './store'
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -25,7 +26,7 @@ i18n.use(initReactI18next).init({
 })
 
 export const App = () => {
-  const colorTheme = useRecoilValue(colorThemeState)
+  // const colorTheme = useRecoilValue(colorThemeState)
   const lang = useRecoilValue(langState)
 
   React.useEffect(() => {
@@ -33,7 +34,7 @@ export const App = () => {
   }, [lang, i18n])
 
   return (
-    <GeistProvider theme={{ type: colorTheme }}>
+    <GeistProvider>
       <CssBaseline />
       <Routes />
     </GeistProvider>

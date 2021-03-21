@@ -36,7 +36,7 @@ export const TabListContainer: React.FC<Props> = props => {
   }
 
   // NOTE: handling for deleting a tabList from each menu
-  if (!tabList.tabs) {
+  if (!tabList || !tabList.tabs) {
     return <></>
   }
 

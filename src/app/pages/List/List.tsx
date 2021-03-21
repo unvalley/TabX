@@ -1,10 +1,9 @@
-import { Pagination } from '@geist-ui/react'
-import React, { useEffect } from 'react'
+import { Button } from '@geist-ui/react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-// import { Pagination } from '~/app/components/molecules/Pagination'
 import { Header } from '~/app/components/organisms/Header'
 import { TabListContainer } from '~/app/components/organisms/TabList'
-import { useLocalStorage } from '~/app/hooks/useLocalStorage'
+// import { useLocalStorage } from '~/app/hooks/useLocalStorage'
 import { TabList } from '~/shared/typings'
 
 type Props = {
@@ -24,52 +23,46 @@ const MemoizedTabGroups = React.memo<{
 
 MemoizedTabGroups.displayName = 'MemoizedTabGroups'
 
-const PER_PAGE = 10
+const PER_PAGE = 2
+
 export const List: React.FC<Props> = props => {
   const { tabLists } = props
   const { t } = useTranslation()
-  const [shouldShowTabListHeader] = useLocalStorage<boolean>('shouldShowTabListHeader')
-  const [currentPage, setCurrentPage] = React.useState(0)
-  const [offset, setOffset] = React.useState(0)
+
+  // const [shouldShowTabListHeader] = useLocalStorage<boolean>('shouldShowTabListHeader')
+  // const { itemsToShow, handleShowMorePosts } = useLoadMore(PER_PAGE, tabLists)
+  const [limit, setLimit] = useState(PER_PAGE)
+  const [itemsToShow, setItemsToShow] = useState<TabList[]>([])
+
+  const loopWithSlice = (start: number, end: number) => {
+    const slicedItems = tabLists.slice(start, end)
+    const newItems = [...itemsToShow, ...slicedItems]
+    setItemsToShow(newItems)
+  }
 
   useEffect(() => {
-    setOffset(currentPage * PER_PAGE)
+    loopWithSlice(0, PER_PAGE)
   }, [])
 
-  const calculatePageCount = () => {
-    return Math.ceil(tabLists.length / PER_PAGE)
+  const handleShowMorePosts = () => {
+    loopWithSlice(limit, limit + PER_PAGE)
+    setLimit(limit + PER_PAGE)
   }
-  const handlePageClick = async (page: number) => {
-    console.log(page)
-    setCurrentPage(page)
-    setOffset(page * PER_PAGE)
-  }
-  const calcIdx = (idx: number) => idx + currentPage * 10
 
-  const currentPageItems = tabLists.slice(offset, offset + PER_PAGE).map((item, idx) => {
-    return <TabListContainer key={item.id} idx={calcIdx(idx)} shouldShowTabListHeader={shouldShowTabListHeader} />
-  })
+  // const currentPageItems = tabLists.slice(offset, offset + PER_PAGE).map((item, idx) => {
+  //   return <TabListContainer key={item.id} idx={calcIdx(idx)} shouldShowTabListHeader={shouldShowTabListHeader} />
+  // })
+  console.log(itemsToShow)
 
   return (
     <>
       <Header />
       {tabLists.length > 0 ? (
         <>
-          <Pagination
-            initialPage={currentPage}
-            count={calculatePageCount()}
-            page={currentPage}
-            onChange={handlePageClick}
-          />
-          {/* <MemoizedTabGroups tabLists={tabLists} shouldShowTabListHeader={shouldShowTabListHeader} /> */}
-          {currentPageItems}
-          {/* <Pagination pageLength={calculatePageCount()} handlePageClick={handlePageClick} initialPage={currentPage} /> */}
-          <Pagination
-            initialPage={currentPage}
-            count={calculatePageCount()}
-            page={currentPage}
-            onChange={handlePageClick}
-          />
+          {itemsToShow.map((item, idx) => (
+            <TabListContainer key={item.id + new Date().getTime()} idx={idx} shouldShowTabListHeader={true} />
+          ))}
+          <Button onClick={handleShowMorePosts}>loadMore</Button>
         </>
       ) : (
         <h4>{t('TAB_LISTS_EMPTY_MESSAGE')}</h4>
