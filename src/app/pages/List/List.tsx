@@ -1,6 +1,7 @@
-import * as React from 'react'
+import { Pagination } from '@geist-ui/react'
+import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Pagination } from '~/app/components/molecules/Pagination'
+// import { Pagination } from '~/app/components/molecules/Pagination'
 import { Header } from '~/app/components/organisms/Header'
 import { TabListContainer } from '~/app/components/organisms/TabList'
 import { useLocalStorage } from '~/app/hooks/useLocalStorage'
@@ -31,17 +32,17 @@ export const List: React.FC<Props> = props => {
   const [currentPage, setCurrentPage] = React.useState(0)
   const [offset, setOffset] = React.useState(0)
 
-  React.useEffect(() => {
+  useEffect(() => {
     setOffset(currentPage * PER_PAGE)
   }, [])
 
   const calculatePageCount = () => {
     return Math.ceil(tabLists.length / PER_PAGE)
   }
-  const handlePageClick = async (selectedItem: { selected: number }) => {
-    console.log(selectedItem)
-    setCurrentPage(selectedItem.selected)
-    setOffset(selectedItem.selected * PER_PAGE)
+  const handlePageClick = async (page: number) => {
+    console.log(page)
+    setCurrentPage(page)
+    setOffset(page * PER_PAGE)
   }
   const calcIdx = (idx: number) => idx + currentPage * 10
 
@@ -54,9 +55,21 @@ export const List: React.FC<Props> = props => {
       <Header />
       {tabLists.length > 0 ? (
         <>
+          <Pagination
+            initialPage={currentPage}
+            count={calculatePageCount()}
+            page={currentPage}
+            onChange={handlePageClick}
+          />
           {/* <MemoizedTabGroups tabLists={tabLists} shouldShowTabListHeader={shouldShowTabListHeader} /> */}
           {currentPageItems}
-          <Pagination pageLength={calculatePageCount()} handlePageClick={handlePageClick} initialPage={currentPage} />
+          {/* <Pagination pageLength={calculatePageCount()} handlePageClick={handlePageClick} initialPage={currentPage} /> */}
+          <Pagination
+            initialPage={currentPage}
+            count={calculatePageCount()}
+            page={currentPage}
+            onChange={handlePageClick}
+          />
         </>
       ) : (
         <h4>{t('TAB_LISTS_EMPTY_MESSAGE')}</h4>
