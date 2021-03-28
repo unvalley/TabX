@@ -33,7 +33,7 @@ export const App = () => {
   }, [lang, i18n])
 
   return (
-    <GeistProvider theme={{ type: colorTheme }}>
+    <GeistProvider themeType={colorTheme}>
       <CssBaseline />
       <Routes />
     </GeistProvider>

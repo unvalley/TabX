@@ -4,7 +4,7 @@ import { MemoryRouter, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components'
 import { Load } from '~/app/components/atoms/Load'
 import { LeftMenu } from '~/app/components/organisms/LeftMenu'
-import { Spacing } from '~/app/constants/styles'
+import { Spacing, Themes } from '~/app/constants/styles'
 import { Domain } from '../pages/Domain'
 import { List } from '../pages/List'
 import { Settings } from '../pages/Settings'
@@ -31,7 +31,7 @@ const MainContainer = styled.main`
 
 export const Routes = () => {
   const theme = useTheme()
-  const mainBgColor = theme.type === 'dark' ? theme.palette.background : '#f2f4fb'
+  const mainBgColor = theme.type === Themes.DARK ? theme.palette.background : '#f2f4fb'
 
   return (
     <MemoryRouter>

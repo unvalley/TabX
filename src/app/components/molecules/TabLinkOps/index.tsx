@@ -15,7 +15,7 @@ export const TabLinkOps: React.FC<Props> = props => {
 
   return (
     <OpsWrapper opacity={shouldShow ? 10 : 0}>
-      <OpsElement bg={theme.palette.accents_2} onClick={() => handleClick(tabId)}>
+      <OpsElement bg={theme.palette.accents_1} onClick={() => handleClick(tabId)}>
         <X size={Rule.TAB_LINKS_ELEM_SIZE} />
       </OpsElement>
     </OpsWrapper>

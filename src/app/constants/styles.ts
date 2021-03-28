@@ -31,4 +31,4 @@ export const Rule = {
 export const Themes = {
   DARK: 'dark',
   LIGHT: 'light',
-}
+} as const
