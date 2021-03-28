@@ -31,7 +31,7 @@ export const List: React.FC<Props> = props => {
 
   const [shouldShowTabListHeader] = useLocalStorage<boolean>('shouldShowTabListHeader')
   const perCount = 8
-  const { itemsToShow, handleShowMoreItems } = useLoadMore(perCount, tabLists)
+  const { itemsToShow, handleShowMoreItems, isMaxLength } = useLoadMore(perCount, tabLists)
 
   const currentItems = itemsToShow.map((item, idx) => (
     <TabListContainer key={`${item.id}_${idx}`} idx={idx} shouldShowTabListHeader={shouldShowTabListHeader} />
@@ -43,7 +43,7 @@ export const List: React.FC<Props> = props => {
       {tabLists.length > 0 ? (
         <>
           {currentItems}
-          <Button onClick={handleShowMoreItems}>loadMore</Button>
+          {!isMaxLength && <Button onClick={handleShowMoreItems}>loadMore</Button>}
         </>
       ) : (
         <h4>{t('TAB_LISTS_EMPTY_MESSAGE')}</h4>

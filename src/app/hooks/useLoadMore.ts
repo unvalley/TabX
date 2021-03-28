@@ -19,5 +19,7 @@ export const useLoadMore = <T>(loadCount: number, items: T[]) => {
     setLimit(limit + loadCount)
   }
 
-  return { itemsToShow, handleShowMoreItems }
+  const isMaxLength = itemsToShow.length === items.length
+
+  return { itemsToShow, handleShowMoreItems, isMaxLength }
 }

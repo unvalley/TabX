@@ -4,7 +4,7 @@ import { useRecoilState } from 'recoil'
 import { FaviconImage } from '~/app/components/atoms/FaviconImage'
 import { TabLinkOps } from '~/app/components/molecules/TabLinkOps'
 import { TabLinkButton, TabLinkWrapper, Title } from '~/app/components/molecules/TabLinks/style'
-import { Rule, Spacing } from '~/app/constants/styles'
+import { Rule, Spacing, Themes } from '~/app/constants/styles'
 import { useLocalStorage } from '~/app/hooks/useLocalStorage'
 import { useMouseOver } from '~/app/hooks/useMouseOver'
 import { removeTab, tabListState } from '~/app/store'
@@ -25,6 +25,8 @@ export const TabListContainer: React.FC<Props> = props => {
 
   const theme = useTheme()
   const { handleMouseOut, handleMouseOver, isMouseOvered } = useMouseOver()
+
+  const tabLinkWrapperBg = theme.type === Themes.DARK ? theme.palette.accents_2 : theme.palette.accents_1
 
   const handleTabDelete = async (tabId: number) => {
     await deleteTabLink(TAB_LISTS, tabList.id, tabId).then(() => {
@@ -52,7 +54,7 @@ export const TabListContainer: React.FC<Props> = props => {
           hoverShadow={theme.expressiveness.shadowSmall}
           onMouseOver={() => handleMouseOver(idx)}
           onMouseLeave={() => handleMouseOut()}
-          bg={theme.palette.accents_2}
+          bg={tabLinkWrapperBg}
         >
           <TabLinkButton
             href={tab.url}

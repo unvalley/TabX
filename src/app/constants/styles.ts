@@ -29,6 +29,6 @@ export const Rule = {
 } as const
 
 export const Themes = {
-  DARK: 'customDark',
-  LIGHT: 'customLight',
+  DARK: 'dark',
+  LIGHT: 'light',
 } as const
