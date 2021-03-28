@@ -1,4 +1,4 @@
-import { CssBaseline, GeistProvider } from '@geist-ui/react'
+import { CssBaseline, GeistProvider, Themes } from '@geist-ui/react'
 import i18n from 'i18next'
 import * as React from 'react'
 import { initReactI18next } from 'react-i18next'
@@ -7,8 +7,7 @@ import { langState } from '~/app/store/lang'
 import enJson from './locales/en.json'
 import jaJson from './locales/ja.json'
 import { Routes } from './router/Routes'
-// import { colorThemeState } from './store'
-// import { colorThemeState } from './store'
+import { colorThemeState } from './store'
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -26,15 +25,26 @@ i18n.use(initReactI18next).init({
 })
 
 export const App = () => {
-  // const colorTheme = useRecoilValue(colorThemeState)
+  const colorTheme = useRecoilValue(colorThemeState)
   const lang = useRecoilValue(langState)
+
+  const customDarkTheme = Themes.createFromDark({
+    type: 'customDark',
+    palette: {
+      background: '#181a1b',
+    },
+  })
+
+  const customLightTheme = Themes.createFromLight({
+    type: 'customLight',
+  })
 
   React.useEffect(() => {
     i18n.changeLanguage(lang)
   }, [lang, i18n])
 
   return (
-    <GeistProvider>
+    <GeistProvider themes={[customLightTheme, customDarkTheme]} themeType={colorTheme}>
       <CssBaseline />
       <Routes />
     </GeistProvider>

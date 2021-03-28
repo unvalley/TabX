@@ -4,7 +4,7 @@ import Layers from '@geist-ui/react-icons/layers'
 import Settings from '@geist-ui/react-icons/settings'
 import React from 'react'
 import { URL } from '~/app/constants'
-import { Colors } from '~/app/constants/styles'
+import { Colors, Themes } from '~/app/constants/styles'
 import { Aside, Nav, SwitchButton } from './style'
 
 export const LeftMenu: React.FC = () => {
@@ -12,7 +12,7 @@ export const LeftMenu: React.FC = () => {
   const asideBgColor = theme.palette.accents_2
   const buttonBgColor = theme.palette.accents_1
   const hoverbg = theme.palette.accents_1
-  const activebg = theme.type === 'dark' ? Colors.MOON_DARK : Colors.SUN_LIGHT
+  const activebg = theme.type === Themes.DARK ? Colors.MOON_DARK : Colors.SUN_LIGHT
   const iconcolor = theme.palette.foreground
   const hovericoncolor = theme.palette.background
 
