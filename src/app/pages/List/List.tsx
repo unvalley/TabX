@@ -39,7 +39,7 @@ export const List: React.FC<Props> = props => {
 
   return (
     <>
-      <Header />
+      <Header text={'TabX'} shouldShowTabStats={true} />
       {tabLists.length > 0 ? (
         <>
           {currentItems}

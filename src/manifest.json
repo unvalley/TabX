@@ -29,14 +29,7 @@
     }
   },
 
-  "permissions": [
-    "contextMenus",
-    "storage",
-    "tabs",
-    "history",
-    "identity",
-    "notifications"
-  ],
+  "permissions": ["storage", "tabs", "notifications"],
 
   "content_security_policy": "script-src 'self' 'unsafe-eval' https://www.google-analytics.com https://apis.google.com __DEV_CSP__; object-src 'self'",
   "offline_enabled": true

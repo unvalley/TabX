@@ -1,12 +1,11 @@
 export const Colors = {
   BACKGROUND: '#232956',
-  BUTTON: '#eebbc3',
   BUTTON_TEXT: '#232946',
   HEADLINE: '#fffffe',
   MOON_DARK: '#16c79a',
   PARAGRAPH: '#222',
   SHADOW: '#2d81b121',
-  SUN_LIGHT: '#ff85ac',
+  SUN_LIGHT: '#ffd400',
   WHITE: '#fff',
 } as const
 
