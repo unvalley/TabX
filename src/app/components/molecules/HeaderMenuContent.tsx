@@ -1,5 +1,5 @@
 import { Popover } from '@geist-ui/react'
-import { ChevronUpDown, Coffee, Link as LinkIcon, Twitter } from '@geist-ui/react-icons'
+import { ChevronUpDown, Coffee, Twitter } from '@geist-ui/react-icons'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useRecoilState } from 'recoil'
@@ -18,11 +18,11 @@ export const MenuContent: React.VFC = () => {
   return (
     <>
       {/* User Operations */}
-      <MenuItem
+      {/* <MenuItem
         handleClick={() => console.log('')}
         label={t('SHARE_LINKS')}
         icon={<LinkIcon size={Rule.MENU_ICON_SIZE} />}
-      />
+      /> */}
 
       <MenuItem handleClick={updateSort} label={t('SORT')} icon={<ChevronUpDown size={Rule.MENU_ICON_SIZE} />} />
 

@@ -26,7 +26,7 @@ export const TabListHeader: React.VFC<Props> = props => {
     <StyledRow onMouseOver={() => handleMouseOver(idx)} onMouseLeave={() => handleMouseOut()}>
       <HoveredMenu>
         <Popover
-          placement={isLG ? 'leftStart' : 'bottomEnd'}
+          placement={isLG ? 'leftStart' : 'bottomStart'}
           leaveDelay={2}
           offset={12}
           content={<TabListMenuContent tabList={tabList} setTabList={setTabList} />}

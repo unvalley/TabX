@@ -1,4 +1,4 @@
-import { useTheme } from '@geist-ui/react'
+import { useMediaQuery, useTheme } from '@geist-ui/react'
 import React from 'react'
 import { useRecoilState } from 'recoil'
 import { FaviconImage } from '~/app/components/atoms/FaviconImage'
@@ -24,6 +24,7 @@ export const TabListContainer: React.FC<Props> = props => {
   const [shouldDeleteTabWhenClicked] = useLocalStorage('shouldDeleteTabWhenClicked', true)
 
   const theme = useTheme()
+  const isLG = useMediaQuery('lg')
   const { handleMouseOut, handleMouseOver, isMouseOvered } = useMouseOver()
 
   const tabLinkWrapperBg = theme.type === Themes.DARK ? theme.palette.accents_2 : theme.palette.accents_1
@@ -45,7 +46,7 @@ export const TabListContainer: React.FC<Props> = props => {
   return (
     <TabListSection>
       {/* header */}
-      {shouldShowTabListHeader && <TabListHeader idx={idx} tabList={tabList} isLG={true} />}
+      {shouldShowTabListHeader && <TabListHeader idx={idx} tabList={tabList} isLG={isLG} />}
       {/* tabs */}
       {tabList.tabs.map((tab, idx) => (
         <TabLinkWrapper
