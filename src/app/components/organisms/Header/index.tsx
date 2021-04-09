@@ -31,7 +31,7 @@ export const Header: React.VFC<Props> = props => {
       <Col span={8}>
         {props.shouldShowTabStats && (
           <Row align="middle" style={{ height: '100%', textAlign: 'center' }}>
-            <Text>Total tabs: {totalNum}</Text>
+            {/* <Text>Total tabs: {totalNum}</Text> */}
             <Menu />
           </Row>
         )}
