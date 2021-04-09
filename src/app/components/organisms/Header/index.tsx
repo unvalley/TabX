@@ -1,9 +1,9 @@
 import { Col, Row, Text } from '@geist-ui/react'
 import React from 'react'
-import { useRecoilValue } from 'recoil'
+// import { useRecoilValue } from 'recoil'
 import styled from 'styled-components'
 import { Menu } from '~/app/components/organisms/Menu'
-import { tabListsStatsState } from '../../../store'
+// import { tabListsStatsState } from '../../../store'
 
 type Props = { text?: string; shouldShowTabStats?: boolean }
 
@@ -18,7 +18,7 @@ const PageHeaderText = styled(Text).attrs({
 `
 
 export const Header: React.VFC<Props> = props => {
-  const totalNum = useRecoilValue(tabListsStatsState)
+  // const totalNum = useRecoilValue(tabListsStatsState)
 
   return (
     <Row>
