@@ -17,7 +17,7 @@
   "EXPORT_BUTTON": "Export",
   "HIDE_EXPORT_BUTTON": "hide",
 
-  "TOTAL_TAB": "Total Tabs",
+  "TOTAL_TAB": "Current Total Tabs",
   "TAB_LISTS_EMPTY_MESSAGE": "Congrats! Here is no Tabs 🎉 Click TabX chrome icon, it stores opend tabs",
   "----MENU----": "",
   "PIN_TABS": "Pin Tabs",

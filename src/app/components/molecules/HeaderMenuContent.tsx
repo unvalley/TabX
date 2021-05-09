@@ -4,7 +4,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useRecoilState } from 'recoil'
 import { Rule } from '~/app/constants/styles'
-import { tabListsSortState } from '../../stores/tabLists'
+import { tabListsSortState } from '~/app/stores/tabLists'
 import { openDonation, shareTwitter } from '../../utils/index'
 import { MenuItem } from './MenuItem'
 
