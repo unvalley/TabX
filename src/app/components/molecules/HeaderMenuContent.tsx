@@ -17,17 +17,8 @@ export const MenuContent: React.VFC = () => {
 
   return (
     <>
-      {/* User Operations */}
-      {/* <MenuItem
-        handleClick={() => console.log('')}
-        label={t('SHARE_LINKS')}
-        icon={<LinkIcon size={Rule.MENU_ICON_SIZE} />}
-      /> */}
-
       <MenuItem handleClick={updateSort} label={t('SORT')} icon={<ChevronUpDown size={Rule.MENU_ICON_SIZE} />} />
-
       <Popover.Item line />
-
       {/* Share and Donate */}
       <MenuItem handleClick={shareTwitter} label={t('TWEET')} icon={<Twitter size={Rule.MENU_ICON_SIZE} />} />
       <MenuItem handleClick={openDonation} label={t('DONATE')} icon={<Coffee size={Rule.MENU_ICON_SIZE} />} />
