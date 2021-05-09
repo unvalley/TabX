@@ -5,6 +5,9 @@ import { TAB_LISTS } from '~/shared/constants'
 import { getAllLists } from '~/shared/storage'
 import { DomainTabList, TabList } from '~/shared/typings'
 
+/**
+ * Root TabListsState
+ */
 export const tabListsState = atom<TabList[]>({
   key: 'tabListsState',
   default: selector<TabList[]>({
@@ -19,6 +22,9 @@ export const tabListsState = atom<TabList[]>({
   }),
 })
 
+/**
+ * Children TabListState
+ */
 export const tabListState = atomFamily<TabList, number>({
   key: 'tabListState',
   default: selectorFamily<TabList, number>({
@@ -28,6 +34,18 @@ export const tabListState = atomFamily<TabList, number>({
       return lists[idx]
     },
   }),
+})
+
+export const tabListSelectorFamily = selectorFamily({
+  key: 'tabListState/selector',
+  get: (idx: number) => async ({ get }) => {
+    const tabList = await get(tabListState(idx))
+    const tabs = tabList.tabs
+    if (!tabs || !tabs.length) {
+      return 0
+    }
+    return tabs.length
+  },
 })
 
 // default: newestAt
@@ -63,14 +81,18 @@ export const tabListsStatsState = selector({
     if (!tabLists.length) {
       return 0
     }
-    return 100
+    // console.log('tabListsStatsState', tabLists)
+    // // return tabLists.map(tabList => tabList.tabs.length).reduce((a, b) => a + b, 0)
     // // TODO: promises?
-    // const tabListElems = tabLists.map((tabList, idx) => get(tabListState(idx)))
-    // const totalCount = tabListElems
-    //   .map((tabList) => tabList.tabs.length)
-    //   .reduce((prev, cur) => prev + cur)
+    // const promises = await tabLists.map(async (_, idx) => await get(tabListState(idx)))
+    // console.log(promises)
+    // const totalCount = await Promise.all(promises).then(res =>
+    //   res.map(tabList => tabList.tabs.length).reduce((prev, cur) => prev + cur),
+    // )
+    // const totalCount = await tabListElems.map(tabList => tabList.tabs.length).reduce((prev, cur) => prev + cur)
 
-    // return totalCount
+    const totalCount = 2
+    return totalCount
   },
 })
 

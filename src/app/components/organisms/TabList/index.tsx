@@ -17,7 +17,6 @@ import { TabListSection } from './style'
 
 type Props = { idx: number; shouldShowTabListHeader: boolean }
 
-// container
 export const TabListContainer: React.FC<Props> = props => {
   const { idx, shouldShowTabListHeader } = props
   const [tabList, setTabList] = useRecoilState<TabList>(tabListState(idx))

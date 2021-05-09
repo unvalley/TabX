@@ -1,9 +1,10 @@
 import { Col, Row, Text } from '@geist-ui/react'
 import React from 'react'
-// import { useRecoilValue } from 'recoil'
+import { useRecoilValue } from 'recoil'
 import styled from 'styled-components'
 import { Menu } from '~/app/components/organisms/Menu'
-// import { tabListsStatsState } from '../../../store'
+import { TabList } from '~/shared/typings'
+import { sortTabListsState, tabListSelectorFamily } from '../../../store'
 
 type Props = { text?: string; shouldShowTabStats?: boolean }
 
@@ -18,7 +19,10 @@ const PageHeaderText = styled(Text).attrs({
 `
 
 export const Header: React.VFC<Props> = props => {
-  // const totalNum = useRecoilValue(tabListsStatsState)
+  const tabLists = useRecoilValue<TabList[]>(sortTabListsState)
+  const idxes = tabLists.map((_, c) => c)
+  const nums = idxes.map(e => useRecoilValue<number>(tabListSelectorFamily(e)))
+  const totalNum = nums.length >= 1 ? nums.reduce((prev, cur) => prev + cur) : 0
 
   return (
     <Row>
@@ -31,7 +35,7 @@ export const Header: React.VFC<Props> = props => {
       <Col span={8}>
         {props.shouldShowTabStats && (
           <Row align="middle" style={{ height: '100%', textAlign: 'center' }}>
-            {/* <Text>Total tabs: {totalNum}</Text> */}
+            <Text>Total tabs: {totalNum}</Text>
             <Menu />
           </Row>
         )}

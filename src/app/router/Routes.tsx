@@ -19,7 +19,7 @@ const Wrapper = styled(Grid.Container)<{ bg: string }>`
 
 const MainContainer = styled.main`
   margin: ${Spacing['5']} auto;
-  max-width: 60%;
+  max-width: 70%;
   flex: 1 1 0%;
   order: 2;
   position: relative;
