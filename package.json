@@ -4,7 +4,7 @@
   "description": "TabX manages your tabs",
   "scripts": {
     "build": "webpack --mode production --config webpack.config.js",
-    "dev": "webpack --config webpack.dev.js --watch",
+    "dev": "webpack --config webpack.dev.js --watch -O '{\"noUnusedLocals\":false, \"noUnusedParameters\":false}'",
     "lint": "eslint --ext .ts,.tsx src",
     "lint:fix": "eslint --fix './src/**/*.{ts,tsx}' && prettier --write './src/**/*.{ts,tsx}'",
     "test": "jest --config jest.config.js",
@@ -84,8 +84,5 @@
     "react": "17.0.1",
     "react-dom": "^16.13.1"
   },
-  "keywords": [
-    "react",
-    "typescript"
-  ]
+  "keywords": ["react", "typescript"]
 }
