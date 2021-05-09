@@ -126,7 +126,7 @@ export const Tabs: React.VFC<Props> = props => {
                 <Col>
                   <ButtonDropdown size="medium">
                     <ButtonDropdown.Item main onClick={handleClickExportButton}>
-                      OneTab Type
+                      OneTab
                     </ButtonDropdown.Item>
                     <ButtonDropdown.Item>
                       <a href={hrefForJSONExport} download={exportedJSONFileName}>
@@ -150,12 +150,12 @@ export const Tabs: React.VFC<Props> = props => {
                 <Col>
                   <ButtonDropdown size="medium">
                     <ButtonDropdown.Item main onClick={() => setShowImportText(!showImportText)}>
-                      OneTab Type
+                      OneTab
                     </ButtonDropdown.Item>
                     {/* TODO */}
                     <ButtonDropdown.Item>
                       <label className="upload-file" style={{ cursor: 'pointer' }}>
-                        JSONファイルを選択
+                        JSON
                         <input
                           onChange={handleUploadFile}
                           type="file"
