@@ -4,7 +4,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useRecoilState } from 'recoil'
 import { Colors, Themes } from '../../../constants/styles'
-import { colorThemeState } from '../../../store'
+import { colorThemeState } from '../../../stores/colorTheme'
 
 export const ColorThemes: React.VFC = () => {
   const { t } = useTranslation()

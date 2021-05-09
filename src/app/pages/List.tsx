@@ -1,16 +1,12 @@
 import { Button } from '@geist-ui/react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { useRecoilValue } from 'recoil'
 import { Header } from '~/app/components/organisms/Header'
 import { TabListContainer } from '~/app/components/organisms/TabList'
-import { useLoadMore } from '~/app/hooks/useLoadMore'
-import { useLocalStorage } from '~/app/hooks/useLocalStorage'
-// import { useLocalStorage } from '~/app/hooks/useLocalStorage'
+import { useLoadMore, useLocalStorage } from '~/app/hooks'
+import { sortTabListsState } from '~/app/stores/tabLists'
 import { TabList } from '~/shared/typings'
-
-type Props = {
-  tabLists: TabList[]
-}
 
 const MemoizedTabGroups = React.memo<{
   tabLists: TabList[]
@@ -18,31 +14,34 @@ const MemoizedTabGroups = React.memo<{
 }>(props => (
   <>
     {props.tabLists.map((tabList, idx) => (
-      <TabListContainer key={tabList.id} idx={idx} shouldShowTabListHeader={props.shouldShowTabListHeader} />
+      <TabListContainer
+        key={`${tabList.id}_${idx}`}
+        idx={idx}
+        shouldShowTabListHeader={props.shouldShowTabListHeader}
+      />
     ))}
   </>
 ))
 
 MemoizedTabGroups.displayName = 'MemoizedTabGroups'
 
-export const List: React.FC<Props> = props => {
-  const { tabLists } = props
+const PER_COUNT = 8
+
+export const List: React.FC = () => {
+  const tabLists = useRecoilValue<TabList[]>(sortTabListsState)
   const { t } = useTranslation()
 
   const [shouldShowTabListHeader] = useLocalStorage<boolean>('shouldShowTabListHeader')
-  const perCount = 8
-  const { itemsToShow, handleShowMoreItems, isMaxLength } = useLoadMore(perCount, tabLists)
-
-  const currentItems = itemsToShow.map((item, idx) => (
-    <TabListContainer key={`${item.id}_${idx}`} idx={idx} shouldShowTabListHeader={shouldShowTabListHeader} />
-  ))
+  const { itemsToShow, handleShowMoreItems, isMaxLength } = useLoadMore(PER_COUNT, tabLists)
 
   return (
     <>
       <Header text={'TabX'} shouldShowTabStats={true} />
       {tabLists.length > 0 ? (
         <>
-          {currentItems}
+          {itemsToShow.map((item, idx) => (
+            <TabListContainer key={`${item.id}_${idx}`} idx={idx} shouldShowTabListHeader={shouldShowTabListHeader} />
+          ))}
           {!isMaxLength && <Button onClick={handleShowMoreItems}>loadMore</Button>}
         </>
       ) : (
