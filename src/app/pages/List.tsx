@@ -7,6 +7,7 @@ import { TabListContainer } from '~/app/components/organisms/TabList'
 import { useLoadMore, useLocalStorage } from '~/app/hooks'
 import { sortTabListsState } from '~/app/stores/tabLists'
 import { TabList } from '~/shared/typings'
+import { Load } from '../components/atoms/Load'
 
 const MemoizedTabGroups = React.memo<{
   tabLists: TabList[]
@@ -34,18 +35,27 @@ export const List: React.FC = () => {
   const [shouldShowTabListHeader] = useLocalStorage<boolean>('shouldShowTabListHeader')
   const { itemsToShow, handleShowMoreItems, isMaxLength } = useLoadMore(PER_COUNT, tabLists)
 
+  const currentTabList = itemsToShow.map((item, idx) => (
+    <TabListContainer key={`${item.id}_${idx}`} idx={idx} shouldShowTabListHeader={shouldShowTabListHeader} />
+  ))
+
   return (
     <>
-      <Header text={'TabX'} shouldShowTabStats={true} />
-      {tabLists.length > 0 ? (
+      {tabLists ? (
         <>
-          {itemsToShow.map((item, idx) => (
-            <TabListContainer key={`${item.id}_${idx}`} idx={idx} shouldShowTabListHeader={shouldShowTabListHeader} />
-          ))}
-          {!isMaxLength && <Button onClick={handleShowMoreItems}>loadMore</Button>}
+          <Header text={'TabX'} />
+          {!currentTabList.length && <Load />}
+          {tabLists.length > 0 ? (
+            <>
+              {currentTabList}
+              {currentTabList.length >= 1 && !isMaxLength && <Button onClick={handleShowMoreItems}>loadMore</Button>}
+            </>
+          ) : (
+            <h4>{t('TAB_LISTS_EMPTY_MESSAGE')}</h4>
+          )}
         </>
       ) : (
-        <h4>{t('TAB_LISTS_EMPTY_MESSAGE')}</h4>
+        <Load />
       )}
     </>
   )

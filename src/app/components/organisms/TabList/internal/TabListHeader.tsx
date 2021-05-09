@@ -1,8 +1,10 @@
-import { Popover } from '@geist-ui/react'
+import { Popover, useTheme } from '@geist-ui/react'
 import Menu from '@geist-ui/react-icons/Menu'
 import Pin from '@geist-ui/react-icons/Pin'
 import React from 'react'
 import { useSetRecoilState } from 'recoil'
+import styled from 'styled-components'
+import { Spacing } from '~/app/constants/styles'
 import { useMouseOver, useTitle } from '~/app/hooks'
 import { tabListState } from '~/app/stores/tabList'
 import { TabList } from '~/shared/typings'
@@ -15,25 +17,42 @@ type Props = {
   isLG?: boolean
 }
 
+const StyledPopover = styled(Popover)<{ color: string; bgColor: string }>`
+  cursor: pointer;
+  margin-right: 20px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  padding: ${Spacing['0.5']} ${Spacing['1']};
+  &:hover {
+    color: ${({ color }) => color};
+    background-color: ${({ bgColor }) => bgColor};
+  }
+`
+
 export const TabListHeader: React.VFC<Props> = props => {
   const { idx, tabList, isLG } = props
   const setTabList = useSetRecoilState(tabListState(idx))
   const { handleMouseOver, handleMouseOut, isMouseOvered } = useMouseOver()
   const displayTitle = useTitle(tabList)
 
+  // theme
+  const theme = useTheme()
+  const popoverColor = theme.palette.foreground
+  const popoverBgColor = theme.palette.accents_2
+
   return (
     <StyledRow onMouseOver={() => handleMouseOver(idx)} onMouseLeave={() => handleMouseOut()}>
       <HoveredMenu>
-        <Popover
+        <StyledPopover
           placement={isLG ? 'leftStart' : 'bottomStart'}
           leaveDelay={2}
           offset={12}
           content={<TabListMenuContent tabList={tabList} setTabList={setTabList} />}
           style={{
-            cursor: 'pointer',
-            marginRight: '20px',
             display: isMouseOvered(idx) ? 'inline-block' : 'none',
           }}
+          color={popoverColor}
+          bgColor={popoverBgColor}
         >
           <Menu
             style={{
@@ -41,7 +60,7 @@ export const TabListHeader: React.VFC<Props> = props => {
               verticalAlign: 'middle',
             }}
           />
-        </Popover>
+        </StyledPopover>
       </HoveredMenu>
       <div>
         {tabList.hasPinned ? (

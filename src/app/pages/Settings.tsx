@@ -34,7 +34,7 @@ export const Settings: React.FC = () => {
 
   return (
     <>
-      <Header text={'TabX'} shouldShowTabStats={false} />
+      <Header text={'TabX'} />
       <ColorThemes />
       <Spacer y={1} />
       <Languages />

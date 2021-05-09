@@ -14,9 +14,12 @@ import {
 import { ToggleEvent } from '@geist-ui/react/dist/toggle/toggle'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useRecoilValue } from 'recoil'
 import { DeleteButton } from '~/app/components/molecules/DeleteButton'
 import { Spacing } from '~/app/constants/styles'
 import { useLocalStorage } from '~/app/hooks'
+import { tabListTotalCount } from '~/app/stores/tabList'
+import { tabListsState } from '~/app/stores/tabLists'
 import { exportedJSONFileName } from '~/app/utils'
 import { exportToText, importFromText } from '~/shared/importExport'
 import { TabList } from '~/shared/typings'
@@ -38,6 +41,10 @@ export const Tabs: React.VFC<Props> = props => {
     'shouldDeleteTabWhenClicked',
     true,
   )
+  const tabLists = useRecoilValue(tabListsState)
+  const tabListIdexs = tabLists.map((_, idx) => idx)
+  const tabCounts = tabListIdexs.map(idx => useRecoilValue<number>(tabListTotalCount(idx)))
+  const totalTabCount = tabCounts.length >= 1 ? tabCounts.reduce((prev, cur) => prev + cur) : 0
 
   const handleUploadFile = (e: any) => setUploadedFileName(e.target.files[0].name)
 
@@ -82,13 +89,25 @@ export const Tabs: React.VFC<Props> = props => {
         <Divider y={0} />
 
         <Card.Content style={{ display: 'flex', flexDirection: 'column' }}>
+          <Row gap={0.8}>
+            <Col>
+              <Text>{t('TOTAL_TAB')}</Text>
+            </Col>
+            <Col>
+              <Row align="middle" style={{ height: '100%', textAlign: 'right' }}>
+                <Col>{totalTabCount}</Col>
+              </Row>
+            </Col>
+          </Row>
+
+          <Divider y={1} />
+
           <span>
             <ToggleWrapper>
               <StyledToggle checked={shouldShowTabListHeader} onChange={toggleShouldShowTabListHeader} />
               <Text>{t('SETTING_SHOW_TAB_GROUP_COUNT')}</Text>
             </ToggleWrapper>
           </span>
-
           <span>
             <ToggleWrapper>
               <StyledToggle checked={shouldDeleteTabWhenClicked} onChange={toggleShouldDeleteTabWhenClicked} />
@@ -107,7 +126,7 @@ export const Tabs: React.VFC<Props> = props => {
                 <Col>
                   <ButtonDropdown size="medium">
                     <ButtonDropdown.Item main onClick={handleClickExportButton}>
-                      OneTab Type
+                      OneTab
                     </ButtonDropdown.Item>
                     <ButtonDropdown.Item>
                       <a href={hrefForJSONExport} download={exportedJSONFileName}>
@@ -119,10 +138,9 @@ export const Tabs: React.VFC<Props> = props => {
               </Row>
             </Col>
           </Row>
+
           {showExportText && <Textarea width="100%" initialValue={exportText} style={{ height: '300px' }} />}
-
           <Spacer y={2} />
-
           <Row gap={0.8}>
             <Col>
               <Text>{t('SETTING_IMPORT')}</Text>
@@ -132,12 +150,12 @@ export const Tabs: React.VFC<Props> = props => {
                 <Col>
                   <ButtonDropdown size="medium">
                     <ButtonDropdown.Item main onClick={() => setShowImportText(!showImportText)}>
-                      OneTab Type
+                      OneTab
                     </ButtonDropdown.Item>
                     {/* TODO */}
                     <ButtonDropdown.Item>
                       <label className="upload-file" style={{ cursor: 'pointer' }}>
-                        JSONファイルを選択
+                        JSON
                         <input
                           onChange={handleUploadFile}
                           type="file"
@@ -168,9 +186,7 @@ export const Tabs: React.VFC<Props> = props => {
             </div>
           )}
           {uploadedFileName && <p>Importing {uploadedFileName}</p>}
-
           <Divider y={3} />
-
           <Text b>{t('DANGER_ZONE')}</Text>
           <Row gap={0.8}>
             <Col>
