@@ -1,18 +1,17 @@
 import { Card, Image, Link, Text } from '@geist-ui/react'
 import { Masonry as MasonicMasonry } from 'masonic'
-import React from 'react'
-import { TabList, TabWithMeta } from '../../../shared/typings'
-import { omitText } from '../../../shared/utils/util'
+import React, { useEffect } from 'react'
+import { useRecoilValue } from 'recoil'
+import { tabListsState } from '~/app/stores/tabLists'
+import { TabList, TabWithMeta } from '../../shared/typings'
+import { omitText } from '../../shared/utils/util'
 
-type Props = {
-  tabLists: TabList[]
-}
-
-export const Masonry: React.FC<Props> = props => {
+export const Masonry: React.FC = () => {
+  const tabLists = useRecoilValue<TabList[]>(tabListsState)
   const [flat, setFlat] = React.useState<TabWithMeta[]>([])
 
-  React.useEffect(() => {
-    const allTabs = props.tabLists.map(tabListElem => tabListElem.tabs) as TabWithMeta[][]
+  useEffect(() => {
+    const allTabs = tabLists.map(tabListElem => tabListElem.tabs) as TabWithMeta[][]
     const tmp = [] as TabWithMeta[]
     setFlat(tmp.concat(...allTabs))
   }, [])
@@ -30,7 +29,7 @@ const TabCard = React.memo((props: { index: number; data: TabWithMeta; width: nu
         </Text>
       </Link>
       {props.data.description && (
-        <span style={{ margin: '10 0', fontSize: '8px' }}>{omitText(props.data.description)(50)('...')}</span>
+        <span style={{ margin: '10px 0', fontSize: '8px' }}>{omitText(props.data.description)(50)('...')}</span>
       )}
     </Card>
   )

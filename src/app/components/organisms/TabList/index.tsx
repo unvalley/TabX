@@ -5,9 +5,9 @@ import { FaviconImage } from '~/app/components/atoms/FaviconImage'
 import { TabLinkOps } from '~/app/components/molecules/TabLinkOps'
 import { TabLinkButton, TabLinkWrapper, Title } from '~/app/components/molecules/TabLinks/style'
 import { Rule, Spacing, Themes } from '~/app/constants/styles'
-import { useLocalStorage } from '~/app/hooks/useLocalStorage'
-import { useMouseOver } from '~/app/hooks/useMouseOver'
-import { removeTab, tabListState } from '~/app/store'
+import { useLocalStorage, useMouseOver } from '~/app/hooks'
+import { tabListState } from '~/app/stores/tabList'
+import { removeTab } from '~/app/utils/producer'
 import { TAB_LISTS } from '~/shared/constants'
 import { deleteTabLink } from '~/shared/storage'
 import { TabList } from '~/shared/typings'
@@ -17,7 +17,6 @@ import { TabListSection } from './style'
 
 type Props = { idx: number; shouldShowTabListHeader: boolean }
 
-// container
 export const TabListContainer: React.FC<Props> = props => {
   const { idx, shouldShowTabListHeader } = props
   const [tabList, setTabList] = useRecoilState<TabList>(tabListState(idx))

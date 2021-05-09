@@ -61,9 +61,7 @@ export const addDomainTabs = async (groupedNewList: [Domain, TabSimple[]][]) => 
 
     const updatedAllTabLists = await produce(allDomainTabLists, async draft => {
       draft.forEach(list => {
-        groupedNewList.forEach(async newList => {
-          const domain = newList[0]
-          const domainTabList = newList[1]
+        groupedNewList.forEach(async ([domain, domainTabList]) => {
           if (list.domain === domain) {
             list.tabs.push(...domainTabList)
           }

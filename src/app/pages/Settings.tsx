@@ -1,18 +1,19 @@
-import { useToasts } from '@geist-ui/react'
+import { Spacer, useToasts } from '@geist-ui/react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { useSetRecoilState } from 'recoil'
-import { tabListsState } from '~/app/store'
-import { domainTabListsState } from '~/app/store/domainTabLists'
+import { useRecoilState, useSetRecoilState } from 'recoil'
+import { Header } from '~/app/components/organisms/Header'
+import { ColorThemes, Languages, Tabs } from '~/app/components/organisms/SettingsSection'
+import { domainTabListsState } from '~/app/stores/domainTabLists'
+import { tabListsState } from '~/app/stores/tabLists'
 import { DOMAIN_TAB_LISTS, TAB_LISTS } from '~/shared/constants'
 import { deleteAllLists } from '~/shared/storage'
 import { DomainTabList, TabList } from '~/shared/typings'
-import { Settings as Component } from './Settings'
 
 export const Settings: React.FC = () => {
   const { t } = useTranslation()
   const [, setToast] = useToasts()
-  const setTabLists = useSetRecoilState(tabListsState)
+  const [tabLists, setTabLists] = useRecoilState(tabListsState)
   const setDomainTabLists = useSetRecoilState(domainTabListsState)
 
   const deleteAllTabs = async () => {
@@ -31,5 +32,16 @@ export const Settings: React.FC = () => {
     }
   }
 
-  return <Component deleteAllTabs={deleteAllTabs} />
+  return (
+    <>
+      <Header text={'TabX'} shouldShowTabStats={false} />
+      <ColorThemes />
+      <Spacer y={1} />
+      <Languages />
+      <Spacer y={1} />
+      <Tabs deleteAllTabs={deleteAllTabs} tabLists={tabLists} />
+      <Spacer y={1} />
+      {/* <Contributions /> */}
+    </>
+  )
 }

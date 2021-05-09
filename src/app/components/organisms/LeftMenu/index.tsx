@@ -4,7 +4,6 @@ import Layers from '@geist-ui/react-icons/layers'
 import Settings from '@geist-ui/react-icons/settings'
 import React from 'react'
 import { URL } from '~/app/constants'
-// import { Colors, Themes } from '~/app/constants/styles'
 import { Aside, Nav, SwitchButton } from './style'
 
 export const LeftMenu: React.FC = () => {
