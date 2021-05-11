@@ -15,20 +15,17 @@ import { tabsState } from '../stores/tabs'
 const MemoizedTabGroups = React.memo<{
   tabLists: TabList[]
   shouldShowTabListHeader: boolean
-}>(props => {
-  console.log('logging')
-  return (
-    <>
-      {props.tabLists.map((tabList, idx) => (
-        <TabListContainer
-          key={`${tabList.id}_${idx}`}
-          idx={idx}
-          shouldShowTabListHeader={props.shouldShowTabListHeader}
-        />
-      ))}
-    </>
-  )
-})
+}>(props => (
+  <>
+    {props.tabLists.map((tabList, idx) => (
+      <TabListContainer
+        key={`${tabList.id}_${idx}`}
+        idx={idx}
+        shouldShowTabListHeader={props.shouldShowTabListHeader}
+      />
+    ))}
+  </>
+))
 
 MemoizedTabGroups.displayName = 'MemoizedTabGroups'
 
@@ -54,7 +51,6 @@ export const List: React.FC = () => {
   const tabLists = useRecoilValue<TabList[]>(sortTabListsState)
   const tabs = useRecoilValue<TabSimple[]>(tabsState)
   const inputText = useRecoilValue(searchState).inputText
-
   const filteredTabs = fuzzySearch(inputText, tabs)
 
   const { t } = useTranslation()
