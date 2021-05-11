@@ -1,7 +1,8 @@
 import { Button } from '@geist-ui/react'
+import Fuse from 'fuse.js'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { selector, useRecoilValue } from 'recoil'
+import { useRecoilValue } from 'recoil'
 import { Header, searchState } from '~/app/components/organisms/Header'
 import { TabListContainer } from '~/app/components/organisms/TabList'
 import { useLoadMore, useLocalStorage } from '~/app/hooks'
@@ -14,34 +15,47 @@ import { tabsState } from '../stores/tabs'
 const MemoizedTabGroups = React.memo<{
   tabLists: TabList[]
   shouldShowTabListHeader: boolean
-}>(props => (
-  <>
-    {props.tabLists.map((tabList, idx) => (
-      <TabListContainer
-        key={`${tabList.id}_${idx}`}
-        idx={idx}
-        shouldShowTabListHeader={props.shouldShowTabListHeader}
-      />
-    ))}
-  </>
-))
+}>(props => {
+  console.log('logging')
+  return (
+    <>
+      {props.tabLists.map((tabList, idx) => (
+        <TabListContainer
+          key={`${tabList.id}_${idx}`}
+          idx={idx}
+          shouldShowTabListHeader={props.shouldShowTabListHeader}
+        />
+      ))}
+    </>
+  )
+})
 
 MemoizedTabGroups.displayName = 'MemoizedTabGroups'
 
-const PER_COUNT = 8
+const PER_COUNT = 5
 
-const filteredTabsState = selector({
-  key: 'filteredTabsState',
-  get: ({ get }) =>
-    get(tabsState).filter(
-      item => item.title.indexOf(get(searchState).inputText) > -1 || item.url.indexOf(get(searchState).inputText) > -1,
-    ),
-})
+const fuzzySearch = (query: string, tabs: TabSimple[]) => {
+  const fuse = new Fuse(tabs, {
+    minMatchCharLength: 2,
+    shouldSort: true,
+    threshold: 0.2,
+    keys: ['title', 'url', 'domain'],
+  })
+  const results = fuse.search(query)
+  const searchResults = query
+    ? results.map(char => {
+        return char.item
+      })
+    : tabs
+  return searchResults
+}
 
 export const List: React.FC = () => {
   const tabLists = useRecoilValue<TabList[]>(sortTabListsState)
-  const filteredTabs = useRecoilValue<TabSimple[]>(filteredTabsState)
+  const tabs = useRecoilValue<TabSimple[]>(tabsState)
   const inputText = useRecoilValue(searchState).inputText
+
+  const filteredTabs = fuzzySearch(inputText, tabs)
 
   const { t } = useTranslation()
   const [shouldShowTabListHeader] = useLocalStorage<boolean>('shouldShowTabListHeader')
