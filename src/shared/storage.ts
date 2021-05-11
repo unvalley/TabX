@@ -28,6 +28,12 @@ export const getAllLists = async <T extends ListName>(key: T): Promise<ListType<
   return res
 }
 
+export const getAllFlatTabs = async () => {
+  const res = await get(TAB_LISTS).then(data => (Array.isArray(data[TAB_LISTS]) ? (data[TAB_LISTS] as TabList[]) : []))
+  const flatTabs = res.map(tabList => tabList.tabs).flat()
+  return flatTabs
+}
+
 export const setLists = (key: ListName, lists: TabList[] | DomainTabList[]) => {
   saveCache(key, [])
   return set({ [key]: lists })

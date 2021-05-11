@@ -1,4 +1,4 @@
-const {merge} = require('webpack-merge')
+const { merge } = require('webpack-merge')
 const path = require('path')
 const base = require('./webpack.config.js')
 const ExtensionReloader = require('webpack-extension-reloader')
@@ -9,6 +9,7 @@ module.exports = merge(base, {
   entry: {
     background: './src/background.ts',
   },
+  devtool: 'source-map',
   plugins: [
     new ExtensionReloader({
       manifest: path.resolve(__dirname, './src/manifest.json'),
