@@ -17,15 +17,15 @@ type Props = {
   isLG?: boolean
 }
 
-const StyledPopover = styled(Popover)<{ color: string; bgColor: string }>`
+const StyledPopover = styled(Popover)<{ $bgColor: string; $color: string }>`
   cursor: pointer;
   margin-right: 20px;
   border-radius: 50%;
   transition: all 0.3s ease;
   padding: ${Spacing['0.5']} ${Spacing['1']};
   &:hover {
-    color: ${({ color }) => color};
-    background-color: ${({ bgColor }) => bgColor};
+    color: ${props => props.$color};
+    background-color: ${props => props.$bgColor};
   }
 `
 
@@ -51,8 +51,8 @@ export const TabListHeader: React.VFC<Props> = props => {
           style={{
             display: isMouseOvered(idx) ? 'inline-block' : 'none',
           }}
-          color={popoverColor}
-          bgColor={popoverBgColor}
+          $color={popoverColor}
+          $bgColor={popoverBgColor}
         >
           <Menu
             style={{

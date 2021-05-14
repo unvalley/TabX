@@ -24,3 +24,32 @@ export const tabListTotalCount = selectorFamily({
     return !tabs || !tabs.length ? 0 : tabs.length
   },
 })
+
+// redux-toolkit
+
+// type TabListsState = { data: TabList[] }
+// const initialState: TabListsState = { data: [] }
+
+// export const fetchTabLists = createAsyncThunk('fetchTabLists', async () => {
+//   const result = await getAllLists(TAB_LISTS)
+//   return result
+// })
+
+// const tabListsSlice = createSlice({
+//   name: 'tabLists',
+//   initialState: [] as TabList[],
+//   reducers: {
+//     setTabLists: (state, action: PayloadAction<TabList[]>) => {
+//       state = action.payload
+//       return state
+//     },
+//   },
+//   extraReducers: builder => {
+//     builder.addCase(fetchTabLists.fulfilled, (state, action) => {
+//       state.push(...action.payload)
+//     })
+//   },
+// })
+
+// export const tabListsReducer = tabListsSlice.reducer
+// export const { setTabLists } = tabListsSlice.actions

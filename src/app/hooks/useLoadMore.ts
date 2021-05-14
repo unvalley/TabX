@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 export const useLoadMore = <T>(loadCount: number = 5, items: T[]) => {
   const [limit, setLimit] = useState(loadCount)
