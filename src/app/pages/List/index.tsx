@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useImmer } from 'use-immer'
 import { Load } from '~/app/components/atoms/Load'
@@ -9,6 +9,7 @@ import { List as Component } from './List'
 
 export const List: React.FC = () => {
   const [tabLists, updateTabLists] = useImmer<TabList[]>([])
+  const [hasLoaded, setHasLoaded] = useState(false)
   const { t } = useTranslation()
 
   useEffect(() => {
@@ -17,13 +18,15 @@ export const List: React.FC = () => {
       updateTabLists(res)
     }
     fetchData()
+      .then(() => setHasLoaded(true))
+      .catch(err => console.error(err))
   }, [])
 
-  return tabLists.length >= 1 ? (
-    <Component tabLists={tabLists} />
-  ) : tabLists.length === 0 ? (
-    <h4>{t('TAB_LISTS_EMPTY_MESSAGE')}</h4>
-  ) : (
+  return !hasLoaded ? (
     <Load />
+  ) : tabLists.length >= 1 ? (
+    <Component tabLists={tabLists} />
+  ) : (
+    <h4>{t('TAB_LISTS_EMPTY_MESSAGE')}</h4>
   )
 }
