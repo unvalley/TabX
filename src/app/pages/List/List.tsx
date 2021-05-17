@@ -9,7 +9,7 @@ import { TabList, TabSimple } from '~/shared/typings'
 import { TabSimpleLink } from '../../components/molecules/TabSimpleLink'
 import { tabsState } from '../../stores/tabs'
 
-const PER_COUNT = 5
+const PER_LOAD_COUNT = 5
 
 export const List: React.FC<{ tabLists: TabList[] }> = ({ tabLists }) => {
   const tabs = useRecoilValue<TabSimple[]>(tabsState)
@@ -21,10 +21,11 @@ export const List: React.FC<{ tabLists: TabList[] }> = ({ tabLists }) => {
   })
 
   const [shouldShowTabListHeader] = useLocalStorage<boolean>('shouldShowTabListHeader')
+  const { itemsToShow, handleShowMoreItems, isMaxLength } = useLoadMore(PER_LOAD_COUNT, tabLists)
+  const isShowableHitTabs = query && hits
 
-  const { itemsToShow, handleShowMoreItems, isMaxLength } = useLoadMore(PER_COUNT, tabLists)
-
-  const currentTabList = itemsToShow.map((item, idx) => {
+  /** sliced by useLoadMore */
+  const homeCurrentTabList = itemsToShow.map((item, idx) => {
     return (
       <TabListContainer
         key={`${item.id}_${idx}`}
@@ -35,13 +36,10 @@ export const List: React.FC<{ tabLists: TabList[] }> = ({ tabLists }) => {
     )
   })
 
-  const shouldShowFilteredTabs = query && hits
-  const shouldShowLoadMore = !isMaxLength
-
   return (
     <>
       <Header text={'TabX'} query={query} onSearch={onSearch} />
-      {shouldShowFilteredTabs ? (
+      {isShowableHitTabs ? (
         <>
           {hits.map((tab, idx) => (
             <TabSimpleLink tab={tab.item} idx={idx} shouldShowOps={false} shouldDeleteTabWhenClicked={false} />
@@ -49,8 +47,8 @@ export const List: React.FC<{ tabLists: TabList[] }> = ({ tabLists }) => {
         </>
       ) : (
         <>
-          {currentTabList}
-          {shouldShowLoadMore && <Button onClick={handleShowMoreItems}>loadMore</Button>}
+          {homeCurrentTabList}
+          {!isMaxLength && <Button onClick={handleShowMoreItems}>loadMore</Button>}
         </>
       )}
     </>

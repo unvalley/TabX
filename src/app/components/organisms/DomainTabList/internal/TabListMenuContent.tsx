@@ -2,8 +2,6 @@ import { useToasts } from '@geist-ui/react'
 import Clipboard from '@geist-ui/react-icons/Clipboard'
 import Delete from '@geist-ui/react-icons/delete'
 import ExternalLink from '@geist-ui/react-icons/ExternalLink'
-// import Menu from '@geist-ui/react-icons/Menu'
-// import Pin from '@geist-ui/react-icons/Pin'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { SetterOrUpdater } from 'recoil'
@@ -20,13 +18,7 @@ export const TabListMenuContent: React.VFC<Props> = props => {
   const { t } = useTranslation()
   const [, setToast] = useToasts()
 
-  // const handlePin = async (tabListId: number) => {
-  //   await pinnTabList(TAB_LISTS, tabListId)
-  // }
-
   const handleDelete = async (tabListId: number) => {
-    // confirmation
-    // Are you sure you want to delete?
     if (!window.confirm(t('DELETE_MESSAGE'))) {
       return
     }
@@ -55,28 +47,18 @@ export const TabListMenuContent: React.VFC<Props> = props => {
 
   return (
     <>
-      {/* <MenuItem
-        handleClick={() => handlePin(tabList.id)}
-        label={t('PIN_TABS')}
-        icon={<Pin size={Rule.MENU_ICON_SIZE} />}
-      /> */}
       <MenuItem
-        handleClick={() => handleOpen(tabList.id)}
+        onClick={() => handleOpen(tabList.id)}
         label={t('OPEN_TABS')}
         icon={<ExternalLink size={Rule.MENU_ICON_SIZE} />}
       />
-      {/* <MenuItem
-        handleClick={() => console.log('')}
-        label={t('SHARE_LINKS')}
-        icon={<Menu size={Rule.MENU_ICON_SIZE} />}
-      /> */}
       <MenuItem
-        handleClick={genMarkdownLink}
+        onClick={genMarkdownLink}
         label={t('GEN_MARKDONW_LINKS')}
         icon={<Clipboard size={Rule.MENU_ICON_SIZE} />}
       />
       <MenuItem
-        handleClick={() => handleDelete(tabList.id)}
+        onClick={() => handleDelete(tabList.id)}
         label={t('DELETE_TABS')}
         icon={<Delete size={Rule.MENU_ICON_SIZE} />}
       />
