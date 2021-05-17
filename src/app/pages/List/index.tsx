@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { useImmer } from 'use-immer'
-import { Load } from '~/app/components/atoms/Load'
 import { TAB_LISTS } from '~/shared/constants'
 import { getAllLists } from '~/shared/storage'
 import { TabList } from '~/shared/typings'

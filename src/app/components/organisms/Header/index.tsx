@@ -1,26 +1,12 @@
 import { Col, Input, Row, Spacer } from '@geist-ui/react'
-import React, { ChangeEvent, useCallback } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
-import { atom, useRecoilState } from 'recoil'
 import { Menu } from '~/app/components/organisms/Menu'
 import { HeaderRow, PageHeaderText } from './style'
 
-type Props = { text?: string }
+type Props = { text?: string; query?: string; onSearch?: (e: any) => void }
 
-export const searchState = atom<{ inputText: string }>({
-  key: 'searchState',
-  default: {
-    inputText: '',
-  },
-})
-
-export const Header: React.VFC<Props> = ({ text }) => {
-  const [search, setSearch] = useRecoilState(searchState)
-
-  const handleChangge = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    setSearch({ inputText: event.target.value })
-  }, [])
-
+export const Header: React.VFC<Props> = ({ text, query, onSearch }) => {
   return (
     <Row>
       <Col span={23}>
@@ -29,7 +15,7 @@ export const Header: React.VFC<Props> = ({ text }) => {
             <PageHeaderText>{text}</PageHeaderText>
           </Link>
           <Spacer />
-          <Input value={search.inputText} onChange={handleChangge} />
+          <Input value={query} onChange={onSearch} />
         </HeaderRow>
       </Col>
       <Col span={1}>

@@ -1,36 +1,24 @@
 import { Button } from '@geist-ui/react'
-import Fuse from 'fuse.js'
-import React, { useMemo } from 'react'
+import React from 'react'
 import { useRecoilValue } from 'recoil'
-import { Header, searchState } from '~/app/components/organisms/Header'
+import { Header } from '~/app/components/organisms/Header'
 import { TabListContainer } from '~/app/components/organisms/TabList'
 import { useLoadMore, useLocalStorage } from '~/app/hooks'
+import { useFuse } from '~/app/hooks/useFuse'
 import { TabList, TabSimple } from '~/shared/typings'
 import { TabSimpleLink } from '../../components/molecules/TabSimpleLink'
 import { tabsState } from '../../stores/tabs'
 
 const PER_COUNT = 5
 
-const fuzzySearch = (query: string, tabs: TabSimple[]) => {
-  const fuse = new Fuse(tabs, {
-    minMatchCharLength: 2,
-    shouldSort: true,
-    threshold: 0.1,
-    keys: ['title', 'url'],
-  })
-  const results = fuse.search(query)
-  const searchResults = query
-    ? results.slice(0, 10).map(char => {
-        return char.item
-      })
-    : []
-  return searchResults
-}
-
 export const List: React.FC<{ tabLists: TabList[] }> = ({ tabLists }) => {
   const tabs = useRecoilValue<TabSimple[]>(tabsState)
-  const inputText = useRecoilValue(searchState).inputText
-  const filteredTabs = useMemo(() => fuzzySearch(inputText, tabs), [inputText])
+  const { hits, query, onSearch } = useFuse(tabs, {
+    minMatchCharLength: 2,
+    shouldSort: true,
+    threshold: 0.2,
+    keys: ['title', 'url'],
+  })
 
   const [shouldShowTabListHeader] = useLocalStorage<boolean>('shouldShowTabListHeader')
 
@@ -47,16 +35,16 @@ export const List: React.FC<{ tabLists: TabList[] }> = ({ tabLists }) => {
     )
   })
 
-  const shouldShowFilteredTabs = inputText && filteredTabs
+  const shouldShowFilteredTabs = query && hits
   const shouldShowLoadMore = !isMaxLength
 
   return (
     <>
-      <Header text={'TabX'} />
+      <Header text={'TabX'} query={query} onSearch={onSearch} />
       {shouldShowFilteredTabs ? (
         <>
-          {filteredTabs.map((tab, idx) => (
-            <TabSimpleLink tab={tab} idx={idx} shouldShowOps={false} shouldDeleteTabWhenClicked={false} />
+          {hits.map((tab, idx) => (
+            <TabSimpleLink tab={tab.item} idx={idx} shouldShowOps={false} shouldDeleteTabWhenClicked={false} />
           ))}
         </>
       ) : (

@@ -7,7 +7,6 @@ import { langState } from '~/app/stores/lang'
 import enJson from './locales/en.json'
 import jaJson from './locales/ja.json'
 import { Routes } from './router/Routes'
-// import { store } from './stores'
 import { colorThemeState } from './stores/colorTheme'
 
 i18n.use(initReactI18next).init({
