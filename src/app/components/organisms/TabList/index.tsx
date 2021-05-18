@@ -8,10 +8,10 @@ import { TabSimpleLink } from '../../molecules/TabSimpleLink'
 import { TabListHeader } from './internal/TabListHeader'
 import { TabListSection } from './style'
 
-type Props = { idx: number; shouldShowTabListHeader: boolean; tabList: TabList }
+type Props = { idx: number; isVisibleTabListHeader: boolean; tabList: TabList }
 
 const Component: React.FC<Props> = props => {
-  const { idx, shouldShowTabListHeader, tabList } = props
+  const { idx, isVisibleTabListHeader, tabList } = props
   const [shouldDeleteTabWhenClicked] = useLocalStorage('shouldDeleteTabWhenClicked', true)
 
   const isLG = useMediaQuery('lg')
@@ -33,7 +33,7 @@ const Component: React.FC<Props> = props => {
     <TabListSection>
       {/* header */}
       <>
-        {shouldShowTabListHeader && <TabListHeader idx={idx} tabList={tabList} isLG={isLG} />}
+        {isVisibleTabListHeader && <TabListHeader idx={idx} tabList={tabList} isLG={isLG} />}
         {/* tabs */}
         {tabList.tabs.map((tab, idx) => (
           <TabSimpleLink

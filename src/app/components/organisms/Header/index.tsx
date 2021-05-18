@@ -35,7 +35,7 @@ export const Header: React.VFC<Props> = ({ text, query, onSearch }) => {
 
   return (
     <Row>
-      <Col span={23}>
+      <Col span={22}>
         <HeaderRow>
           <Link to={'/'} style={{ color: 'inherit' }}>
             <PageHeaderText>{text}</PageHeaderText>
@@ -44,15 +44,19 @@ export const Header: React.VFC<Props> = ({ text, query, onSearch }) => {
           <Input value={query} onChange={onSearch} />
         </HeaderRow>
       </Col>
-      <Col span={1}>
+      <Col span={2}>
         <HeaderRow>
           <StyledDiv
             color={popoverColor}
             bgColor={popoverBgColor}
             onClick={() => changeColorTheme(colorTheme === Themes.LIGHT ? Themes.DARK : Themes.LIGHT)}
-            style={{ cursor: 'pointer' }}
+            style={{ cursor: 'pointer', verticalAlign: 'middle' }}
           >
-            {colorTheme === Themes.DARK ? <Sun color={Colors.SUN_LIGHT} /> : <Moon color={Colors.MOON_DARK} />}
+            {colorTheme === Themes.DARK ? (
+              <Sun color={Colors.SUN_LIGHT} style={{ verticalAlign: 'middle' }} />
+            ) : (
+              <Moon color={Colors.MOON_DARK} style={{ verticalAlign: 'middle' }} />
+            )}
           </StyledDiv>
           <Menu />
         </HeaderRow>

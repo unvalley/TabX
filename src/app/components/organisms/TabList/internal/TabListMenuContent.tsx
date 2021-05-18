@@ -4,17 +4,15 @@ import Delete from '@geist-ui/react-icons/delete'
 import ExternalLink from '@geist-ui/react-icons/ExternalLink'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { SetterOrUpdater } from 'recoil'
 import { MenuItem } from '~/app/components/molecules/MenuItem'
 import { Rule } from '~/app/constants/styles'
 import { TAB_LISTS } from '~/shared/constants'
 import { deleteTabList, restoreTabList } from '~/shared/storage'
 import { TabList } from '~/shared/typings'
 
-type Props = { tabList: TabList; setTabList: SetterOrUpdater<TabList> }
+type Props = { tabList: TabList }
 
-export const TabListMenuContent: React.VFC<Props> = props => {
-  const { tabList, setTabList } = props
+export const TabListMenuContent: React.VFC<Props> = ({ tabList }) => {
   const { t } = useTranslation()
   const [, setToast] = useToasts()
 
@@ -29,7 +27,8 @@ export const TabListMenuContent: React.VFC<Props> = props => {
       return
     }
 
-    await deleteTabList(TAB_LISTS, tabListId).then(() => setTabList({} as TabList))
+    // TODO: useImmer
+    await deleteTabList(TAB_LISTS, tabListId)
 
     // show Toast
     setToast({
@@ -47,7 +46,7 @@ export const TabListMenuContent: React.VFC<Props> = props => {
   }
 
   const handleOpen = async (tabListId: number) => {
-    await restoreTabList(TAB_LISTS, tabListId).then(() => setTabList({} as TabList))
+    await restoreTabList(TAB_LISTS, tabListId).then(() => {})
   }
 
   return (

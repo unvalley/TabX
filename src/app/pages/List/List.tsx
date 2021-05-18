@@ -20,7 +20,7 @@ export const List: React.FC<{ tabLists: TabList[] }> = ({ tabLists }) => {
     keys: ['title', 'url'],
   })
 
-  const [shouldShowTabListHeader] = useLocalStorage<boolean>('shouldShowTabListHeader')
+  const [isVisibleTabListHeader] = useLocalStorage<boolean>('isVisibleTabListHeader')
   const { itemsToShow, handleShowMoreItems, isMaxLength } = useLoadMore(PER_LOAD_COUNT, tabLists)
   const isShowableHitTabs = query && hits
 
@@ -31,7 +31,7 @@ export const List: React.FC<{ tabLists: TabList[] }> = ({ tabLists }) => {
         key={`${item.id}_${idx}`}
         tabList={item}
         idx={idx}
-        shouldShowTabListHeader={shouldShowTabListHeader}
+        isVisibleTabListHeader={isVisibleTabListHeader}
       />
     )
   })

@@ -14,11 +14,11 @@ import { TabLinkOps } from '../../molecules/TabLinkOps'
 import { TabListHeader } from './internal/TabListHeader'
 import { TabListSection } from './style'
 
-type Props = { idx: number; shouldShowTabListHeader: boolean }
+type Props = { idx: number; isVisibleTabListHeader: boolean }
 
 // container
 export const DomainTabListContainer: React.FC<Props> = props => {
-  const { idx, shouldShowTabListHeader } = props
+  const { idx, isVisibleTabListHeader } = props
   const [domainTabList, setDomainTabList] = useRecoilState<DomainTabList>(domainTabListState(idx))
 
   const theme = useTheme()
@@ -44,7 +44,7 @@ export const DomainTabListContainer: React.FC<Props> = props => {
   return (
     <TabListSection>
       {/* header */}
-      {shouldShowTabListHeader && <TabListHeader idx={idx} tabList={domainTabList} isLG={isLG} />}
+      {isVisibleTabListHeader && <TabListHeader idx={idx} tabList={domainTabList} isLG={isLG} />}
       {/* tabs */}
       {domainTabList.tabs.map((tab, idx) => (
         <TabLinkWrapper

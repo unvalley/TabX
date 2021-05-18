@@ -11,7 +11,6 @@ import {
   Textarea,
   useToasts,
 } from '@geist-ui/react'
-import { ToggleEvent } from '@geist-ui/react/dist/toggle/toggle'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useRecoilValue } from 'recoil'
@@ -36,11 +35,13 @@ export const Tabs: React.VFC<Props> = props => {
   const [uploadedFileName, setUploadedFileName] = useState('')
 
   // localStorage
-  const [shouldShowTabListHeader, setShouldShowTabGroupCount] = useLocalStorage('shouldShowTabListHeader', true)
+  const [isVisibleTabListMenu, setIsVisibleTabListMenu] = useLocalStorage('isVisibleTabListMenu', true)
+  const [isVisibleTabListHeader, setIsVisibleTabListHeader] = useLocalStorage('isVisibleTabListHeader', true)
   const [shouldDeleteTabWhenClicked, setShouldDeleteTabWhenClicked] = useLocalStorage(
     'shouldDeleteTabWhenClicked',
     true,
   )
+
   const tabLists = useRecoilValue(tabListsState)
   const tabListIdexs = tabLists.map((_, idx) => idx)
   const tabCounts = tabListIdexs.map(idx => useRecoilValue<number>(tabListTotalCount(idx)))
@@ -50,14 +51,6 @@ export const Tabs: React.VFC<Props> = props => {
 
   const { t } = useTranslation()
   const [, setToast] = useToasts()
-
-  const toggleShouldShowTabListHeader = (e: ToggleEvent) => {
-    setShouldShowTabGroupCount(e.target.checked)
-  }
-
-  const toggleShouldDeleteTabWhenClicked = (e: ToggleEvent) => {
-    setShouldDeleteTabWhenClicked(e.target.checked)
-  }
 
   const handleClickExportButton = async () => {
     await exportToText()
@@ -104,13 +97,26 @@ export const Tabs: React.VFC<Props> = props => {
 
           <span>
             <ToggleWrapper>
-              <StyledToggle checked={shouldShowTabListHeader} onChange={toggleShouldShowTabListHeader} />
+              <StyledToggle checked={isVisibleTabListMenu} onChange={e => setIsVisibleTabListMenu(e.target.checked)} />
+              {/* TODO: i18n */}
+              <Text>グループ内のタブメニューを表示する</Text>
+            </ToggleWrapper>
+          </span>
+          <span>
+            <ToggleWrapper>
+              <StyledToggle
+                checked={isVisibleTabListHeader}
+                onChange={e => setIsVisibleTabListHeader(e.target.checked)}
+              />
               <Text>{t('SETTING_SHOW_TAB_GROUP_COUNT')}</Text>
             </ToggleWrapper>
           </span>
           <span>
             <ToggleWrapper>
-              <StyledToggle checked={shouldDeleteTabWhenClicked} onChange={toggleShouldDeleteTabWhenClicked} />
+              <StyledToggle
+                checked={shouldDeleteTabWhenClicked}
+                onChange={e => setShouldDeleteTabWhenClicked(e.target.checked)}
+              />
               <Text>{t('SETTING_DELETE_TAB_WHEN_CLICKED')}</Text>
             </ToggleWrapper>
           </span>
