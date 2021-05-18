@@ -10,12 +10,10 @@ import { TabListSection } from './style'
 
 type Props = { idx: number; isVisibleTabListHeader: boolean; tabList: TabList }
 
-const Component: React.FC<Props> = props => {
-  const { idx, isVisibleTabListHeader, tabList } = props
+const Component: React.FC<Props> = ({ idx, isVisibleTabListHeader, tabList }) => {
   const [shouldDeleteTabWhenClicked] = useLocalStorage('shouldDeleteTabWhenClicked', true)
 
   const isLG = useMediaQuery('lg')
-  console.log('tabList', tabList)
 
   const handleTabDelete = async (tabId: number) => {
     await deleteTabLink(TAB_LISTS, tabList.id, tabId).then(() => {

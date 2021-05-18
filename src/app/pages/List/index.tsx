@@ -9,6 +9,7 @@ import { List as Component } from './List'
 
 export const List: React.FC = () => {
   const [hasLoaded, setHasLoaded] = useState(false)
+
   const [tabLists, updateTabLists] = useImmer<TabList[]>([])
   const [tabs, updateTabs] = useImmer<TabSimple[]>([])
 

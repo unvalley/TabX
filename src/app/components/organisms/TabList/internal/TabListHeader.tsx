@@ -30,13 +30,12 @@ export const TabListHeader: React.VFC<Props> = ({ idx, tabList, isLG }) => {
   const { handleMouseOver, handleMouseOut, isMouseOvered } = useMouseOver()
   const displayTitle = useTitle(tabList)
   const [isVisibleTabListMenu] = useLocalStorage('isVisibleTabListMenu', true)
+  const displayValue = isVisibleTabListMenu || isMouseOvered(idx) ? 'inline-block' : 'none'
 
   // theme
   const theme = useTheme()
   const popoverColor = theme.palette.foreground
   const popoverBgColor = theme.palette.accents_2
-
-  const displayValue = isVisibleTabListMenu || isMouseOvered(idx) ? 'inline-block' : 'none'
 
   return (
     <StyledRow onMouseOver={() => handleMouseOver(idx)} onMouseLeave={() => handleMouseOut()}>

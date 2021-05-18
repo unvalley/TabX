@@ -16,13 +16,8 @@ export const TabListMenuContent: React.VFC<Props> = ({ tabList }) => {
   const { t } = useTranslation()
   const [, setToast] = useToasts()
 
-  // const handlePin = async (tabListId: number) => {
-  //   await pinnTabList(TAB_LISTS, tabListId)
-  // }
-
   const handleDelete = async (tabListId: number) => {
     // confirmation
-    // Are you sure you want to delete?
     if (!window.confirm(t('DELETE_MESSAGE'))) {
       return
     }

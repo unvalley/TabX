@@ -1,7 +1,7 @@
 import { Button } from '@geist-ui/react'
 import React from 'react'
 import { Header } from '~/app/components/organisms/Header'
-import { TabListContainer } from '~/app/components/organisms/TabList'
+import { TabListContainer } from '~/app/components/organisms/TabList/TabListContainer'
 import { useLoadMore, useLocalStorage } from '~/app/hooks'
 import { useFuse } from '~/app/hooks/useFuse'
 import { TabList, TabSimple } from '~/shared/typings'
