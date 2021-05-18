@@ -4,15 +4,16 @@ import Delete from '@geist-ui/react-icons/delete'
 import ExternalLink from '@geist-ui/react-icons/ExternalLink'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { SetterOrUpdater } from 'recoil'
 import { MenuItem } from '~/app/components/molecules/MenuItem'
 import { Rule } from '~/app/constants/styles'
 import { TAB_LISTS } from '~/shared/constants'
 import { deleteTabList, restoreTabList } from '~/shared/storage'
 import { TabList } from '~/shared/typings'
 
-type Props = { tabList: TabList }
+type Props = { tabList: TabList; setTabList: SetterOrUpdater<TabList> }
 
-export const TabListMenuContent: React.VFC<Props> = ({ tabList }) => {
+export const TabListMenuContent: React.VFC<Props> = ({ tabList, setTabList }) => {
   const { t } = useTranslation()
   const [, setToast] = useToasts()
 
@@ -23,7 +24,7 @@ export const TabListMenuContent: React.VFC<Props> = ({ tabList }) => {
     }
 
     // TODO: useImmer
-    await deleteTabList(TAB_LISTS, tabListId)
+    await deleteTabList(TAB_LISTS, tabListId).then(() => setTabList({} as TabList))
 
     // show Toast
     setToast({

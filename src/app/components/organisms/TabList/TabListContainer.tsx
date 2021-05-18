@@ -1,6 +1,9 @@
 import { useMediaQuery } from '@geist-ui/react'
 import React, { memo } from 'react'
+import { useRecoilState } from 'recoil'
 import { useLocalStorage } from '~/app/hooks'
+import { tabListState } from '~/app/stores/tabList'
+import { removeTab } from '~/app/utils/producer'
 import { TAB_LISTS } from '~/shared/constants'
 import { deleteTabLink } from '~/shared/storage'
 import { TabList } from '~/shared/typings'
@@ -8,19 +11,20 @@ import { TabSimpleLink } from '../../molecules/TabSimpleLink'
 import { TabListHeader } from './internal/TabListHeader'
 import { TabListSection } from './style'
 
-type Props = { idx: number; isVisibleTabListHeader: boolean; tabList: TabList }
+type Props = { idx: number; isVisibleTabListHeader: boolean }
 
-const Component: React.FC<Props> = ({ idx, isVisibleTabListHeader, tabList }) => {
+const Component: React.FC<Props> = ({ idx, isVisibleTabListHeader }) => {
   const [shouldDeleteTabWhenClicked] = useLocalStorage('shouldDeleteTabWhenClicked', true)
+  const [tabList, setTabList] = useRecoilState<TabList>(tabListState(idx))
 
   const isLG = useMediaQuery('lg')
 
   const handleTabDelete = async (tabId: number) => {
     await deleteTabLink(TAB_LISTS, tabList.id, tabId).then(() => {
       // TODO: fix type
-      // const newTabs = removeTab(tabList, tabId) as TabList
+      const newTabs = removeTab(tabList, tabId) as TabList
       // NOTE: handling for last tab deletion
-      // newTabs.tabs.length >= 1 ? setTabList(newTabs) : setTabList({} as TabList)
+      newTabs.tabs.length >= 1 ? setTabList(newTabs) : setTabList({} as TabList)
     })
   }
 
@@ -31,10 +35,11 @@ const Component: React.FC<Props> = ({ idx, isVisibleTabListHeader, tabList }) =>
     <TabListSection>
       {/* header */}
       <>
-        {isVisibleTabListHeader && <TabListHeader idx={idx} tabList={tabList} isLG={isLG} />}
+        {isVisibleTabListHeader && <TabListHeader idx={idx} tabList={tabList} setTabList={setTabList} isLG={isLG} />}
         {/* tabs */}
         {tabList.tabs.map((tab, idx) => (
           <TabSimpleLink
+            key={`${tab.id}_${idx}`}
             tab={tab}
             idx={idx}
             shouldShowOps={true}

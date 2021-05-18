@@ -1,6 +1,7 @@
 import { Popover, useTheme } from '@geist-ui/react'
 import Menu from '@geist-ui/react-icons/Menu'
 import React from 'react'
+import { SetterOrUpdater } from 'recoil'
 import styled from 'styled-components'
 import { Spacing } from '~/app/constants/styles'
 import { useLocalStorage, useMouseOver, useTitle } from '~/app/hooks'
@@ -11,6 +12,7 @@ import { TabListMenuContent } from './TabListMenuContent'
 type Props = {
   idx: number
   tabList: TabList
+  setTabList: SetterOrUpdater<TabList>
   isLG?: boolean
 }
 
@@ -26,7 +28,7 @@ const StyledPopover = styled(Popover)<{ $bgColor: string; $color: string }>`
   }
 `
 
-export const TabListHeader: React.VFC<Props> = ({ idx, tabList, isLG }) => {
+export const TabListHeader: React.VFC<Props> = ({ idx, tabList, setTabList, isLG }) => {
   const { handleMouseOver, handleMouseOut, isMouseOvered } = useMouseOver()
   const displayTitle = useTitle(tabList)
   const [isVisibleTabListMenu] = useLocalStorage('isVisibleTabListMenu', true)
@@ -44,7 +46,7 @@ export const TabListHeader: React.VFC<Props> = ({ idx, tabList, isLG }) => {
           placement={isLG ? 'leftStart' : 'bottomStart'}
           leaveDelay={2}
           offset={12}
-          content={<TabListMenuContent tabList={tabList} />}
+          content={<TabListMenuContent tabList={tabList} setTabList={setTabList} />}
           style={{
             display: displayValue,
           }}

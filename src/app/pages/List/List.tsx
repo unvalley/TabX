@@ -26,8 +26,7 @@ export const List: React.FC<{ tabLists: TabList[]; tabs: TabSimple[] }> = ({ tab
   const homeCurrentTabList = itemsToShow.map((item, idx) => {
     return (
       <TabListContainer
-        key={`${item.id}_${idx}`}
-        tabList={item}
+        key={`${item.createdAt}_${item.id}_${idx}`}
         idx={idx}
         isVisibleTabListHeader={isVisibleTabListHeader}
       />
