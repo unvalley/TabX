@@ -1,19 +1,14 @@
 import { Button } from '@geist-ui/react'
 import React from 'react'
-import { useRecoilValue } from 'recoil'
 import { Header } from '~/app/components/organisms/Header'
 import { TabListContainer } from '~/app/components/organisms/TabList'
 import { useLoadMore, useLocalStorage } from '~/app/hooks'
 import { useFuse } from '~/app/hooks/useFuse'
 import { TabList, TabSimple } from '~/shared/typings'
 import { TabSimpleLink } from '../../components/molecules/TabSimpleLink'
-import { tabsState } from '../../stores/tabs'
 
-const PER_LOAD_COUNT = 5
-
-export const List: React.FC<{ tabLists: TabList[] }> = ({ tabLists }) => {
-  const tabs = useRecoilValue<TabSimple[]>(tabsState)
-  const { hits, query, onSearch } = useFuse(tabs, {
+export const List: React.FC<{ tabLists: TabList[]; tabs: TabSimple[] }> = ({ tabLists, tabs }) => {
+  const { searchResults, query, onSearch } = useFuse(tabs, {
     minMatchCharLength: 2,
     shouldSort: true,
     threshold: 0.2,
@@ -21,8 +16,11 @@ export const List: React.FC<{ tabLists: TabList[] }> = ({ tabLists }) => {
   })
 
   const [isVisibleTabListHeader] = useLocalStorage<boolean>('isVisibleTabListHeader')
+
+  const PER_LOAD_COUNT = 5
   const { itemsToShow, handleShowMoreItems, isMaxLength } = useLoadMore(PER_LOAD_COUNT, tabLists)
-  const isShowableHitTabs = query && hits
+
+  const isShowableHitTabs = query && searchResults
 
   /** sliced by useLoadMore */
   const homeCurrentTabList = itemsToShow.map((item, idx) => {
@@ -41,7 +39,7 @@ export const List: React.FC<{ tabLists: TabList[] }> = ({ tabLists }) => {
       <Header text={'TabX'} query={query} onSearch={onSearch} />
       {isShowableHitTabs ? (
         <>
-          {hits.map((tab, idx) => (
+          {searchResults.map((tab, idx) => (
             <TabSimpleLink tab={tab.item} idx={idx} shouldShowOps={false} shouldDeleteTabWhenClicked={false} />
           ))}
         </>

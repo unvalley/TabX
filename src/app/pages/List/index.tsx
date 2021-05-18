@@ -3,19 +3,21 @@ import { useTranslation } from 'react-i18next'
 import { useImmer } from 'use-immer'
 import { Load } from '~/app/components/atoms/Load'
 import { TAB_LISTS } from '~/shared/constants'
-import { getAllLists } from '~/shared/storage'
-import { TabList } from '~/shared/typings'
+import { getAllFlatTabs, getAllLists } from '~/shared/storage'
+import { TabList, TabSimple } from '~/shared/typings'
 import { List as Component } from './List'
 
 export const List: React.FC = () => {
-  const [tabLists, updateTabLists] = useImmer<TabList[]>([])
   const [hasLoaded, setHasLoaded] = useState(false)
+  const [tabLists, updateTabLists] = useImmer<TabList[]>([])
+  const [tabs, updateTabs] = useImmer<TabSimple[]>([])
+
   const { t } = useTranslation()
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await getAllLists(TAB_LISTS)
-      updateTabLists(res)
+      await getAllLists(TAB_LISTS).then(res => updateTabLists(res))
+      await getAllFlatTabs().then(res => updateTabs(res))
     }
     fetchData()
       .then(() => setHasLoaded(true))
@@ -25,7 +27,7 @@ export const List: React.FC = () => {
   return !hasLoaded ? (
     <Load />
   ) : tabLists.length >= 1 ? (
-    <Component tabLists={tabLists} />
+    <Component tabLists={tabLists} tabs={tabs} />
   ) : (
     <h4>{t('TAB_LISTS_EMPTY_MESSAGE')}</h4>
   )
