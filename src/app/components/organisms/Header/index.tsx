@@ -9,7 +9,7 @@ import { Colors, Spacing, Themes } from '~/app/constants/styles'
 import { colorThemeState } from '~/app/stores/colorTheme'
 import { HeaderRow, PageHeaderText } from './style'
 
-type Props = { text?: string; query?: string; onSearch?: (e: any) => void }
+type Props = { text?: string; onSearch?: (e: any) => void }
 
 const StyledDiv = styled.div<{ color: string; bgColor: string }>`
   cursor: pointer;
@@ -22,7 +22,7 @@ const StyledDiv = styled.div<{ color: string; bgColor: string }>`
   }
 `
 
-export const Header: React.VFC<Props> = ({ text, query, onSearch }) => {
+export const Header: React.VFC<Props> = ({ text, onSearch }) => {
   const [colorTheme, setColorTheme] = useRecoilState(colorThemeState)
   const theme = useTheme()
   const popoverColor = theme.palette.foreground
@@ -46,7 +46,6 @@ export const Header: React.VFC<Props> = ({ text, query, onSearch }) => {
             status="secondary"
             placeholder="Search tabs"
             clearable={true}
-            value={query}
             onChange={onSearch}
             style={{ margin: '2px 10px 0px 2px' }}
           />

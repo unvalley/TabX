@@ -13,7 +13,7 @@ export const useFuse = (list: TabSimple[], fuseOptions: Fuse.IFuseOptions<any>) 
   // NOTE: we remap the results to match the return structure of `fuse.search()`
   const searchResults = useMemo(() => (query ? fuse.search(query, { limit: 10 }) : []), [fuse, query])
   // debounce updateQuery and rename it `setQuery` so it's transparent
-  const setQuery = useCallback(debounce(10, updateQuery), [])
+  const setQuery = useCallback(debounce(15, updateQuery), [])
   // pass a handling helper to speed up implementation
   const onSearch = useCallback(e => setQuery(e.target.value), [setQuery])
   // still returning `setQuery` for custom handler implementations

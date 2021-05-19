@@ -11,7 +11,8 @@ export const List: React.FC<{ tabLists: TabList[]; tabs: TabSimple[] }> = ({ tab
   const { searchResults, query, onSearch } = useFuse(tabs, {
     minMatchCharLength: 2,
     shouldSort: true,
-    threshold: 0.2,
+    threshold: 0.3,
+    findAllMatches: true,
     keys: ['title', 'url'],
   })
 
@@ -35,7 +36,7 @@ export const List: React.FC<{ tabLists: TabList[]; tabs: TabSimple[] }> = ({ tab
 
   return (
     <>
-      <Header text={'TabX'} query={query} onSearch={onSearch} />
+      <Header text={'TabX'} onSearch={onSearch} />
       {isShowableHitTabs ? (
         <>
           {searchResults.map((tab, idx) => (
