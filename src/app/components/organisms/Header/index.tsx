@@ -1,5 +1,5 @@
 import { Col, Input, Row, Spacer, useTheme } from '@geist-ui/react'
-import { Moon, Sun } from '@geist-ui/react-icons'
+import { Moon, Search, Sun } from '@geist-ui/react-icons'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
@@ -41,7 +41,15 @@ export const Header: React.VFC<Props> = ({ text, query, onSearch }) => {
             <PageHeaderText>{text}</PageHeaderText>
           </Link>
           <Spacer />
-          <Input value={query} onChange={onSearch} />
+          <Input
+            icon={<Search />}
+            status="secondary"
+            placeholder="Search tabs"
+            clearable={true}
+            value={query}
+            onChange={onSearch}
+            style={{ margin: '2px 10px 0px 2px' }}
+          />
         </HeaderRow>
       </Col>
       <Col span={2}>
