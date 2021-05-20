@@ -23,10 +23,7 @@ export const TabListMenuContent: React.VFC<Props> = ({ tabList, setTabList }) =>
       return
     }
 
-    // TODO: useImmer
     await deleteTabList(TAB_LISTS, tabListId).then(() => setTabList({} as TabList))
-
-    // show Toast
     setToast({
       text: t('DELETED_SELECTED_TABS'),
     })
@@ -42,7 +39,8 @@ export const TabListMenuContent: React.VFC<Props> = ({ tabList, setTabList }) =>
   }
 
   const handleOpen = async (tabListId: number) => {
-    await restoreTabList(TAB_LISTS, tabListId)
+    // TODO: refactor
+    await restoreTabList(TAB_LISTS, tabListId).then(() => setTabList({} as TabList))
   }
 
   return (
