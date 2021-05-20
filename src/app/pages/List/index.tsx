@@ -26,7 +26,7 @@ export const List: React.FC = () => {
 
   return !hasLoaded ? (
     <Load />
-  ) : tabLists.length >= 1 ? (
+  ) : tabLists.length > 0 ? (
     <Component tabLists={tabLists} tabs={tabs} />
   ) : (
     <h4>{t('TAB_LISTS_EMPTY_MESSAGE')}</h4>

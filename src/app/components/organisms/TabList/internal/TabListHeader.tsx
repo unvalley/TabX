@@ -49,6 +49,8 @@ export const TabListHeader: React.VFC<Props> = ({ idx, tabList, setTabList, isLG
           content={<TabListMenuContent tabList={tabList} setTabList={setTabList} />}
           style={{
             display: displayValue,
+            lineHeight: 0,
+            padding: Spacing['2'],
           }}
           $color={popoverColor}
           $bgColor={popoverBgColor}
