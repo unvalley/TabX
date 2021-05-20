@@ -19,8 +19,6 @@ export const HoveredMenu = styled.div`
   margin-left: -100px;
   float: left;
   width: 100px;
-  line-height: 28px;
-  height: 28px;
   text-align: right;
   vertical-align: top;
 `

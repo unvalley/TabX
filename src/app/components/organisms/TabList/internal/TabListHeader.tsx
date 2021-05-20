@@ -21,7 +21,6 @@ const StyledPopover = styled(Popover)<{ $bgColor: string; $color: string }>`
   margin-right: 20px;
   border-radius: 50%;
   transition: all 0.3s ease;
-  padding: ${Spacing['0.5']} ${Spacing['1']};
   &:hover {
     color: ${props => props.$color};
     background-color: ${props => props.$bgColor};
@@ -32,7 +31,7 @@ export const TabListHeader: React.VFC<Props> = ({ idx, tabList, setTabList, isLG
   const { handleMouseOver, handleMouseOut, isMouseOvered } = useMouseOver()
   const displayTitle = useTitle(tabList)
   const [isVisibleTabListMenu] = useLocalStorage('isVisibleTabListMenu', true)
-  const displayValue = isVisibleTabListMenu || isMouseOvered(idx) ? 'inline-block' : 'none'
+  const displayValue = isVisibleTabListMenu || isMouseOvered(idx) ? 'inline-block' : 'inline-block'
 
   // theme
   const theme = useTheme()
@@ -40,7 +39,11 @@ export const TabListHeader: React.VFC<Props> = ({ idx, tabList, setTabList, isLG
   const popoverBgColor = theme.palette.accents_2
 
   return (
-    <StyledRow onMouseOver={() => handleMouseOver(idx)} onMouseLeave={() => handleMouseOut()}>
+    <StyledRow
+      style={{ marginBottom: '2px' }}
+      onMouseOver={() => handleMouseOver(idx)}
+      onMouseLeave={() => handleMouseOut()}
+    >
       <HoveredMenu>
         <StyledPopover
           placement={isLG ? 'leftStart' : 'bottomStart'}
@@ -49,6 +52,8 @@ export const TabListHeader: React.VFC<Props> = ({ idx, tabList, setTabList, isLG
           content={<TabListMenuContent tabList={tabList} setTabList={setTabList} />}
           style={{
             display: displayValue,
+            cursor: 'pointer',
+            verticalAlign: 'middle!important',
             lineHeight: 0,
             padding: Spacing['2'],
           }}
@@ -63,10 +68,12 @@ export const TabListHeader: React.VFC<Props> = ({ idx, tabList, setTabList, isLG
           />
         </StyledPopover>
       </HoveredMenu>
-      <div>
-        {/* TODO: dont use h4  */}
-        <h4 style={{ marginBottom: '0px' }}>{displayTitle}</h4>
-      </div>
+      {/* TODO: dont use h4  */}
+      <span
+        style={{ display: 'block', fontWeight: 'bold', fontSize: '22px', verticalAlign: 'middle', alignSelf: 'center' }}
+      >
+        {displayTitle}
+      </span>
     </StyledRow>
   )
 }
