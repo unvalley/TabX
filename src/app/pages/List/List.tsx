@@ -40,7 +40,13 @@ export const List: React.FC<{ tabLists: TabList[]; tabs: TabSimple[] }> = ({ tab
       {isShowableHitTabs ? (
         <>
           {searchResults.map((tab, idx) => (
-            <TabSimpleLink tab={tab.item} idx={idx} shouldShowOps={false} shouldDeleteTabWhenClicked={false} />
+            <TabSimpleLink
+              key={`${tab.item.id}_${idx}`}
+              tab={tab.item}
+              idx={idx}
+              shouldShowOps={false}
+              shouldDeleteTabWhenClicked={false}
+            />
           ))}
         </>
       ) : (

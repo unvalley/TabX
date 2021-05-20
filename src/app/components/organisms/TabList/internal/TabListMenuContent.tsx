@@ -42,7 +42,7 @@ export const TabListMenuContent: React.VFC<Props> = ({ tabList, setTabList }) =>
   }
 
   const handleOpen = async (tabListId: number) => {
-    await restoreTabList(TAB_LISTS, tabListId).then(() => {})
+    await restoreTabList(TAB_LISTS, tabListId)
   }
 
   return (

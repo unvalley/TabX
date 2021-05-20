@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-export const useLoadMore = <T>(loadCount: number = 5, items: T[]) => {
+export const useLoadMore = <T>(loadCount = 5, items: T[]) => {
   const [limit, setLimit] = useState(loadCount)
   const [itemsToShow, setItemsToShow] = useState<T[]>([])
   const [loading, setLoading] = useState<boolean>(false)
