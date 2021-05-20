@@ -12,8 +12,9 @@ export const StyledMoreVertical = styled(MoreVertical)`
 const StyledPopover = styled(Popover)<{ color: string; bgColor: string }>`
   cursor: pointer;
   border-radius: 50%;
-  padding: ${Spacing['0.5']} ${Spacing['1']};
+  padding: ${Spacing['2']};
   transition: all 0.3s ease;
+  line-height: 0;
   &:hover {
     color: ${({ color }) => color};
     background-color: ${({ bgColor }) => bgColor};

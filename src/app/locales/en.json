@@ -10,6 +10,8 @@
   "DELETED_ALL_TABS": "Deleted All Tabs",
   "COLOR_THEMES": "Color Themes",
   "CONTRIBUTION": "Contribution",
+
+  "SETTING_SHOW_TAB_GROUP_MENU": "Show tab group menu",
   "SETTING_SHOW_TAB_GROUP_COUNT": "Show tab group count",
   "SETTING_DELETE_TAB_WHEN_CLICKED": "Delete tab when clicked",
   "SETTING_EXPORT": "Export Tabs",

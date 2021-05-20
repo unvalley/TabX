@@ -9,7 +9,7 @@ import { TabSimpleLink } from '../../components/molecules/TabSimpleLink'
 
 export const List: React.FC<{ tabLists: TabList[]; tabs: TabSimple[] }> = ({ tabLists, tabs }) => {
   const { searchResults, query, onSearch } = useFuse(tabs, {
-    minMatchCharLength: 2,
+    minMatchCharLength: 1,
     shouldSort: true,
     threshold: 0.3,
     findAllMatches: true,
@@ -18,7 +18,7 @@ export const List: React.FC<{ tabLists: TabList[]; tabs: TabSimple[] }> = ({ tab
 
   const [isVisibleTabListHeader] = useLocalStorage<boolean>('isVisibleTabListHeader')
 
-  const PER_LOAD_COUNT = 5
+  const PER_LOAD_COUNT = 6
   const { itemsToShow, handleShowMoreItems, isMaxLength } = useLoadMore(PER_LOAD_COUNT, tabLists)
 
   const isShowableHitTabs = query && searchResults

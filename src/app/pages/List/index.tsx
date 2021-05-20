@@ -4,7 +4,6 @@ import { useRecoilValue } from 'recoil'
 import { useImmer } from 'use-immer'
 import { Load } from '~/app/components/atoms/Load'
 import { tabListsState } from '~/app/stores/tabLists'
-// import { TAB_LISTS } from '~/shared/constants'
 import { getAllFlatTabs } from '~/shared/storage'
 import { TabList, TabSimple } from '~/shared/typings'
 import { List as Component } from './List'
@@ -18,7 +17,6 @@ export const List: React.FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      // await getAllLists(TAB_LISTS).then(res => setTabLists(res))
       await getAllFlatTabs().then(res => updateTabs(res))
     }
     fetchData()

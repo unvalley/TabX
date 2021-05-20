@@ -57,7 +57,7 @@ export const Header: React.VFC<Props> = ({ text, onSearch }) => {
             color={popoverColor}
             bgColor={popoverBgColor}
             onClick={() => changeColorTheme(colorTheme === Themes.LIGHT ? Themes.DARK : Themes.LIGHT)}
-            style={{ cursor: 'pointer', verticalAlign: 'middle' }}
+            style={{ cursor: 'pointer', verticalAlign: 'middle', lineHeight: 0, padding: Spacing['2'] }}
           >
             {colorTheme === Themes.DARK ? (
               <Sun color={Colors.SUN_LIGHT} style={{ verticalAlign: 'middle' }} />
