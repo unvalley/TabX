@@ -1,5 +1,7 @@
 {
   "----SETTINGS----": "",
+  "HOME": "Home",
+  "SETTINGS": "Settings",
   "LANGUAGE": "Language",
   "CURRENT_LANGUAGE": "Current Language",
   "TABS": "Tabs",
@@ -10,6 +12,8 @@
   "DELETED_ALL_TABS": "Deleted All Tabs",
   "COLOR_THEMES": "Color Themes",
   "CONTRIBUTION": "Contribution",
+
+  "SETTING_SHOW_TAB_GROUP_MENU": "Show tab group menu",
   "SETTING_SHOW_TAB_GROUP_COUNT": "Show tab group count",
   "SETTING_DELETE_TAB_WHEN_CLICKED": "Delete tab when clicked",
   "SETTING_EXPORT": "Export Tabs",
@@ -18,7 +22,7 @@
   "HIDE_EXPORT_BUTTON": "hide",
 
   "TOTAL_TAB": "Current Total Tabs",
-  "TAB_LISTS_EMPTY_MESSAGE": "Congrats! Here is no Tabs 🎉 Click TabX chrome icon, it stores opend tabs",
+  "TAB_LISTS_EMPTY_MESSAGE": "After clicking TabX chrome icon, it stores opend all tabs",
   "----MENU----": "",
   "PIN_TABS": "Pin Tabs",
   "OPEN_TABS": "Open Tabs",

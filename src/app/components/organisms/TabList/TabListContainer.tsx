@@ -1,5 +1,5 @@
 import { useMediaQuery } from '@geist-ui/react'
-import React from 'react'
+import React, { memo } from 'react'
 import { useRecoilState } from 'recoil'
 import { useLocalStorage } from '~/app/hooks'
 import { tabListState } from '~/app/stores/tabList'
@@ -11,12 +11,11 @@ import { TabSimpleLink } from '../../molecules/TabSimpleLink'
 import { TabListHeader } from './internal/TabListHeader'
 import { TabListSection } from './style'
 
-type Props = { idx: number; shouldShowTabListHeader: boolean }
+type Props = { idx: number; isVisibleTabListHeader: boolean }
 
-export const TabListContainer: React.FC<Props> = props => {
-  const { idx, shouldShowTabListHeader } = props
-  const [tabList, setTabList] = useRecoilState<TabList>(tabListState(idx))
+const Component: React.FC<Props> = ({ idx, isVisibleTabListHeader }) => {
   const [shouldDeleteTabWhenClicked] = useLocalStorage('shouldDeleteTabWhenClicked', true)
+  const [tabList, setTabList] = useRecoilState<TabList>(tabListState(idx))
 
   const isLG = useMediaQuery('lg')
 
@@ -30,24 +29,27 @@ export const TabListContainer: React.FC<Props> = props => {
   }
 
   // NOTE: handling for deleting a tabList from each menu
-  if (!tabList || !tabList.tabs) {
-    return <></>
-  }
+  if (!tabList || !tabList.tabs) return <></>
 
   return (
     <TabListSection>
       {/* header */}
-      {shouldShowTabListHeader && <TabListHeader idx={idx} tabList={tabList} isLG={isLG} />}
-      {/* tabs */}
-      {tabList.tabs.map((tab, idx) => (
-        <TabSimpleLink
-          tab={tab}
-          idx={idx}
-          shouldShowOps={true}
-          onDelete={handleTabDelete}
-          shouldDeleteTabWhenClicked={shouldDeleteTabWhenClicked}
-        />
-      ))}
+      <>
+        {isVisibleTabListHeader && <TabListHeader idx={idx} tabList={tabList} setTabList={setTabList} isLG={isLG} />}
+        {/* tabs */}
+        {tabList.tabs.map((tab, idx) => (
+          <TabSimpleLink
+            key={`${tab.id}_${idx}`}
+            tab={tab}
+            idx={idx}
+            shouldShowOps={true}
+            onDelete={handleTabDelete}
+            shouldDeleteTabWhenClicked={shouldDeleteTabWhenClicked}
+          />
+        ))}
+      </>
     </TabListSection>
   )
 }
+
+export const TabListContainer = memo(Component)

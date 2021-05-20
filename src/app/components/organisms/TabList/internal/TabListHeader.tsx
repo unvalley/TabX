@@ -1,12 +1,10 @@
 import { Popover, useTheme } from '@geist-ui/react'
 import Menu from '@geist-ui/react-icons/Menu'
-import Pin from '@geist-ui/react-icons/Pin'
 import React from 'react'
-import { useSetRecoilState } from 'recoil'
+import { SetterOrUpdater } from 'recoil'
 import styled from 'styled-components'
 import { Spacing } from '~/app/constants/styles'
-import { useMouseOver, useTitle } from '~/app/hooks'
-import { tabListState } from '~/app/stores/tabList'
+import { useLocalStorage, useMouseOver, useTitle } from '~/app/hooks'
 import { TabList } from '~/shared/typings'
 import { HoveredMenu, StyledRow } from '../style'
 import { TabListMenuContent } from './TabListMenuContent'
@@ -14,26 +12,28 @@ import { TabListMenuContent } from './TabListMenuContent'
 type Props = {
   idx: number
   tabList: TabList
+  setTabList: SetterOrUpdater<TabList>
   isLG?: boolean
 }
 
-const StyledPopover = styled(Popover)<{ color: string; bgColor: string }>`
+const StyledPopover = styled(Popover)<{ $bgColor: string; $color: string }>`
   cursor: pointer;
   margin-right: 20px;
   border-radius: 50%;
   transition: all 0.3s ease;
-  padding: ${Spacing['0.5']} ${Spacing['1']};
   &:hover {
-    color: ${({ color }) => color};
-    background-color: ${({ bgColor }) => bgColor};
+    color: ${props => props.$color};
+    background-color: ${props => props.$bgColor};
   }
 `
 
-export const TabListHeader: React.VFC<Props> = props => {
-  const { idx, tabList, isLG } = props
-  const setTabList = useSetRecoilState(tabListState(idx))
+// TODO: fix styles
+
+export const TabListHeader: React.VFC<Props> = ({ idx, tabList, setTabList, isLG }) => {
   const { handleMouseOver, handleMouseOut, isMouseOvered } = useMouseOver()
   const displayTitle = useTitle(tabList)
+  const [isVisibleTabListMenu] = useLocalStorage('isVisibleTabListMenu', true)
+  const displayValue = isVisibleTabListMenu || isMouseOvered(idx) ? 'inline-block' : 'none'
 
   // theme
   const theme = useTheme()
@@ -41,7 +41,11 @@ export const TabListHeader: React.VFC<Props> = props => {
   const popoverBgColor = theme.palette.accents_2
 
   return (
-    <StyledRow onMouseOver={() => handleMouseOver(idx)} onMouseLeave={() => handleMouseOut()}>
+    <StyledRow
+      style={{ height: '50px' }}
+      onMouseOver={() => handleMouseOver(idx)}
+      onMouseLeave={() => handleMouseOut()}
+    >
       <HoveredMenu>
         <StyledPopover
           placement={isLG ? 'leftStart' : 'bottomStart'}
@@ -49,10 +53,14 @@ export const TabListHeader: React.VFC<Props> = props => {
           offset={12}
           content={<TabListMenuContent tabList={tabList} setTabList={setTabList} />}
           style={{
-            display: isMouseOvered(idx) ? 'inline-block' : 'none',
+            display: displayValue,
+            cursor: 'pointer',
+            verticalAlign: 'middle!important',
+            lineHeight: 0,
+            padding: Spacing['2'],
           }}
-          color={popoverColor}
-          bgColor={popoverBgColor}
+          $color={popoverColor}
+          $bgColor={popoverBgColor}
         >
           <Menu
             style={{
@@ -62,16 +70,18 @@ export const TabListHeader: React.VFC<Props> = props => {
           />
         </StyledPopover>
       </HoveredMenu>
-      <div>
-        {tabList.hasPinned ? (
-          <>
-            <Pin />
-            <span style={{ fontSize: '18px' }}>{displayTitle}</span>
-          </>
-        ) : (
-          <h4 style={{ marginBottom: '0px' }}>{displayTitle}</h4>
-        )}
-      </div>
+      <span
+        style={{
+          display: 'block',
+          fontWeight: 600,
+          fontSize: '22px',
+          verticalAlign: 'middle',
+          alignSelf: 'center',
+          overflow: 'hidden',
+        }}
+      >
+        {displayTitle}
+      </span>
     </StyledRow>
   )
 }

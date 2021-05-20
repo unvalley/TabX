@@ -1,5 +1,5 @@
 import { useTheme } from '@geist-ui/react'
-import React from 'react'
+import React, { memo } from 'react'
 import { Rule, Spacing, Themes } from '~/app/constants/styles'
 import { useMouseOver } from '~/app/hooks'
 import { TabSimple } from '~/shared/typings'
@@ -16,13 +16,7 @@ type Props = {
   onDelete?: (tabId: number) => Promise<void>
 }
 
-export const TabSimpleLink: React.VFC<Props> = ({
-  tab,
-  idx,
-  shouldShowOps,
-  shouldDeleteTabWhenClicked = true,
-  onDelete,
-}) => {
+const Component: React.VFC<Props> = ({ tab, idx, shouldShowOps, shouldDeleteTabWhenClicked = true, onDelete }) => {
   const theme = useTheme()
   const tabLinkWrapperBg = theme.type === Themes.DARK ? theme.palette.accents_2 : theme.palette.accents_1
   const { handleMouseOut, handleMouseOver, isMouseOvered } = useMouseOver()
@@ -58,3 +52,4 @@ export const TabSimpleLink: React.VFC<Props> = ({
     </TabLinkWrapper>
   )
 }
+export const TabSimpleLink = memo(Component)

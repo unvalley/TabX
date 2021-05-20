@@ -9,14 +9,15 @@ export const StyledMoreVertical = styled(MoreVertical)`
   border-radius: 20px;
 `
 
-const StyledPopover = styled(Popover)<{ color: string; bgColor: string }>`
+const StyledPopover = styled(Popover)<{ $color: string; $bgColor: string }>`
   cursor: pointer;
   border-radius: 50%;
-  padding: ${Spacing['0.5']} ${Spacing['1']};
+  padding: ${Spacing['2']};
   transition: all 0.3s ease;
+  line-height: 0;
   &:hover {
-    color: ${({ color }) => color};
-    background-color: ${({ bgColor }) => bgColor};
+    color: ${props => props.color};
+    background-color: ${props => props.$bgColor};
   }
 `
 
@@ -26,7 +27,7 @@ export const Menu: React.VFC = () => {
   const popoverBgColor = theme.palette.accents_2
 
   return (
-    <StyledPopover content={<MenuContent />} color={popoverColor} bgColor={popoverBgColor}>
+    <StyledPopover content={<MenuContent />} $color={popoverColor} $bgColor={popoverBgColor}>
       <StyledMoreVertical />
     </StyledPopover>
   )

@@ -45,16 +45,6 @@ export const normalizeUrlText = (urlObj: ImportedUrlObj) => {
 // List
 // ========================
 
-// const listBase = {
-//   id: genObjectId(),
-//   title: '',
-//   description: '',
-//   has pinned on this extension? - default false
-//   hasPinned: false,
-//   createdAt: Date.now(),
-//   updatedAt: Date.now(),
-// }
-
 export const createNewTabList = (tabs: Tabs.Tab[]): TabList => ({
   id: genObjectId(),
   title: '',
