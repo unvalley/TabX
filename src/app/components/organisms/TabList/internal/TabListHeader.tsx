@@ -27,11 +27,13 @@ const StyledPopover = styled(Popover)<{ $bgColor: string; $color: string }>`
   }
 `
 
+// TODO: fix styles
+
 export const TabListHeader: React.VFC<Props> = ({ idx, tabList, setTabList, isLG }) => {
   const { handleMouseOver, handleMouseOut, isMouseOvered } = useMouseOver()
   const displayTitle = useTitle(tabList)
   const [isVisibleTabListMenu] = useLocalStorage('isVisibleTabListMenu', true)
-  const displayValue = isVisibleTabListMenu || isMouseOvered(idx) ? 'inline-block' : 'inline-block'
+  const displayValue = isVisibleTabListMenu || isMouseOvered(idx) ? 'inline-block' : 'none'
 
   // theme
   const theme = useTheme()
@@ -40,7 +42,7 @@ export const TabListHeader: React.VFC<Props> = ({ idx, tabList, setTabList, isLG
 
   return (
     <StyledRow
-      style={{ marginBottom: '2px' }}
+      style={{ height: '50px' }}
       onMouseOver={() => handleMouseOver(idx)}
       onMouseLeave={() => handleMouseOut()}
     >
@@ -68,9 +70,15 @@ export const TabListHeader: React.VFC<Props> = ({ idx, tabList, setTabList, isLG
           />
         </StyledPopover>
       </HoveredMenu>
-      {/* TODO: dont use h4  */}
       <span
-        style={{ display: 'block', fontWeight: 'bold', fontSize: '22px', verticalAlign: 'middle', alignSelf: 'center' }}
+        style={{
+          display: 'block',
+          fontWeight: 600,
+          fontSize: '22px',
+          verticalAlign: 'middle',
+          alignSelf: 'center',
+          overflow: 'hidden',
+        }}
       >
         {displayTitle}
       </span>

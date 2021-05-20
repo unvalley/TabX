@@ -98,8 +98,7 @@ export const Tabs: React.VFC<Props> = props => {
           <span>
             <ToggleWrapper>
               <StyledToggle checked={isVisibleTabListMenu} onChange={e => setIsVisibleTabListMenu(e.target.checked)} />
-              {/* TODO: i18n */}
-              <Text>グループ内のタブメニューを表示する</Text>
+              <Text>{t('SETTING_SHOW_TAB_GROUP_MENU')}</Text>
             </ToggleWrapper>
           </span>
           <span>

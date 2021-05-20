@@ -1,5 +1,7 @@
 {
   "----SETTINGS----": "",
+  "HOME": "Home",
+  "SETTINGS": "Settings",
   "LANGUAGE": "Language",
   "CURRENT_LANGUAGE": "Current Language",
   "TABS": "Tabs",
