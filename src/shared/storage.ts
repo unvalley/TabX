@@ -6,8 +6,6 @@ import { DOMAIN_TAB_LISTS, TAB_LISTS } from './constants'
 import { createNewDomainTabList } from './list'
 import { restoreTabs } from './tabAction'
 import { DomainTabList, ListName, ListType, TabList, TabSimple } from './typings'
-import { acquireMetadata } from './utils/api'
-import { genParamsToFetchMetadata, zip } from './utils/util'
 
 const mutex = new Mutex()
 
@@ -98,8 +96,8 @@ export const deleteTabLink = async (key: ListName, tabListId: number, tabId: num
     const allTabLists = await getAllLists(key)
     const updatedAllTabLists = produce(allTabLists, draft => {
       const targetTabListElem = draft.filter(list => list.id === tabListId)[0]
-      const idx = targetTabListElem.tabs.findIndex(({ id }) => id === tabId)
-      targetTabListElem.tabs = targetTabListElem.tabs.filter((_, i) => i !== idx)
+      const index = targetTabListElem.tabs.findIndex(({ id }) => id === tabId)
+      targetTabListElem.tabs = targetTabListElem.tabs.filter((_, i) => i !== index)
       // DELETE and hanlde if tabs are empty
       !targetTabListElem.tabs.length && deleteTabList(key, tabListId)
     })
@@ -148,32 +146,4 @@ export const restoreTabList = async (key: ListName, tabListId: number) => {
   await restoreTabs(targetTabListElem.tabs)
   // DELETE
   await deleteTabList(key, tabListId)
-}
-
-// ========================
-// Meta
-// ========================
-
-const mergeTabsWithMeta = async (tabs: TabSimple[]) => {
-  const params = genParamsToFetchMetadata(tabs)
-  const metaObjs = await acquireMetadata(params)
-
-  const tabsWithMetas = []
-  // NOTE: merge tabs and metaObjs
-  for (const [tab, metaObj] of zip(tabs, metaObjs)) {
-    tabsWithMetas.push({ ...tab, ...metaObj })
-  }
-  return tabsWithMetas
-}
-
-export const updateTabListElemWithMeta = async (tabListId: number) => {
-  // SELECT
-  const allTabLists = await getAllLists(TAB_LISTS)
-  const targetTabListElem = allTabLists.filter(list => list.id === tabListId)[0]
-  // NOTE: prepare data for update
-  const tabsWithMeta = await mergeTabsWithMeta(targetTabListElem.tabs)
-  targetTabListElem.tabs = tabsWithMeta
-
-  // UPDATE
-  setLists(TAB_LISTS, allTabLists)
 }

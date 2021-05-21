@@ -6,7 +6,7 @@ const path = require('path')
 
 module.exports = {
   entry: {
-    app: './src/app/index.tsx',
+    app: './src/ui/index.tsx',
     background: './src/background.ts',
   },
   output: {

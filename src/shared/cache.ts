@@ -1,6 +1,6 @@
 import { DOMAIN_TAB_LISTS, TAB_LISTS } from './constants'
 import { DomainTabList, ListName, ListType, TabList } from './typings'
-import { eq, when } from './utils/util'
+import { eq, when } from './utils'
 
 export const cache = { tabLists: [] as TabList[], domainTabLists: [] as DomainTabList[] }
 export const saveCache = (storageKey: string, lists: TabList[] | DomainTabList[]) =>

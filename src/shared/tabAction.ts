@@ -58,27 +58,6 @@ const storeTabs = async (tabs: Tabs.Tab[]) => {
   return newList
 }
 
-const storeDomainTabs = async (tabs: Tabs.Tab[]) => {
-  if (tabs.length === 0) return
-  const filterd = tabs.map(normalizeTab).filter(nonNullable)
-  //   const newList = createNewDomainTabList('domainExample', filterd)
-  const groupedNewList = Object.entries(groupBy(filterd, 'domain'))
-  const newList = groupedNewList.map(data => {
-    const domainName = data[0]
-    const domainLinkedTabList = data[1]
-    return createNewDomainTabList(domainName, domainLinkedTabList)
-  })
-
-  try {
-    const lists = await Storage.getAllLists(DOMAIN_TAB_LISTS)
-    typeof lists === 'undefined' || lists.length === 0
-      ? await Storage.setLists(DOMAIN_TAB_LISTS, newList)
-      : await Storage.addDomainTabs(groupedNewList)
-  } catch (err) {
-    console.error(err)
-  }
-}
-
 export const storeAllTabs = async () => {
   const tabs = await getAllTabsInCurrentWindow()
   const sanitizedTabs = tabs.filter(isValidTab)
@@ -88,7 +67,7 @@ export const storeAllTabs = async () => {
 
   // `res[1]` is storing TabList
   // NOTE: fetch decription and ogImageUrl from URL
-  await Promise.all([openTabLists(), storeTabs(sanitizedTabs), storeDomainTabs(sanitizedTabs)]).then(
+  await Promise.all([openTabLists(), storeTabs(sanitizedTabs)]).then(
     res => res[1] && Storage.updateTabListElemWithMeta(res[1].id),
   )
 }

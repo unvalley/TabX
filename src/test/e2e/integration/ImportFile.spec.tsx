@@ -2,7 +2,7 @@ import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
-import { Tabs } from '~/app/components/organisms/SettingsSection/Tabs'
+import { Tabs } from '~/ui/pages/Settings/components/Tabs'
 
 describe('import json file', () => {
   test('show the import file name after the user uploaded file', () => {
