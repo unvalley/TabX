@@ -4,7 +4,7 @@ import { browser } from 'webextension-polyfill-ts'
 import { loadCache, saveCache } from './cache'
 import { TAB_LISTS } from './constants'
 import { restoreTabs } from './tabAction'
-import { DomainTabList, ListName, ListType, TabList, TabSimple } from './typings'
+import { ListName, TabList, TabSimple } from './typings'
 import { genParamsToFetchMetadata, zip } from './utils'
 import { acquireMetadata } from './utils/api'
 
@@ -17,12 +17,12 @@ const set = (obj: Record<string, unknown>) => browser.storage.local.set(obj)
 // Storage Operations
 // ========================
 
-export const getAllLists = async <T extends ListName>(key: T): Promise<ListType<T>[]> => {
-  const cachedData = loadCache(key)
+export const getAllLists = async <T extends ListName>(key: T): Promise<TabList[]> => {
+  const cachedData = loadCache()
   if (cachedData.length > 0) {
     return cachedData
   }
-  const res = await get(key).then(data => (Array.isArray(data[key]) ? (data[key] as ListType<T>[]) : []))
+  const res = await get(key).then(data => (Array.isArray(data[key]) ? (data[key] as TabList[]) : []))
   saveCache(key, res)
   return res
 }
@@ -33,12 +33,12 @@ export const getAllFlatTabs = async () => {
   return flatTabs
 }
 
-export const setLists = (key: ListName, lists: TabList[] | DomainTabList[]) => {
+export const setLists = (key: ListName, lists: TabList[]) => {
   saveCache(key, [])
   return set({ [key]: lists })
 }
 
-export const addList = async (key: ListName, newList: TabList | DomainTabList) => {
+export const addList = async (key: ListName, newList: TabList) => {
   const allTabLists = await getAllLists(key)
   const updatedAllTabLists = produce(allTabLists, draft => {
     draft.push(newList)
