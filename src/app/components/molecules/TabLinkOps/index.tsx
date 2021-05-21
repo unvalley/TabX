@@ -9,6 +9,7 @@ type Props = {
   handleClick: (tabId: number) => Promise<void>
   shouldShow: boolean
 }
+
 export const TabLinkOps: React.FC<Props> = props => {
   const { tabId, shouldShow, handleClick } = props
   const theme = useTheme()

@@ -18,8 +18,10 @@ type Props = {
 
 const Component: React.VFC<Props> = ({ tab, idx, shouldShowOps, shouldDeleteTabWhenClicked = true, onDelete }) => {
   const theme = useTheme()
-  const tabLinkWrapperBg = theme.type === Themes.DARK ? theme.palette.accents_2 : theme.palette.accents_1
   const { handleMouseOut, handleMouseOver, isMouseOvered } = useMouseOver()
+
+  const isDark = theme.type === Themes.DARK
+  const tabLinkWrapperBg = isDark ? theme.palette.accents_2 : theme.palette.accents_1
 
   const tabTitle = omitText(tab.title)(Rule.TITLE_MAX_LENGTH)('…')
   const isDeletable = shouldDeleteTabWhenClicked && !!onDelete

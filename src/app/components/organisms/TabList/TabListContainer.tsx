@@ -24,7 +24,7 @@ const Component: React.FC<Props> = ({ idx, isVisibleTabListHeader }) => {
       // TODO: fix type
       const newTabs = removeTab(tabList, tabId) as TabList
       // NOTE: handling for last tab deletion
-      newTabs.tabs.length >= 1 ? setTabList(newTabs) : setTabList({} as TabList)
+      newTabs.tabs.length > 0 ? setTabList(newTabs) : setTabList({} as TabList)
     })
   }
 

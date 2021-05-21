@@ -33,6 +33,8 @@ export const Header: React.VFC<Props> = ({ text, onSearch }) => {
     localStorage.setItem('theme', theme)
   }
 
+  const isDark = colorTheme === Themes.DARK
+
   return (
     <Row>
       <Col span={22}>
@@ -56,14 +58,10 @@ export const Header: React.VFC<Props> = ({ text, onSearch }) => {
           <StyledDiv
             color={popoverColor}
             bgColor={popoverBgColor}
-            onClick={() => changeColorTheme(colorTheme === Themes.LIGHT ? Themes.DARK : Themes.LIGHT)}
+            onClick={() => changeColorTheme(isDark ? Themes.LIGHT : Themes.DARK)}
             style={{ cursor: 'pointer', verticalAlign: 'middle', lineHeight: 0, padding: Spacing['2'] }}
           >
-            {colorTheme === Themes.DARK ? (
-              <Sun color={Colors.SUN_LIGHT} style={{ verticalAlign: 'middle' }} />
-            ) : (
-              <Moon color={Colors.MOON_DARK} style={{ verticalAlign: 'middle' }} />
-            )}
+            {isDark ? <Sun color={Colors.SUN_LIGHT} /> : <Moon color={Colors.MOON_DARK} />}
           </StyledDiv>
           <Menu />
         </HeaderRow>

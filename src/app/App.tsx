@@ -33,11 +33,9 @@ export const App = () => {
   }, [lang, i18n])
 
   return (
-    // <Provider store={store}>
     <GeistProvider themeType={colorTheme}>
       <CssBaseline />
       <Routes />
     </GeistProvider>
-    // </Provider>
   )
 }
