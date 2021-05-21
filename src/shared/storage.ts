@@ -2,10 +2,11 @@ import { Mutex } from 'async-mutex'
 import produce from 'immer'
 import { browser } from 'webextension-polyfill-ts'
 import { loadCache, saveCache } from './cache'
-import { DOMAIN_TAB_LISTS, TAB_LISTS } from './constants'
-import { createNewDomainTabList } from './list'
+import { TAB_LISTS } from './constants'
 import { restoreTabs } from './tabAction'
 import { DomainTabList, ListName, ListType, TabList, TabSimple } from './typings'
+import { genParamsToFetchMetadata, zip } from './utils'
+import { acquireMetadata } from './utils/api'
 
 const mutex = new Mutex()
 
@@ -54,36 +55,6 @@ export const addLists = async (key: ListName, newLists: TabList[]) => {
 }
 
 export const deleteAllLists = (key: string) => set({ [key]: null })
-
-type Domain = string
-export const addDomainTabs = async (groupedNewList: [Domain, TabSimple[]][]) => {
-  const release = await mutex.acquire()
-  // SELECT
-  try {
-    const allDomainTabLists = await getAllLists(DOMAIN_TAB_LISTS)
-    const domains = allDomainTabLists.map(list => list.domain)
-
-    const updatedAllTabLists = await produce(allDomainTabLists, async draft => {
-      draft.forEach(list => {
-        groupedNewList.forEach(async ([domain, domainTabList]) => {
-          if (list.domain === domain) {
-            list.tabs.push(...domainTabList)
-          }
-          if (!domains.includes(domain)) {
-            draft.push(createNewDomainTabList(domain, domainTabList))
-            // update domains for considlering loop
-            domains.push(domain)
-          }
-        })
-      })
-    })
-    setLists(DOMAIN_TAB_LISTS, updatedAllTabLists)
-  } catch (err) {
-    console.error(err)
-  } finally {
-    release()
-  }
-}
 
 /**
  * Delete Single Tab Link in a TabList
@@ -146,4 +117,32 @@ export const restoreTabList = async (key: ListName, tabListId: number) => {
   await restoreTabs(targetTabListElem.tabs)
   // DELETE
   await deleteTabList(key, tabListId)
+}
+
+// ========================
+// Meta
+// ========================
+
+const mergeTabsWithMeta = async (tabs: TabSimple[]) => {
+  const params = genParamsToFetchMetadata(tabs)
+  const metaObjs = await acquireMetadata(params)
+
+  const tabsWithMetas = []
+  // NOTE: merge tabs and metaObjs
+  for (const [tab, metaObj] of zip(tabs, metaObjs)) {
+    tabsWithMetas.push({ ...tab, ...metaObj })
+  }
+  return tabsWithMetas
+}
+
+export const updateTabListElemWithMeta = async (tabListId: number) => {
+  // SELECT
+  const allTabLists = await getAllLists(TAB_LISTS)
+  const targetTabListElem = allTabLists.filter(list => list.id === tabListId)[0]
+  // NOTE: prepare data for update
+  const tabsWithMeta = await mergeTabsWithMeta(targetTabListElem.tabs)
+  targetTabListElem.tabs = tabsWithMeta
+
+  // UPDATE
+  setLists(TAB_LISTS, allTabLists)
 }

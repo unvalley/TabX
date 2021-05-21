@@ -1,9 +1,8 @@
 import { browser, Tabs } from 'webextension-polyfill-ts'
-import { DOMAIN_TAB_LISTS, ILLEGAL_URLS, TAB_LISTS } from './constants'
-import { createNewDomainTabList, createNewTabList, normalizeTab } from './list'
+import { ILLEGAL_URLS, TAB_LISTS } from './constants'
+import { createNewTabList } from './list'
 import * as Storage from './storage'
 import { TabSimple } from './typings'
-import { groupBy, nonNullable } from './utils/util'
 
 const getAllInWindow = (windowId?: number) => browser.tabs.query({ windowId })
 
@@ -73,14 +72,13 @@ export const storeAllTabs = async () => {
 }
 
 export const restoreTabs = async (tabs: TabSimple[]) => {
-  tabs.forEach(async tab => {
-    await browser.tabs.create({
-      url: tab.url,
-      pinned: tab.pinned,
-    })
-    // TODO: muted handling
-    // if (tab.mutedInfo?.muted) {
-    //   await browser.tabs.update(createdTab.id!, { muted: true })
-    // }
-  })
+  const promises = tabs.map(
+    async tab =>
+      await browser.tabs.create({
+        url: tab.url,
+        pinned: tab.pinned,
+      }),
+  )
+
+  Promise.all(promises)
 }
