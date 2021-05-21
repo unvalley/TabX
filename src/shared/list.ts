@@ -1,6 +1,6 @@
 import { Tabs } from 'webextension-polyfill-ts'
-import { DomainTabList, ImportedUrlObj, TabList, TabSimple } from './typings'
-import { genObjectId, nonNullable } from './utils/util'
+import { ImportedUrlObj, TabList, TabSimple } from './typings'
+import { genObjectId, nonNullable } from './utils'
 
 // ========================
 // Tab
@@ -54,19 +54,6 @@ export const createNewTabList = (tabs: Tabs.Tab[]): TabList => ({
   createdAt: Date.now(),
   updatedAt: Date.now(),
   tabs: tabs.map(normalizeTab).filter(nonNullable) || [],
-})
-
-export const createNewDomainTabList = (domain: string, tabs: TabSimple[]): DomainTabList => ({
-  id: genObjectId(),
-  title: '',
-  description: '',
-  // has pinned on this extension? - default false
-  hasPinned: false,
-  createdAt: Date.now(),
-  updatedAt: Date.now(),
-  tabs: tabs || [],
-  domainName: '',
-  domain: domain,
 })
 
 export const createNewTabListFromImport = (tabs: TabSimple[]): TabList => ({

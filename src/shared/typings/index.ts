@@ -33,11 +33,6 @@ export type TabList = {
   updatedAt: number
 }
 
-export type DomainTabList = TabList & {
-  domainName: string
-  domain: string
-}
-
 /**
  * for import (text) feature
  */
@@ -58,7 +53,4 @@ export type TargetMetaWithId = TargetMeta & { id: number }
 
 export type TabWithMeta = TabSimple & TargetMeta
 
-export type ListType<T> = T extends 'domainTabLists' ? DomainTabList : T extends 'tabLists' ? TabList : never
 export type ListName = 'tabLists' | 'domainTabLists'
-
-export type UnionList = TabList | DomainTabList

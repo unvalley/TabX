@@ -1,11 +1,9 @@
-import { DOMAIN_TAB_LISTS, TAB_LISTS } from './constants'
-import { DomainTabList, ListName, ListType, TabList } from './typings'
-import { eq, when } from './utils/util'
+import { TAB_LISTS } from './constants'
+import { TabList } from './typings'
+import { eq, when } from './utils'
 
-export const cache = { tabLists: [] as TabList[], domainTabLists: [] as DomainTabList[] }
-export const saveCache = (storageKey: string, lists: TabList[] | DomainTabList[]) =>
-  when(storageKey)
-    .on(eq(TAB_LISTS), () => (cache.tabLists = lists as TabList[]))
-    .on(eq(DOMAIN_TAB_LISTS), () => (cache.domainTabLists = lists as DomainTabList[]))
+export const cache = { tabLists: [] as TabList[] }
+export const saveCache = (storageKey: string, lists: TabList[]) =>
+  when(storageKey).on(eq(TAB_LISTS), () => (cache.tabLists = lists as TabList[]))
 
-export const loadCache = <T extends ListName>(storageKey: T): ListType<T>[] => cache[storageKey] as ListType<T>[]
+export const loadCache = () => cache.tabLists
