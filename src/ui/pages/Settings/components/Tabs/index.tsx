@@ -157,8 +157,9 @@ export const Tabs: React.VFC<Props> = props => {
                       OneTab
                     </ButtonDropdown.Item>
                     {/* TODO */}
-                    {/* <ButtonDropdown.Item>
-                      <label className="upload-file" style={{ cursor: 'pointer' }}>
+                    <ButtonDropdown.Item disabled>
+                      JSON (WIP)
+                      {/* <label className="upload-file" style={{ cursor: 'pointer' }}>
                         JSON
                         <input
                           onChange={handleUploadFile}
@@ -168,7 +169,7 @@ export const Tabs: React.VFC<Props> = props => {
                           style={{ display: 'none', cursor: 'pointer' }}
                         />
                       </label> */}
-                    {/* </ButtonDropdown.Item> */}
+                    </ButtonDropdown.Item>
                   </ButtonDropdown>
                 </Col>
               </Row>
