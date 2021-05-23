@@ -4,10 +4,17 @@ TabX manages your tabs.
 
 <img align="right" src=src/assets/tabX.png height="100px">
 
-### Features
+## Features
 
-- ✅ Bundle your tabs
+- ✅ One click storing your tabs
+- 🔒 Save tabs locally
+- 💎 Simple UI
 - 🌌 Dark mode
-- 🚧 Search tabs
-- 🚧 Easy share tab link
-- 🚧 Elegant display tab list
+- 🔍 Search tabs
+- ⛓ OneTab compatible
+
+
+## FutureWork
+
+- 🛠 Add tab Filtering option
+- 📝 Edit description of tab group
