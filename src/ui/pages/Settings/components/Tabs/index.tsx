@@ -11,7 +11,7 @@ import {
   Textarea,
   useToasts,
 } from '@geist-ui/react'
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useRecoilValue } from 'recoil'
 
@@ -34,22 +34,22 @@ export const Tabs: React.VFC<Props> = props => {
   const [showExportText, setShowExportText] = useState(false)
   const [importText, setImportText] = useState('')
   const [showImportText, setShowImportText] = useState(false)
-  const [uploadedFileName, setUploadedFileName] = useState('')
+  // const [uploadedFileName, setUploadedFileName] = useState('')
 
   // localStorage
-  const [isVisibleTabListMenu, setIsVisibleTabListMenu] = useLocalStorage('isVisibleTabListMenu', true)
-  const [isVisibleTabListHeader, setIsVisibleTabListHeader] = useLocalStorage('isVisibleTabListHeader', true)
+  const [isVisibleTabListMenu, setIsVisibleTabListMenu] = useLocalStorage('isVisibleTabListMenu', false)
+  const [isVisibleTabListHeader, setIsVisibleTabListHeader] = useLocalStorage('isVisibleTabListHeader', false)
   const [shouldDeleteTabWhenClicked, setShouldDeleteTabWhenClicked] = useLocalStorage(
     'shouldDeleteTabWhenClicked',
-    true,
+    false,
   )
 
   const tabLists = useRecoilValue(tabListsState)
   const tabListIdexs = tabLists.map((_, index) => index)
   const tabCounts = tabListIdexs.map(index => useRecoilValue<number>(tabListTotalCount(index)))
-  const totalTabCount = tabCounts.length >= 1 ? tabCounts.reduce((prev, cur) => prev + cur) : 0
+  const totalTabCount = tabCounts.length >= 1 ? useMemo(() => tabCounts.reduce((prev, cur) => prev + cur), []) : 0
 
-  const handleUploadFile = (e: any) => setUploadedFileName(e.target.files[0].name)
+  // const handleUploadFile = (e: any) => setUploadedFileName(e.target.files[0].name)
 
   const { t } = useTranslation()
   const [, setToast] = useToasts()
@@ -157,7 +157,7 @@ export const Tabs: React.VFC<Props> = props => {
                       OneTab
                     </ButtonDropdown.Item>
                     {/* TODO */}
-                    <ButtonDropdown.Item>
+                    {/* <ButtonDropdown.Item>
                       <label className="upload-file" style={{ cursor: 'pointer' }}>
                         JSON
                         <input
@@ -167,8 +167,8 @@ export const Tabs: React.VFC<Props> = props => {
                           name="upload-file"
                           style={{ display: 'none', cursor: 'pointer' }}
                         />
-                      </label>
-                    </ButtonDropdown.Item>
+                      </label> */}
+                    {/* </ButtonDropdown.Item> */}
                   </ButtonDropdown>
                 </Col>
               </Row>
@@ -189,7 +189,7 @@ export const Tabs: React.VFC<Props> = props => {
               </div>
             </div>
           )}
-          {uploadedFileName && <p>Importing {uploadedFileName}</p>}
+          {/* {uploadedFileName && <p>Importing {uploadedFileName}</p>} */}
           <Divider y={3} />
           <Text b>{t('DANGER_ZONE')}</Text>
           <Row gap={0.8}>
