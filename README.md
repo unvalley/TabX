@@ -6,15 +6,14 @@ TabX manages your tabs.
 
 ## Features
 
-- ✅ One click storing your tabs
-- 🔒 Save tabs locally
+- ✅ Store your tabs
 - 💎 Simple UI
-- 🌌 Dark mode
-- 🔍 Search tabs
+- 🌌 Built-in Dark mode
+- 🔍 Fuzzy Search (thanks to [Fuse.js](https://github.com/krisk/Fuse)! )
 - ⛓ OneTab compatible
 
 
 ## FutureWork
 
-- 🛠 Add tab Filtering option
+- 🛠 Add tab Filtering option (date, domain, etc..)
 - 📝 Edit description of tab group
