@@ -10,7 +10,7 @@ const TWITTER_TEXT = 'TabX saves your tab life'
 const WEB_STORE_URL = 'https://chrome.google.com/webstore'
 export const TWITTER_URL = `https://twitter.com/share?text=${TWITTER_TEXT}&url=${WEB_STORE_URL}`
 
-export const FEEDBACK_URL = ''
+export const FEEDBACK_URL = 'https://github.com/unvalley/TabX/issues'
 export const DONATION_URL = ''
 
 export const API_BASE_URL = process.env.REACT_APP_API_BASE_URL
