@@ -53,4 +53,4 @@ export type TargetMetaWithId = TargetMeta & { id: number }
 
 export type TabWithMeta = TabSimple & TargetMeta
 
-export type ListName = 'tabLists' | 'domainTabLists'
+export type ListName = 'tabLists'
