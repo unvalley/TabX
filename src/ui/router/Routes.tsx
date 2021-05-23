@@ -2,8 +2,10 @@ import { Grid, useTheme } from '@geist-ui/react'
 import React from 'react'
 import { MemoryRouter, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components'
+
 import { Load } from '~/ui/components/Load'
 import { Spacing, Themes } from '~/ui/constants/styles'
+
 import { List } from '../pages/List'
 import { Settings } from '../pages/Settings'
 

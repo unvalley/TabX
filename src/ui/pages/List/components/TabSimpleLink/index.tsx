@@ -1,12 +1,15 @@
 import { useTheme } from '@geist-ui/react'
+import X from '@geist-ui/react-icons/x'
 import React, { memo } from 'react'
-import { Rule, Spacing, Themes } from '~/ui/constants/styles'
-import { useMouseOver } from '~/ui/hooks'
+
 import { TabSimple } from '~/shared/typings'
 import { omitText } from '~/shared/utils'
-import { FaviconImage } from '../../../../components/FaviconImage'
-import { TabLinkOps } from './TabLinkOps'
+import { FaviconImage } from '~/ui/components/FaviconImage'
+import { Rule, Spacing, Themes } from '~/ui/constants/styles'
+import { useMouseOver } from '~/ui/hooks'
+
 import { TabLinkButton, TabLinkWrapper, Title } from '../TabLinks/style'
+import { TabLinkOps } from './TabLinkOps'
 
 type Props = {
   tab: TabSimple
@@ -48,7 +51,12 @@ const Component: React.VFC<Props> = ({ tab, index, isOpsVisible, shouldDeleteTab
         <Title>{tabTitle}</Title>
       </TabLinkButton>
       {/* Ops show when the tab is hoverd */}
-      {isOpsVisible && !!onDelete && <TabLinkOps tabId={tab.id} onClick={onDelete} isVisible={isMouseOvered(index)} />}
+      {isOpsVisible && !!onDelete && (
+        // fix
+        <TabLinkOps tabId={tab.id} onClick={onDelete} isVisible={isMouseOvered(index)}>
+          <X size={Rule.TAB_LINKS_ELEM_SIZE} />
+        </TabLinkOps>
+      )}
     </TabLinkWrapper>
   )
 }

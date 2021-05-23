@@ -1,5 +1,6 @@
 import styled from 'styled-components'
-import { Spacing } from '../../../../../constants/styles'
+
+import { Spacing } from '~/ui/constants/styles'
 
 export const OpsWrapper = styled.section<{ opacity: number }>`
   opacity: ${({ opacity }) => opacity};

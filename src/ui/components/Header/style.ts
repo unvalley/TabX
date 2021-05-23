@@ -1,5 +1,6 @@
-import styled from 'styled-components'
 import { Row, Text } from '@geist-ui/react'
+import styled from 'styled-components'
+
 import { Spacing } from '~/ui/constants/styles'
 
 export const PageHeaderText = styled(Text).attrs({

@@ -1,6 +1,7 @@
 import { Toggle } from '@geist-ui/react'
 import styled from 'styled-components'
-import { Spacing } from '../../../constants/styles'
+
+import { Spacing } from '~/ui/constants/styles'
 
 export const ToggleWrapper = styled.div`
   display: inline-flex;

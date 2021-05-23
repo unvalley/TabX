@@ -1,4 +1,5 @@
 import { atom, selector } from 'recoil'
+
 import { TAB_LISTS } from '~/shared/constants'
 import { getAllLists } from '~/shared/storage'
 import { TabList } from '~/shared/typings'

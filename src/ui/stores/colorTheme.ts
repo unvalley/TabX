@@ -1,4 +1,5 @@
 import { atom, selector } from 'recoil'
+
 import { Themes } from '../constants/styles'
 
 export const colorThemeState = atom<string>({

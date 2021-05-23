@@ -1,6 +1,7 @@
 ---
 env:
   es2020: true
+  browser: true
   jest/globals: true
 parser: '@typescript-eslint/parser'
 parserOptions:
@@ -10,8 +11,9 @@ parserOptions:
 plugins:
   - react
   - jest
-  - '@typescript-eslint'
+  - '@typescript-eslint/eslint-plugin'
   - prettier
+  - simple-import-sort
 settings:
   react:
     version: detect
@@ -19,7 +21,9 @@ rules:
   '@typescript-eslint/explicit-function-return-type': off
   '@typescript-eslint/explicit-module-boundary-types': off
   '@typescript-eslint/no-unused-vars': off
+  '@typescript-eslint/no-non-null-assertion': off
   react/prop-types: off
+  simple-import-sort/imports: error
 extends:
   - eslint:recommended
   - plugin:@typescript-eslint/eslint-recommended

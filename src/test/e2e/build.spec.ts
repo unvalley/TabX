@@ -1,4 +1,5 @@
 import puppeteer from 'puppeteer'
+
 import { launchPuppeteerWithExtension } from './utils/helpers'
 
 describe('install', () => {

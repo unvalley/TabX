@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useRecoilValue } from 'recoil'
+
+import { TabList, TabSimple } from '~/shared/typings'
 import { Load } from '~/ui/components/Load'
 import { tabListsState } from '~/ui/stores/tabLists'
 import { tabsState } from '~/ui/stores/tabs'
-import { TabList, TabSimple } from '~/shared/typings'
+
 import { List as Component } from './List'
 
-export const List: React.FC = () => {
+export const List: React.VFC = () => {
   const [hasLoaded, setHasLoaded] = useState(false)
   const tabLists = useRecoilValue<TabList[]>(tabListsState)
   const tabs = useRecoilValue<TabSimple[]>(tabsState)

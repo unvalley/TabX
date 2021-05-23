@@ -5,11 +5,12 @@ import ExternalLink from '@geist-ui/react-icons/ExternalLink'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { SetterOrUpdater } from 'recoil'
-import { MenuItem } from '~/ui/components/MenuItem'
-import { Rule } from '~/ui/constants/styles'
+
 import { TAB_LISTS } from '~/shared/constants'
 import { deleteTabList, restoreTabList } from '~/shared/storage'
 import { TabList } from '~/shared/typings'
+import { MenuItem } from '~/ui/components/MenuItem'
+import { Rule } from '~/ui/constants/styles'
 
 type Props = { tabList: TabList; setTabList: SetterOrUpdater<TabList> }
 

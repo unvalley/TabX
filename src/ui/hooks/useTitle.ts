@@ -1,7 +1,9 @@
 import { useTranslation } from 'react-i18next'
-import { Rule } from '~/ui/constants/styles'
+
 import { TabList } from '~/shared/typings'
 import { omitText } from '~/shared/utils'
+import { Rule } from '~/ui/constants/styles'
+
 import { Lang } from '../constants'
 
 export const useTitle = (tabList: TabList) => {

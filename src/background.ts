@@ -1,4 +1,5 @@
 import { browser } from 'webextension-polyfill-ts'
+
 import { storeAllTabs } from './shared/tabAction'
 
 export const init = async () => {

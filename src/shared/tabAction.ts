@@ -1,4 +1,5 @@
 import { browser, Tabs } from 'webextension-polyfill-ts'
+
 import { ILLEGAL_URLS, TAB_LISTS } from './constants'
 import { createNewTabList } from './list'
 import * as Storage from './storage'

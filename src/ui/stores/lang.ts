@@ -1,4 +1,5 @@
 import { atom, selector } from 'recoil'
+
 import { Lang } from '~/ui/constants'
 
 export const langState = atom<string>({

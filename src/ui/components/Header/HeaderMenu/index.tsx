@@ -4,9 +4,10 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
+
+import { MenuItem } from '~/ui/components/MenuItem'
 import { Rule } from '~/ui/constants/styles'
 import { tabListsSortState } from '~/ui/stores/tabLists'
-import { MenuItem } from '../../MenuItem'
 
 const toDonation = () => {
   const url = 'https://www.buymeacoffee.com/kirohi'

@@ -3,7 +3,9 @@ import i18n from 'i18next'
 import React, { useEffect } from 'react'
 import { initReactI18next } from 'react-i18next'
 import { useRecoilValue } from 'recoil'
+
 import { langState } from '~/ui/stores/lang'
+
 import enJson from './locales/en.json'
 import jaJson from './locales/ja.json'
 import { Routes } from './router/Routes'

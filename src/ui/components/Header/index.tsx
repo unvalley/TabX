@@ -3,10 +3,12 @@ import { Moon, Search, Sun } from '@geist-ui/react-icons'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
+
 import { Menu } from '~/ui/components/Header/Menu'
 import { Colors, Spacing, Themes } from '~/ui/constants/styles'
 import { colorThemeState } from '~/ui/stores/colorTheme'
-import { HeaderRow, PageHeaderText, _Div } from './style'
+
+import { _Div, HeaderRow, PageHeaderText } from './style'
 
 type Props = { text?: string; onSearch?: (e: any) => void }
 

@@ -1,4 +1,5 @@
 import { atom, selector } from 'recoil'
+
 import { getAllFlatTabs } from '~/shared/storage'
 import { TabSimple } from '~/shared/typings'
 

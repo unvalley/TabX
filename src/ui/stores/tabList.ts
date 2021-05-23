@@ -1,5 +1,7 @@
 import { atomFamily, selectorFamily } from 'recoil'
+
 import { TabList } from '~/shared/typings'
+
 import { sortTabListsState } from './tabLists'
 
 /**

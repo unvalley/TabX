@@ -3,10 +3,12 @@ import Menu from '@geist-ui/react-icons/Menu'
 import React from 'react'
 import { SetterOrUpdater } from 'recoil'
 import styled from 'styled-components'
+
 import { TabList } from '~/shared/typings'
 import { Spacing } from '~/ui/constants/styles'
 import { useLocalStorage, useMouseOver, useTitle } from '~/ui/hooks'
-import { HoveredMenu, _Row } from '../style'
+
+import { _Row, HoveredMenu } from '../style'
 import { TabListMenuContent } from './TabListMenuContent'
 
 type Props = {
@@ -15,17 +17,6 @@ type Props = {
   setTabList: SetterOrUpdater<TabList>
   isLG?: boolean
 }
-
-const _Popover = styled(Popover)<{ $bgColor: string; $color: string }>`
-  cursor: pointer;
-  margin-right: 20px;
-  border-radius: 50%;
-  transition: all 0.3s ease;
-  &:hover {
-    color: ${props => props.$color};
-    background-color: ${props => props.$bgColor};
-  }
-`
 
 // TODO: fix styles
 
@@ -81,3 +72,14 @@ export const TabListHeader: React.VFC<Props> = ({ index, tabList, setTabList, is
     </_Row>
   )
 }
+
+const _Popover = styled(Popover)<{ $bgColor: string; $color: string }>`
+  cursor: pointer;
+  margin-right: 20px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  &:hover {
+    color: ${props => props.$color};
+    background-color: ${props => props.$bgColor};
+  }
+`

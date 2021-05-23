@@ -2,7 +2,9 @@ import { Popover, useTheme } from '@geist-ui/react'
 import { MoreVertical } from '@geist-ui/react-icons'
 import React from 'react'
 import styled from 'styled-components'
+
 import { Spacing } from '~/ui/constants/styles'
+
 import { MenuContent } from './MenuContent'
 
 export const Menu: React.VFC = () => {

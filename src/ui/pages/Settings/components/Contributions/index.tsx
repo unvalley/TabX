@@ -2,6 +2,7 @@ import { Button, Card, Text } from '@geist-ui/react'
 import { Github } from '@geist-ui/react-icons'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+
 import { BUY_ME_A_COFFEE, REPO_NAME } from '~/ui/constants/index'
 
 export const Contributions: React.VFC = () => {

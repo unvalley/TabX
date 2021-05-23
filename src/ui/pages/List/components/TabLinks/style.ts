@@ -1,5 +1,6 @@
 import styled from 'styled-components'
-import { Colors, Spacing } from '../../../../constants/styles'
+
+import { Colors, Spacing } from '~/ui/constants/styles'
 
 export const TabLinkWrapper = styled.span<{
   bg: string

@@ -14,6 +14,7 @@ import {
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useRecoilValue } from 'recoil'
+
 import { exportToText, importFromText } from '~/shared/importExport'
 import { TabList } from '~/shared/typings'
 import { DeleteButton } from '~/ui/components/DeleteButton'
@@ -22,7 +23,8 @@ import { useLocalStorage } from '~/ui/hooks'
 import { tabListTotalCount } from '~/ui/stores/tabList'
 import { tabListsState } from '~/ui/stores/tabLists'
 import { exportedJSONFileName } from '~/ui/utils'
-import { ToggleWrapper, _Toggle } from '../style'
+
+import { _Toggle, ToggleWrapper } from '../style'
 
 type Props = { deleteAllTabs: () => void; tabLists: TabList[] }
 

@@ -1,6 +1,7 @@
 import { Mutex } from 'async-mutex'
 import produce from 'immer'
 import { browser } from 'webextension-polyfill-ts'
+
 import { loadCache, saveCache } from './cache'
 import { TAB_LISTS } from './constants'
 import { restoreTabs } from './tabAction'

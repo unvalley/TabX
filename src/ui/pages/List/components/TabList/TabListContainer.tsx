@@ -1,19 +1,21 @@
 import { useMediaQuery } from '@geist-ui/react'
 import React, { memo } from 'react'
 import { useRecoilState } from 'recoil'
-import { useLocalStorage } from '~/ui/hooks'
-import { tabListState } from '~/ui/stores/tabList'
-import { removeTab } from '~/ui/utils/producer'
+
 import { TAB_LISTS } from '~/shared/constants'
 import { deleteTabLink } from '~/shared/storage'
 import { TabList } from '~/shared/typings'
+import { useLocalStorage } from '~/ui/hooks'
+import { tabListState } from '~/ui/stores/tabList'
+import { removeTab } from '~/ui/utils/producer'
+
 import { TabSimpleLink } from '../TabSimpleLink'
 import { TabListHeader } from './internal/TabListHeader'
 import { TabListSection } from './style'
 
 type Props = { index: number; isVisibleTabListHeader: boolean }
 
-const Component: React.FC<Props> = ({ index, isVisibleTabListHeader }) => {
+const Component: React.VFC<Props> = ({ index, isVisibleTabListHeader }) => {
   const [shouldDeleteTabWhenClicked] = useLocalStorage('shouldDeleteTabWhenClicked', true)
   const [tabList, setTabList] = useRecoilState<TabList>(tabListState(index))
 

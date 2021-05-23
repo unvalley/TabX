@@ -2,6 +2,7 @@ import { Card, Divider, Radio, Text } from '@geist-ui/react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useRecoilState } from 'recoil'
+
 import { Lang } from '~/ui/constants'
 import { langState } from '~/ui/stores/lang'
 

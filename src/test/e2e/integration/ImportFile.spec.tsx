@@ -1,7 +1,9 @@
 import '@testing-library/jest-dom'
+
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
+
 import { Tabs } from '~/ui/pages/Settings/components/Tabs'
 
 describe('import json file', () => {

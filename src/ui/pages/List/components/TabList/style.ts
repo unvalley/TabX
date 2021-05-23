@@ -1,5 +1,6 @@
 import { Row } from '@geist-ui/react'
 import styled from 'styled-components'
+
 import { Spacing } from '~/ui/constants/styles'
 
 export const TabListSection = styled.section`

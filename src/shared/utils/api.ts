@@ -1,6 +1,7 @@
+import axios from 'axios'
+
 import { API_BASE_URL } from '../constants'
 import { TargetMetaWithId } from '../typings'
-import axios from 'axios'
 
 /**
  *  send params by POST and get metadata by using the params.url

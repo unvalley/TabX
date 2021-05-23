@@ -1,14 +1,16 @@
 import { Button } from '@geist-ui/react'
 import React from 'react'
-import { Header } from '~/ui/components/Header'
-import { TabListContainer } from '~/ui/pages/List/components/TabList/TabListContainer'
-import { useLoadMore, useLocalStorage } from '~/ui/hooks'
-import { useFuse } from '~/ui/hooks/useFuse'
+
 import { APP_NAME } from '~/shared/constants'
 import { TabList, TabSimple } from '~/shared/typings'
+import { Header } from '~/ui/components/Header'
+import { useLoadMore, useLocalStorage } from '~/ui/hooks'
+import { useFuse } from '~/ui/hooks/useFuse'
+import { TabListContainer } from '~/ui/pages/List/components/TabList/TabListContainer'
+
 import { TabSimpleLink } from './components/TabSimpleLink'
 
-export const List: React.FC<{ tabLists: TabList[]; tabs: TabSimple[] }> = ({ tabLists, tabs }) => {
+export const List: React.VFC<{ tabLists: TabList[]; tabs: TabSimple[] }> = ({ tabLists, tabs }) => {
   const { searchResults, query, onSearch } = useFuse(tabs, {
     minMatchCharLength: 1,
     shouldSort: true,
