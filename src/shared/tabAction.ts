@@ -62,9 +62,6 @@ export const storeAllTabs = async () => {
   const tabs = await getAllTabsInCurrentWindow()
   const sanitizedTabs = tabs.filter(isValidTab)
 
-  // TODO: tabs.length === 0 handling is wasteful
-  // TODO: openTabLists should be different await?
-
   // `res[1]` is storing TabList
   // NOTE: fetch decription and ogImageUrl from URL
   await Promise.all([openTabLists(), storeTabs(sanitizedTabs)]).then(

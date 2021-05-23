@@ -11,7 +11,7 @@ import { Rule } from '~/ui/constants/styles'
 import { tabListsSortState } from '~/ui/stores/tabLists'
 
 const toTwitter = () => window.open(TWITTER_URL)
-const toDonation = () => window.open(DONATION_URL)
+const toFeedback = () => window.open(DONATION_URL)
 
 export const MenuContent: React.VFC = () => {
   const { t } = useTranslation()
@@ -35,7 +35,7 @@ export const MenuContent: React.VFC = () => {
       <Popover.Item line />
       {/* EXTERNAL LINKS */}
       <MenuItem onClick={toTwitter} label={t('TWEET')} icon={<Twitter size={Rule.MENU_ICON_SIZE} />} />
-      <MenuItem onClick={toDonation} label={t('DONATE')} icon={<Coffee size={Rule.MENU_ICON_SIZE} />} />
+      <MenuItem onClick={toFeedback} label={t('FEEDBACK')} icon={<Coffee size={Rule.MENU_ICON_SIZE} />} />
     </>
   )
 }

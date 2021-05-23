@@ -18,14 +18,14 @@ const extractUntilFQDN = (url: string) =>
 const pullMeta = async (param: Param): Promise<TargetMetaWithId> => {
   try {
     const meta = (await urlMeta(param.url)) as Result
-    const converOgImageUrl = (ogImageUrl: string) => {
+    const convertOgImageUrl = (ogImageUrl: string) => {
       const convUrl = extractUntilFQDN(meta['url']) + ogImageUrl
       return convUrl
     }
 
     return {
       id: param.id,
-      ogImageUrl: isValidOgImageUrl(meta['og:image']) ? meta['og:image'] : converOgImageUrl(meta['og:image']),
+      ogImageUrl: isValidOgImageUrl(meta['og:image']) ? meta['og:image'] : convertOgImageUrl(meta['og:image']),
       description: meta['description'],
     } as TargetMetaWithId
   } catch (err) {
@@ -44,7 +44,7 @@ const createMetaObjs = async (params: Param[]) => {
 
 const app = express()
 
-app.use(cors({ origin: true }))
+app.use(cors({ origin: true, credentials: true }))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 

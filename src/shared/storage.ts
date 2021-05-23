@@ -69,7 +69,7 @@ export const deleteTabLink = async (key: ListName, tabListId: number, tabId: num
     const updatedAllTabLists = produce(allTabLists, draft => {
       const targetTabListElem = draft.filter(list => list.id === tabListId)[0]
       const index = targetTabListElem.tabs.findIndex(({ id }) => id === tabId)
-      targetTabListElem.tabs = targetTabListElem.tabs.filter((_, i) => i !== index)
+      targetTabListElem.tabs = targetTabListElem.tabs.filter((_, idx) => idx !== index)
       // DELETE and hanlde if tabs are empty
       !targetTabListElem.tabs.length && deleteTabList(key, tabListId)
     })
