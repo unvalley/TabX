@@ -9,7 +9,7 @@ export const PageHeaderText = styled(Text).attrs({
   display: inline-block;
   font-weight: bold;
   &:hover {
-    color: #5ce1e6;
+    color: #0d7fe0;
   }
 `
 
