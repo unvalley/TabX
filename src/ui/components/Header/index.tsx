@@ -33,14 +33,16 @@ export const Header: React.VFC<Props> = ({ text, onSearch }) => {
             <PageHeaderText>{text}</PageHeaderText>
           </Link>
           <Spacer />
-          <Input
-            icon={<Search />}
-            status="secondary"
-            placeholder="Search tabs"
-            clearable={true}
-            onChange={onSearch}
-            style={{ margin: '2px 10px 0px 2px' }}
-          />
+          {!!onSearch && (
+            <Input
+              icon={<Search />}
+              status="secondary"
+              placeholder="Search tabs"
+              clearable={true}
+              onChange={onSearch}
+              style={{ margin: '2px 10px 0px 2px' }}
+            />
+          )}
         </HeaderRow>
       </Col>
       <Col span={2}>

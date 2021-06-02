@@ -10,6 +10,7 @@ export const OpsWrapper = styled.section<{ opacity: number }>`
 export const OpsElement = styled.span<{ bg: string }>`
   cursor: pointer;
   font-size: 12px;
+  vertical-align: middle;
   padding: ${Spacing['0.5']};
   margin-left: 2px;
   border-radius: 33px;

@@ -38,7 +38,7 @@ export const List: React.VFC<{ tabLists: TabList[]; tabs: TabSimple[] }> = ({ ta
   })
 
   return (
-    <>
+    <div>
       <Header text={APP_NAME} onSearch={onSearch} />
       {isShowableHitTabs ? (
         <>
@@ -55,9 +55,10 @@ export const List: React.VFC<{ tabLists: TabList[]; tabs: TabSimple[] }> = ({ ta
       ) : (
         <>
           {homeCurrentTabList}
+          <Spacer y={1} />
           {!isMaxLength && <Button onClick={handleShowMoreItems}>loadMore</Button>}
         </>
       )}
-    </>
+    </div>
   )
 }

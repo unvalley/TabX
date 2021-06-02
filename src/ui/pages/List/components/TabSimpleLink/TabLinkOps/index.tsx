@@ -12,9 +12,10 @@ type Props = {
 
 export const TabLinkOps: React.FC<Props> = ({ tabId, isVisible, onClick, children }) => {
   const theme = useTheme()
+  const opsElemBg = isDark(theme.type) ? theme.palette.accents_2 : theme.palette.accents_1
   return (
     <OpsWrapper opacity={isVisible ? 10 : 0}>
-      <OpsElement bg={theme.palette.accents_1} onClick={() => onClick(tabId)}>
+      <OpsElement bg={opsElemBg} onClick={() => onClick(tabId)}>
         {children}
       </OpsElement>
     </OpsWrapper>

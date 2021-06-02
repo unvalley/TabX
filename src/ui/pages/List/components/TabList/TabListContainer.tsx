@@ -36,24 +36,18 @@ const Component: React.VFC<Props> = ({ index, isVisibleTabListHeader }) => {
   return (
     <TabListSection>
       {/* header */}
-      <>
-        {isVisibleTabListHeader && (
-          <TabListHeader index={index} tabList={tabList} setTabList={setTabList} isLG={isLG} />
-        )}
-        {/* tabs */}
-        {tabList.tabs.map((tab, index) => (
-          <TabSimpleLink
-            key={`${tab.id}_${index}`}
-            tab={tab}
-            index={index}
-            isOpsVisible={true}
-            onDelete={handleTabDelete}
-            shouldDeleteTabWhenClicked={shouldDeleteTabWhenClicked}
-          />
-        ))}
-      </>
+      {isVisibleTabListHeader && <TabListHeader index={index} tabList={tabList} setTabList={setTabList} isLG={isLG} />}
+      {/* tabs */}
+      {tabList.tabs.map((tab, index) => (
+        <TabSimpleLink
+          key={`${tab.id}_${index}`}
+          tab={tab}
+          index={index}
+          isOpsVisible={true}
+          onDelete={handleTabDelete}
+          shouldDeleteTabWhenClicked={shouldDeleteTabWhenClicked}
+        />
+      ))}
     </TabListSection>
   )
-}
-
-export const TabListContainer = memo(Component)
+})

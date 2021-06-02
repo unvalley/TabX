@@ -32,7 +32,11 @@ export const TabListHeader: React.VFC<Props> = ({ index, tabList, setTabList, is
   const popoverBgColor = theme.palette.accents_2
 
   return (
-    <_Row style={{ height: '50px' }} onMouseOver={() => handleMouseOver(index)} onMouseLeave={() => handleMouseOut()}>
+    <_Row
+      style={{ minHeight: '50px' }}
+      onMouseOver={() => handleMouseOver(index)}
+      onMouseLeave={() => handleMouseOut()}
+    >
       <HoveredMenu>
         <_Popover
           placement={isLG ? 'leftStart' : 'bottomStart'}
@@ -41,9 +45,6 @@ export const TabListHeader: React.VFC<Props> = ({ index, tabList, setTabList, is
           content={<TabListMenuContent tabList={tabList} setTabList={setTabList} />}
           style={{
             display: displayValue,
-            cursor: 'pointer',
-            verticalAlign: 'middle!important',
-            lineHeight: 0,
             padding: Spacing['2'],
           }}
           $color={popoverColor}
@@ -57,18 +58,7 @@ export const TabListHeader: React.VFC<Props> = ({ index, tabList, setTabList, is
           />
         </_Popover>
       </HoveredMenu>
-      <span
-        style={{
-          display: 'block',
-          fontWeight: 600,
-          fontSize: '22px',
-          verticalAlign: 'middle',
-          alignSelf: 'center',
-          overflow: 'hidden',
-        }}
-      >
-        {displayTitle}
-      </span>
+      <TabListTitle>{displayTitle}</TabListTitle>
     </_Row>
   )
 }
@@ -78,8 +68,18 @@ const _Popover = styled(Popover)<{ $bgColor: string; $color: string }>`
   margin-right: 20px;
   border-radius: 50%;
   transition: all 0.3s ease;
+  vertical-align: middle !important;
+  line-height: 0;
   &:hover {
     color: ${props => props.$color};
     background-color: ${props => props.$bgColor};
   }
+`
+
+const TabListTitle = styled.span`
+  display: block;
+  font-weight: 600;
+  font-size: 22px;
+  align-self: center;
+  overflow: hidden;
 `
