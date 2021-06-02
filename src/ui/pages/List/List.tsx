@@ -1,14 +1,18 @@
-import { Button } from '@geist-ui/react'
+import { Button, Spacer } from '@geist-ui/react'
 import React from 'react'
 
 import { APP_NAME } from '~/shared/constants'
 import { TabList, TabSimple } from '~/shared/typings'
 import { Header } from '~/ui/components/Header'
+import { STORAGE_KEYS } from '~/ui/constants'
 import { useLoadMore, useLocalStorage } from '~/ui/hooks'
 import { useFuse } from '~/ui/hooks/useFuse'
 import { TabListContainer } from '~/ui/pages/List/components/TabList/TabListContainer'
 
 import { TabSimpleLink } from './components/TabSimpleLink'
+
+// for performance
+const PER_LOAD_COUNT = 6
 
 export const List: React.VFC<{ tabLists: TabList[]; tabs: TabSimple[] }> = ({ tabLists, tabs }) => {
   const { searchResults, query, onSearch } = useFuse(tabs, {
@@ -19,9 +23,8 @@ export const List: React.VFC<{ tabLists: TabList[]; tabs: TabSimple[] }> = ({ ta
     keys: ['title', 'url'],
   })
 
-  const [isVisibleTabListHeader] = useLocalStorage<boolean>('isVisibleTabListHeader')
+  const [isVisibleTabListHeader] = useLocalStorage<boolean>(STORAGE_KEYS.IS_VISIBLE_TAB_LIST_HEADER)
 
-  const PER_LOAD_COUNT = 6
   const { itemsToShow, handleShowMoreItems, isMaxLength } = useLoadMore(PER_LOAD_COUNT, tabLists)
 
   const isShowableHitTabs = query && searchResults
@@ -38,7 +41,7 @@ export const List: React.VFC<{ tabLists: TabList[]; tabs: TabSimple[] }> = ({ ta
   })
 
   return (
-    <>
+    <div>
       <Header text={APP_NAME} onSearch={onSearch} />
       {isShowableHitTabs ? (
         <>
@@ -55,9 +58,10 @@ export const List: React.VFC<{ tabLists: TabList[]; tabs: TabSimple[] }> = ({ ta
       ) : (
         <>
           {homeCurrentTabList}
+          <Spacer y={1} />
           {!isMaxLength && <Button onClick={handleShowMoreItems}>loadMore</Button>}
         </>
       )}
-    </>
+    </div>
   )
 }

@@ -18,6 +18,7 @@ import { useRecoilValue } from 'recoil'
 import { exportToText, importFromText } from '~/shared/importExport'
 import { TabList } from '~/shared/typings'
 import { DeleteButton } from '~/ui/components/DeleteButton'
+import { STORAGE_KEYS } from '~/ui/constants'
 import { Spacing } from '~/ui/constants/styles'
 import { useLocalStorage } from '~/ui/hooks'
 import { tabListTotalCount } from '~/ui/stores/tabList'
@@ -37,10 +38,13 @@ export const Tabs: React.VFC<Props> = props => {
   // const [uploadedFileName, setUploadedFileName] = useState('')
 
   // localStorage
-  const [isVisibleTabListMenu, setIsVisibleTabListMenu] = useLocalStorage('isVisibleTabListMenu', false)
-  const [isVisibleTabListHeader, setIsVisibleTabListHeader] = useLocalStorage('isVisibleTabListHeader', false)
+  const [isVisibleTabListMenu, setIsVisibleTabListMenu] = useLocalStorage(STORAGE_KEYS.IS_VISIBLE_TAB_LIST_MENU, false)
+  const [isVisibleTabListHeader, setIsVisibleTabListHeader] = useLocalStorage(
+    STORAGE_KEYS.IS_VISIBLE_TAB_LIST_HEADER,
+    false,
+  )
   const [shouldDeleteTabWhenClicked, setShouldDeleteTabWhenClicked] = useLocalStorage(
-    'shouldDeleteTabWhenClicked',
+    STORAGE_KEYS.SHOULD_DELETE_TAB_WHEN_CLICKED,
     false,
   )
 

@@ -3,13 +3,16 @@ export const Lang = {
   JAPANESE: 'ja',
 } as const
 
-export const REPO_NAME = 'ia17011/TabX'
+export const REPO_NAME = 'unvalley/TabX'
 export const BUY_ME_A_COFFEE = 'Buy me a Coffee'
 
 export const URL = {
-  DOMAIN: '/domain',
-  MASONRY: '/masonry',
   ROOT: '/',
   SETTINGS: '/settings',
-  FAVORITE: '/favorite',
+} as const
+
+export const STORAGE_KEYS = {
+  IS_VISIBLE_TAB_LIST_MENU: 'isVisibleTabListMenu',
+  IS_VISIBLE_TAB_LIST_HEADER: 'isVisibleTabListHeader',
+  SHOULD_DELETE_TAB_WHEN_CLICKED: 'shouldDeleteTabWhenClicked',
 } as const

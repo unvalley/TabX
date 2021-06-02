@@ -12,7 +12,7 @@ export const useFuse = (list: TabSimple[], fuseOptions: Fuse.IFuseOptions<any>) 
   // memoize results whenever the query or options change
   // if query is empty and `matchAllOnEmptyQuery` is `true` then return all list
   // NOTE: we remap the results to match the return structure of `fuse.search()`
-  const searchResults = useMemo(() => (query ? fuse.search(query, { limit: 12 }) : []), [fuse, query])
+  const searchResults = useMemo(() => (query ? fuse.search(query, { limit: 20 }) : []), [fuse, query])
   // debounce updateQuery and rename it `setQuery` so it's transparent
   const setQuery = useCallback(debounce(15, updateQuery), [])
   // pass a handling helper to speed up implementation
