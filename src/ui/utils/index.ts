@@ -9,3 +9,4 @@ export const getNowYMD = () => {
 }
 
 export const exportedJSONFileName = `${APP_NAME}_${getNowYMD()}.json`
+export const isDark = (themeType: string) => themeType === Themes.DARK

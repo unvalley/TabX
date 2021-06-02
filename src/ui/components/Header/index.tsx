@@ -7,6 +7,7 @@ import { useRecoilState } from 'recoil'
 import { Menu } from '~/ui/components/Header/Menu'
 import { Colors, Spacing, Themes } from '~/ui/constants/styles'
 import { colorThemeState } from '~/ui/stores/colorTheme'
+import { isDark } from '~/ui/utils'
 
 import { _Div, HeaderRow, PageHeaderText } from './style'
 
@@ -23,8 +24,6 @@ export const Header: React.VFC<Props> = ({ text, onSearch }) => {
     setColorTheme(theme)
     localStorage.setItem('theme', theme)
   }
-
-  const isDark = colorTheme === Themes.DARK
 
   return (
     <Row>
@@ -49,10 +48,11 @@ export const Header: React.VFC<Props> = ({ text, onSearch }) => {
           <_Div
             color={popoverColor}
             bgColor={popoverBgColor}
-            onClick={() => changeColorTheme(isDark ? Themes.LIGHT : Themes.DARK)}
+            role="button"
+            onClick={() => changeColorTheme(isDark(colorTheme) ? Themes.LIGHT : Themes.DARK)}
             style={{ cursor: 'pointer', verticalAlign: 'middle', lineHeight: 0, padding: Spacing['2'] }}
           >
-            {isDark ? <Sun color={Colors.SUN_LIGHT} /> : <Moon color={Colors.MOON_DARK} />}
+            {isDark(colorTheme) ? <Sun color={Colors.SUN_LIGHT} /> : <Moon color={Colors.MOON_DARK} />}
           </_Div>
           <Menu />
         </HeaderRow>
