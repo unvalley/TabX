@@ -5,6 +5,7 @@ import { SetterOrUpdater } from 'recoil'
 import styled from 'styled-components'
 
 import { TabList } from '~/shared/typings'
+import { STORAGE_KEYS } from '~/ui/constants'
 import { Spacing } from '~/ui/constants/styles'
 import { useLocalStorage, useMouseOver, useTitle } from '~/ui/hooks'
 
@@ -23,7 +24,7 @@ type Props = {
 export const TabListHeader: React.VFC<Props> = ({ index, tabList, setTabList, isLG }) => {
   const { handleMouseOver, handleMouseOut, isMouseOvered } = useMouseOver()
   const displayTitle = useTitle(tabList)
-  const [isVisibleTabListMenu] = useLocalStorage('isVisibleTabListMenu', true)
+  const [isVisibleTabListMenu] = useLocalStorage(STORAGE_KEYS.IS_VISIBLE_TAB_LIST_MENU, true)
   const displayValue = isVisibleTabListMenu || isMouseOvered(index) ? 'inline-block' : 'none'
 
   // theme
