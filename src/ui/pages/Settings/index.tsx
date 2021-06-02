@@ -33,13 +33,12 @@ export const Settings: React.FC = () => {
   }
 
   return (
-    <>
+    <div>
       <Header text={APP_NAME} />
-      <Spacer y={1} />
       <Languages />
       <Spacer y={1} />
       <Tabs deleteAllTabs={deleteAllTabs} tabLists={tabLists} />
       <Spacer y={1} />
-    </>
+    </div>
   )
 }
