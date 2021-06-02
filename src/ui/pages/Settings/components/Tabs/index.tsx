@@ -1,16 +1,4 @@
-import {
-  Button,
-  ButtonDropdown,
-  Card,
-  Col,
-  Divider,
-  Grid,
-  Row,
-  Spacer,
-  Text,
-  Textarea,
-  useToasts,
-} from '@geist-ui/react'
+import { Button, ButtonDropdown, Card, Col, Divider, Row, Spacer, Text, Textarea, useToasts } from '@geist-ui/react'
 import React, { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useRecoilValue } from 'recoil'
@@ -79,7 +67,7 @@ export const Tabs: React.VFC<Props> = props => {
   )}`
 
   return (
-    <Grid.Container>
+    <>
       <Card>
         <Card.Content>
           <Text h4>{t('TABS')}</Text>
@@ -211,6 +199,6 @@ export const Tabs: React.VFC<Props> = props => {
           </Row>
         </Card.Content>
       </Card>
-    </Grid.Container>
+    </>
   )
 }
