@@ -1,5 +1,5 @@
 import { Button, ButtonDropdown, Card, Col, Divider, Row, Spacer, Text, Textarea, useToasts } from '@geist-ui/react'
-import React, { useMemo, useState } from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useRecoilValue } from 'recoil'
 
@@ -9,8 +9,7 @@ import { DeleteButton } from '~/ui/components/DeleteButton'
 import { STORAGE_KEYS } from '~/ui/constants'
 import { Spacing } from '~/ui/constants/styles'
 import { useLocalStorage } from '~/ui/hooks'
-import { tabListTotalCount } from '~/ui/stores/tabList'
-import { tabListsState } from '~/ui/stores/tabLists'
+import { totalTabCountSelector } from '~/ui/stores/tabList'
 import { exportedJSONFileName } from '~/ui/utils'
 
 import { _Toggle, ToggleWrapper } from '../style'
@@ -24,7 +23,10 @@ export const Tabs: React.VFC<Props> = props => {
   const [importText, setImportText] = useState('')
   const [showImportText, setShowImportText] = useState(false)
   // const [uploadedFileName, setUploadedFileName] = useState('')
+  // const [totalTabCount, setTotalTabCount] = useState(0)
+  // const handleUploadFile = (e: any) => setUploadedFileName(e.target.files[0].name)
 
+  const totalTabCount = useRecoilValue(totalTabCountSelector)
   // localStorage
   const [isVisibleTabListMenu, setIsVisibleTabListMenu] = useLocalStorage(STORAGE_KEYS.IS_VISIBLE_TAB_LIST_MENU, false)
   const [isVisibleTabListHeader, setIsVisibleTabListHeader] = useLocalStorage(
@@ -35,13 +37,6 @@ export const Tabs: React.VFC<Props> = props => {
     STORAGE_KEYS.SHOULD_DELETE_TAB_WHEN_CLICKED,
     false,
   )
-
-  const tabLists = useRecoilValue(tabListsState)
-  const tabListIdexs = tabLists.map((_, index) => index)
-  const tabCounts = tabListIdexs.map(index => useRecoilValue<number>(tabListTotalCount(index)))
-  const totalTabCount = tabCounts.length >= 1 ? useMemo(() => tabCounts.reduce((prev, cur) => prev + cur), []) : 0
-
-  // const handleUploadFile = (e: any) => setUploadedFileName(e.target.files[0].name)
 
   const { t } = useTranslation()
   const [, setToast] = useToasts()
@@ -67,91 +62,90 @@ export const Tabs: React.VFC<Props> = props => {
   )}`
 
   return (
-    <>
-      <Card>
-        <Card.Content>
-          <Text h4>{t('TABS')}</Text>
-        </Card.Content>
+    <Card>
+      <Card.Content>
+        <Text h4>{t('TABS')}</Text>
+      </Card.Content>
 
-        <Divider y={0} />
+      <Divider y={0} />
 
-        <Card.Content style={{ display: 'flex', flexDirection: 'column' }}>
-          <Row gap={0.8}>
-            <Col>
-              <Text>{t('TOTAL_TAB')}</Text>
-            </Col>
-            <Col>
-              <Row align="middle" style={{ height: '100%', textAlign: 'right' }}>
-                <Col>{totalTabCount}</Col>
-              </Row>
-            </Col>
-          </Row>
+      <Card.Content style={{ display: 'flex', flexDirection: 'column' }}>
+        <Row gap={0.8}>
+          <Col>
+            <Text>{t('TOTAL_TAB')}</Text>
+          </Col>
+          <Col>
+            <Row align="middle" style={{ height: '100%', textAlign: 'right' }}>
+              <Col>{totalTabCount}</Col>
+            </Row>
+          </Col>
+        </Row>
 
-          <Divider y={1} />
+        <Divider y={1} />
 
-          <span>
-            <ToggleWrapper>
-              <_Toggle checked={isVisibleTabListMenu} onChange={e => setIsVisibleTabListMenu(e.target.checked)} />
-              <Text>{t('SETTING_SHOW_TAB_GROUP_MENU')}</Text>
-            </ToggleWrapper>
-          </span>
-          <span>
-            <ToggleWrapper>
-              <_Toggle checked={isVisibleTabListHeader} onChange={e => setIsVisibleTabListHeader(e.target.checked)} />
-              <Text>{t('SETTING_SHOW_TAB_GROUP_COUNT')}</Text>
-            </ToggleWrapper>
-          </span>
-          <span>
-            <ToggleWrapper>
-              <_Toggle
-                checked={shouldDeleteTabWhenClicked}
-                onChange={e => setShouldDeleteTabWhenClicked(e.target.checked)}
-              />
-              <Text>{t('SETTING_DELETE_TAB_WHEN_CLICKED')}</Text>
-            </ToggleWrapper>
-          </span>
+        <span>
+          <ToggleWrapper>
+            <_Toggle checked={isVisibleTabListMenu} onChange={e => setIsVisibleTabListMenu(e.target.checked)} />
+            <Text>{t('SETTING_SHOW_TAB_GROUP_MENU')}</Text>
+          </ToggleWrapper>
+        </span>
+        <span>
+          <ToggleWrapper>
+            <_Toggle checked={isVisibleTabListHeader} onChange={e => setIsVisibleTabListHeader(e.target.checked)} />
+            <Text>{t('SETTING_SHOW_TAB_GROUP_COUNT')}</Text>
+          </ToggleWrapper>
+        </span>
+        <span>
+          <ToggleWrapper>
+            <_Toggle
+              checked={shouldDeleteTabWhenClicked}
+              onChange={e => setShouldDeleteTabWhenClicked(e.target.checked)}
+            />
+            <Text>{t('SETTING_DELETE_TAB_WHEN_CLICKED')}</Text>
+          </ToggleWrapper>
+        </span>
 
-          <Divider y={2} />
+        <Divider y={2} />
 
-          <Row gap={0.8}>
-            <Col>
-              <Text>{t('SETTING_EXPORT')}</Text>
-            </Col>
-            <Col>
-              <Row align="middle" style={{ height: '100%', textAlign: 'right' }}>
-                <Col>
-                  <ButtonDropdown size="medium">
-                    <ButtonDropdown.Item main onClick={handleClickExportButton}>
-                      OneTab
-                    </ButtonDropdown.Item>
-                    <ButtonDropdown.Item>
-                      <a href={hrefForJSONExport} download={exportedJSONFileName}>
-                        JSON
-                      </a>
-                    </ButtonDropdown.Item>
-                  </ButtonDropdown>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
+        <Row gap={0.8}>
+          <Col>
+            <Text>{t('SETTING_EXPORT')}</Text>
+          </Col>
+          <Col>
+            <Row align="middle" style={{ height: '100%', textAlign: 'right' }}>
+              <Col>
+                <ButtonDropdown size="medium">
+                  <ButtonDropdown.Item main onClick={handleClickExportButton}>
+                    OneTab
+                  </ButtonDropdown.Item>
+                  <ButtonDropdown.Item>
+                    <a href={hrefForJSONExport} download={exportedJSONFileName}>
+                      JSON
+                    </a>
+                  </ButtonDropdown.Item>
+                </ButtonDropdown>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
 
-          {showExportText && <Textarea width="100%" initialValue={exportText} style={{ height: '300px' }} />}
-          <Spacer y={2} />
-          <Row gap={0.8}>
-            <Col>
-              <Text>{t('SETTING_IMPORT')}</Text>
-            </Col>
-            <Col>
-              <Row align="middle" style={{ height: '100%', textAlign: 'right' }}>
-                <Col>
-                  <ButtonDropdown size="medium">
-                    <ButtonDropdown.Item main onClick={() => setShowImportText(!showImportText)}>
-                      OneTab
-                    </ButtonDropdown.Item>
-                    {/* TODO */}
-                    <ButtonDropdown.Item disabled>
-                      JSON (WIP)
-                      {/* <label className="upload-file" style={{ cursor: 'pointer' }}>
+        {showExportText && <Textarea width="100%" initialValue={exportText} style={{ height: '300px' }} />}
+        <Spacer y={2} />
+        <Row gap={0.8}>
+          <Col>
+            <Text>{t('SETTING_IMPORT')}</Text>
+          </Col>
+          <Col>
+            <Row align="middle" style={{ height: '100%', textAlign: 'right' }}>
+              <Col>
+                <ButtonDropdown size="medium">
+                  <ButtonDropdown.Item main onClick={() => setShowImportText(!showImportText)}>
+                    OneTab
+                  </ButtonDropdown.Item>
+                  {/* TODO */}
+                  <ButtonDropdown.Item disabled>
+                    JSON (WIP)
+                    {/* <label className="upload-file" style={{ cursor: 'pointer' }}>
                         JSON
                         <input
                           onChange={handleUploadFile}
@@ -161,44 +155,43 @@ export const Tabs: React.VFC<Props> = props => {
                           style={{ display: 'none', cursor: 'pointer' }}
                         />
                       </label> */}
-                    </ButtonDropdown.Item>
-                  </ButtonDropdown>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-          {showImportText && (
-            <div>
-              <Textarea
-                width="100%"
-                initialValue={importText}
-                style={{ height: '300px' }}
-                onChange={e => setImportText(e.target.value)}
-              />
-              <div style={{ textAlign: 'right', paddingTop: Spacing['1'] }}>
-                <Button size="medium" type="success" ghost onClick={handleTextImport}>
-                  Import
-                </Button>
-              </div>
+                  </ButtonDropdown.Item>
+                </ButtonDropdown>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+        {showImportText && (
+          <div>
+            <Textarea
+              width="100%"
+              initialValue={importText}
+              style={{ height: '300px' }}
+              onChange={e => setImportText(e.target.value)}
+            />
+            <div style={{ textAlign: 'right', paddingTop: Spacing['1'] }}>
+              <Button size="medium" type="success" ghost onClick={handleTextImport}>
+                Import
+              </Button>
             </div>
-          )}
-          {/* {uploadedFileName && <p>Importing {uploadedFileName}</p>} */}
-          <Divider y={3} />
-          <Text b>{t('DANGER_ZONE')}</Text>
-          <Row gap={0.8}>
-            <Col>
-              <Text>{t('DANGER_ZONE_MESSAGE')}</Text>
-            </Col>
-            <Col>
-              <Row align="middle" style={{ height: '100%', textAlign: 'right' }}>
-                <Col>
-                  <DeleteButton onClick={props.deleteAllTabs} label={t('DELETE_ALL_TABS_BUTTON')} />
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-        </Card.Content>
-      </Card>
-    </>
+          </div>
+        )}
+        {/* {uploadedFileName && <p>Importing {uploadedFileName}</p>} */}
+        <Divider y={3} />
+        <Text b>{t('DANGER_ZONE')}</Text>
+        <Row gap={0.8}>
+          <Col>
+            <Text>{t('DANGER_ZONE_MESSAGE')}</Text>
+          </Col>
+          <Col>
+            <Row align="middle" style={{ height: '100%', textAlign: 'right' }}>
+              <Col>
+                <DeleteButton onClick={props.deleteAllTabs} label={t('DELETE_ALL_TABS_BUTTON')} />
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </Card.Content>
+    </Card>
   )
 }

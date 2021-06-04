@@ -20,9 +20,7 @@ export const Settings: React.FC = () => {
   const deleteAllTabs = async () => {
     if (confirm(t('DELETE_MESSAGE'))) {
       await deleteAllLists(TAB_LISTS)
-        .then(() => {
-          setTabLists([{}] as TabList[])
-        })
+        .then(() => setTabLists([{}] as TabList[]))
         .then(() => {
           setToast({
             text: t('DELETED_ALL_TABS'),

@@ -1,8 +1,8 @@
-import { atomFamily, selectorFamily } from 'recoil'
+import { atomFamily, selector, selectorFamily } from 'recoil'
 
 import { TabList } from '~/shared/typings'
 
-import { sortTabListsState } from './tabLists'
+import { sortTabListsState, tabListsState } from './tabLists'
 
 /**
  * Children TabListState
@@ -18,11 +18,12 @@ export const tabListState = atomFamily<TabList, number>({
   }),
 })
 
-export const tabListTotalCount = selectorFamily({
-  key: 'tabListTotalCount',
-  get: (index: number) => async ({ get }) => {
-    const tabList = await get(tabListState(index))
-    const tabs = tabList.tabs
-    return !tabs || !tabs.length ? 0 : tabs.length
+export const totalTabCountSelector = selector({
+  key: 'totalTabCount',
+  get: async ({ get }) => {
+    const tabLists = await get(tabListsState)
+    const tabCounts = tabLists.flatMap(e => e.tabs.length)
+    const totalTabCount = tabCounts.reduce((prev, cur) => prev + cur)
+    return totalTabCount
   },
 })
