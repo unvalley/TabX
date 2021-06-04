@@ -80,7 +80,10 @@ const _Popover = styled(Popover)<{ $bgColor: string; $color: string }>`
 const TabListTitle = styled.span`
   display: block;
   font-weight: 600;
-  font-size: 22px;
+  font-size: 18px;
   align-self: center;
   overflow: hidden;
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
 `
