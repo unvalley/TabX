@@ -129,10 +129,9 @@ export const unifyTabs = async (key: ListName) => {
     draft.forEach((tabList, idx) => {
       tabList.tabs.forEach((tab, _) => {
         if (uniqUrls.has(tab.url)) {
-          console.log(tabList.tabs)
-          const isEmpty = draft[idx].tabs.length === 0
+          const isEmpty = tabList.tabs.length === 0
           tabList.tabs = !isEmpty ? tabList.tabs.filter(t => t.url !== tab.url) : tabList.tabs
-          if (isEmpty) {
+          if (tabList.tabs.length === 0) {
             draft.splice(idx, 1)
           }
         } else if (!uniqUrls.has(tab.url)) {
