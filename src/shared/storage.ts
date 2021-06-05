@@ -125,13 +125,13 @@ export const unifyTabs = async (key: ListName) => {
   const allTabLists = await getAllLists(key)
   const uniqUrls = new Set()
   // UPDATE
+  const isEmpty = <T>(list: T[]) => list.length === 0
   const updatedAllTabLists = produce(allTabLists, draft =>
     draft.forEach((tabList, idx) => {
       tabList.tabs.forEach((tab, _) => {
         if (uniqUrls.has(tab.url)) {
-          const isEmpty = tabList.tabs.length === 0
-          tabList.tabs = !isEmpty ? tabList.tabs.filter(t => t.url !== tab.url) : tabList.tabs
-          if (tabList.tabs.length === 0) {
+          tabList.tabs = !isEmpty(tabList.tabs) ? tabList.tabs.filter(t => t.url !== tab.url) : tabList.tabs
+          if (isEmpty(tabList.tabs)) {
             draft.splice(idx, 1)
           }
         } else if (!uniqUrls.has(tab.url)) {
