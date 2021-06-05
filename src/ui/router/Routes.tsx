@@ -10,7 +10,7 @@ import { List } from '../pages/List'
 import { Settings } from '../pages/Settings'
 
 const Wrapper = styled(Grid.Container)<{ bg: string }>`
-  margin: ${Spacing['3']} 100px;
+  margin: 0px 100px;
   display: flex;
   min-height: 100vh;
   position: relative;
@@ -19,13 +19,11 @@ const Wrapper = styled(Grid.Container)<{ bg: string }>`
 
 const MainContainer = styled.main`
   margin: ${Spacing['5']} auto;
-  max-width: 65%;
+  max-width: 70%;
   flex: 1 1 0%;
   order: 2;
   position: relative;
   flex-direction: column;
-  padding-right: 1rem;
-  padding-left: 1rem;
   padding-bottom: 8rem;
 `
 
@@ -36,16 +34,14 @@ export const Routes = () => {
   return (
     <MemoryRouter>
       <Wrapper bg={mainBgColor}>
-        <Grid lg={24} md={24} xs={24}>
-          <MainContainer>
-            <React.Suspense fallback={<Load />}>
-              <Switch>
-                <Route exact path="/" component={List} />
-                <Route path="/settings" component={Settings} />
-              </Switch>
-            </React.Suspense>
-          </MainContainer>
-        </Grid>
+        <MainContainer>
+          <React.Suspense fallback={<Load />}>
+            <Switch>
+              <Route exact path="/" component={List} />
+              <Route path="/settings" component={Settings} />
+            </Switch>
+          </React.Suspense>
+        </MainContainer>
       </Wrapper>
     </MemoryRouter>
   )

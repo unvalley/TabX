@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
 
 import { Menu } from '~/ui/components/Header/Menu'
-import { Colors, Spacing, Themes } from '~/ui/constants/styles'
+import { Colors, Themes } from '~/ui/constants/styles'
 import { colorThemeState } from '~/ui/stores/colorTheme'
 import { isDark } from '~/ui/utils'
 
-import { _Div, HeaderRow, PageHeaderText } from './style'
+import { _Div, PageHeaderText } from './style'
 
 type Props = { text?: string; onSearch?: (e: any) => void }
 
@@ -27,8 +27,8 @@ export const Header: React.VFC<Props> = ({ text, onSearch }) => {
 
   return (
     <Row>
-      <Col span={22}>
-        <HeaderRow>
+      <Col>
+        <Row justify="start" align="middle" style={{ height: '100%', textAlign: 'center' }}>
           <Link to={'/'} style={{ color: 'inherit' }}>
             <PageHeaderText>{text}</PageHeaderText>
           </Link>
@@ -43,21 +43,20 @@ export const Header: React.VFC<Props> = ({ text, onSearch }) => {
               style={{ margin: '2px 10px 0px 2px' }}
             />
           )}
-        </HeaderRow>
+        </Row>
       </Col>
-      <Col span={2}>
-        <HeaderRow>
+      <Col>
+        <Row justify="end" align="middle" style={{ height: '100%', textAlign: 'center' }}>
           <_Div
             color={popoverColor}
             bgColor={popoverBgColor}
             role="button"
             onClick={() => changeColorTheme(isDark(colorTheme) ? Themes.LIGHT : Themes.DARK)}
-            style={{ cursor: 'pointer', verticalAlign: 'middle', lineHeight: 0, padding: Spacing['2'] }}
           >
             {isDark(colorTheme) ? <Sun color={Colors.SUN_LIGHT} /> : <Moon color={Colors.MOON_DARK} />}
           </_Div>
           <Menu />
-        </HeaderRow>
+        </Row>
       </Col>
     </Row>
   )

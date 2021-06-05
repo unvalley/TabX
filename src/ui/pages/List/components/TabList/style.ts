@@ -1,7 +1,7 @@
 import { Row } from '@geist-ui/react'
 import styled from 'styled-components'
 
-export const TabListSection = styled.section`
+export const TabListWrapper = styled.div`
   width: 100%;
   min-width: 80%;
 `

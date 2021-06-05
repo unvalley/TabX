@@ -12,7 +12,7 @@ import { removeTab } from '~/ui/utils/producer'
 
 import { TabSimpleLink } from '../TabSimpleLink'
 import { TabListHeader } from './internal/TabListHeader'
-import { TabListSection } from './style'
+import { TabListWrapper } from './style'
 
 type Props = { index: number; isVisibleTabListHeader: boolean }
 
@@ -24,8 +24,7 @@ export const TabListContainer: React.VFC<Props> = memo(({ index, isVisibleTabLis
 
   const handleTabDelete = async (tabId: number) => {
     await deleteTabLink(TAB_LISTS, tabList.id, tabId).then(() => {
-      // TODO: fix type
-      const newTabs = removeTab(tabList, tabId) as TabList
+      const newTabs = removeTab(tabList, tabId)
       // NOTE: handling for last tab deletion
       newTabs.tabs.length > 0 ? setTabList(newTabs) : setTabList({} as TabList)
     })
@@ -35,7 +34,7 @@ export const TabListContainer: React.VFC<Props> = memo(({ index, isVisibleTabLis
   if (!tabList || !tabList.tabs) return <></>
 
   return (
-    <TabListSection>
+    <TabListWrapper>
       {/* header */}
       {isVisibleTabListHeader && <TabListHeader index={index} tabList={tabList} setTabList={setTabList} isLG={isLG} />}
       {/* tabs */}
@@ -49,6 +48,6 @@ export const TabListContainer: React.VFC<Props> = memo(({ index, isVisibleTabLis
           shouldDeleteTabWhenClicked={shouldDeleteTabWhenClicked}
         />
       ))}
-    </TabListSection>
+    </TabListWrapper>
   )
 })

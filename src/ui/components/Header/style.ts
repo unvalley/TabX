@@ -1,4 +1,4 @@
-import { Row, Text } from '@geist-ui/react'
+import { Text } from '@geist-ui/react'
 import styled from 'styled-components'
 
 import { Spacing } from '~/ui/constants/styles'
@@ -13,17 +13,13 @@ export const PageHeaderText = styled(Text).attrs({
   }
 `
 
-export const HeaderRow = styled(Row).attrs({
-  align: 'middle',
-})`
-  height: 100%;
-  text-align: 'center';
-`
-
 export const _Div = styled.div<{ color: string; bgColor: string }>`
   cursor: pointer;
   border-radius: 50%;
-  padding: ${Spacing['0.5']} ${Spacing['1']};
+  padding: ${Spacing['2']};
+  vertical-align: middle;
+  line-height: 0;
+  display: inline-block;
   transition: all 0.3s ease;
   &:hover {
     color: ${({ color }) => color};

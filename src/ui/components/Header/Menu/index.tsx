@@ -1,11 +1,8 @@
-import { Popover, useTheme } from '@geist-ui/react'
-import { MoreVertical } from '@geist-ui/react-icons'
+import { useTheme } from '@geist-ui/react'
 import React from 'react'
-import styled from 'styled-components'
-
-import { Spacing } from '~/ui/constants/styles'
 
 import { MenuContent } from './MenuContent'
+import { _Popover, _MoreVerticalIcon } from './style'
 
 export const Menu: React.VFC = () => {
   const theme = useTheme()
@@ -18,19 +15,3 @@ export const Menu: React.VFC = () => {
     </_Popover>
   )
 }
-
-const _MoreVerticalIcon = styled(MoreVertical)`
-  border-radius: 20px;
-`
-
-const _Popover = styled(Popover)<{ $color: string; $bgColor: string }>`
-  cursor: pointer;
-  border-radius: 50%;
-  padding: ${Spacing['2']};
-  transition: all 0.3s ease;
-  line-height: 0;
-  &:hover {
-    color: ${props => props.color};
-    background-color: ${props => props.$bgColor};
-  }
-`
