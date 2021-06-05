@@ -40,8 +40,9 @@ export const TabListMenuContent: React.VFC<Props> = ({ tabList, setTabList }) =>
   }
 
   const handleOpen = async (tabListId: number) => {
-    // TODO: refactor
-    await restoreTabList(TAB_LISTS, tabListId).then(() => setTabList({} as TabList))
+    await restoreTabList(TAB_LISTS, tabListId)
+      .then(() => setTabList({} as TabList))
+      .catch(err => console.error(err))
   }
 
   return (
