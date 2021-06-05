@@ -14,7 +14,5 @@ export const List: React.VFC = () => {
 
   const { t } = useTranslation()
 
-  console.log(tabLists)
-
   return tabLists.length > 0 ? <Component tabLists={tabLists} tabs={tabs} /> : <h4>{t('TAB_LISTS_EMPTY_MESSAGE')}</h4>
 }
