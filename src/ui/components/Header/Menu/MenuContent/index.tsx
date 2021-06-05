@@ -1,11 +1,12 @@
 import { Popover } from '@geist-ui/react'
-import { ChevronUpDown, Heart, Home, Settings, Twitter } from '@geist-ui/react-icons'
+import { ChevronUpDown, Heart, Home, Settings, Twitter, Zap } from '@geist-ui/react-icons'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
 
 import { FEEDBACK_URL, TWITTER_URL } from '~/shared/constants'
+import { unifyTabs } from '~/shared/storage'
 import { MenuItem } from '~/ui/components/MenuItem'
 import { Rule } from '~/ui/constants/styles'
 import { tabListsSortState } from '~/ui/stores/tabLists'
@@ -19,6 +20,9 @@ export const MenuContent: React.VFC = () => {
   const updateSort = () => {
     setSort(!sort)
   }
+  const unify = () => {
+    unifyTabs('tabLists')
+  }
 
   const history = useHistory()
   const toHome = () => history.push('/')
@@ -28,6 +32,7 @@ export const MenuContent: React.VFC = () => {
     <>
       {/* FUNCTION */}
       <MenuItem onClick={updateSort} label={t('SORT')} icon={<ChevronUpDown size={Rule.MENU_ICON_SIZE} />} />
+      <MenuItem onClick={unify} label={t('UNIFY')} icon={<Zap size={Rule.MENU_ICON_SIZE} />} />
       <Popover.Item line />
       {/* ROUTING */}
       <MenuItem onClick={toHome} label={t('HOME')} icon={<Home size={Rule.MENU_ICON_SIZE} />} />

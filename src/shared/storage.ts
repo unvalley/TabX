@@ -2,7 +2,7 @@ import { Mutex } from 'async-mutex'
 import produce from 'immer'
 import { browser } from 'webextension-polyfill-ts'
 
-import { loadCache, saveCache } from './cache'
+import { saveCache } from './cache'
 import { TAB_LISTS } from './constants'
 import { restoreTabs } from './tabAction'
 import { ListName, TabList, TabSimple } from './typings'
@@ -19,10 +19,10 @@ const set = (obj: Record<string, unknown>) => browser.storage.local.set(obj)
 // ========================
 
 export const getAllLists = async <T extends ListName>(key: T): Promise<TabList[]> => {
-  const cachedData = loadCache()
-  if (cachedData.length > 0) {
-    return cachedData
-  }
+  // const cachedData = loadCache()
+  // if (cachedData.length > 0) {
+  //   return cachedData
+  // }
   const res = await get(key).then(data => (Array.isArray(data[key]) ? (data[key] as TabList[]) : []))
   saveCache(key, res)
   return res
@@ -118,6 +118,54 @@ export const restoreTabList = async (key: ListName, tabListId: number) => {
   await restoreTabs(targetTabListElem.tabs)
   // DELETE
   await deleteTabList(key, tabListId)
+}
+
+// console.log(set)
+// console.log('削除', `${tab.title} ${tab.url} ${draft[idx].tabs} ${i}`)
+// console.log('削除後', draft[idx].tabs)
+// console.log('入れる', `${tab.title} ${tab.url}`)
+
+export const unifyTabs = async (key: ListName) => {
+  // SELECT
+  const allTabLists = await getAllLists(key)
+  const s = new Set()
+  const updatedAllTabLists = produce(allTabLists, draft => {
+    // const tabUrls = allTabLists.map(tabList => {
+    //   const urls = tabList.tabs.flatMap(tab => tab.url)
+    //   return urls
+    // })
+
+    // // const tabLists = draft.map(tabList => )
+    // console.log(tabUrls)
+    // // const tabUrls = tabs.map((tab, idx) => tab[idx])
+    // draft.forEach((tabList, idx) => {
+    //   tabList.tabs.forEach((tab, i) => {
+    //     if (tabUrls.includes(tab.url)) {
+    //       console.log(tab, i, idx)
+    //     }
+    //   })
+    //   // if (tabUrls.has(tab[idx].url)) {
+    //   //   tab.splice(idx, 1)
+    //   // }
+    // })
+
+    draft.forEach((tabList, idx) =>
+      tabList.tabs.forEach((tab, _) => {
+        if (s.has(tab.url)) {
+          tabList.tabs = tabList.tabs.filter(t => t.url !== tab.url)
+          if (tabList.tabs.length === 0) {
+            draft.splice(idx, 1)
+          }
+        } else {
+          s.add(tab.url)
+        }
+      }),
+    )
+  })
+
+  console.log('updatedAllTabLists', updatedAllTabLists)
+
+  setLists(TAB_LISTS, updatedAllTabLists)
 }
 
 // ========================

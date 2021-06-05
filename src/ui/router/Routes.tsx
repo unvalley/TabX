@@ -3,8 +3,8 @@ import React from 'react'
 import { MemoryRouter, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { Load } from '~/ui/components/Load'
 import { Spacing, Themes } from '~/ui/constants/styles'
+import { Load } from '../components/Load'
 
 import { List } from '../pages/List'
 import { Settings } from '../pages/Settings'
@@ -35,7 +35,13 @@ export const Routes = () => {
     <MemoryRouter>
       <Wrapper bg={mainBgColor}>
         <MainContainer>
-          <React.Suspense fallback={<Load />}>
+          <React.Suspense
+            fallback={
+              <div style={{ margin: `${Spacing[5]} auto` }}>
+                <Load />
+              </div>
+            }
+          >
             <Switch>
               <Route exact path="/" component={List} />
               <Route path="/settings" component={Settings} />

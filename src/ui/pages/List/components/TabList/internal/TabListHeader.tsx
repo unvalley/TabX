@@ -54,6 +54,7 @@ export const TabListHeader: React.VFC<Props> = ({ index, tabList, setTabList, is
           <Menu
             style={{
               opacity: '0.7',
+              fontSize: '18px',
               verticalAlign: 'middle',
             }}
           />
