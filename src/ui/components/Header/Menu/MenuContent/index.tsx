@@ -3,25 +3,28 @@ import { ChevronUpDown, Heart, Home, Settings, Twitter, Zap } from '@geist-ui/re
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
-import { useRecoilState } from 'recoil'
+import { useSetRecoilState, useRecoilState } from 'recoil'
 
-import { FEEDBACK_URL, TWITTER_URL } from '~/shared/constants'
+import { FEEDBACK_URL, TAB_LISTS, TWITTER_URL } from '~/shared/constants'
 import { unifyTabs } from '~/shared/storage'
 import { MenuItem } from '~/ui/components/MenuItem'
 import { Rule } from '~/ui/constants/styles'
-import { tabListsSortState } from '~/ui/stores/tabLists'
+import { tabListsState, tabListsSortState } from '~/ui/stores/tabLists'
 
 const toTwitter = () => window.open(TWITTER_URL)
 const toFeedback = () => window.open(FEEDBACK_URL)
 
 export const MenuContent: React.VFC = () => {
   const { t } = useTranslation()
+  const setTabLists = useSetRecoilState(tabListsState)
   const [sort, setSort] = useRecoilState(tabListsSortState)
   const updateSort = () => {
     setSort(!sort)
   }
   const unify = () => {
-    unifyTabs('tabLists')
+    unifyTabs(TAB_LISTS)
+      .then(res => setTabLists(res))
+      .catch(err => console.error(err))
   }
 
   const history = useHistory()

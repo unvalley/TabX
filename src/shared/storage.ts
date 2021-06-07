@@ -141,6 +141,7 @@ export const unifyTabs = async (key: ListName) => {
     }),
   )
   setLists(TAB_LISTS, updatedAllTabLists)
+  return updatedAllTabLists
 }
 
 // ========================
