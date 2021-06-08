@@ -20,6 +20,7 @@ export const List: React.VFC<{ tabLists: TabList[]; tabs: TabSimple[] }> = ({ ta
     shouldSort: true,
     threshold: 0.3,
     findAllMatches: true,
+    useExtendedSearch: true,
     keys: ['title', 'url'],
   })
 

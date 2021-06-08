@@ -1,4 +1,4 @@
-import { Col, Input, Row, Spacer, useTheme } from '@geist-ui/react'
+import { Col, Input, Row, Spacer, useMediaQuery, useTheme } from '@geist-ui/react'
 import { Moon, Search, Sun } from '@geist-ui/react-icons'
 import React from 'react'
 import { Link } from 'react-router-dom'
@@ -15,6 +15,7 @@ type Props = { text?: string; onSearch?: (e: any) => void }
 
 export const Header: React.VFC<Props> = ({ text, onSearch }) => {
   const [colorTheme, setColorTheme] = useRecoilState(colorThemeState)
+  const downSM = useMediaQuery('sm', { match: 'down' })
 
   const theme = useTheme()
   const popoverColor = theme.palette.foreground
@@ -25,6 +26,8 @@ export const Header: React.VFC<Props> = ({ text, onSearch }) => {
     localStorage.setItem('theme', theme)
   }
 
+  const showSearchInput = !!onSearch && !downSM
+
   return (
     <Row>
       <Col>
@@ -33,7 +36,7 @@ export const Header: React.VFC<Props> = ({ text, onSearch }) => {
             <PageHeaderText>{text}</PageHeaderText>
           </Link>
           <Spacer />
-          {!!onSearch && (
+          {showSearchInput && (
             <Input
               icon={<Search />}
               status="secondary"

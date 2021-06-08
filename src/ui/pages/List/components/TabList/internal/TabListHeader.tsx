@@ -5,9 +5,8 @@ import { SetterOrUpdater } from 'recoil'
 import styled from 'styled-components'
 
 import { TabList } from '~/shared/typings'
-import { STORAGE_KEYS } from '~/ui/constants'
 import { Spacing } from '~/ui/constants/styles'
-import { useLocalStorage, useMouseOver, useTitle } from '~/ui/hooks'
+import { useMouseOver, useTitle } from '~/ui/hooks'
 
 import { _Row, HoveredMenu } from '../style'
 import { TabListMenuContent } from './TabListMenuContent'
@@ -19,13 +18,10 @@ type Props = {
   isLG?: boolean
 }
 
-// TODO: fix styles
-
 export const TabListHeader: React.VFC<Props> = ({ index, tabList, setTabList, isLG }) => {
-  const { handleMouseOver, handleMouseOut, isMouseOvered } = useMouseOver()
+  const { handleMouseOver, handleMouseOut } = useMouseOver()
+
   const displayTitle = useTitle(tabList)
-  const [isVisibleTabListMenu] = useLocalStorage(STORAGE_KEYS.IS_VISIBLE_TAB_LIST_MENU, true)
-  const displayValue = isVisibleTabListMenu || isMouseOvered(index) ? 'inline-block' : 'none'
 
   // theme
   const theme = useTheme()
@@ -45,7 +41,6 @@ export const TabListHeader: React.VFC<Props> = ({ index, tabList, setTabList, is
           offset={12}
           content={<TabListMenuContent tabList={tabList} setTabList={setTabList} />}
           style={{
-            display: displayValue,
             padding: Spacing['2'],
           }}
           $color={popoverColor}
