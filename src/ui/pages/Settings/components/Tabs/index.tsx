@@ -28,7 +28,6 @@ export const Tabs: React.VFC<Props> = props => {
 
   const totalTabCount = useRecoilValue(totalTabCountSelector)
   // localStorage
-  const [isVisibleTabListMenu, setIsVisibleTabListMenu] = useLocalStorage(STORAGE_KEYS.IS_VISIBLE_TAB_LIST_MENU, false)
   const [isVisibleTabListHeader, setIsVisibleTabListHeader] = useLocalStorage(
     STORAGE_KEYS.IS_VISIBLE_TAB_LIST_HEADER,
     false,
@@ -83,12 +82,6 @@ export const Tabs: React.VFC<Props> = props => {
 
         <Divider y={1} />
 
-        <span>
-          <ToggleWrapper>
-            <_Toggle checked={isVisibleTabListMenu} onChange={e => setIsVisibleTabListMenu(e.target.checked)} />
-            <Text>{t('SETTING_SHOW_TAB_GROUP_MENU')}</Text>
-          </ToggleWrapper>
-        </span>
         <span>
           <ToggleWrapper>
             <_Toggle checked={isVisibleTabListHeader} onChange={e => setIsVisibleTabListHeader(e.target.checked)} />
