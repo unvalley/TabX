@@ -35,7 +35,13 @@ export const Routes = () => {
     <MemoryRouter>
       <Wrapper bg={mainBgColor}>
         <MainContainer>
-          <React.Suspense fallback={<Load />}>
+          <React.Suspense
+            fallback={
+              <div style={{ margin: `${Spacing[5]} auto` }}>
+                <Load />
+              </div>
+            }
+          >
             <Switch>
               <Route exact path="/" component={List} />
               <Route path="/settings" component={Settings} />
