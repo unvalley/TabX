@@ -25,8 +25,8 @@ export const Tabs: React.VFC<Props> = props => {
   // const [uploadedFileName, setUploadedFileName] = useState('')
   // const [totalTabCount, setTotalTabCount] = useState(0)
   // const handleUploadFile = (e: any) => setUploadedFileName(e.target.files[0].name)
-
   const totalTabCount = useRecoilValue(totalTabCountSelector)
+
   // localStorage
   const [isVisibleTabListHeader, setIsVisibleTabListHeader] = useLocalStorage(
     STORAGE_KEYS.IS_VISIBLE_TAB_LIST_HEADER,

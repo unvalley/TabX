@@ -13,9 +13,7 @@ export const tabListsState = atom<TabList[]>({
     key: 'tabListsState/Default',
     get: async () => {
       const lists = await getAllLists(TAB_LISTS)
-      if (typeof lists === 'undefined') {
-        return []
-      }
+      if (!lists.length) return []
       return lists
     },
   }),
