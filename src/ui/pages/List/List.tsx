@@ -1,5 +1,5 @@
 import { Button, Spacer, Loading } from '@geist-ui/react'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { APP_NAME } from '~/shared/constants'
@@ -12,9 +12,6 @@ import { TabListContainer } from '~/ui/pages/List/components/TabList/TabListCont
 
 import { TabSimpleLink } from './components/TabSimpleLink'
 
-// for performance
-const PER_LOAD_COUNT = 6
-
 export const List: React.VFC<{ tabLists: TabList[]; tabs: TabSimple[] }> = ({ tabLists, tabs }) => {
   const { searchResults, query, onSearch } = useFuse(tabs, {
     minMatchCharLength: 1,
@@ -26,7 +23,9 @@ export const List: React.VFC<{ tabLists: TabList[]; tabs: TabSimple[] }> = ({ ta
   })
   const { t } = useTranslation()
   const [isVisibleTabListHeader] = useLocalStorage<boolean>(STORAGE_KEYS.IS_VISIBLE_TAB_LIST_HEADER)
-  const { itemsToShow, handleShowMoreItems, isMaxLength } = useLoadMore(PER_LOAD_COUNT, tabLists)
+
+  const perLoadCount = useMemo(() => (isVisibleTabListHeader ? 6 : 10), [isVisibleTabListHeader])
+  const { itemsToShow, handleShowMoreItems, isMaxLength } = useLoadMore(perLoadCount, tabLists)
   const showHitResults = query && searchResults
 
   const [hasLoaded, setHasLoaded] = useState(false)
