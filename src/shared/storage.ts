@@ -18,10 +18,12 @@ const set = (obj: Record<string, unknown>) => browser.storage.local.set(obj)
 // Storage Operations
 // ========================
 
-export const getAllLists = async <T extends ListName>(key: T): Promise<TabList[]> => {
-  const cachedData = loadCache()
-  if (cachedData.length > 0) {
-    return cachedData
+export const getAllLists = async <T extends ListName>(key: T, useCache = true): Promise<TabList[]> => {
+  if (useCache) {
+    const cachedData = loadCache()
+    if (cachedData.length > 0) {
+      return cachedData
+    }
   }
   const res = await get(key).then(data => (Array.isArray(data[key]) ? (data[key] as TabList[]) : []))
   saveCache(key, res)
@@ -40,7 +42,7 @@ export const setLists = (key: ListName, lists: TabList[]) => {
 }
 
 export const addList = async (key: ListName, newList: TabList) => {
-  const allTabLists = await getAllLists(key)
+  const allTabLists = await getAllLists(key, false)
   const updatedAllTabLists = produce(allTabLists, draft => {
     draft.push(newList)
   })

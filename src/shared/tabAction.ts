@@ -46,7 +46,7 @@ const storeTabs = async (tabs: Tabs.Tab[]) => {
   const newList = createNewTabList(tabs)
 
   try {
-    const lists = await Storage.getAllLists(TAB_LISTS)
+    const lists = await Storage.getAllLists(TAB_LISTS, false)
     typeof lists === 'undefined' || lists === null
       ? await Storage.setLists(TAB_LISTS, [newList])
       : await Storage.addList(TAB_LISTS, newList)
