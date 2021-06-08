@@ -1,5 +1,4 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 import { useRecoilValue } from 'recoil'
 
 import { TabList, TabSimple } from '~/shared/typings'
@@ -11,7 +10,6 @@ import { List as Component } from './List'
 export const List: React.VFC = () => {
   const tabLists = useRecoilValue<TabList[]>(tabListsState)
   const tabs = useRecoilValue<TabSimple[]>(tabsState)
-  const { t } = useTranslation()
 
-  return tabLists.length > 0 ? <Component tabLists={tabLists} tabs={tabs} /> : <h4>{t('TAB_LISTS_EMPTY_MESSAGE')}</h4>
+  return <Component tabLists={tabLists} tabs={tabs} />
 }

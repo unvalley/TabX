@@ -1,4 +1,4 @@
-import { Spacer, useToasts } from '@geist-ui/react'
+import { Spacer, useTheme, useToasts } from '@geist-ui/react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useRecoilState } from 'recoil'
@@ -17,6 +17,8 @@ export const Settings: React.FC = () => {
   const [, setToast] = useToasts()
   const [tabLists, setTabLists] = useRecoilState(tabListsState)
 
+  const theme = useTheme()
+
   const deleteAllTabs = async () => {
     if (confirm(t('DELETE_MESSAGE'))) {
       await deleteAllLists(TAB_LISTS)
@@ -33,9 +35,9 @@ export const Settings: React.FC = () => {
   return (
     <div>
       <Header text={APP_NAME} />
-      <Languages />
+      <Languages backgroundColor={theme.palette.accents_1} />
       <Spacer y={1} />
-      <Tabs deleteAllTabs={deleteAllTabs} tabLists={tabLists} />
+      <Tabs backgroundColor={theme.palette.accents_1} deleteAllTabs={deleteAllTabs} tabLists={tabLists} />
       <Spacer y={1} />
     </div>
   )

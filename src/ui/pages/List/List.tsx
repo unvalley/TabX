@@ -1,5 +1,6 @@
 import { Button, Spacer, Loading } from '@geist-ui/react'
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { APP_NAME } from '~/shared/constants'
 import { TabList, TabSimple } from '~/shared/typings'
@@ -23,11 +24,12 @@ export const List: React.VFC<{ tabLists: TabList[]; tabs: TabSimple[] }> = ({ ta
     useExtendedSearch: true,
     keys: ['title', 'url'],
   })
-
-  const [hasLoaded, setHasLoaded] = useState(false)
+  const { t } = useTranslation()
   const [isVisibleTabListHeader] = useLocalStorage<boolean>(STORAGE_KEYS.IS_VISIBLE_TAB_LIST_HEADER)
   const { itemsToShow, handleShowMoreItems, isMaxLength } = useLoadMore(PER_LOAD_COUNT, tabLists)
-  const isShowableHitTabs = query && searchResults
+  const showHitResults = query && searchResults
+
+  const [hasLoaded, setHasLoaded] = useState(false)
 
   useEffect(() => {
     setHasLoaded(true)
@@ -47,16 +49,17 @@ export const List: React.VFC<{ tabLists: TabList[]; tabs: TabSimple[] }> = ({ ta
   return (
     <div>
       <Header text={APP_NAME} onSearch={onSearch} />
+      {!tabLists.length && <span>{t('TAB_LISTS_EMPTY_MESSAGE')}</span>}
       {hasLoaded ? (
-        <>
-          {isShowableHitTabs ? (
+        <div>
+          {showHitResults ? (
             <>
               {searchResults.map((tab, index) => (
                 <TabSimpleLink
                   key={`${tab.item.id}_${index}`}
                   tab={tab.item}
                   index={index}
-                  isOpsVisible={false}
+                  isOpsVisible={true}
                   shouldDeleteTabWhenClicked={false}
                 />
               ))}
@@ -68,7 +71,7 @@ export const List: React.VFC<{ tabLists: TabList[]; tabs: TabSimple[] }> = ({ ta
               {!isMaxLength && <Button onClick={handleShowMoreItems}>loadMore</Button>}
             </>
           )}
-        </>
+        </div>
       ) : (
         <span>
           <Loading type="success"> Loading Tabs…</Loading>
