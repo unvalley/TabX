@@ -6,7 +6,8 @@ import styled from 'styled-components'
 
 import { TabList } from '~/shared/typings'
 import { Spacing } from '~/ui/constants/styles'
-import { useMouseOver, useTitle } from '~/ui/hooks'
+import { useMouseOver } from '~/ui/hooks'
+import { getDisplayTitle } from '~/ui/utils/tabListTitle'
 
 import { _Row, HoveredMenu } from '../style'
 import { TabListMenuContent } from './TabListMenuContent'
@@ -20,8 +21,7 @@ type Props = {
 
 export const TabListHeader: React.VFC<Props> = ({ index, tabList, setTabList, isLG }) => {
   const { handleMouseOver, handleMouseOut } = useMouseOver()
-
-  const displayTitle = useTitle(tabList)
+  const displayTitle = getDisplayTitle(tabList, isLG || false)
 
   // theme
   const theme = useTheme()
@@ -81,5 +81,9 @@ const TabListTitle = styled.span`
   overflow: hidden;
   @media (max-width: 768px) {
     font-size: 16px;
+    /* display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    text-overflow: ellipsis; */
   }
 `
