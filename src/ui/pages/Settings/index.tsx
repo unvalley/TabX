@@ -1,10 +1,10 @@
 import { Spacer, useTheme, useToasts } from '@geist-ui/react'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useRecoilState } from 'recoil'
 
 import { APP_NAME, TAB_LISTS } from '~/shared/constants'
-import { deleteAllLists } from '~/shared/storage'
+import { deleteAllLists, getAllLists } from '~/shared/storage'
 import { TabList } from '~/shared/typings'
 import { Header } from '~/ui/components/Header'
 import { tabListsState } from '~/ui/stores/tabLists'
@@ -19,10 +19,24 @@ export const Settings: React.FC = () => {
 
   const theme = useTheme()
 
+  // HACK: this is for count totalTabs.
+  // not efficient, needs refactor
+  useEffect(() => {
+    try {
+      const resetTabLists = async () => {
+        const tabLists = await getAllLists(TAB_LISTS)
+        setTabLists(tabLists)
+      }
+      resetTabLists()
+    } catch (err) {
+      console.error(err)
+    }
+  }, [])
+
   const deleteAllTabs = async () => {
     if (confirm(t('DELETE_MESSAGE'))) {
       await deleteAllLists(TAB_LISTS)
-        .then(() => setTabLists([{}] as TabList[]))
+        .then(() => setTabLists([] as TabList[]))
         .then(() => {
           setToast({
             text: t('DELETED_ALL_TABS'),
