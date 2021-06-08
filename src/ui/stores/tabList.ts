@@ -22,6 +22,7 @@ export const totalTabCountSelector = selector({
   key: 'totalTabCount',
   get: async ({ get }) => {
     const tabLists = await get(tabListsState)
+    if (tabLists.length === 0) return 0
     const tabCounts = tabLists.flatMap(e => e.tabs.length)
     const totalTabCount = tabCounts.reduce((prev, cur) => prev + cur)
     return totalTabCount

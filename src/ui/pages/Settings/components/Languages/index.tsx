@@ -6,7 +6,7 @@ import { useRecoilState } from 'recoil'
 import { Lang } from '~/ui/constants'
 import { langState } from '~/ui/stores/lang'
 
-export const Languages: React.VFC = () => {
+export const Languages: React.VFC<{ backgroundColor?: string }> = ({ backgroundColor }) => {
   const [t, i18n] = useTranslation()
   const [lang, setLang] = useRecoilState(langState)
 
@@ -17,7 +17,7 @@ export const Languages: React.VFC = () => {
   }
 
   return (
-    <Card>
+    <Card style={{ backgroundColor: backgroundColor }}>
       <Card.Content>
         <Text h4>{t('LANGUAGE')}</Text>
       </Card.Content>

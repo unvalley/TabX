@@ -14,7 +14,7 @@ import { exportedJSONFileName } from '~/ui/utils'
 
 import { _Toggle, ToggleWrapper } from '../style'
 
-type Props = { deleteAllTabs: () => void; tabLists: TabList[] }
+type Props = { deleteAllTabs: () => void; tabLists: TabList[]; backgroundColor?: string }
 
 export const Tabs: React.VFC<Props> = props => {
   // import/export
@@ -61,7 +61,7 @@ export const Tabs: React.VFC<Props> = props => {
   )}`
 
   return (
-    <Card>
+    <Card style={{ backgroundColor: props.backgroundColor }}>
       <Card.Content>
         <Text h4>{t('TABS')}</Text>
       </Card.Content>
