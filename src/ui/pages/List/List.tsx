@@ -46,16 +46,16 @@ export const List: React.VFC<{ tabLists: TabList[]; tabs: TabSimple[] }> = ({ ta
   })
 
   return (
-    <div>
+    <>
       <Header text={APP_NAME} onSearch={onSearch} />
       {!tabLists.length && <span>{t('TAB_LISTS_EMPTY_MESSAGE')}</span>}
       {hasLoaded ? (
-        <div>
+        <>
           {showHitResults ? (
             <>
               {searchResults.map((tab, index) => (
                 <TabSimpleLink
-                  key={`${tab.item.id}_${index}`}
+                  key={`${tab.item.id}`}
                   tab={tab.item}
                   index={index}
                   isOpsVisible={true}
@@ -70,12 +70,12 @@ export const List: React.VFC<{ tabLists: TabList[]; tabs: TabSimple[] }> = ({ ta
               {!isMaxLength && <Button onClick={handleShowMoreItems}>loadMore</Button>}
             </>
           )}
-        </div>
+        </>
       ) : (
         <span>
           <Loading type="success"> Loading Tabs…</Loading>
         </span>
       )}
-    </div>
+    </>
   )
 }
