@@ -23,6 +23,7 @@ export const List: React.VFC<{ tabLists: TabList[]; tabs: TabSimple[] }> = ({ ta
   })
   const { t } = useTranslation()
   const [isVisibleTabListHeader] = useLocalStorage<boolean>(STORAGE_KEYS.IS_VISIBLE_TAB_LIST_HEADER)
+  const [shouldDeleteTabWhenClicked] = useLocalStorage(STORAGE_KEYS.SHOULD_DELETE_TAB_WHEN_CLICKED, true)
 
   const perLoadCount = useMemo(() => (isVisibleTabListHeader ? 6 : 10), [isVisibleTabListHeader])
   const { itemsToShow, handleShowMoreItems, isMaxLength } = useLoadMore(perLoadCount, tabLists)
@@ -59,7 +60,7 @@ export const List: React.VFC<{ tabLists: TabList[]; tabs: TabSimple[] }> = ({ ta
                   tab={tab.item}
                   index={index}
                   isOpsVisible={true}
-                  shouldDeleteTabWhenClicked={false}
+                  shouldDeleteTabWhenClicked={shouldDeleteTabWhenClicked}
                 />
               ))}
             </>
