@@ -1,6 +1,6 @@
-import { TAB_LISTS } from './constants'
-import { TabList } from './typings'
-import { eq, when } from './utils'
+import { TAB_LISTS } from './shared/constants'
+import { TabList } from './shared/typings'
+import { eq, when } from './shared/utils'
 
 export const cache = { tabLists: [] as TabList[] }
 export const saveCache = (storageKey: string, lists: TabList[]) =>

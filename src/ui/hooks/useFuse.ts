@@ -2,7 +2,7 @@ import Fuse from 'fuse.js'
 import { useCallback, useMemo, useState } from 'react'
 import { debounce } from 'throttle-debounce'
 
-import { TabSimple } from '~/shared/typings'
+import { TabSimple } from '~/backend/shared/typings'
 
 // ref: https://bit.ly/3uWJ3JY
 

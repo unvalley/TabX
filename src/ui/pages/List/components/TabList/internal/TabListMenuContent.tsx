@@ -6,9 +6,8 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { SetterOrUpdater } from 'recoil'
 
-import { TAB_LISTS } from '~/shared/constants'
-import { deleteTabList, restoreTabList } from '~/shared/storage'
-import { TabList } from '~/shared/typings'
+import { tabService } from '~/backend/services'
+import { TabList } from '~/backend/shared/typings'
 import { MenuItem } from '~/ui/components/MenuItem'
 import { Rule } from '~/ui/constants/styles'
 
@@ -24,7 +23,7 @@ export const TabListMenuContent: React.VFC<Props> = ({ tabList, setTabList }) =>
       return
     }
 
-    await deleteTabList(TAB_LISTS, tabListId).then(() => setTabList({} as TabList))
+    await tabService.deleteTabList(tabListId).then(() => setTabList({} as TabList))
     setToast({
       text: t('DELETED_SELECTED_TABS'),
     })
@@ -40,7 +39,8 @@ export const TabListMenuContent: React.VFC<Props> = ({ tabList, setTabList }) =>
   }
 
   const handleOpen = async (tabListId: number) => {
-    await restoreTabList(TAB_LISTS, tabListId)
+    await tabService
+      .restoreTabList(tabListId)
       .then(() => setTabList({} as TabList))
       .catch(err => console.error(err))
   }

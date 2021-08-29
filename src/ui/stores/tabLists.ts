@@ -1,8 +1,7 @@
 import { atom, selector } from 'recoil'
 
-import { TAB_LISTS } from '~/shared/constants'
-import { getAllLists } from '~/shared/storage'
-import { TabList } from '~/shared/typings'
+import { tabService } from '~/backend/services'
+import { TabList } from '~/backend/shared/typings'
 
 /**
  * Root TabListsState
@@ -12,7 +11,7 @@ export const tabListsState = atom<TabList[]>({
   default: selector<TabList[]>({
     key: 'tabListsState/Default',
     get: async () => {
-      const lists = await getAllLists(TAB_LISTS)
+      const lists = await tabService.getAllTabList()
       if (!lists.length) return []
       return lists
     },

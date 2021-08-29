@@ -1,9 +1,9 @@
-import { Button, Spacer, Loading } from '@geist-ui/react'
+import { Button, Loading, Spacer } from '@geist-ui/react'
 import React, { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { APP_NAME } from '~/shared/constants'
-import { TabList, TabSimple } from '~/shared/typings'
+import { APP_NAME } from '~/backend/shared/constants'
+import { TabList, TabSimple } from '~/backend/shared/typings'
 import { Header } from '~/ui/components/Header'
 import { STORAGE_KEYS } from '~/ui/constants'
 import { useLoadMore, useLocalStorage } from '~/ui/hooks'

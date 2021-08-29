@@ -2,8 +2,8 @@ import { useTheme } from '@geist-ui/react'
 import X from '@geist-ui/react-icons/x'
 import React, { memo } from 'react'
 
-import { TabSimple } from '~/shared/typings'
-import { omitText } from '~/shared/utils'
+import { TabSimple } from '~/backend/shared/typings'
+import { omitText } from '~/backend/shared/utils'
 import { FaviconImage } from '~/ui/components/FaviconImage'
 import { Rule, Spacing } from '~/ui/constants/styles'
 import { useMouseOver } from '~/ui/hooks'
@@ -60,3 +60,5 @@ export const TabSimpleLink: React.VFC<Props> = memo(
     )
   },
 )
+
+TabSimpleLink.displayName = 'TabSimpleLink'

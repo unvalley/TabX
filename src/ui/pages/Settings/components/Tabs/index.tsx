@@ -3,8 +3,8 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useRecoilValue } from 'recoil'
 
-import { exportToText, importFromText } from '~/shared/importExport'
-import { TabList } from '~/shared/typings'
+import { tabService } from '~/backend/services'
+import { TabList } from '~/backend/shared/typings'
 import { DeleteButton } from '~/ui/components/DeleteButton'
 import { STORAGE_KEYS } from '~/ui/constants'
 import { Spacing } from '~/ui/constants/styles'
@@ -41,7 +41,8 @@ export const Tabs: React.VFC<Props> = props => {
   const [, setToast] = useToasts()
 
   const handleClickExportButton = async () => {
-    await exportToText()
+    await tabService
+      .exportToText()
       .then(text => setExportText(text))
       .then(() => {
         setShowExportText(!showExportText)
@@ -51,7 +52,8 @@ export const Tabs: React.VFC<Props> = props => {
 
   // heavy processing
   const handleTextImport = async () => {
-    await importFromText(importText)
+    await tabService
+      .importFromText(importText)
       .then(() => setToast({ type: 'success', text: 'Successfully imported' }))
       .catch(() => setToast({ type: 'error', text: 'Error' }))
   }
