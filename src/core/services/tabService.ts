@@ -1,10 +1,11 @@
 import produce from 'immer'
 
-import { createNewTabListFromImport, normalizeUrlText } from '../list'
+import { createNewTabListFromImport } from '../factory/tabList'
+import { normalizeUrlText } from '../factory/tabSimple'
 import { ITabRepo } from '../repos/tabRepo'
-import { mutex } from '../shared/storageUtil'
 import { TabList } from '../shared/typings'
 import { createImportedUrlObjs } from '../shared/utils/importExportUtil'
+import { mutex } from '../shared/utils/storageUtil'
 import { IChromeActionUseCase } from '../useCase/chromeActionUseCase'
 import { ITabUseCase } from '../useCase/tabUseCase'
 
@@ -22,8 +23,8 @@ export class TabService implements ITabUseCase {
     return result
   }
 
-  public setAllTabList(initialAllTabList: TabList[]) {
-    return this.tabRepo.setAllTabList(initialAllTabList)
+  public setAllTabList(allTabList: TabList[]) {
+    return this.tabRepo.setAllTabList(allTabList)
   }
 
   public async addTabList(newTabList: TabList) {
@@ -96,7 +97,7 @@ export class TabService implements ITabUseCase {
     const urlObjStore = createImportedUrlObjs(singleLines)
     const tabs = urlObjStore.map(urlObjs => urlObjs.map(urlObj => normalizeUrlText(urlObj)))
     const res = tabs.map(tab => createNewTabListFromImport(tab))
-    await this.addAllTabList(res)
+    await this.addAllTabList(res).catch(err => console.error(err))
   }
 
   public async exportToText() {

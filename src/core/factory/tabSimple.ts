@@ -1,11 +1,7 @@
 import { Tabs } from 'webextension-polyfill-ts'
 
-import { ImportedUrlObj, TabList, TabSimple } from './shared/typings'
-import { genObjectId, nonNullable } from './shared/utils'
-
-// ========================
-// Tab
-// ========================
+import { ImportedUrlObj, TabSimple } from '../shared/typings'
+import { genObjectId } from '../shared/utils'
 
 export const normalizeTab = (tab: Tabs.Tab) => {
   if (!tab.url) return undefined
@@ -41,29 +37,3 @@ export const normalizeUrlText = (urlObj: ImportedUrlObj) => {
   }
   return normalized
 }
-
-// ========================
-// List
-// ========================
-
-export const createNewTabList = (tabs: Tabs.Tab[]): TabList => ({
-  id: genObjectId(),
-  title: '',
-  description: '',
-  // has pinned on this extension? - default false
-  hasPinned: false,
-  createdAt: Date.now(),
-  updatedAt: Date.now(),
-  tabs: tabs.map(normalizeTab).filter(nonNullable) || [],
-})
-
-export const createNewTabListFromImport = (tabs: TabSimple[]): TabList => ({
-  id: genObjectId(),
-  title: '',
-  description: '',
-  // has pinned on this extension? - default false
-  hasPinned: false,
-  createdAt: Date.now(),
-  updatedAt: Date.now(),
-  tabs: tabs || [],
-})

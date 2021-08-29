@@ -1,5 +1,5 @@
-import { Themes } from '~/ui/constants/styles'
 import { APP_NAME } from '~/core/shared/constants'
+import { Themes } from '~/ui/constants/styles'
 
 export const getNowYMD = () => {
   const dt = new Date()

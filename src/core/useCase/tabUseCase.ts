@@ -3,7 +3,7 @@ import { TabList, TabSimple } from '../shared/typings'
 export interface ITabUseCase {
   getAllTabList(): Promise<TabList[]>
   getAllSimpleTab(): Promise<TabSimple[]>
-  setAllTabList(initialAllTabList: TabList[]): Promise<void>
+  setAllTabList(allTabList: TabList[]): Promise<void>
   addTabList(newTabList: TabList): Promise<void>
   addAllTabList(newAllTabList: TabList[]): Promise<void>
   deleteTabSimple(tabListId: number, tabId: number): Promise<void>

@@ -1,6 +1,6 @@
 import { browser, Tabs } from 'webextension-polyfill-ts'
 
-import { createNewTabList } from '../list'
+import { createNewTabList } from '../factory/tabList'
 import { ILLEGAL_URLS } from '../shared/constants'
 import { TabSimple } from '../shared/typings'
 import { IChromeActionUseCase } from '../useCase/chromeActionUseCase'
@@ -40,7 +40,6 @@ export class ChromeActionService implements IChromeActionUseCase {
   }
 
   public async storeTabs(tabs: Tabs.Tab[]) {
-    if (tabs.length === 0) return
     const newList = createNewTabList(tabs)
 
     try {
