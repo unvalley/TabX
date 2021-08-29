@@ -1,4 +1,4 @@
-import { eq, groupBy, isString, nonNullable, when, zip } from '~/shared/utils'
+import { eq, groupBy, isString, nonNullable, when, zip } from '~/backend/shared/utils'
 
 describe('zip', () => {
   it('should works', () => {

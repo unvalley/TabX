@@ -1,9 +1,9 @@
 import { browser, Tabs } from 'webextension-polyfill-ts'
 
-import { ILLEGAL_URLS, TAB_LISTS } from './constants'
 import { createNewTabList } from './list'
-import * as Storage from './storage'
-import { TabSimple } from './typings'
+import { tabService } from './services'
+import { ILLEGAL_URLS } from './shared/constants'
+import { TabSimple } from './shared/typings'
 
 const getAllInWindow = (windowId?: number) => browser.tabs.query({ windowId })
 
@@ -46,10 +46,10 @@ const storeTabs = async (tabs: Tabs.Tab[]) => {
   const newList = createNewTabList(tabs)
 
   try {
-    const lists = await Storage.getAllLists(TAB_LISTS, false)
+    const lists = await tabService.getAllTabList()
     typeof lists === 'undefined' || lists === null
-      ? await Storage.setLists(TAB_LISTS, [newList])
-      : await Storage.addList(TAB_LISTS, newList)
+      ? await tabService.setAllTabList([newList])
+      : await tabService.addTabList(newList)
   } catch (err) {
     console.error(err)
   }
@@ -63,10 +63,7 @@ export const storeAllTabs = async () => {
   const sanitizedTabs = tabs.filter(isValidTab)
 
   // `res[1]` is storing TabList
-  // NOTE: fetch decription and ogImageUrl from URL
-  await Promise.all([openTabLists(), storeTabs(sanitizedTabs)]).then(
-    res => res[1] && Storage.updateTabListElemWithMeta(res[1].id),
-  )
+  await Promise.all([openTabLists(), storeTabs(sanitizedTabs)]).then(res => res[1])
 }
 
 export const restoreTabs = async (tabs: TabSimple[]) => {

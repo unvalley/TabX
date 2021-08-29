@@ -4,7 +4,7 @@ import React from 'react'
 import { SetterOrUpdater } from 'recoil'
 import styled from 'styled-components'
 
-import { TabList } from '~/shared/typings'
+import { TabList } from '~/backend/shared/typings'
 import { Spacing } from '~/ui/constants/styles'
 import { useMouseOver } from '~/ui/hooks'
 import { getDisplayTitle } from '~/ui/utils/tabListTitle'

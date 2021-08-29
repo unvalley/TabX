@@ -1,7 +1,7 @@
 import { Tabs } from 'webextension-polyfill-ts'
 
-import { ImportedUrlObj, TabList, TabSimple } from './typings'
-import { genObjectId, nonNullable } from './utils'
+import { ImportedUrlObj, TabList, TabSimple } from './shared/typings'
+import { genObjectId, nonNullable } from './shared/utils'
 
 // ========================
 // Tab

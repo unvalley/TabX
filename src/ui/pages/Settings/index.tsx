@@ -3,9 +3,9 @@ import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useRecoilState } from 'recoil'
 
-import { APP_NAME, TAB_LISTS } from '~/shared/constants'
-import { deleteAllLists, getAllLists } from '~/shared/storage'
-import { TabList } from '~/shared/typings'
+import { tabService } from '~/backend/services'
+import { APP_NAME } from '~/backend/shared/constants'
+import { TabList } from '~/backend/shared/typings'
 import { Header } from '~/ui/components/Header'
 import { tabListsState } from '~/ui/stores/tabLists'
 
@@ -24,7 +24,7 @@ export const Settings: React.FC = () => {
   useEffect(() => {
     try {
       const resetTabLists = async () => {
-        const tabLists = await getAllLists(TAB_LISTS)
+        const tabLists = await tabService.getAllTabList()
         setTabLists(tabLists)
       }
       resetTabLists()
@@ -35,7 +35,8 @@ export const Settings: React.FC = () => {
 
   const deleteAllTabs = async () => {
     if (confirm(t('DELETE_MESSAGE'))) {
-      await deleteAllLists(TAB_LISTS)
+      await tabService
+        .deleteAllTabList()
         .then(() => setTabLists([] as TabList[]))
         .then(() => {
           setToast({

@@ -2,9 +2,8 @@ import { Tooltip, useMediaQuery } from '@geist-ui/react'
 import React, { memo } from 'react'
 import { useRecoilState } from 'recoil'
 
-import { TAB_LISTS } from '~/shared/constants'
-import { deleteTabLink } from '~/shared/storage'
-import { TabList } from '~/shared/typings'
+import { tabService } from '~/backend/services'
+import { TabList } from '~/backend/shared/typings'
 import { STORAGE_KEYS } from '~/ui/constants'
 import { useLocalStorage } from '~/ui/hooks'
 import { tabListState } from '~/ui/stores/tabList'
@@ -23,7 +22,7 @@ export const TabListContainer: React.VFC<Props> = memo(({ index, isVisibleTabLis
   const isLG = useMediaQuery('lg')
 
   const handleTabDelete = async (tabId: number) => {
-    await deleteTabLink(TAB_LISTS, tabList.id, tabId).then(() => {
+    await tabService.deleteTabSimple(tabList.id, tabId).then(() => {
       const newTabs = removeTab(tabList, tabId)
       // NOTE: handling for last tab deletion
       newTabs.tabs.length > 0 ? setTabList(newTabs) : setTabList({} as TabList)
@@ -51,3 +50,5 @@ export const TabListContainer: React.VFC<Props> = memo(({ index, isVisibleTabLis
     </TabListWrapper>
   )
 })
+
+TabListContainer.displayName = 'TabListContainer'
