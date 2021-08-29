@@ -10,9 +10,7 @@ export const colorThemeState = atom<string>({
     key: 'colorThemeState/default',
     get: () => {
       const theme = localStorage.getItem('theme')
-      if (theme === null) {
-        return isSystemColorDark ? Themes.DARK : Themes.LIGHT
-      }
+      if (theme === null) return isSystemColorDark ? Themes.DARK : Themes.LIGHT
       return theme
     },
   }),

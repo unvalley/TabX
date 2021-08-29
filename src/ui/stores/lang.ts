@@ -8,9 +8,7 @@ export const langState = atom<string>({
     key: 'langState/default',
     get: () => {
       const lang = localStorage.getItem('lang')
-      if (lang === null) {
-        return Lang.ENGLISH
-      }
+      if (lang === null) return Lang.ENGLISH
       return lang
     },
   }),

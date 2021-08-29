@@ -9,9 +9,7 @@ export const tabsState = atom<TabSimple[]>({
     key: 'tabsState/Default',
     get: async () => {
       const lists = await tabService.getAllSimpleTab()
-      if (typeof lists === 'undefined') {
-        return []
-      }
+      if (typeof lists === 'undefined') return []
       return lists
     },
   }),
