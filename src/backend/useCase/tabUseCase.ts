@@ -8,6 +8,6 @@ export interface ITabUseCase {
   addAllTabList(newAllTabList: TabList[]): Promise<void>
   deleteTabSimple(tabListId: number, tabId: number): Promise<void>
   deleteTabList(tabListId: number, tabId: number): Promise<void>
-
   importFromText(urlText: string): Promise<void>
+  exportToText(): Promise<string>
 }
