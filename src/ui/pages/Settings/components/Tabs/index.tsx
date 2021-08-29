@@ -50,12 +50,12 @@ export const Tabs: React.VFC<Props> = props => {
       .catch(err => console.error(err))
   }
 
-  // heavy processing
+  // maybe heavy processing
   const handleTextImport = async () => {
     await tabService
       .importFromText(importText)
-      .then(() => setToast({ type: 'success', text: 'Successfully imported' }))
-      .catch(() => setToast({ type: 'error', text: 'Error' }))
+      .then(() => setToast({ type: 'success', text: 'Successfully imported tabs' }))
+      .catch(() => setToast({ type: 'error', text: 'An unexpected error has occurred' }))
   }
 
   const hrefForJSONExport = `data:text/json;charset=utf-8,${encodeURIComponent(
