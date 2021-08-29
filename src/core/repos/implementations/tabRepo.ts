@@ -1,5 +1,5 @@
-import { getStorage, setStorage } from '~/backend/shared/storageUtil'
-import { TabList } from '~/backend/shared/typings'
+import { getStorage, setStorage } from '~/core/shared/storageUtil'
+import { TabList } from '~/core/shared/typings'
 
 import { ITabRepo } from '../tabRepo'
 

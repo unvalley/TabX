@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { isString } from '~/backend/shared/utils'
+import { isString } from '~/core/shared/utils'
 
 /**
  * localStorageを扱うHook

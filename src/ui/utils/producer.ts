@@ -1,6 +1,6 @@
 import produce, { Draft } from 'immer'
 
-import { TabList } from '~/backend/shared/typings'
+import { TabList } from '~/core/shared/typings'
 
 ///////////////////////////
 // producer

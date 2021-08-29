@@ -6,8 +6,8 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { SetterOrUpdater } from 'recoil'
 
-import { tabService } from '~/backend/services'
-import { TabList } from '~/backend/shared/typings'
+import { tabService } from '~/core/services'
+import { TabList } from '~/core/shared/typings'
 import { MenuItem } from '~/ui/components/MenuItem'
 import { Rule } from '~/ui/constants/styles'
 

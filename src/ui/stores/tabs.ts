@@ -1,7 +1,7 @@
 import { atom, selector } from 'recoil'
 
-import { tabService } from '~/backend/services'
-import { TabSimple } from '~/backend/shared/typings'
+import { tabService } from '~/core/services'
+import { TabSimple } from '~/core/shared/typings'
 
 export const tabsState = atom<TabSimple[]>({
   key: 'tabsState',

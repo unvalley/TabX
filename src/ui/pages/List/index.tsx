@@ -1,7 +1,7 @@
 import React from 'react'
 import { useRecoilValue } from 'recoil'
 
-import { TabList, TabSimple } from '~/backend/shared/typings'
+import { TabList, TabSimple } from '~/core/shared/typings'
 import { tabListsState } from '~/ui/stores/tabLists'
 import { tabsState } from '~/ui/stores/tabs'
 

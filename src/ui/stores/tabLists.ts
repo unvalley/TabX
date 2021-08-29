@@ -1,7 +1,7 @@
 import { atom, selector } from 'recoil'
 
-import { tabService } from '~/backend/services'
-import { TabList } from '~/backend/shared/typings'
+import { tabService } from '~/core/services'
+import { TabList } from '~/core/shared/typings'
 
 /**
  * Root TabListsState

@@ -3,9 +3,9 @@ import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useRecoilState } from 'recoil'
 
-import { tabService } from '~/backend/services'
-import { APP_NAME } from '~/backend/shared/constants'
-import { TabList } from '~/backend/shared/typings'
+import { tabService } from '~/core/services'
+import { APP_NAME } from '~/core/shared/constants'
+import { TabList } from '~/core/shared/typings'
 import { Header } from '~/ui/components/Header'
 import { tabListsState } from '~/ui/stores/tabLists'
 

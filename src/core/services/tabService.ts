@@ -5,11 +5,11 @@ import { ITabRepo } from '../repos/tabRepo'
 import { mutex } from '../shared/storageUtil'
 import { TabList } from '../shared/typings'
 import { createImportedUrlObjs } from '../shared/utils/importExportUtil'
-import { restoreTabs } from '../tabAction'
+import { IChromeActionUseCase } from '../useCase/chromeActionUseCase'
 import { ITabUseCase } from '../useCase/tabUseCase'
 
 export class TabService implements ITabUseCase {
-  constructor(private readonly tabRepo: ITabRepo) {}
+  constructor(private readonly tabRepo: ITabRepo, private readonly chromeActionService: IChromeActionUseCase) {}
 
   public async getAllTabList() {
     const result = await this.tabRepo.getAllTabList()
@@ -85,7 +85,7 @@ export class TabService implements ITabUseCase {
     const targetTabListElem = allTabLists.filter(list => list.id === tabListId)[0]
     // OPEN
     // TODO: refactor
-    await restoreTabs(targetTabListElem.tabs).then(async () => {
+    await this.chromeActionService.restoreTabs(targetTabListElem.tabs).then(async () => {
       // DELETE
       await this.deleteTabList(tabListId)
     })

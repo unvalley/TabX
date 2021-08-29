@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 
-import { TabList } from '~/backend/shared/typings'
-import { omitText } from '~/backend/shared/utils'
+import { TabList } from '~/core/shared/typings'
+import { omitText } from '~/core/shared/utils'
 
 import { Lang } from '../constants'
 

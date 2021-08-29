@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
 
-import { FEEDBACK_URL, TWITTER_URL } from '~/backend/shared/constants'
+import { FEEDBACK_URL, TWITTER_URL } from '~/core/shared/constants'
 import { MenuItem } from '~/ui/components/MenuItem'
 import { Rule } from '~/ui/constants/styles'
 import { tabListsSortState } from '~/ui/stores/tabLists'
