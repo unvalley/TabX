@@ -1,5 +1,4 @@
 {
-  "----SETTINGS----": "",
   "HOME": "Home",
   "SETTINGS": "Settings",
   "LANGUAGE": "Language",
@@ -23,7 +22,7 @@
 
   "TOTAL_TAB": "Current Total Tabs",
   "TAB_LISTS_EMPTY_MESSAGE": "After clicking the TabX icon, it stores all opened tabs",
-  "----MENU----": "",
+
   "PIN_TABS": "Pin Tabs",
   "OPEN_TABS": "Open Tabs",
   "SHARE_LINKS": "Share Links",
@@ -33,6 +32,7 @@
   "COPY_MD_LINKS": "Copied markdown link to clipboard",
   "DELETED_SELECTED_TABS": "Selected tab group deleted",
   "SORT": "Sort",
+  "UNIQUE": "Unique",
   "TWEET": "Tweet",
   "FEEDBACK": "Feedback",
   "TWEET_MESSAGE": "TabX - A simple tab management tool",

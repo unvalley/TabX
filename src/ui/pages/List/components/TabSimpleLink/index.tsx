@@ -1,5 +1,5 @@
 import { useTheme } from '@geist-ui/react'
-import X from '@geist-ui/react-icons/x'
+import { X } from '@geist-ui/react-icons'
 import React, { memo } from 'react'
 
 import { TabSimple } from '~/core/shared/typings'
