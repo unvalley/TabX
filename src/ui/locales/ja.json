@@ -1,5 +1,4 @@
 {
-  "----SETTINGS----": "",
   "HOME": "ホーム",
   "SETTINGS": "設定",
   "LANGUAGE": "言語",
@@ -23,7 +22,7 @@
 
   "TOTAL_TAB": "現在の合計タブ数",
   "TAB_LISTS_EMPTY_MESSAGE": "タブがありません。TabXアイコンをクリックすると、開かれたタブを格納します！",
-  "----MENU----": "",
+
   "PIN_TABS": "ピン留めする",
   "SHARE_LINKS": "リンクを共有",
   "OPEN_TABS": "タブを開く",
@@ -33,6 +32,7 @@
   "COPY_MD_LINKS": "マークダウン用リンクをコピーしました",
   "DELETED_SELECTED_TABS": "選択されたタブグループを削除しました",
   "SORT": "ソート",
+  "UNIQUE": "ユニーク",
   "TWEET": "ツイート",
   "FEEDBACK": "フィードバック",
   "TWEET_MESSAGE": "TabX - シンプルなタブ管理ツール",

@@ -10,4 +10,5 @@ export interface ITabUseCase {
   deleteTabList(tabListId: number, tabId: number): Promise<void>
   importFromText(urlText: string): Promise<void>
   exportToText(): Promise<string>
+  uniqueAllTabList(): Promise<boolean>
 }

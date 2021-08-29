@@ -104,4 +104,30 @@ export class TabService implements ITabUseCase {
     const allTabList = await this.getAllTabList()
     return allTabList.map(list => list.tabs.map(tab => tab.url + ' | ' + tab.title).join('\n')).join('\n\n')
   }
+
+  public async uniqueAllTabList() {
+    const allTabList = await this.getAllTabList()
+    const uniqUrls = new Set()
+
+    const isEmptyArray = <T>(list: T[]) => list.length === 0
+
+    let hasProcessed = false
+
+    allTabList.forEach((tabList, tabListIdx) => {
+      tabList.tabs.forEach((tab, _) => {
+        if (uniqUrls.has(tab.url)) {
+          tabList.tabs = !isEmptyArray(tabList.tabs) ? tabList.tabs.filter(t => t.url !== tab.url) : tabList.tabs
+          if (isEmptyArray(tabList.tabs)) {
+            allTabList.splice(tabListIdx, 1)
+          }
+          hasProcessed = true
+        } else {
+          uniqUrls.add(tab.url)
+        }
+      })
+    })
+
+    await this.setAllTabList(allTabList)
+    return hasProcessed
+  }
 }
