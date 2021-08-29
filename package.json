@@ -84,8 +84,12 @@
   "dependencies": {
     "@geist-ui/react": "^2.1.5",
     "@types/throttle-debounce": "^2.1.0",
+    "fp-ts": "^2.11.1",
     "react": "17.0.1",
     "react-dom": "^16.13.1"
   },
-  "keywords": ["react", "typescript"]
+  "keywords": [
+    "react",
+    "typescript"
+  ]
 }

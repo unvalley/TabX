@@ -7,7 +7,7 @@ export type TabSimple = {
   /**
    * page description
    */
-  description: string
+  description?: string
   pinned: boolean
   favorite: boolean
   lastAccessed: number
@@ -40,17 +40,3 @@ export type ImportedUrlObj = {
   url: string
   title: string
 }
-
-/**
- * Target Metadata fetches from URL
- */
-export type TargetMeta = Record<string, string>
-
-/**
- * for API Request
- */
-export type TargetMetaWithId = TargetMeta & { id: number }
-
-export type TabWithMeta = TabSimple & TargetMeta
-
-export type ListName = 'tabLists'
