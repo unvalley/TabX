@@ -1,6 +1,7 @@
 import { Popover } from '@geist-ui/react'
 import { MoreVertical } from '@geist-ui/react-icons'
 import styled from 'styled-components'
+
 import { Spacing } from '~/ui/constants/styles'
 
 export const _MoreVerticalIcon = styled(MoreVertical)`

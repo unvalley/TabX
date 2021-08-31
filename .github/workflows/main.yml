@@ -1,10 +1,8 @@
-# アクション名
 name: CI
 
-# タイミングを指定
 on:
   pull_request:
-    branches: [master]
+    branches: [main]
 
 jobs:
   lint:
@@ -19,5 +17,5 @@ jobs:
         run: yarn install
       - name: run eslint
         run: yarn lint
-      # - name: run jest
-      #   run: yarn jest
+      - name: run jest
+        run: yarn jest
