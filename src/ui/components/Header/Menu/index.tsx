@@ -2,7 +2,7 @@ import { useTheme } from '@geist-ui/react'
 import React from 'react'
 
 import { MenuContent } from './MenuContent'
-import { _Popover, _MoreVerticalIcon } from './style'
+import { _MoreVerticalIcon, _Popover } from './style'
 
 export const Menu: React.VFC = () => {
   const theme = useTheme()

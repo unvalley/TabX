@@ -1,5 +1,5 @@
 import { Popover, useTheme } from '@geist-ui/react'
-import Menu from '@geist-ui/react-icons/Menu'
+import { Menu } from '@geist-ui/react-icons'
 import React from 'react'
 import { SetterOrUpdater } from 'recoil'
 import styled from 'styled-components'

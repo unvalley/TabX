@@ -1,5 +1,6 @@
 import { useTheme } from '@geist-ui/react'
 import React from 'react'
+
 import { isDark } from '~/ui/utils'
 
 import { OpsElement, OpsWrapper } from './style'
