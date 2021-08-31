@@ -1,7 +1,5 @@
-# アクション名
 name: CI
 
-# タイミングを指定
 on:
   pull_request:
     branches: [master]
