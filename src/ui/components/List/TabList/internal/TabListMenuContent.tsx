@@ -12,17 +12,14 @@ import { TabList } from '~/core/shared/typings'
 import { MenuItem } from '~/ui/components/MenuItem'
 import { Rule } from '~/ui/constants/styles'
 
-type Props = { tabList: TabList; setTabList: SetterOrUpdater<TabList> }
+type Props = { tabList: TabList; setTabList: SetterOrUpdater<TabList>; openEditDescriptionModal: () => void }
 
-export const TabListMenuContent: React.VFC<Props> = ({ tabList, setTabList }) => {
+export const TabListMenuContent: React.VFC<Props> = ({ tabList, setTabList, openEditDescriptionModal }) => {
   const { t } = useTranslation()
   const [, setToast] = useToasts()
 
   const handleDelete = async (tabListId: number) => {
-    // confirmation
-    if (!window.confirm(t('DELETE_MESSAGE'))) {
-      return
-    }
+    if (!window.confirm(t('DELETE_MESSAGE'))) return
 
     await tabService.deleteTabList(tabListId).then(() => setTabList({} as TabList))
     setToast({
@@ -53,7 +50,7 @@ export const TabListMenuContent: React.VFC<Props> = ({ tabList, setTabList }) =>
         label={t('OPEN_TABS')}
         icon={<ExternalLink size={Rule.MENU_ICON_SIZE} />}
       />
-      <MenuItem onClick={() => handleOpen(tabList.id)} label={'edit'} icon={<Edit3 size={Rule.MENU_ICON_SIZE} />} />
+      <MenuItem onClick={openEditDescriptionModal} label={'edit'} icon={<Edit3 size={Rule.MENU_ICON_SIZE} />} />
       <MenuItem
         onClick={genMarkdownLink}
         label={t('GEN_MARKDONW_LINKS')}

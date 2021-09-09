@@ -1,9 +1,11 @@
-import { Popover, useTheme } from '@geist-ui/react'
+import { Modal, Popover, Textarea, useInput, useModal, useTheme, useToasts } from '@geist-ui/react'
 import { Menu } from '@geist-ui/react-icons'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { SetterOrUpdater } from 'recoil'
 import styled from 'styled-components'
 
+import { tabService } from '~/core/services'
 import { TabList } from '~/core/shared/typings'
 import { Spacing } from '~/ui/constants/styles'
 import { useMouseOver } from '~/ui/hooks'
@@ -22,41 +24,78 @@ type Props = {
 export const TabListHeader: React.VFC<Props> = ({ index, tabList, setTabList, isLG }) => {
   const { handleMouseOver, handleMouseOut } = useMouseOver()
   const displayTitle = getDisplayTitle(tabList, isLG || false)
+  const [, setToast] = useToasts()
+  const { t } = useTranslation()
 
   // theme
   const theme = useTheme()
   const popoverColor = theme.palette.foreground
   const popoverBgColor = theme.palette.accents_2
 
+  const { visible: shouldShowModal, setVisible: setModalVisible, bindings: modalBindings } = useModal()
+  const { state: inputState, bindings: textAreaBindings } = useInput(tabList.description || '')
+
+  const saveDescription = async () => {
+    setModalVisible(false)
+
+    await tabService
+      .saveTabListDescription(inputState, tabList.id)
+      .then(() => {
+        setToast({ text: t('SAVE_DESCRIPTION') })
+      })
+      .catch(e => console.error(e))
+  }
+
   return (
-    <_Row
-      style={{ minHeight: '50px' }}
-      onMouseOver={() => handleMouseOver(index)}
-      onMouseLeave={() => handleMouseOut()}
-    >
-      <HoveredMenu>
-        <_Popover
-          placement={isLG ? 'leftStart' : 'bottomStart'}
-          leaveDelay={2}
-          offset={12}
-          content={<TabListMenuContent tabList={tabList} setTabList={setTabList} />}
-          style={{
-            padding: Spacing['2'],
-          }}
-          $color={popoverColor}
-          $bgColor={popoverBgColor}
-        >
-          <Menu
+    <>
+      <_Row
+        style={{ minHeight: '50px' }}
+        onMouseOver={() => handleMouseOver(index)}
+        onMouseLeave={() => handleMouseOut()}
+      >
+        <HoveredMenu>
+          <_Popover
+            placement={isLG ? 'leftStart' : 'bottomStart'}
+            leaveDelay={2}
+            offset={12}
+            content={
+              <TabListMenuContent
+                openEditDescriptionModal={() => setModalVisible(true)}
+                tabList={tabList}
+                setTabList={setTabList}
+              />
+            }
             style={{
-              opacity: '0.7',
-              fontSize: '18px',
-              verticalAlign: 'middle',
+              padding: Spacing['2'],
             }}
-          />
-        </_Popover>
-      </HoveredMenu>
-      <TabListTitle>{displayTitle}</TabListTitle>
-    </_Row>
+            $color={popoverColor}
+            $bgColor={popoverBgColor}
+          >
+            <Menu
+              style={{
+                opacity: '0.7',
+                fontSize: '18px',
+                verticalAlign: 'middle',
+              }}
+            />
+          </_Popover>
+        </HoveredMenu>
+        <TabListTitle>{displayTitle}</TabListTitle>
+      </_Row>
+
+      {shouldShowModal && (
+        <Modal {...modalBindings}>
+          <Modal.Title>Edit Description</Modal.Title>
+          <Modal.Content>
+            <Textarea width="100%" {...textAreaBindings} />
+          </Modal.Content>
+          <Modal.Action passive onClick={() => setModalVisible(false)}>
+            Cancel
+          </Modal.Action>
+          <Modal.Action onClick={saveDescription}>Save</Modal.Action>
+        </Modal>
+      )}
+    </>
   )
 }
 

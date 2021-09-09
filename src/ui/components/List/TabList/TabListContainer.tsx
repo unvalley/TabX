@@ -34,7 +34,16 @@ export const TabListContainer: React.VFC<Props> = memo(({ index, isVisibleTabLis
 
   return (
     <TabListWrapper>
-      {isVisibleTabListHeader && <TabListHeader index={index} tabList={tabList} setTabList={setTabList} isLG={isLG} />}
+      {isVisibleTabListHeader && (
+        <>
+          <TabListHeader index={index} tabList={tabList} setTabList={setTabList} isLG={isLG} />
+          {tabList.description !== '' && (
+            <>
+              <p>{tabList.description}</p>
+            </>
+          )}
+        </>
+      )}
 
       {tabList.tabs.map((tab, index) => (
         <Tooltip key={tab.id} placement="top" type="default" text={tab.title} enterDelay={550}>
