@@ -54,6 +54,7 @@
     "i18next": "^19.8.4",
     "immer": "^8.0.1",
     "jest": "^26.6.2",
+    "jest-mock-extended": "^2.0.2-beta2",
     "mini-css-extract-plugin": "^1.2.1",
     "node-sass": "^4.13.1",
     "patch-package": "^6.2.2",
