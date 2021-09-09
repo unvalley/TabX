@@ -21,6 +21,8 @@ type Props = {
   isLG?: boolean
 }
 
+const MAX_INPUT_LENGTH = 1000
+
 export const TabListHeader: React.VFC<Props> = ({ index, tabList, setTabList, isLG }) => {
   const { handleMouseOver, handleMouseOut } = useMouseOver()
   const displayTitle = getDisplayTitle(tabList, isLG || false)
@@ -38,6 +40,11 @@ export const TabListHeader: React.VFC<Props> = ({ index, tabList, setTabList, is
   const saveDescription = async () => {
     setModalVisible(false)
 
+    if (inputState.length > MAX_INPUT_LENGTH) {
+      alert('Over the limit text length! (文字数が1000文字の制限を超えています)')
+      return
+    }
+
     await tabService
       .saveTabListDescription(inputState, tabList.id)
       .then(() => {
@@ -45,7 +52,7 @@ export const TabListHeader: React.VFC<Props> = ({ index, tabList, setTabList, is
         const newTabList = { ...tabList, description: inputState }
         setTabList(newTabList)
       })
-      .catch(e => console.error(e))
+      .catch(e => setToast({ type: 'error', text: e.message }))
   }
 
   return (
