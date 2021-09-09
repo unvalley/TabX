@@ -130,4 +130,17 @@ export class TabService implements ITabUseCase {
     await this.setAllTabList(allTabList)
     return hasProcessed
   }
+
+  public async saveTabListDescription(description: string, tabListId: number) {
+    if (description.length > 1000) throw new Error('Over the limit text length')
+
+    const allTabList = await this.getAllTabList()
+    const updatedAllTabLists = produce(allTabList, draft => {
+      const listIdx = draft.findIndex(({ id }) => id === tabListId)
+      const targetList = draft[listIdx]
+      targetList.description = description
+    })
+
+    await this.setAllTabList(updatedAllTabLists)
+  }
 }

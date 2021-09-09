@@ -11,4 +11,5 @@ export interface ITabUseCase {
   importFromText(urlText: string): Promise<void>
   exportToText(): Promise<string>
   uniqueAllTabList(): Promise<boolean>
+  saveTabListDescription(description: string, tabListId: number): Promise<void>
 }
