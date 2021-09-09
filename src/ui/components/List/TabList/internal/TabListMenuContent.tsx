@@ -2,6 +2,7 @@ import { useToasts } from '@geist-ui/react'
 import { Clipboard } from '@geist-ui/react-icons'
 import { Delete } from '@geist-ui/react-icons'
 import { ExternalLink } from '@geist-ui/react-icons'
+import { Edit3 } from '@geist-ui/react-icons'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { SetterOrUpdater } from 'recoil'
@@ -52,6 +53,7 @@ export const TabListMenuContent: React.VFC<Props> = ({ tabList, setTabList }) =>
         label={t('OPEN_TABS')}
         icon={<ExternalLink size={Rule.MENU_ICON_SIZE} />}
       />
+      <MenuItem onClick={() => handleOpen(tabList.id)} label={'edit'} icon={<Edit3 size={Rule.MENU_ICON_SIZE} />} />
       <MenuItem
         onClick={genMarkdownLink}
         label={t('GEN_MARKDONW_LINKS')}

@@ -9,8 +9,8 @@ import { TabList } from '~/core/shared/typings'
 import { Header } from '~/ui/components/Header'
 import { tabListsState } from '~/ui/stores/tabLists'
 
-import { Languages } from './components/Languages'
-import { Tabs } from './components/Tabs'
+import { Languages } from '../../components/Settings/Languages'
+import { Tabs } from '../../components/Settings/Tabs'
 
 export const Settings: React.FC = () => {
   const { t } = useTranslation()
@@ -48,12 +48,12 @@ export const Settings: React.FC = () => {
   }
 
   return (
-    <div>
+    <>
       <Header text={APP_NAME} />
       <Languages backgroundColor={theme.palette.accents_1} />
       <Spacer y={1} />
       <Tabs backgroundColor={theme.palette.accents_1} deleteAllTabs={deleteAllTabs} tabLists={tabLists} />
       <Spacer y={1} />
-    </div>
+    </>
   )
 }

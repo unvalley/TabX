@@ -5,12 +5,11 @@ import { useTranslation } from 'react-i18next'
 import { APP_NAME } from '~/core/shared/constants'
 import { TabList, TabSimple } from '~/core/shared/typings'
 import { Header } from '~/ui/components/Header'
+import { TabListContainer } from '~/ui/components/List/TabList/TabListContainer'
+import { TabSimpleLink } from '~/ui/components/List/TabSimpleLink'
 import { STORAGE_KEYS } from '~/ui/constants'
 import { useLoadMore, useLocalStorage } from '~/ui/hooks'
 import { useFuse } from '~/ui/hooks/useFuse'
-import { TabListContainer } from '~/ui/pages/List/components/TabList/TabListContainer'
-
-import { TabSimpleLink } from './components/TabSimpleLink'
 
 export const List: React.VFC<{ tabLists: TabList[]; tabs: TabSimple[] }> = ({ tabLists, tabs }) => {
   const { searchResults, query, onSearch } = useFuse(tabs, {
