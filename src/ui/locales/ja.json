@@ -27,7 +27,7 @@
   "SHARE_LINKS": "リンクを共有",
   "OPEN_TABS": "グループ内のタブを全て開く",
   "EDIT_DESCRIPTION": "グループの説明を書く",
-  "DELETE_TABS": "タブを削除する",
+  "DELETE_TABS": "グループ内のタブを全て削除する",
   "GEN_MARKDONW_LINKS": "MD用リンクを取得",
   "ONLY_PINNED": "ピン留めのみ表示",
   "COPY_MD_LINKS": "マークダウン用リンクをコピーしました",
