@@ -32,7 +32,7 @@ export const TabListHeader: React.VFC<Props> = ({ index, tabList, setTabList, is
   const popoverColor = theme.palette.foreground
   const popoverBgColor = theme.palette.accents_2
 
-  const { visible: shouldShowModal, setVisible: setModalVisible, bindings: modalBindings } = useModal()
+  const { setVisible: setModalVisible, bindings: modalBindings } = useModal()
   const { state: inputState, bindings: textAreaBindings } = useInput(tabList.description || '')
 
   const saveDescription = async () => {
@@ -42,6 +42,8 @@ export const TabListHeader: React.VFC<Props> = ({ index, tabList, setTabList, is
       .saveTabListDescription(inputState, tabList.id)
       .then(() => {
         setToast({ text: t('SAVE_DESCRIPTION') })
+        const newTabList = { ...tabList, description: inputState }
+        setTabList(newTabList)
       })
       .catch(e => console.error(e))
   }
@@ -83,18 +85,16 @@ export const TabListHeader: React.VFC<Props> = ({ index, tabList, setTabList, is
         <TabListTitle>{displayTitle}</TabListTitle>
       </_Row>
 
-      {shouldShowModal && (
-        <Modal {...modalBindings}>
-          <Modal.Title>Edit Description</Modal.Title>
-          <Modal.Content>
-            <Textarea width="100%" {...textAreaBindings} />
-          </Modal.Content>
-          <Modal.Action passive onClick={() => setModalVisible(false)}>
-            Cancel
-          </Modal.Action>
-          <Modal.Action onClick={saveDescription}>Save</Modal.Action>
-        </Modal>
-      )}
+      <Modal {...modalBindings}>
+        <Modal.Title>Edit Description</Modal.Title>
+        <Modal.Content>
+          <Textarea width="100%" {...textAreaBindings} />
+        </Modal.Content>
+        <Modal.Action passive onClick={() => setModalVisible(false)}>
+          Cancel
+        </Modal.Action>
+        <Modal.Action onClick={saveDescription}>Save</Modal.Action>
+      </Modal>
     </>
   )
 }
