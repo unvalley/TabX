@@ -41,7 +41,7 @@ export const TabListHeader: React.VFC<Props> = ({ index, tabList, setTabList, is
     await tabService
       .saveTabListDescription(inputState, tabList.id)
       .then(() => {
-        setToast({ text: t('SAVE_DESCRIPTION') })
+        setToast({ type: 'success', text: t('SAVE_DESCRIPTION') })
         const newTabList = { ...tabList, description: inputState }
         setTabList(newTabList)
       })

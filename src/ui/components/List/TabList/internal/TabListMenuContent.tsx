@@ -50,7 +50,11 @@ export const TabListMenuContent: React.VFC<Props> = ({ tabList, setTabList, open
         label={t('OPEN_TABS')}
         icon={<ExternalLink size={Rule.MENU_ICON_SIZE} />}
       />
-      <MenuItem onClick={openEditDescriptionModal} label={'edit'} icon={<Edit3 size={Rule.MENU_ICON_SIZE} />} />
+      <MenuItem
+        onClick={openEditDescriptionModal}
+        label={t('EDIT_DESCRIPTION')}
+        icon={<Edit3 size={Rule.MENU_ICON_SIZE} />}
+      />
       <MenuItem
         onClick={genMarkdownLink}
         label={t('GEN_MARKDONW_LINKS')}

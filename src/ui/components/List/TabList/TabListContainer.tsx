@@ -1,6 +1,7 @@
 import { Tooltip, useMediaQuery } from '@geist-ui/react'
 import React, { memo } from 'react'
 import { useRecoilState } from 'recoil'
+import styled from 'styled-components'
 
 import { tabService } from '~/core/services'
 import { TabList } from '~/core/shared/typings'
@@ -37,11 +38,7 @@ export const TabListContainer: React.VFC<Props> = memo(({ index, isVisibleTabLis
       {isVisibleTabListHeader && (
         <>
           <TabListHeader index={index} tabList={tabList} setTabList={setTabList} isLG={isLG} />
-          {tabList.description !== '' && (
-            <>
-              <p>{tabList.description}</p>
-            </>
-          )}
+          {tabList.description !== '' && <TabListDescription>{tabList.description}</TabListDescription>}
         </>
       )}
 
@@ -61,3 +58,8 @@ export const TabListContainer: React.VFC<Props> = memo(({ index, isVisibleTabLis
 })
 
 TabListContainer.displayName = 'TabListContainer'
+
+const TabListDescription = styled.div`
+  margin-bottom: 8px;
+  word-break: break-all;
+`
