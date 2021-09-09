@@ -33,6 +33,10 @@
   "COPY_MD_LINKS": "マークダウン用リンクをコピーしました",
   "DELETED_SELECTED_TABS": "選択されたタブグループを削除しました",
   "SAVE_DESCRIPTION": "説明を保存しました",
+
+  "IMPORT_SUCCESS": "タブのImportに成功しました",
+  "IMPORT_ERROR": "予期せぬエラーにより，タブのImportに失敗しました",
+
   "SORT": "ソート",
   "UNIQUE": "ユニーク",
   "TWEET": "ツイート",

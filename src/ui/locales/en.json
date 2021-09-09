@@ -33,6 +33,10 @@
   "COPY_MD_LINKS": "Copied markdown link to clipboard",
   "DELETED_SELECTED_TABS": "Selected tab group deleted",
   "SAVE_DESCRIPTION": "Saved description",
+
+  "IMPORT_SUCCESS": "Successfully imported tabs",
+  "IMPORT_ERROR": "An unexpected error has occurred",
+
   "SORT": "Sort",
   "UNIQUE": "Unique",
   "TWEET": "Tweet",
