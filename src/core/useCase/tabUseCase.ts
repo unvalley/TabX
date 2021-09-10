@@ -1,5 +1,6 @@
 import { TabList, TabSimple } from '../shared/typings'
 
+// TODO: ISP
 export interface ITabUseCase {
   getAllTabList(): Promise<TabList[]>
   getAllSimpleTab(): Promise<TabSimple[]>
@@ -12,4 +13,5 @@ export interface ITabUseCase {
   exportToText(): Promise<string>
   uniqueAllTabList(): Promise<boolean>
   saveTabListDescription(description: string, tabListId: number): Promise<void>
+  favoriteTabList(tabListId: number): Promise<void>
 }

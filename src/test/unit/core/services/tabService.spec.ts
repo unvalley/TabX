@@ -26,7 +26,7 @@ const allTabListData: TabList[] = [
         domain: 'example.com',
       },
     ],
-    hasPinned: false,
+    favorite: false,
     createdAt: 1630686258,
     updatedAt: 1630686258,
   },

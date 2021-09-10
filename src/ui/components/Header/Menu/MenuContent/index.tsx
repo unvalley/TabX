@@ -1,5 +1,5 @@
 import { Popover, useToasts } from '@geist-ui/react'
-import { ChevronUpDown, Heart, Home, Settings, Twitter, Zap } from '@geist-ui/react-icons'
+import { ChevronUpDown, Github, Heart, Home, Settings, Twitter, Zap } from '@geist-ui/react-icons'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
@@ -39,6 +39,7 @@ export const MenuContent: React.VFC = () => {
 
   const history = useHistory()
   const toHome = () => history.push('/')
+  const toFavorite = () => history.push('/favorite')
   const toSettings = () => history.push('/settings')
 
   return (
@@ -49,11 +50,12 @@ export const MenuContent: React.VFC = () => {
       <Popover.Item line />
       {/* ROUTING */}
       <MenuItem onClick={toHome} label={t('HOME')} icon={<Home size={Rule.MENU_ICON_SIZE} />} />
+      <MenuItem onClick={toFavorite} label={t('FAVORITE')} icon={<Heart size={Rule.MENU_ICON_SIZE} />} />
       <MenuItem onClick={toSettings} label={t('SETTINGS')} icon={<Settings size={Rule.MENU_ICON_SIZE} />} />
       <Popover.Item line />
       {/* EXTERNAL LINKS */}
       <MenuItem onClick={toTwitter} label={t('TWEET')} icon={<Twitter size={Rule.MENU_ICON_SIZE} />} />
-      <MenuItem onClick={toFeedback} label={t('FEEDBACK')} icon={<Heart size={Rule.MENU_ICON_SIZE} />} />
+      <MenuItem onClick={toFeedback} label={t('FEEDBACK')} icon={<Github size={Rule.MENU_ICON_SIZE} />} />
     </>
   )
 }

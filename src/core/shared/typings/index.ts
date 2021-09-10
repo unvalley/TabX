@@ -28,7 +28,7 @@ export type TabList = {
   title: string
   description: string
   tabs: TabSimple[]
-  hasPinned: boolean
+  favorite: boolean
   createdAt: number
   updatedAt: number
 }

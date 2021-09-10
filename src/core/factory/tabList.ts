@@ -9,7 +9,7 @@ export const createNewTabList = (tabs: Tabs.Tab[]): TabList => ({
   title: '',
   description: '',
   // has pinned on this extension? - default false
-  hasPinned: false,
+  favorite: false,
   createdAt: Date.now(),
   updatedAt: Date.now(),
   tabs: tabs.map(normalizeTab).filter(nonNullable) || [],
@@ -20,7 +20,7 @@ export const createNewTabListFromImport = (tabs: TabSimple[]): TabList => ({
   title: '',
   description: '',
   // has pinned on this extension? - default false
-  hasPinned: false,
+  favorite: false,
   createdAt: Date.now(),
   updatedAt: Date.now(),
   tabs: tabs || [],

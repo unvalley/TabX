@@ -39,3 +39,12 @@ export const sortTabListsState = selector<TabList[]>({
   },
   set: async ({ set }, newValue) => set(tabListsState, newValue),
 })
+
+export const favoriteTabListsState = selector<TabList[]>({
+  key: 'favoriteTabListsState',
+  get: async ({ get }) => {
+    const lists = await get(tabListsState)
+    const favoriteLists = lists.filter(list => list.favorite === true)
+    return favoriteLists
+  },
+})

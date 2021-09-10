@@ -143,4 +143,15 @@ export class TabService implements ITabUseCase {
 
     await this.setAllTabList(updatedAllTabLists)
   }
+
+  public async favoriteTabList(tabListId: number) {
+    const allTabList = await this.getAllTabList()
+    const updatedAllTabLists = produce(allTabList, draft => {
+      const listIdx = draft.findIndex(({ id }) => id === tabListId)
+      const targetList = draft[listIdx]
+      targetList.favorite = true
+    })
+
+    await this.setAllTabList(updatedAllTabLists)
+  }
 }

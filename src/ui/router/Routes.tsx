@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import { Load } from '~/ui/components/Load'
 import { Spacing, Themes } from '~/ui/constants/styles'
 
+import { Favorite } from '../pages/Favorite'
 import { List } from '../pages/List'
 import { Settings } from '../pages/Settings'
 
@@ -44,6 +45,7 @@ export const Routes = () => {
           >
             <Switch>
               <Route exact path="/" component={List} />
+              <Route exact path="/favorite" component={Favorite} />
               <Route path="/settings" component={Settings} />
             </Switch>
           </React.Suspense>
