@@ -64,7 +64,7 @@ export const TabListHeader: React.VFC<Props> = ({ index, tabList, setTabList, is
       >
         <HoveredMenu>
           <_Popover
-            placement={isLG ? 'leftStart' : 'bottomStart'}
+            placement={'bottomStart'}
             leaveDelay={2}
             offset={12}
             content={
