@@ -41,6 +41,7 @@ export class ChromeActionService implements IChromeActionUseCase {
 
   public async storeTabs(tabs: Tabs.Tab[]) {
     const newList = createNewTabList(tabs)
+    if (!tabs.length) return
 
     try {
       const lists = await tabService.getAllTabList()
@@ -57,7 +58,6 @@ export class ChromeActionService implements IChromeActionUseCase {
   public async storeAllTabs() {
     const tabs = await this.getAllTabsInCurrentWindow()
     const sanitizedTabs = tabs.filter(isValidTab)
-    if (!sanitizedTabs.length) return
 
     // `res[1]` is storing TabList
     await Promise.all([this.openTabLists(), this.storeTabs(sanitizedTabs)]).then(res => res[1])

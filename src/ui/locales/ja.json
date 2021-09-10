@@ -1,5 +1,6 @@
 {
   "HOME": "ホーム",
+  "FAVORITE": "お気に入り",
   "SETTINGS": "設定",
   "LANGUAGE": "言語",
   "CURRENT_LANGUAGE": "現在の言語",
@@ -26,6 +27,8 @@
   "PIN_TABS": "ピン留めする",
   "SHARE_LINKS": "リンクを共有",
   "OPEN_TABS": "グループ内のタブを全て開く",
+  "FAVORITE_TABS": "グループをお気に入りに追加する",
+  "REMOVE_FAVORITE_TABS": "グループをお気に入りから削除する",
   "EDIT_DESCRIPTION": "グループの説明を書く",
   "DELETE_TABS": "グループ内のタブを全て削除する",
   "GEN_MARKDONW_LINKS": "MD用リンクを取得",

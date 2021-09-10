@@ -3,6 +3,7 @@ import { Clipboard } from '@geist-ui/react-icons'
 import { Delete } from '@geist-ui/react-icons'
 import { ExternalLink } from '@geist-ui/react-icons'
 import { Edit3 } from '@geist-ui/react-icons'
+import { Heart } from '@geist-ui/react-icons'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { SetterOrUpdater } from 'recoil'
@@ -43,6 +44,17 @@ export const TabListMenuContent: React.VFC<Props> = ({ tabList, setTabList, open
       .catch(err => console.error(err))
   }
 
+  const favoriteTabList = async (tabListId: number) => {
+    await tabService
+      .favoriteTabList(tabListId)
+      .then(() => {
+        const newTabList = { ...tabList, favorite: true }
+        setTabList(newTabList)
+        setToast({ text: t('OK'), type: 'success' })
+      })
+      .catch(err => console.error(err))
+  }
+
   return (
     <>
       <MenuItem
@@ -54,6 +66,11 @@ export const TabListMenuContent: React.VFC<Props> = ({ tabList, setTabList, open
         onClick={openEditDescriptionModal}
         label={t('EDIT_DESCRIPTION')}
         icon={<Edit3 size={Rule.MENU_ICON_SIZE} />}
+      />
+      <MenuItem
+        onClick={() => favoriteTabList(tabList.id)}
+        label={t('FAVORITE_TABS')}
+        icon={<Heart size={Rule.MENU_ICON_SIZE} />}
       />
       <MenuItem
         onClick={genMarkdownLink}

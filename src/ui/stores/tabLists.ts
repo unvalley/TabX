@@ -39,3 +39,14 @@ export const sortTabListsState = selector<TabList[]>({
   },
   set: async ({ set }, newValue) => set(tabListsState, newValue),
 })
+
+export const favoriteTabListsState = atom<TabList[]>({
+  key: 'favoriteTabListsState',
+  default: selector<TabList[]>({
+    key: 'favoriteTablistsState/default',
+    get: async () => {
+      const favoriteLists = await tabService.getAllFavoriteTabList()
+      return favoriteLists
+    },
+  }),
+})
