@@ -17,6 +17,11 @@ export class TabService implements ITabUseCase {
     return result
   }
 
+  public async getAllFavoriteTabList() {
+    const allTabList = await this.tabRepo.getAllTabList()
+    return allTabList.filter(e => e.favorite === true)
+  }
+
   public async getAllSimpleTab() {
     const allTabList = await this.tabRepo.getAllTabList()
     const result = allTabList.map(e => e.tabs).flat()
@@ -150,6 +155,17 @@ export class TabService implements ITabUseCase {
       const listIdx = draft.findIndex(({ id }) => id === tabListId)
       const targetList = draft[listIdx]
       targetList.favorite = true
+    })
+
+    await this.setAllTabList(updatedAllTabLists)
+  }
+
+  public async removeFavoriteTabList(tabListId: number) {
+    const allTabList = await this.getAllTabList()
+    const updatedAllTabLists = produce(allTabList, draft => {
+      const listIdx = draft.findIndex(({ id }) => id === tabListId)
+      const targetList = draft[listIdx]
+      targetList.favorite = false
     })
 
     await this.setAllTabList(updatedAllTabLists)
