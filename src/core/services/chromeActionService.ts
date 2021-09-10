@@ -57,6 +57,7 @@ export class ChromeActionService implements IChromeActionUseCase {
   public async storeAllTabs() {
     const tabs = await this.getAllTabsInCurrentWindow()
     const sanitizedTabs = tabs.filter(isValidTab)
+    if (!sanitizedTabs.length) return
 
     // `res[1]` is storing TabList
     await Promise.all([this.openTabLists(), this.storeTabs(sanitizedTabs)]).then(res => res[1])
