@@ -1,4 +1,4 @@
-import { Tooltip, useMediaQuery } from '@geist-ui/react'
+import { useMediaQuery } from '@geist-ui/react'
 import React, { memo } from 'react'
 import { useRecoilState } from 'recoil'
 import styled from 'styled-components'
@@ -43,15 +43,14 @@ export const TabListContainer: React.VFC<Props> = memo(({ index, isVisibleTabLis
       )}
 
       {tabList.tabs.map((tab, index) => (
-        <Tooltip key={tab.id} placement="top" type="default" text={tab.title} enterDelay={550}>
-          <TabSimpleLink
-            tab={tab}
-            index={index}
-            isOpsVisible={true}
-            onDelete={handleTabDelete}
-            shouldDeleteTabWhenClicked={shouldDeleteTabWhenClicked}
-          />
-        </Tooltip>
+        <TabSimpleLink
+          key={tab.id}
+          tab={tab}
+          index={index}
+          isOpsVisible={true}
+          onDelete={handleTabDelete}
+          shouldDeleteTabWhenClicked={shouldDeleteTabWhenClicked}
+        />
       ))}
     </TabListWrapper>
   )
