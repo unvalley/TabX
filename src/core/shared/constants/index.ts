@@ -6,7 +6,7 @@ export const DEFAULT_TITLE = 'untitled'
 export const TAB_LISTS = 'tabLists'
 export const APP_NAME = 'TabX'
 
-const TWITTER_TEXT = 'TabX saves your tab life'
+const TWITTER_TEXT = 'TabX - 🪣 A simple tab management tool'
 const WEB_STORE_URL = 'https://chrome.google.com/webstore/detail/tabx/pnomgepiknocmkmncjkcchojfiookljb?hl=ja'
 export const TWITTER_URL = `https://twitter.com/share?text=${TWITTER_TEXT}&url=${WEB_STORE_URL}`
 
