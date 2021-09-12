@@ -1,5 +1,5 @@
 // Validation for URLs
-export const ILLEGAL_URLS = ['about:', 'wss:', 'ws:']
+export const ILLEGAL_URLS = ['about:', 'wss:', 'ws:', 'chrome:']
 export const PICKED_TAB_PROPS = ['url', 'title', 'favIconUrl', 'pinned'] as const
 
 export const DEFAULT_TITLE = 'untitled'
