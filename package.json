@@ -1,6 +1,6 @@
 {
   "name": "tabx",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "TabX manages your tabs",
   "scripts": {
     "build": "webpack --mode production --config webpack.config.js",
@@ -89,8 +89,5 @@
     "react": "17.0.1",
     "react-dom": "^16.13.1"
   },
-  "keywords": [
-    "react",
-    "typescript"
-  ]
+  "keywords": ["react", "typescript"]
 }
