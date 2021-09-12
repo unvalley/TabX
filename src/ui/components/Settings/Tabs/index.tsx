@@ -30,7 +30,7 @@ export const Tabs: React.VFC<Props> = props => {
   // localStorage
   const [isVisibleTabListHeader, setIsVisibleTabListHeader] = useLocalStorage(
     STORAGE_KEYS.IS_VISIBLE_TAB_LIST_HEADER,
-    false,
+    true,
   )
   const [shouldDeleteTabWhenClicked, setShouldDeleteTabWhenClicked] = useLocalStorage(
     STORAGE_KEYS.SHOULD_DELETE_TAB_WHEN_CLICKED,
