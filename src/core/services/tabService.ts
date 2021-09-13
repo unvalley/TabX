@@ -1,5 +1,6 @@
 import produce from 'immer'
 
+import { InvalidDescriptionError } from '../errors/tab/InvalidDescriptionError'
 import { createNewTabListFromImport } from '../factory/tabList'
 import { normalizeUrlText } from '../factory/tabSimple'
 import { ITabRepo } from '../repos/tabRepo'
@@ -132,7 +133,7 @@ export class TabService implements ITabUseCase {
   }
 
   public async saveTabListDescription(description: string, tabListId: number) {
-    if (description.length > 1000) throw new Error('Over the limit text length')
+    if (description.length > 1000) throw new InvalidDescriptionError()
 
     const allTabList = await this.getAllTabList()
     const updatedAllTabLists = produce(allTabList, draft => {
