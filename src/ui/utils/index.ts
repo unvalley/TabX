@@ -1,7 +1,9 @@
+import { IO } from 'fp-ts/lib/IO'
+
 import { APP_NAME } from '~/core/shared/constants'
 import { Themes } from '~/ui/constants/styles'
 
-export const getNowYMD = () => {
+export const getNowYMD: IO<string> = () => {
   const dt = new Date()
   const y = dt.getFullYear()
   const m = ('00' + (dt.getMonth() + 1)).slice(-2)
