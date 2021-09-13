@@ -106,28 +106,31 @@ export class TabService implements ITabUseCase {
   }
 
   public async uniqueAllTabList() {
-    const allTabList = await this.getAllTabList()
+    const release = await mutex.acquire()
     const uniqUrls = new Set()
-
     const isEmptyArray = <T>(list: T[]) => list.length === 0
-
     let hasProcessed = false
 
-    allTabList.forEach((tabList, tabListIdx) => {
-      tabList.tabs.forEach((tab, _) => {
-        if (uniqUrls.has(tab.url)) {
-          tabList.tabs = !isEmptyArray(tabList.tabs) ? tabList.tabs.filter(t => t.url !== tab.url) : tabList.tabs
-          if (isEmptyArray(tabList.tabs)) {
-            allTabList.splice(tabListIdx, 1)
+    try {
+      const allTabList = await this.getAllTabList()
+      allTabList.forEach((tabList, tabListIdx) => {
+        tabList.tabs.forEach((tab, _) => {
+          if (uniqUrls.has(tab.url)) {
+            tabList.tabs = !isEmptyArray(tabList.tabs) ? tabList.tabs.filter(t => t.url !== tab.url) : tabList.tabs
+            if (isEmptyArray(tabList.tabs)) {
+              allTabList.splice(tabListIdx, 1)
+            }
+            hasProcessed = true
+          } else {
+            uniqUrls.add(tab.url)
           }
-          hasProcessed = true
-        } else {
-          uniqUrls.add(tab.url)
-        }
+        })
       })
-    })
+      await this.setAllTabList(allTabList)
+    } finally {
+      release()
+    }
 
-    await this.setAllTabList(allTabList)
     return hasProcessed
   }
 
