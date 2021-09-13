@@ -43,7 +43,7 @@ export const Header: React.VFC<Props> = ({ text, onSearch }) => {
               placeholder="Search by title or url"
               clearable={true}
               onChange={onSearch}
-              style={{ margin: '2px 10px 0px 2px' }}
+              style={{ margin: '0px 10px 0px 2px' }}
             />
           )}
         </Row>
