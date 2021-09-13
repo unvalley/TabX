@@ -113,7 +113,7 @@ export class TabService implements ITabUseCase {
     let hasProcessed = false
 
     try {
-      const allTabList = await this.getAllTabList()
+      const allTabList = await this.getAllTabList().then(res => res.reverse())
       allTabList.forEach((tabList, tabListIdx) => {
         tabList.tabs.forEach((tab, _) => {
           if (uniqUrls.has(tab.url)) {
@@ -127,7 +127,7 @@ export class TabService implements ITabUseCase {
           }
         })
       })
-      await this.setAllTabList(allTabList)
+      await this.setAllTabList(allTabList.reverse())
     } finally {
       release()
     }
