@@ -1,4 +1,6 @@
-export const genObjectId = (): number => {
+import { IO } from 'fp-ts/lib/IO'
+
+export const genObjectId: IO<number> = () => {
   const timestamp = (new Date().getTime() / 1000) | 0
   return timestamp + Math.random() * 16
 }
