@@ -4,16 +4,14 @@
     </a>
 </p>
 <h2 align="center">TabX</h2>
+<p align="center">TabX is a simple tab management tool 🪣</p>
 
 <p align="center">
     <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/unvalley/TabX/CI" />
     <a href="https://chrome.google.com/webstore/detail/tabx/pnomgepiknocmkmncjkcchojfiookljb?hl=en&authuser=1">
         <img alt="Install Chrome" src="https://img.shields.io/badge/Install-Chrome-blue"/>
     </a>
-
 </p>
-
-<p>TabX is a simple tab management tool 🪣</p>
 
 ## Application Image (v0.0.6)
 
