@@ -28,6 +28,7 @@
 - ⛓ Import & Export (OneTab compatible)
 - 📝 Edit description of tab group
 - 🌏 i18n support (only English & Japanese)
+- ⚡️ Remove duplicated stored tabs (We call this "Unique" feature)
 
 ## FutureWork
 
