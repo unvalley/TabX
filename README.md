@@ -1,11 +1,24 @@
 <p align="center">
-    <a href="">
+    <a href="https://chrome.google.com/webstore/detail/tabx/pnomgepiknocmkmncjkcchojfiookljb?hl=en&authuser=1" target="_blank">
         <img src="src/assets/tabX.png" height="100px"/>
     </a>
 </p>
 <h2 align="center">TabX</h2>
-<br/>
+
+<p align="center">
+    <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/unvalley/TabX/CI" />
+    <a href="https://chrome.google.com/webstore/detail/tabx/pnomgepiknocmkmncjkcchojfiookljb?hl=en&authuser=1">
+        <img alt="Install Chrome" src="https://img.shields.io/badge/Install-Chrome-blue"/>
+    </a>
+</p>
+
 <p>TabX is a simple tab management tool 🪣</p>
+
+## Application Image (v0.0.6)
+
+| ![TabX_light](https://user-images.githubusercontent.com/38400669/133642613-118dc73f-3135-4c50-86b2-612bdb8e1e3a.png) | ![TabX_dark](https://user-images.githubusercontent.com/38400669/133642626-a4ac5004-0825-4597-8021-7c68d7daef44.png) |
+| -------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| Light Mode                                                                                                           | Dark Mode                                                                                                           |
 
 ## Instlattion
 
