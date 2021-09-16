@@ -5,7 +5,7 @@
 </p>
 <h2 align="center">TabX</h2>
 <br/>
-<p>TabX is a simple tab management tool 🪣</p>
+<p align="center">TabX is a simple tab management tool 🪣</p>
 
 ## Instlattion
 
