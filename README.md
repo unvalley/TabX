@@ -10,6 +10,7 @@
     <a href="https://chrome.google.com/webstore/detail/tabx/pnomgepiknocmkmncjkcchojfiookljb?hl=en&authuser=1">
         <img alt="Install Chrome" src="https://img.shields.io/badge/Install-Chrome-blue"/>
     </a>
+
 </p>
 
 <p>TabX is a simple tab management tool 🪣</p>
