@@ -23,15 +23,17 @@
 
 - ✅ Store your tabs
 - 💎 Simple UI
-- 🌌 Built-in Dark mode
-- 🔍 Fuzzy Search (thanks to [Fuse.js](https://github.com/krisk/Fuse)! )
-- ⛓ OneTab compatible
+- 🌌 Built-in dark mode
+- 🔍 Fuzzy search (thanks to [Fuse.js](https://github.com/krisk/Fuse)! )
+- ⛓ Import & Export (OneTab compatible)
 - 📝 Edit description of tab group
+- 🌏 i18n support (only English & Japanese)
 
 ## FutureWork
 
-- 🛠 Add tab Filtering option (date, domain, etc..)
-- 🔦 Search From Anywhere
+- 🛠 Add tab filtering option (date, domain, etc..)
+- 🔦 Search from anywhere
+- 👨‍💻 Keyboard shortcuts
 
 ## License
 
