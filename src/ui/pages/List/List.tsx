@@ -1,4 +1,4 @@
-import { Button, Loading, Spacer } from '@geist-ui/react'
+import { Button, Spacer } from '@geist-ui/react'
 import React, { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -26,7 +26,7 @@ export const List: React.VFC<{ tabLists: TabList[]; tabs: TabSimple[] }> = ({ ta
 
   const perLoadCount = useMemo(() => (isVisibleTabListHeader ? 6 : 10), [isVisibleTabListHeader])
   const { itemsToShow, handleShowMoreItems, isMaxLength } = useLoadMore(perLoadCount, tabLists)
-  const showHitResults = query && searchResults
+  const showHitResults = query !== '' && searchResults.length > 0
 
   const [hasLoaded, setHasLoaded] = useState(false)
 
@@ -34,22 +34,11 @@ export const List: React.VFC<{ tabLists: TabList[]; tabs: TabSimple[] }> = ({ ta
     setHasLoaded(true)
   }, [])
 
-  /** sliced by useLoadMore */
-  const homeCurrentTabList = itemsToShow.map((item, index) => {
-    return (
-      <TabListContainer
-        key={`${item.createdAt}_${item.id}_${index}`}
-        index={index}
-        isVisibleTabListHeader={isVisibleTabListHeader}
-      />
-    )
-  })
-
   return (
     <>
       <Header text={APP_NAME} onSearch={onSearch} />
       {!tabLists.length && <span>{t('TAB_LISTS_EMPTY_MESSAGE')}</span>}
-      {hasLoaded ? (
+      {hasLoaded && (
         <>
           {showHitResults ? (
             <>
@@ -65,16 +54,18 @@ export const List: React.VFC<{ tabLists: TabList[]; tabs: TabSimple[] }> = ({ ta
             </>
           ) : (
             <>
-              {homeCurrentTabList}
+              {itemsToShow.map((item, index) => (
+                <TabListContainer
+                  key={`${item.createdAt}_${item.id}_${index}`}
+                  index={index}
+                  isVisibleTabListHeader={isVisibleTabListHeader}
+                />
+              ))}
               <Spacer y={1} />
               {!isMaxLength && <Button onClick={handleShowMoreItems}>loadMore</Button>}
             </>
           )}
         </>
-      ) : (
-        <span>
-          <Loading type="success"> Loading Tabs…</Loading>
-        </span>
       )}
     </>
   )
