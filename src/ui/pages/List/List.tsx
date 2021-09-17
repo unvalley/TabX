@@ -1,4 +1,5 @@
 import { Button, Spacer } from '@geist-ui/react'
+import Fuse from 'fuse.js'
 import React, { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -41,32 +42,62 @@ export const List: React.VFC<{ tabLists: TabList[]; tabs: TabSimple[] }> = ({ ta
       {hasLoaded && (
         <>
           {showHitResults ? (
-            <>
-              {searchResults.map((tab, index) => (
-                <TabSimpleLink
-                  key={`${tab.item.id}`}
-                  tab={tab.item}
-                  index={index}
-                  isOpsVisible={true}
-                  shouldDeleteTabWhenClicked={shouldDeleteTabWhenClicked}
-                />
-              ))}
-            </>
+            <SearchResult searchResults={searchResults} shouldDeleteTabWhenClicked={shouldDeleteTabWhenClicked} />
           ) : (
-            <>
-              {itemsToShow.map((item, index) => (
-                <TabListContainer
-                  key={`${item.createdAt}_${item.id}_${index}`}
-                  index={index}
-                  isVisibleTabListHeader={isVisibleTabListHeader}
-                />
-              ))}
-              <Spacer y={1} />
-              {!isMaxLength && <Button onClick={handleShowMoreItems}>loadMore</Button>}
-            </>
+            <BaseTabList
+              tabLists={itemsToShow}
+              handleShowMoreItems={handleShowMoreItems}
+              isVisibleTabListHeader={isVisibleTabListHeader}
+              isMaxLength={isMaxLength}
+            />
           )}
         </>
       )}
+    </>
+  )
+}
+
+type BaseTabListProps = {
+  tabLists: TabList[]
+  handleShowMoreItems: () => void
+  isVisibleTabListHeader: boolean
+  isMaxLength: boolean
+}
+
+const BaseTabList: React.FC<BaseTabListProps> = ({
+  tabLists,
+  isMaxLength,
+  handleShowMoreItems,
+  isVisibleTabListHeader,
+}) => {
+  return (
+    <>
+      {tabLists.map((item, index) => (
+        <TabListContainer key={`${item.id}`} index={index} isVisibleTabListHeader={isVisibleTabListHeader} />
+      ))}
+      <Spacer y={1} />
+      {!isMaxLength && <Button onClick={handleShowMoreItems}>loadMore</Button>}
+    </>
+  )
+}
+
+type SearchResultProps = {
+  searchResults: Fuse.FuseResult<TabSimple>[]
+  shouldDeleteTabWhenClicked: boolean
+}
+
+const SearchResult: React.FC<SearchResultProps> = ({ searchResults, shouldDeleteTabWhenClicked }) => {
+  return (
+    <>
+      {searchResults.map((tab, index) => (
+        <TabSimpleLink
+          key={`${tab.item.id}`}
+          tab={tab.item}
+          index={index}
+          isOpsVisible={true}
+          shouldDeleteTabWhenClicked={shouldDeleteTabWhenClicked}
+        />
+      ))}
     </>
   )
 }
