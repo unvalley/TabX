@@ -1,5 +1,6 @@
 import { browser, Tabs } from 'webextension-polyfill-ts'
 
+import { StoreTabsError } from '../errors/chromeAction/StoreTabsError'
 import { createNewTabList } from '../factory/tabList'
 import { ILLEGAL_URLS } from '../shared/constants'
 import { TabSimple } from '../shared/typings'
@@ -48,8 +49,8 @@ export class ChromeActionService implements IChromeActionUseCase {
       typeof lists === 'undefined' || lists === null
         ? await tabService.setAllTabList([newList])
         : await tabService.addTabList(newList)
-    } catch (err) {
-      console.error(err)
+    } catch {
+      throw new StoreTabsError()
     }
     await this.closeAllTabs(tabs).catch(err => console.error(err))
     return newList
