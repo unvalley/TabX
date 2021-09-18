@@ -31,6 +31,12 @@
 > This extension is inspired by OneTab.
 > The goal of TabX is to create a simpler and easier to use tab management tool.
 
+## How to use
+
+1. After install [TabX](https://chrome.google.com/webstore/detail/tabx/pnomgepiknocmkmncjkcchojfiookljb?hl=en&authuser=1), you can show the icon in extension area (beside search bar).
+2. When you click the icon, TabX stores your opend tabs (exclude pinned tabs).
+3. Manage your tabs at TabX page with below features!
+
 ## Features
 
 - ✅ Store your tabs
