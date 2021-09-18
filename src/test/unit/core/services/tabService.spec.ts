@@ -1,6 +1,7 @@
-import { mock } from 'jest-mock-extended'
+import { mock, mockReset } from 'jest-mock-extended'
 
 import { ITabRepo } from '~/core/repos/tabRepo'
+import { chromeActionService } from '~/core/services'
 import { TabService } from '~/core/services/tabService'
 import { TabList } from '~/core/shared/typings'
 import { IChromeActionUseCase } from '~/core/useCase/chromeActionUseCase'
@@ -34,10 +35,15 @@ const allTabListData: TabList[] = [
 ]
 
 describe('tabService', () => {
+  const tabRepoMock = mock<ITabRepo>()
+
+  beforeEach(() => {
+    mockReset(tabRepoMock)
+  })
+
   it('getAllTabList', async () => {
     const expected = allTabListData
 
-    const tabRepoMock = mock<ITabRepo>()
     tabRepoMock.getAllTabList.mockReturnValue(Promise.resolve(allTabListData))
     const chromeActionService = new chromeActionServiceMock()
 
@@ -51,7 +57,6 @@ describe('tabService', () => {
   it('uniqueAllTabList', async () => {
     const before = uniqueAllTabListTestDataBefore
 
-    const tabRepoMock = mock<ITabRepo>()
     tabRepoMock.getAllTabList.mockReturnValue(Promise.resolve(before))
     tabRepoMock.setAllTabList.mockImplementation()
 
@@ -84,5 +89,19 @@ describe('tabService', () => {
         updatedAt: 1630686258,
       }),
     )
+  })
+
+  it('exportToText', async () => {
+    const original = allTabListData
+
+    tabRepoMock.getAllTabList.mockReturnValue(Promise.resolve(original))
+
+    const tabService = new TabService(tabRepoMock, chromeActionService)
+
+    const result = await tabService.exportToText()
+    // TODO: increase tab counts
+    const actual = 'https://example.com | first tab title'
+    expect(tabRepoMock.getAllTabList).toBeCalled()
+    expect(result).toEqual(actual)
   })
 })
