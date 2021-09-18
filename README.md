@@ -48,6 +48,16 @@
 - 🔦 Search from anywhere
 - 👨‍💻 Keyboard shortcuts
 
+## Build
+
+1. Fork and clone this repository.
+2. Open terminal in the cloned root folder and run: 
+  - `npm run install`
+  - `npm run build`
+3. Zip the dist folder that created by `npm run build`
+4. Load the `dist.zip` at chrome://extensions/ (click "Load unpacked" and open the dist.zip)
+5. After run `npm run dev`, you can use TabX dev-mode.
+
 ## License
 
 [MIT](LICENSE.md)
