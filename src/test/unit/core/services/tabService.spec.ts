@@ -12,13 +12,13 @@ const chromeActionServiceMock = jest.fn<IChromeActionUseCase, []>()
 const allTabListData: TabList[] = [
   {
     id: 1,
-    title: 'TabList Title',
+    title: 'title1',
     description: '',
     tabs: [
       {
         id: 1,
-        title: 'first tab title',
-        description: '',
+        title: 'title1',
+        description: 'description1',
         pinned: false,
         favorite: false,
         lastAccessed: 1630686258,
@@ -26,6 +26,28 @@ const allTabListData: TabList[] = [
         favIconUrl: '',
         ogImageUrl: '',
         domain: 'example.com',
+      },
+    ],
+    hasPinned: false,
+    createdAt: 1630686258,
+    updatedAt: 1630686258,
+  },
+  {
+    id: 2,
+    title: 'title2',
+    description: '',
+    tabs: [
+      {
+        id: 1,
+        title: 'title2',
+        description: 'description2',
+        pinned: false,
+        favorite: false,
+        lastAccessed: 1630686258,
+        url: 'https://github.com',
+        favIconUrl: '',
+        ogImageUrl: '',
+        domain: 'github.com',
       },
     ],
     hasPinned: false,
@@ -100,7 +122,7 @@ describe('tabService', () => {
 
     const result = await tabService.exportToText()
     // TODO: increase tab counts
-    const actual = 'https://example.com | first tab title'
+    const actual = 'https://example.com | title1\n\nhttps://github.com | title2'
     expect(tabRepoMock.getAllTabList).toBeCalled()
     expect(result).toEqual(actual)
   })
