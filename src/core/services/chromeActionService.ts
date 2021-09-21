@@ -49,8 +49,8 @@ export class ChromeActionService implements IChromeActionUseCase {
       typeof lists === 'undefined' || lists === null
         ? await tabService.setAllTabList([newList])
         : await tabService.addTabList(newList)
-    } catch {
-      throw new StoreTabsError()
+    } catch (err) {
+      throw new StoreTabsError(err)
     }
     await this.closeAllTabs(tabs).catch(err => console.error(err))
     return newList

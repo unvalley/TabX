@@ -44,12 +44,18 @@ export const List: React.VFC<{ tabLists: TabList[]; tabs: TabSimple[] }> = ({ ta
           {showHitResults ? (
             <SearchResult searchResults={searchResults} shouldDeleteTabWhenClicked={shouldDeleteTabWhenClicked} />
           ) : (
-            <BaseTabList
-              tabLists={itemsToShow}
-              handleShowMoreItems={handleShowMoreItems}
-              isVisibleTabListHeader={isVisibleTabListHeader}
-              isMaxLength={isMaxLength}
-            />
+            <>
+              {query === '' ? (
+                <BaseTabList
+                  tabLists={itemsToShow}
+                  handleShowMoreItems={handleShowMoreItems}
+                  isVisibleTabListHeader={isVisibleTabListHeader}
+                  isMaxLength={isMaxLength}
+                />
+              ) : (
+                <p>No results found, Try with another query</p>
+              )}
+            </>
           )}
         </>
       )}
