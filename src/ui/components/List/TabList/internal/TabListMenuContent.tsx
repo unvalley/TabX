@@ -7,7 +7,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { SetterOrUpdater } from 'recoil'
 
-import { tabService } from '~/core/services'
+import { chromeActionService, tabService } from '~/core/services'
 import { TabList } from '~/core/shared/typings'
 import { MenuItem } from '~/ui/components/MenuItem'
 import { Rule } from '~/ui/constants/styles'
@@ -37,7 +37,7 @@ export const TabListMenuContent: React.VFC<Props> = ({ tabList, setTabList, open
   }
 
   const handleOpen = async (tabListId: number) => {
-    await tabService
+    await chromeActionService
       .restoreTabList(tabListId)
       .then(() => setTabList({} as TabList))
       .catch(err => console.error(err))

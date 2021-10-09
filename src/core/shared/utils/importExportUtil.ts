@@ -1,4 +1,5 @@
 import { ImportedUrlObj } from '../typings'
+
 export const createImportedUrlObjs = (singleLines: string[]) => {
   const res: ImportedUrlObj[][] = [[]]
   const isEmptyLine = (s: string) => s === ''
