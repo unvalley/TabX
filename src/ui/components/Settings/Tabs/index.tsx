@@ -14,18 +14,47 @@ import { exportedJSONFileName } from '~/ui/utils'
 
 import { _Toggle, ToggleWrapper } from '../style'
 
+const useExport = () => {
+  const [exportText, setExportText] = useState('')
+  const [showExportText, setShowExportText] = useState(false)
+
+  const executeExportForOneTab = async () => {
+    await tabService
+      .exportToText()
+      .then(text => setExportText(text))
+      .then(() => {
+        setShowExportText(!showExportText)
+      })
+      .catch(err => console.error(err))
+  }
+  return { executeExportForOneTab, exportText, showExportText }
+}
+
+const useImport = () => {
+  const [importText, setImportText] = useState('')
+  const [, setToast] = useToasts()
+  const { t } = useTranslation()
+
+  // maybe heavy processing
+  const executeImportForOneTab = async () => {
+    await tabService
+      .importFromText(importText)
+      .then(() => setToast({ type: 'success', text: t('IMPORT_SUCCESS') }))
+      .catch(() => setToast({ type: 'error', text: t('IMPORT_ERROR') }))
+  }
+  return { executeImportForOneTab, importText, setImportText }
+}
+
 type Props = { deleteAllTabs: () => void; tabLists: TabList[]; backgroundColor?: string }
 
 export const Tabs: React.VFC<Props> = props => {
-  // import/export
-  const [exportText, setExportText] = useState('')
-  const [showExportText, setShowExportText] = useState(false)
-  const [importText, setImportText] = useState('')
-  const [showImportText, setShowImportText] = useState(false)
-  // const [uploadedFileName, setUploadedFileName] = useState('')
-  // const [totalTabCount, setTotalTabCount] = useState(0)
-  // const handleUploadFile = (e: any) => setUploadedFileName(e.target.files[0].name)
+  const { t } = useTranslation()
+
   const totalTabCount = useRecoilValue(totalTabCountSelector)
+  const [showImportText, setShowImportText] = useState(false)
+
+  const { executeExportForOneTab, exportText, showExportText } = useExport()
+  const { executeImportForOneTab, importText, setImportText } = useImport()
 
   // localStorage
   const [isVisibleTabListHeader, setIsVisibleTabListHeader] = useLocalStorage(
@@ -36,27 +65,6 @@ export const Tabs: React.VFC<Props> = props => {
     STORAGE_KEYS.SHOULD_DELETE_TAB_WHEN_CLICKED,
     false,
   )
-
-  const { t } = useTranslation()
-  const [, setToast] = useToasts()
-
-  const handleClickExportButton = async () => {
-    await tabService
-      .exportToText()
-      .then(text => setExportText(text))
-      .then(() => {
-        setShowExportText(!showExportText)
-      })
-      .catch(err => console.error(err))
-  }
-
-  // maybe heavy processing
-  const handleTextImport = async () => {
-    await tabService
-      .importFromText(importText)
-      .then(() => setToast({ type: 'success', text: t('IMPORT_SUCCESS') }))
-      .catch(() => setToast({ type: 'error', text: t('IMPORT_ERROR') }))
-  }
 
   const hrefForJSONExport = `data:text/json;charset=utf-8,${encodeURIComponent(
     JSON.stringify({ data: props.tabLists }),
@@ -110,7 +118,7 @@ export const Tabs: React.VFC<Props> = props => {
             <Row align="middle" style={{ height: '100%', textAlign: 'right' }}>
               <Col>
                 <ButtonDropdown size="medium">
-                  <ButtonDropdown.Item main onClick={handleClickExportButton}>
+                  <ButtonDropdown.Item main onClick={executeExportForOneTab}>
                     OneTab
                   </ButtonDropdown.Item>
                   <ButtonDropdown.Item>
@@ -165,7 +173,7 @@ export const Tabs: React.VFC<Props> = props => {
               onChange={e => setImportText(e.target.value)}
             />
             <div style={{ textAlign: 'right', paddingTop: Spacing['1'] }}>
-              <Button size="medium" type="success" ghost onClick={handleTextImport}>
+              <Button size="medium" type="success" ghost onClick={executeImportForOneTab}>
                 Import
               </Button>
             </div>

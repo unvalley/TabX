@@ -1,6 +1,6 @@
 import { Button, Spacer } from '@geist-ui/react'
 import Fuse from 'fuse.js'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useRecoilValue } from 'recoil'
 
@@ -12,6 +12,7 @@ import { TabSimpleLink } from '~/ui/components/List/TabSimpleLink'
 import { STORAGE_KEYS } from '~/ui/constants'
 import { useLoadMore, useLocalStorage } from '~/ui/hooks'
 import { useFuse } from '~/ui/hooks/useFuse'
+import { useHasLoaded } from '~/ui/hooks/useHasLoaded'
 import { tabListsState } from '~/ui/stores/tabLists'
 import { tabsState } from '~/ui/stores/tabs'
 
@@ -22,16 +23,6 @@ const listFuseSearchOptions = {
   findAllMatches: true,
   useExtendedSearch: true,
   keys: ['title', 'url'],
-}
-
-const useHasLoaded = () => {
-  const [hasLoaded, setHasLoaded] = useState(false)
-
-  useEffect(() => {
-    setHasLoaded(true)
-  }, [])
-
-  return hasLoaded
 }
 
 export const List: React.FC = () => {

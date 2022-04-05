@@ -6,7 +6,7 @@ import { Spacing, Themes } from '~/ui/constants/styles'
 import { Load } from '../Load'
 import { ContentWrapper, MainContainer } from './style'
 
-export const Layout: React.FC = props => {
+export const ContentLayout: React.FC = props => {
   const theme = useTheme()
   const mainBgColor = theme.type === Themes.DARK ? theme.palette.background : '#f2f4fb'
 

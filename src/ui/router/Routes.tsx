@@ -1,19 +1,19 @@
-import { Layout } from '@geist-ui/react-icons'
 import React from 'react'
 import { MemoryRouter, Route, Switch } from 'react-router-dom'
 
+import { ContentLayout } from '../components/Layout'
 import { List } from '../pages/List'
 import { Settings } from '../pages/Settings'
 
 export const Routes = () => {
   return (
     <MemoryRouter>
-      <Layout>
-        <Switch>
+      <Switch>
+        <ContentLayout>
           <Route exact path="/" component={List} />
           <Route path="/settings" component={Settings} />
-        </Switch>
-      </Layout>
+        </ContentLayout>
+      </Switch>
     </MemoryRouter>
   )
 }
