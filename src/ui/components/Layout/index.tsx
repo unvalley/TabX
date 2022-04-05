@@ -11,16 +11,18 @@ export const Layout: React.FC = props => {
   const mainBgColor = theme.type === Themes.DARK ? theme.palette.background : '#f2f4fb'
 
   return (
-    <React.Suspense
-      fallback={
-        <div style={{ margin: `${Spacing[5]} auto` }}>
-          <Load />
-        </div>
-      }
-    >
-      <ContentWrapper bg={mainBgColor}>
-        <MainContainer>{props.children}</MainContainer>
-      </ContentWrapper>
-    </React.Suspense>
+    <ContentWrapper bg={mainBgColor}>
+      <MainContainer>
+        <React.Suspense
+          fallback={
+            <div style={{ margin: `${Spacing[5]} auto` }}>
+              <Load />
+            </div>
+          }
+        >
+          {props.children}
+        </React.Suspense>
+      </MainContainer>
+    </ContentWrapper>
   )
 }

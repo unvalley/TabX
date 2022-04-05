@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { Spacing } from '~/ui/constants/styles'
 
 // FIXME
-export const ContentWrapper = styled(Grid.Container)<{ bg: string }>`
+export const ContentWrapper: any = styled(Grid.Container)<{ bg: string }>`
   margin: 0px 100px;
   display: flex;
   min-height: 100vh;
