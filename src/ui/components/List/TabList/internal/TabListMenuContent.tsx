@@ -1,4 +1,5 @@
 import { useToasts } from '@geist-ui/react'
+import { Box } from '@geist-ui/react-icons'
 import { Clipboard } from '@geist-ui/react-icons'
 import { Delete } from '@geist-ui/react-icons'
 import { ExternalLink } from '@geist-ui/react-icons'
@@ -36,6 +37,15 @@ export const TabListMenuContent: React.VFC<Props> = ({ tabList, setTabList, open
     return navigator.clipboard.writeText(tabsText.join('\n'))
   }
 
+  const genScrapboxLink = async () => {
+    const tabsText = tabList.tabs.map(tab => `\t[${tab.title} ${tab.url}]`)
+    setToast({
+      text: t('COPY_SCRAPBOX_LINKS'),
+      type: 'success',
+    })
+    return navigator.clipboard.writeText(tabsText.join('\n'))
+  }
+
   const handleOpen = async (tabListId: number) => {
     await chromeActionService
       .restoreTabList(tabListId)
@@ -60,6 +70,7 @@ export const TabListMenuContent: React.VFC<Props> = ({ tabList, setTabList, open
         label={t('GEN_MARKDONW_LINKS')}
         icon={<Clipboard size={Rule.MENU_ICON_SIZE} />}
       />
+      <MenuItem onClick={genScrapboxLink} label={t('GEN_SCRAPBOX_LINKS')} icon={<Box size={Rule.MENU_ICON_SIZE} />} />
       <MenuItem
         onClick={() => handleDelete(tabList.id)}
         label={t('DELETE_TABS')}

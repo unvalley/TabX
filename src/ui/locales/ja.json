@@ -29,8 +29,12 @@
   "EDIT_DESCRIPTION": "グループの説明を書く",
   "DELETE_TABS": "グループ内のタブを全て削除する",
   "GEN_MARKDONW_LINKS": "MD用リンクを取得",
+  "GEN_SCRAPBOX_LINKS": "Scrapbox用リンクを取得",
+
   "ONLY_PINNED": "ピン留めのみ表示",
+
   "COPY_MD_LINKS": "マークダウン用リンクをコピーしました",
+  "COPY_SCRAPBOX_LINKS": "Scrapbox用リンクをコピーしました",
   "DELETED_SELECTED_TABS": "選択されたタブグループを削除しました",
   "SAVE_DESCRIPTION": "説明を保存しました",
 
