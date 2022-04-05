@@ -1,6 +1,6 @@
 {
   "name": "tabx",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "TabX manages your tabs",
   "scripts": {
     "build": "webpack --mode production --config webpack.config.js",

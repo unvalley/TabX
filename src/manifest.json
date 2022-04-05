@@ -3,7 +3,7 @@
 
   "name": "TabX",
   "description": "🪣 A simple tab management tool",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "icons": {
     "16": "assets/icons/16.png",
     "48": "assets/icons/48.png",
