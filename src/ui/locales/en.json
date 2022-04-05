@@ -29,8 +29,12 @@
   "SHARE_LINKS": "Share Links",
   "DELETE_TABS": "Delete Tabs",
   "GEN_MARKDONW_LINKS": "Get Markdown Links",
+  "GEN_SCRAPBOX_LINKS": "Get Scrapbox Links",
   "ONLY_PINNED": "Only Pinned",
-  "COPY_MD_LINKS": "Copied markdown link to clipboard",
+
+  "COPY_MD_LINKS": "Copied markdown links to clipboard",
+  "COPY_SCRAPBOX_LINKS": "Copied scrapbox links to clipboard",
+
   "DELETED_SELECTED_TABS": "Selected tab group deleted",
   "SAVE_DESCRIPTION": "Saved description",
 
