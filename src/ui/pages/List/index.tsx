@@ -24,6 +24,16 @@ const listFuseSearchOptions = {
   keys: ['title', 'url'],
 }
 
+const useHasLoaded = () => {
+  const [hasLoaded, setHasLoaded] = useState(false)
+
+  useEffect(() => {
+    setHasLoaded(true)
+  }, [])
+
+  return hasLoaded
+}
+
 export const List: React.FC = () => {
   const { t } = useTranslation()
   const tabLists = useRecoilValue<TabList[]>(tabListsState)
@@ -34,12 +44,7 @@ export const List: React.FC = () => {
 
   const perLoadCount = useMemo(() => (isVisibleTabListHeader ? 6 : 10), [isVisibleTabListHeader])
   const { itemsToShow, handleShowMoreItems, isMaxLength } = useLoadMore(perLoadCount, tabLists)
-
-  const [hasLoaded, setHasLoaded] = useState(false)
-
-  useEffect(() => {
-    setHasLoaded(true)
-  }, [])
+  const hasLoaded = useHasLoaded()
 
   return (
     <>
