@@ -27,7 +27,6 @@ export const List: React.VFC<{ tabLists: TabList[]; tabs: TabSimple[] }> = ({ ta
 
   const perLoadCount = useMemo(() => (isVisibleTabListHeader ? 6 : 10), [isVisibleTabListHeader])
   const { itemsToShow, handleShowMoreItems, isMaxLength } = useLoadMore(perLoadCount, tabLists)
-  const showHitResults = query !== '' && searchResults.length > 0
 
   const [hasLoaded, setHasLoaded] = useState(false)
 
@@ -41,7 +40,7 @@ export const List: React.VFC<{ tabLists: TabList[]; tabs: TabSimple[] }> = ({ ta
       {!tabLists.length && <span>{t('TAB_LISTS_EMPTY_MESSAGE')}</span>}
       {hasLoaded && (
         <>
-          {showHitResults ? (
+          {query !== '' && searchResults.length > 0 ? (
             <SearchResult searchResults={searchResults} shouldDeleteTabWhenClicked={shouldDeleteTabWhenClicked} />
           ) : (
             <>
