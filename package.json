@@ -89,5 +89,8 @@
     "react": "17.0.1",
     "react-dom": "^16.13.1"
   },
-  "keywords": ["react", "typescript"]
+  "keywords": [
+    "react",
+    "typescript"
+  ]
 }
