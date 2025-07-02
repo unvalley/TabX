@@ -8,8 +8,7 @@
     "lint": "eslint --ext .ts,.tsx src",
     "lint:fix": "eslint --fix './src/**/*.{ts,tsx}' && prettier --write './src/**/*.{ts,tsx}'",
     "test": "jest --config jest.config.js",
-    "lint:css": "stylelint src/**/*.tsx",
-    "postinstall": "patch-package"
+    "lint:css": "stylelint src/**/*.tsx"
   },
   "author": "Hiroki Ihoriya",
   "license": "MIT",

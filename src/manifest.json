@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
 
   "name": "TabX",
   "description": "🪣 A simple tab management tool",
@@ -10,7 +10,7 @@
     "128": "assets/icons/128.png"
   },
 
-  "browser_action": {
+  "action": {
     "default_icon": {
       "16": "assets/icons/16.png",
       "48": "assets/icons/48.png",
@@ -19,18 +19,19 @@
   },
 
   "background": {
-    "scripts": ["background.js"]
+    "service_worker": "background.js"
   },
 
   "commands": {
     "store-all-tabs": {
-      "description": "__MSG_store_all_tabs__",
-      "global": true
+      "description": "__MSG_store_all_tabs__"
     }
   },
 
   "permissions": ["storage", "tabs"],
 
-  "content_security_policy": "script-src 'self' 'unsafe-eval' https://www.google-analytics.com https://apis.google.com __DEV_CSP__; object-src 'self'",
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
   "offline_enabled": true
 }
